@@ -2,7 +2,6 @@ package io.nutz.nutzsite;
 
 import org.nutz.boot.NbApp;
 import org.nutz.dao.Dao;
-import org.nutz.dao.util.Daos;
 import org.nutz.ioc.impl.PropertiesProxy;
 import org.nutz.ioc.loader.annotation.*;
 import org.nutz.mvc.annotation.*;
@@ -16,10 +15,10 @@ public class MainLauncher {
     @Inject
     private Dao dao;
 
-    @At("/")
-    @Ok("->:/index.html")
+    @At({"/", "/index"})
+    @Ok("th:/index.html")
     public void index() {}
-    
+
     public void init() {
         // NB自身初始化完成后会调用这个方法
 //        Daos.createTablesInPackage(dao, "io.nutz.nutzsite.module", false);
