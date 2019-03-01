@@ -39,8 +39,8 @@ public class SitemeshFilterStarter extends ConfigurableSiteMeshFilter implements
 
     @Override
     public Filter getFilter() {
-        return this;
-//        return null;
+//        return this;
+        return null;
     }
 
     @Override

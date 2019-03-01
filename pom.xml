@@ -21,12 +21,11 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>org.nutz</groupId>
-            <artifactId>nutzboot-starter-swagger</artifactId>
-        </dependency>
-
        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutzboot-starter-nutz-mvc</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-nutz-dao</artifactId>
         </dependency>
@@ -46,7 +45,11 @@
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-thymeleaf</artifactId>
         </dependency>
-       <dependency>
+        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutzboot-starter-swagger</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-email</artifactId>
         </dependency>

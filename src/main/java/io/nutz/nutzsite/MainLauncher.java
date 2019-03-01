@@ -4,6 +4,7 @@ import org.nutz.boot.NbApp;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.impl.PropertiesProxy;
 import org.nutz.ioc.loader.annotation.*;
+import org.nutz.lang.util.NutMap;
 import org.nutz.mvc.annotation.*;
 
 @IocBean(create="init", depose="depose")
@@ -17,7 +18,20 @@ public class MainLauncher {
 
     @At({"/", "/index"})
     @Ok("th:/index.html")
-    public void index() {}
+    public NutMap index() {
+        return NutMap.NEW().setv("name", "NB").setv("age", 18);
+    }
+
+    /**
+     * 系统介绍
+     * @return
+     */
+    @At({"/sys/main"})
+    @Ok("th:/main.html")
+    public NutMap main()
+    {
+        return NutMap.NEW().setv("version", "1.0");
+    }
 
     public void init() {
         // NB自身初始化完成后会调用这个方法
