@@ -5,7 +5,7 @@
 <body class="white-bg">
 	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
 		<form class="form-horizontal m" id="form-menu-add">
-			<input id="treeId" name="parentId" type="hidden" th:value="${menu.menuId}" />
+			<input id="treeId" name="parentId" type="hidden" th:value="${menu.id}" />
 			<div class="form-group">
 				<label class="col-sm-3 control-label ">上级菜单：</label>
 				<div class="col-sm-8">
@@ -50,12 +50,12 @@
 					<input id="icon" name="icon" class="form-control" type="text" placeholder="选择图标">
                     <div class="ms-parent" style="width: 100%;">
                         <div class="icon-drop animated flipInX" style="display: none;max-height:200px;overflow-y:auto">
-                            <div data-th-include="system/menu/icon"></div>
+                            <div data-th-include="sys/menu/icon"></div>
                         </div>
                     </div>
 				</div>
 			</div>
-			<div class="form-group">
+			<!--<div class="form-group">
 				<label class="col-sm-3 control-label">菜单状态：</label>
 				<div class="col-sm-8">
 				    <div class="radio-box" th:each="dict : ${@dict.getType('sys_show_hide')}">
@@ -63,12 +63,12 @@
 						<label th:for="${dict.dictCode}" th:text="${dict.dictLabel}"></label>
 					</div>
 				</div>
-			</div>
+			</div>-->
 		</form>
 	</div>
 	<div th:include="include::footer"></div>
 	 <script>
-        var prefix = ctx + "system/menu";
+        var prefix = ctx + "sys/menu";
         
         $("#form-menu-add").validate({
         	rules:{
@@ -90,7 +90,9 @@
                             }
                         },
                         dataFilter: function(data, type) {
-                        	return $.validate.unique(data);
+                        	console.log(data);
+							return data;
+                        	// return $.validate.unique(data);
                         }
                     }
         		},
@@ -108,7 +110,7 @@
         
         function submitHandler() {
 	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/add", $('#form-menu-add').serialize());
+	            $.operate.save(prefix + "/addDo", $('#form-menu-add').serialize());
 	        }
 	    }
 

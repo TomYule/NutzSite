@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.services.MenuService;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -25,9 +26,10 @@ public class MenuController {
 
     @At("")
     @Ok("th:/sys/menu/menu.html")
-    public NutMap index(HttpServletRequest req) {
-        return NutMap.NEW().setv("name", "NB").setv("age", 18);
+    public void index(HttpServletRequest req) {
+
     }
+
     @At
     @Ok("json")
     public Object list(@Param("pid") String pid, HttpServletRequest req) {
@@ -40,11 +42,39 @@ public class MenuController {
         Menu menu = null;
         if (!Strings.isBlank(id)) {
             menu = menuService.fetch(id);
-        } else {
+        }
+        if (menu == null) {
             menu = new Menu();
             menu.setId("");
             menu.setMenuName("主目录");
         }
         req.setAttribute("menu", menu);
     }
+    @At
+    @POST
+    @Ok("json")
+    public boolean checkMenuNameUnique(Menu menu)
+    {
+//        return menuService.checkMenuNameUnique(menu);
+        return true;
+    }
+    @At
+    @POST
+    @Ok("json")
+    public Object addDo(@Param("..") Menu menu, @Param("parentId") String parentId, HttpServletRequest req) {
+        try {
+//            int num = menuService.count(Cnd.where("permission", "=", menu.getPermission().trim()));
+//            if (num > 0) {
+//                return Result.error("sys.role.code");
+//            }
+//            if ("data".equals(menu.getType())) {
+//                menu.setIsShow(false);
+//            } else menu.setIsShow(true);
+            menuService.save(menu,parentId);
+            return Result.success("system.success");
+        } catch (Exception e) {
+            return Result.error("system.error");
+        }
+    }
+
 }
