@@ -8,7 +8,7 @@ body{height:auto;font-family: "Microsoft YaHei";}
 button{font-family: "SimSun","Helvetica Neue",Helvetica,Arial;}
 </style>
 <body class="hold-transition box box-main">
-	<input id="treeId"   name="treeId"    type="hidden" th:value="${menu.menuId}"/>
+	<input id="treeId"   name="treeId"    type="hidden" th:value="${menu.id}"/>
 	<input id="treeName" name="treeName"  type="hidden" th:value="${menu.menuName}"/>
 	<div class="wrapper"><div class="treeShowHideButton" onclick="$.tree.toggleSearch();">
 		<label id="btnShow" title="显示搜索" style="display:none;">︾</label>
@@ -28,7 +28,7 @@ button{font-family: "SimSun","Helvetica Neue",Helvetica,Arial;}
 	<script th:src="@{/assets/plugins/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
 	<script th:inline="javascript">
 		$(function() {
-			var url = ctx + "system/menu/menuTreeData";
+			var url = ctx + "sys/menu/menuTreeData";
 			var options = {
 		        url: url,
 		        expandLevel: 1,

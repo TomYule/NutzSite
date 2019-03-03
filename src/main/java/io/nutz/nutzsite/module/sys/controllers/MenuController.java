@@ -77,4 +77,27 @@ public class MenuController {
         }
     }
 
+    @At("/edit/?")
+    @Ok("th:/sys/menu/edit.html")
+    public void edit(String id, HttpServletRequest req) {
+        Menu menu = menuService.fetch(id);
+        if (menu != null) {
+            Menu parentMenu= menuService.fetch(menu.getParentId());
+            if(parentMenu!=null){
+//                req.setAttribute("parentId", menu.getParentId());
+//                req.setAttribute("parentName", parentMenu.getMenuName());
+            }
+            req.setAttribute("menu",menu);
+        }
+    }
+
+    /**
+     * 选择菜单树
+     */
+    @At("/selectTree/?")
+    @Ok("th:/sys/menu/tree.html")
+    public void selectTree(String id, HttpServletRequest req) {
+        req.setAttribute("menu",menuService.fetch(id));
+    }
+
 }
