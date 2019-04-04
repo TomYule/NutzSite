@@ -23,23 +23,23 @@ public abstract class Model implements Serializable {
     @Column("update_time")
     protected Date updateTime;
 
-    @Column
+    @Column("create_by")
     @Comment("创建者")
     @Prev(els = @EL("$me.createBy()"))
     @ColDefine(type = ColType.VARCHAR, width = 32)
     private String createBy;
 
-    @Column
+    @Column("update_by")
     @Comment("更新者")
     @Prev(els = @EL("$me.updateBy()"))
     @ColDefine(type = ColType.VARCHAR, width = 32)
     private String updateBy;
 
-    @Column
-    @Comment("删除标记")
-    @Prev(els = @EL("$me.flag()"))
-    @ColDefine(type = ColType.BOOLEAN)
-    private Boolean delFlag;
+//    @Column("del_flag")
+//    @Comment("删除标记")
+//    @Prev(els = @EL("$me.flag()"))
+//    @ColDefine(type = ColType.BOOLEAN)
+//    private Boolean delFlag;
 
     public String uuid() {
         return R.UU32().toLowerCase();
@@ -125,11 +125,11 @@ public abstract class Model implements Serializable {
         this.updateBy = updateBy;
     }
 
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
-    }
+//    public Boolean getDelFlag() {
+//        return delFlag;
+//    }
+//
+//    public void setDelFlag(Boolean delFlag) {
+//        this.delFlag = delFlag;
+//    }
 }

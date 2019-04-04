@@ -31,9 +31,9 @@ public class Menu extends Model implements Serializable {
     @ColDefine(type = ColType.VARCHAR, width = 32)
     private String parentId;
 
-    @Column
-    @Comment("父菜单名称")
-    @ColDefine(type = ColType.VARCHAR, width = 100)
+    /**
+     * 父菜单名称
+     */
     private String parentName;
 
     @Column("order_num")

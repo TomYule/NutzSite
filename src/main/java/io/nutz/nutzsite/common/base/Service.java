@@ -1,5 +1,7 @@
 package io.nutz.nutzsite.common.base;
 
+import org.nutz.dao.Chain;
+import org.nutz.dao.Cnd;
 import org.nutz.dao.Condition;
 import org.nutz.dao.Dao;
 import org.nutz.lang.Lang;
@@ -75,6 +77,81 @@ public class Service<T> extends EntityService<T> {
 
     public T fetchLinks(T t, String name, Condition cnd) {
         return this.dao().fetchLinks(t, name, cnd);
+    }
+
+    public T insert(T t) {
+        return this.dao().insert(t);
+    }
+
+    public void insert(String tableName, Chain chain) {
+        this.dao().insert(tableName, chain);
+    }
+
+    public T fastInsert(T t) {
+        return this.dao().fastInsert(t);
+    }
+
+    public int update(Object obj) {
+        return this.dao().update(obj);
+    }
+
+    public int delete(long id) {
+        return this.dao().delete(this.getEntityClass(), id);
+    }
+
+    public int delete(int id) {
+        return this.dao().delete(this.getEntityClass(), id);
+    }
+
+    public int delete(String name) {
+        return this.dao().delete(this.getEntityClass(), name);
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     */
+    public void delete(Integer[] ids) {
+        this.dao().clear(getEntityClass(), Cnd.where("id", "in", ids));
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     */
+    public void delete(Long[] ids) {
+        this.dao().clear(getEntityClass(), Cnd.where("id", "in", ids));
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     */
+    public void delete(String[] ids) {
+        this.dao().clear(getEntityClass(), Cnd.where("id", "in", ids));
+    }
+
+    /**
+     * 伪删除
+     *
+     * @param id
+     * @return
+     */
+    public int vDelete(String id) {
+        return this.dao().update(this.getEntityClass(), Chain.make("delFlag", true), Cnd.where("id", "=", id));
+    }
+
+    /**
+     * 批量伪删除
+     *
+     * @param ids
+     * @return
+     */
+    public int vDelete(String[] ids) {
+        return this.dao().update(this.getEntityClass(), Chain.make("delFlag", true), Cnd.where("id", "in", ids));
     }
 
     /**

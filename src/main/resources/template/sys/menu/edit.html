@@ -5,8 +5,8 @@
 <body class="white-bg">
 	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
 		<form class="form-horizontal m" id="form-menu-edit" >
-			<input name="menuId"   type="hidden"th:value="${menu.id}"   />
-<!--			<input id="treeId" name="parentId" type="hidden"th:value="${menu.parentId}" />-->
+			<input name="id"   type="hidden"th:value="${menu.id}"   />
+			<input id="treeId" name="parentId" type="hidden"th:value="${parentId}" />
 			<div class="form-group">
 				<label class="col-sm-3 control-label ">上级菜单：</label>
 				<div class="col-sm-8">
@@ -123,7 +123,7 @@
         
         function submitHandler() {
 	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/edit", $('#form-menu-edit').serialize());
+	            $.operate.save(prefix + "/editDo", $('#form-menu-edit').serialize());
 	        }
 	    }
 

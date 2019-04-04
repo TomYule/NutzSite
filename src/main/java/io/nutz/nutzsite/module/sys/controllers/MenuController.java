@@ -45,7 +45,7 @@ public class MenuController {
         }
         if (menu == null) {
             menu = new Menu();
-            menu.setId("");
+            menu.setId("0");
             menu.setMenuName("主目录");
         }
         req.setAttribute("menu", menu);
@@ -58,6 +58,7 @@ public class MenuController {
 //        return menuService.checkMenuNameUnique(menu);
         return true;
     }
+
     @At
     @POST
     @Ok("json")
@@ -82,12 +83,36 @@ public class MenuController {
     public void edit(String id, HttpServletRequest req) {
         Menu menu = menuService.fetch(id);
         if (menu != null) {
+            req.setAttribute("menu",menu);
             Menu parentMenu= menuService.fetch(menu.getParentId());
             if(parentMenu!=null){
                 req.setAttribute("parentId", menu.getParentId());
                 req.setAttribute("parentName", parentMenu.getMenuName());
             }
-            req.setAttribute("menu",menu);
+
+        }
+    }
+
+    @At
+    @POST
+    @Ok("json")
+    public Object editDo(@Param("..") Menu menu, @Param("parentId") String parentId, HttpServletRequest req) {
+        try {
+            menuService.update(menu);
+            return Result.success("system.success");
+        } catch (Exception e) {
+            return Result.error("system.error");
+        }
+    }
+
+    @At("/remove/?")
+    @Ok("json")
+    public Object remove(String id, HttpServletRequest req) {
+        try {
+            menuService.delete(id);
+            return Result.success("system.success");
+        } catch (Exception e) {
+            return Result.error("system.error");
         }
     }
 

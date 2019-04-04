@@ -29,23 +29,37 @@
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-nutz-dao</artifactId>
         </dependency>
+<!--        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutzboot-servlet3</artifactId>
+        </dependency>-->
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-jetty</artifactId>
         </dependency>
+        <!--      <dependency>
+           <groupId>org.nutz</groupId>
+           <artifactId>nutzboot-starter-tomcat</artifactId>
+       </dependency>-->
        <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-quartz</artifactId>
         </dependency>
- <!--      <dependency>
-            <groupId>org.nutz</groupId>
-            <artifactId>nutzboot-starter-tomcat</artifactId>
-        </dependency>-->
+
        <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-shiro</artifactId>
         </dependency>
-       <dependency>
+        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutzboot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.11</version>
+        </dependency>
+        <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-thymeleaf</artifactId>
         </dependency>
@@ -75,37 +89,20 @@
             <artifactId>apache-jstl</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.nutz</groupId>
-            <artifactId>nutzboot-starter-nutz-dao</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.nutz</groupId>
-            <artifactId>nutzboot-starter-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.11</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.sitemesh</groupId>
             <artifactId>sitemesh</artifactId>
             <version>3.0.1</version>
         </dependency>
-
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.11</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.8.1</version>
         </dependency>
-
     </dependencies>
     <repositories>
         <repository>
