@@ -10,6 +10,7 @@ import org.nutz.lang.util.NutMap;
 import org.nutz.mvc.annotation.*;
 
 @IocBean(create="init", depose="depose")
+@Localization(value="msg/", defaultLocalizationKey="zh-CN")
 public class MainLauncher {
     
     @Inject
