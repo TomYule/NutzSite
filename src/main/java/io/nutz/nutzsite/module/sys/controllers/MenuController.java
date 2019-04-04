@@ -84,8 +84,8 @@ public class MenuController {
         if (menu != null) {
             Menu parentMenu= menuService.fetch(menu.getParentId());
             if(parentMenu!=null){
-//                req.setAttribute("parentId", menu.getParentId());
-//                req.setAttribute("parentName", parentMenu.getMenuName());
+                req.setAttribute("parentId", menu.getParentId());
+                req.setAttribute("parentName", parentMenu.getMenuName());
             }
             req.setAttribute("menu",menu);
         }

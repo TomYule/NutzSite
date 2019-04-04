@@ -1,7 +1,9 @@
 package io.nutz.nutzsite;
 
 import org.nutz.boot.NbApp;
+import org.nutz.conf.NutConf;
 import org.nutz.dao.Dao;
+import org.nutz.dao.util.Daos;
 import org.nutz.ioc.impl.PropertiesProxy;
 import org.nutz.ioc.loader.annotation.*;
 import org.nutz.lang.util.NutMap;
@@ -41,6 +43,7 @@ public class MainLauncher {
 
     public static void main(String[] args) throws Exception {
         new NbApp().setArgs(args).setPrintProcDoc(true).run();
+        NutConf.USE_FASTCLASS = true;
     }
 
 }

@@ -4,9 +4,9 @@
 <head th:include="include :: header"></head>
 <body class="white-bg">
 	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
-		<form class="form-horizontal m" id="form-menu-edit" th:object="${menu}">
-			<input name="menuId"   type="hidden" th:field="${menu.id}"   />
-			<input id="treeId" name="parentId" type="hidden" th:field="*{parentId}" />
+		<form class="form-horizontal m" id="form-menu-edit" >
+			<input name="menuId"   type="hidden"th:value="${menu.id}"   />
+<!--			<input id="treeId" name="parentId" type="hidden"th:value="${menu.parentId}" />-->
 			<div class="form-group">
 				<label class="col-sm-3 control-label ">上级菜单：</label>
 				<div class="col-sm-8">
@@ -16,39 +16,45 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">菜单类型：</label>
 				<div class="col-sm-8">
-					<label class="radio-box"> <input type="radio" th:field="*{menuType}" name="menuType" value="M" /> 目录 </label> 
-					<label class="radio-box"> <input type="radio" th:field="*{menuType}" name="menuType" value="C" /> 菜单 </label> 
-					<label class="radio-box"> <input type="radio" th:field="*{menuType}" name="menuType" value="F" /> 按钮 </label>
+					<label class="radio-box">
+						<input type="radio" name="menuType" value="M" th:checked="'M'==${menu.menuType}" /> 目录
+					</label>
+					<label class="radio-box">
+						<input type="radio" name="menuType" value="C" th:checked="'C'==${menu.menuType}"/> 菜单
+					</label>
+					<label class="radio-box">
+						<input type="radio" name="menuType" value="F" th:checked="'F'==${menu.menuType}" /> 按钮
+					</label>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">菜单名称：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" name="menuName" id="menuName" th:field="${menu.menuName}">
+					<input class="form-control" type="text" name="menuName" id="menuName" th:value="${menu.menuName}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">请求地址：</label>
 				<div class="col-sm-8">
-					<input id="url" name="url" class="form-control" type="text" th:field="*{url}">
+					<input id="url" name="url" class="form-control" type="text"th:value="${menu.url}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">权限标识：</label>
 				<div class="col-sm-8">
-					<input id="perms" name="perms" class="form-control" type="text" th:field="*{perms}">
+					<input id="perms" name="perms" class="form-control" type="text"th:value="${menu.perms}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">显示排序：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" name="orderNum" th:field="*{orderNum}">
+					<input class="form-control" type="text" name="orderNum"th:value="${menu.orderNum}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">图标：</label>
 				<div class="col-sm-8">
-					<input id="icon" name="icon" class="form-control" type="text" placeholder="选择图标" th:field="*{icon}">
+					<input id="icon" name="icon" class="form-control" type="text" placeholder="选择图标"th:value="${menu.icon}">
                     <div class="ms-parent" style="width: 100%;">
                         <div class="icon-drop animated flipInX" style="display: none;max-height:200px;overflow-y:auto">
                             <div data-th-include="sys/menu/icon"></div>
@@ -60,7 +66,7 @@
 				<label class="col-sm-3 control-label">菜单状态：</label>
 				<div class="col-sm-8">
 					<div class="radio-box" th:each="dict : ${@dict.getType('sys_show_hide')}">
-						<input type="radio" th:id="${dict.dictCode}" name="visible" th:value="${dict.dictValue}" th:field="*{visible}">
+						<input type="radio" th:id="${dict.dictCode}" name="visible" th:value="${dict.dictValue}"th:value="${menu.visible}">
 						<label th:for="${dict.dictCode}" th:text="${dict.dictLabel}"></label>
 					</div>
 				</div>
@@ -143,6 +149,7 @@
         });
 
         function menuVisible(menuType) {
+			// console.log(menuType);
             if (menuType == "M") {
                 $("#url").parents(".form-group").hide();
                 $("#perms").parents(".form-group").hide();
