@@ -1,6 +1,8 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.module.sys.models.DictData;
+import io.nutz.nutzsite.module.sys.models.DictType;
 import io.nutz.nutzsite.module.sys.services.DictDataService;
 import io.nutz.nutzsite.module.sys.services.DictTypeService;
 import org.nutz.dao.Cnd;
@@ -11,6 +13,7 @@ import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
+import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,11 +47,58 @@ public class DictTypeController {
                        HttpServletRequest req) {
         Cnd cnd = Cnd.NEW();
         if (!Strings.isBlank(dictName)){
-            cnd.and("dict_name", "=", dictName);
+            cnd.and("dict_name", "like", dictName);
         }
         if (!Strings.isBlank(dictType)){
             cnd.and("dict_type", "=", dictType);
         }
         return dictTypeService.tableList(pageNum,pageSize,cnd);
+    }
+
+    @At("/add")
+    @Ok("th:/sys/dict/type/add.html")
+    public void add(@Param("id") String id, HttpServletRequest req) {
+    }
+
+    @At
+    @POST
+    @Ok("json")
+    public Object addDo(@Param("..") DictType dictType,HttpServletRequest req) {
+        try {
+            dictTypeService.insert(dictType);
+            return Result.success("system.success");
+        } catch (Exception e) {
+            return Result.error("system.error");
+        }
+    }
+
+    @At("/edit/?")
+    @Ok("th:/sys/dict/type/edit.html")
+    public void edit(String id, HttpServletRequest req) {
+        DictType dictType = dictTypeService.fetch(id);
+        req.setAttribute("dict",dictType);
+    }
+
+    @At
+    @POST
+    @Ok("json")
+    public Object editDo(@Param("..") DictType dictType,HttpServletRequest req) {
+        try {
+            dictTypeService.update(dictType);
+            return Result.success("system.success");
+        } catch (Exception e) {
+            return Result.error("system.error");
+        }
+    }
+
+    @At("/remove")
+    @Ok("json")
+    public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
+        try {
+            dictTypeService.delete(ids);
+            return Result.success("system.success");
+        } catch (Exception e) {
+            return Result.error("system.error");
+        }
     }
 }
