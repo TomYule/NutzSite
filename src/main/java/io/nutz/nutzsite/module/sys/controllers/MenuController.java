@@ -12,6 +12,8 @@ import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Hamming_Yu on 2019/1/1.
@@ -50,11 +52,11 @@ public class MenuController {
         }
         req.setAttribute("menu", menu);
     }
+
     @At
     @POST
     @Ok("json")
-    public boolean checkMenuNameUnique(Menu menu)
-    {
+    public boolean checkMenuNameUnique(Menu menu) {
 //        return menuService.checkMenuNameUnique(menu);
         return true;
     }
@@ -71,7 +73,7 @@ public class MenuController {
 //            if ("data".equals(menu.getType())) {
 //                menu.setIsShow(false);
 //            } else menu.setIsShow(true);
-            menuService.save(menu,parentId);
+            menuService.save(menu, parentId);
             return Result.success("system.success");
         } catch (Exception e) {
             return Result.error("system.error");
@@ -83,9 +85,9 @@ public class MenuController {
     public void edit(String id, HttpServletRequest req) {
         Menu menu = menuService.fetch(id);
         if (menu != null) {
-            req.setAttribute("menu",menu);
-            Menu parentMenu= menuService.fetch(menu.getParentId());
-            if(parentMenu!=null){
+            req.setAttribute("menu", menu);
+            Menu parentMenu = menuService.fetch(menu.getParentId());
+            if (parentMenu != null) {
                 req.setAttribute("parentId", menu.getParentId());
                 req.setAttribute("parentName", parentMenu.getMenuName());
             }
@@ -122,7 +124,17 @@ public class MenuController {
     @At("/selectTree/?")
     @Ok("th:/sys/menu/tree.html")
     public void selectTree(String id, HttpServletRequest req) {
-        req.setAttribute("menu",menuService.fetch(id));
+        req.setAttribute("menu", menuService.fetch(id));
+    }
+
+    /**
+     * 加载所有菜单列表树
+     */
+    @At
+    @Ok("json")
+    public List<Map<String, Object>> menuTreeData() {
+        List<Map<String, Object>> tree = menuService.menuTreeData();
+        return tree;
     }
 
 }
