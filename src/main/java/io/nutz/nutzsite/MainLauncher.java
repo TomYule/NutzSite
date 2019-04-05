@@ -1,7 +1,11 @@
 package io.nutz.nutzsite;
 
+import io.nutz.nutzsite.common.utils.TreeUtils;
+import io.nutz.nutzsite.module.sys.models.Menu;
+import io.nutz.nutzsite.module.sys.services.MenuService;
 import org.nutz.boot.NbApp;
 import org.nutz.conf.NutConf;
+import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.util.Daos;
 import org.nutz.ioc.impl.PropertiesProxy;
@@ -9,19 +13,25 @@ import org.nutz.ioc.loader.annotation.*;
 import org.nutz.lang.util.NutMap;
 import org.nutz.mvc.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 @IocBean(create="init", depose="depose")
 @Localization(value="msg/", defaultLocalizationKey="zh-CN")
 public class MainLauncher {
     
     @Inject
     protected PropertiesProxy conf;
-
+    @Inject
+    MenuService menuService;
     @Inject
     private Dao dao;
 
     @At({"/", "/index"})
     @Ok("th:/index.html")
-    public NutMap index() {
+    public NutMap index( HttpServletRequest req) {
+        List<Menu> menuList = menuService.query(Cnd.where("menu_type","in","'M', 'C'").and("visible","=","false"));
+        req.setAttribute("menus", TreeUtils.getChildPerms(menuList,"0"));
         return NutMap.NEW().setv("name", "NB").setv("age", 18);
     }
 

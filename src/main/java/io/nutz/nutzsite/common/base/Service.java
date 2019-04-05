@@ -1,11 +1,12 @@
 package io.nutz.nutzsite.common.base;
 
-import org.nutz.dao.Chain;
-import org.nutz.dao.Cnd;
-import org.nutz.dao.Condition;
-import org.nutz.dao.Dao;
+import io.nutz.nutzsite.common.page.TableDataInfo;
+import org.nutz.dao.*;
+import org.nutz.dao.pager.Pager;
 import org.nutz.lang.Lang;
 import org.nutz.service.EntityService;
+
+import java.util.List;
 
 /**
  * @author Hamming_Yu on 2018/12/31.
@@ -174,4 +175,55 @@ public class Service<T> extends EntityService<T> {
         return pageSize == 0 ? DEFAULT_PAGE_NUMBER : pageSize;
     }
 
+    /**
+     * 分页查询
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    public QueryResult listPage( int pageNumber, int pageSize){
+        Pager pager = this.dao().createPager(pageNumber, pageSize);
+        List<T> list = this.dao().query(this.getEntityClass(), null, pager);
+        pager.setRecordCount(this.dao().count(this.getEntityClass()));
+        return new QueryResult(list, pager);
+    }
+
+    /**
+     * 分页查询
+     * @param pageNumber
+     * @param pageSize
+     * @param cnd
+     * @return
+     */
+    public QueryResult listPage( int pageNumber, int pageSize,Condition cnd){
+        Pager pager = this.dao().createPager(pageNumber, pageSize);
+        List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
+        pager.setRecordCount(this.dao().count(this.getEntityClass()));
+        return new QueryResult(list, pager);
+    }
+
+    /**
+     * 分页查询数据封装
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    public TableDataInfo tableList( int pageNumber, int pageSize){
+        Pager pager = this.dao().createPager(pageNumber, pageSize);
+        List<T> list = this.dao().query(this.getEntityClass(), null, pager);
+        return new TableDataInfo(list, this.dao().count(this.getEntityClass()));
+    }
+
+    /**
+     * 分页查询数据封装
+     * @param pageNumber
+     * @param pageSize
+     * @param cnd
+     * @return
+     */
+    public TableDataInfo tableList( int pageNumber, int pageSize,Condition cnd){
+        Pager pager = this.dao().createPager(pageNumber, pageSize);
+        List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
+        return new TableDataInfo(list, this.dao().count(this.getEntityClass()));
+    }
 }
