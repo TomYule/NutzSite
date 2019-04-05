@@ -3,6 +3,7 @@ package io.nutz.nutzsite.module.sys.controllers;
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.services.MenuService;
+import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
@@ -34,8 +35,12 @@ public class MenuController {
 
     @At
     @Ok("json")
-    public Object list(@Param("pid") String pid, HttpServletRequest req) {
-        return menuService.query();
+    public Object list(@Param("menuName") String menuName, HttpServletRequest req) {
+        Cnd cnd = Cnd.NEW();
+        if (Strings.isNotBlank(menuName)){
+            cnd.and("menu_name", "like", "%" + menuName +"%");
+        }
+        return menuService.query(cnd);
     }
 
     @At("/add/?")
@@ -66,13 +71,6 @@ public class MenuController {
     @Ok("json")
     public Object addDo(@Param("..") Menu menu, @Param("parentId") String parentId, HttpServletRequest req) {
         try {
-//            int num = menuService.count(Cnd.where("permission", "=", menu.getPermission().trim()));
-//            if (num > 0) {
-//                return Result.error("sys.role.code");
-//            }
-//            if ("data".equals(menu.getType())) {
-//                menu.setIsShow(false);
-//            } else menu.setIsShow(true);
             menuService.save(menu, parentId);
             return Result.success("system.success");
         } catch (Exception e) {
@@ -91,7 +89,6 @@ public class MenuController {
                 req.setAttribute("parentId", menu.getParentId());
                 req.setAttribute("parentName", parentMenu.getMenuName());
             }
-
         }
     }
 

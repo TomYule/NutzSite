@@ -47,7 +47,7 @@ public class DictTypeController {
                        HttpServletRequest req) {
         Cnd cnd = Cnd.NEW();
         if (!Strings.isBlank(dictName)){
-            cnd.and("dict_name", "like", dictName);
+            cnd.and("dict_name", "like", "%" + dictName +"%");
         }
         if (!Strings.isBlank(dictType)){
             cnd.and("dict_type", "=", dictType);
