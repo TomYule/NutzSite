@@ -32,6 +32,7 @@ public class DeptController {
     public void index(HttpServletRequest req) {
 
     }
+
     @At
     @Ok("json")
     public Object list(@Param("deptName") String deptName, HttpServletRequest req) {

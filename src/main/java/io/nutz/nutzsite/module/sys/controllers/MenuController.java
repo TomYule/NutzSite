@@ -2,6 +2,7 @@ package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.module.sys.models.Menu;
+import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.services.MenuService;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -37,8 +38,8 @@ public class MenuController {
     @Ok("json")
     public Object list(@Param("menuName") String menuName, HttpServletRequest req) {
         Cnd cnd = Cnd.NEW();
-        if (Strings.isNotBlank(menuName)){
-            cnd.and("menu_name", "like", "%" + menuName +"%");
+        if (Strings.isNotBlank(menuName)) {
+            cnd.and("menu_name", "like", "%" + menuName + "%");
         }
         return menuService.query(cnd);
     }
@@ -86,8 +87,9 @@ public class MenuController {
             req.setAttribute("menu", menu);
             Menu parentMenu = menuService.fetch(menu.getParentId());
             if (parentMenu != null) {
-                req.setAttribute("parentId", menu.getParentId());
-                req.setAttribute("parentName", parentMenu.getMenuName());
+                menu.setParentName(parentMenu.getMenuName());
+            } else {
+                req.setAttribute("parentId", "0");
             }
         }
     }
@@ -97,6 +99,9 @@ public class MenuController {
     @Ok("json")
     public Object editDo(@Param("..") Menu menu, @Param("parentId") String parentId, HttpServletRequest req) {
         try {
+            if (menu != null && Strings.isEmpty(menu.getParentId())) {
+                menu.setParentId("0");
+            }
             menuService.update(menu);
             return Result.success("system.success");
         } catch (Exception e) {
@@ -131,6 +136,19 @@ public class MenuController {
     @Ok("json")
     public List<Map<String, Object>> menuTreeData() {
         List<Map<String, Object>> tree = menuService.menuTreeData();
+        return tree;
+    }
+
+    /**
+     * 加载角色菜单列表树
+     *
+     * @param roleId
+     * @return
+     */
+    @At
+    @Ok("json")
+    public List<Map<String, Object>> roleMenuTreeData(String roleId) {
+        List<Map<String, Object>> tree = menuService.roleMenuTreeData(roleId);
         return tree;
     }
 
