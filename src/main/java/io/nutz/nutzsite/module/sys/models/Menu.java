@@ -17,7 +17,7 @@ public class Menu extends Model implements Serializable {
     @Column
     @Name
     @Comment("ID")
-    @ColDefine(type = ColType.VARCHAR, width = 32)
+    @ColDefine(type = ColType.VARCHAR, width = 64)
     @Prev(els = {@EL("uuid()")})
     private String id;
 
@@ -28,7 +28,7 @@ public class Menu extends Model implements Serializable {
 
     @Column("parent_id")
     @Comment("父菜单ID")
-    @ColDefine(type = ColType.VARCHAR, width = 32)
+    @ColDefine(type = ColType.VARCHAR, width = 64)
     private String parentId;
 
     /**
