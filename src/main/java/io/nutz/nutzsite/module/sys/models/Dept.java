@@ -75,7 +75,7 @@ public class Dept extends Model implements Serializable {
     @Comment("删除标记")
     @Prev(els = @EL("$me.flag()"))
     @ColDefine(type = ColType.BOOLEAN)
-    private Boolean delFlag;
+    private boolean delFlag;
 
     /**
      * 父部门名称
@@ -154,11 +154,11 @@ public class Dept extends Model implements Serializable {
         this.status = status;
     }
 
-    public Boolean getDelFlag() {
+    public boolean isDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Boolean delFlag) {
+    public void setDelFlag(boolean delFlag) {
         this.delFlag = delFlag;
     }
 

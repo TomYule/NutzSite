@@ -16,6 +16,8 @@ import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 @IocBean
 @At("/sys/dept")
@@ -73,12 +75,11 @@ public class DeptController {
     public void edit(String id, HttpServletRequest req) {
         Dept data = deptService.fetch(id);
         if (data!=null) {
-            req.setAttribute("dept", data);
             Dept parentData = deptService.fetch(data.getParentId());
             if (parentData != null) {
-                req.setAttribute("parentId", data.getParentId());
-                req.setAttribute("parentName", parentData.getDeptName());
+                data.setParentName( parentData.getDeptName());
             }
+            req.setAttribute("dept", data);
         }
     }
 
@@ -103,5 +104,23 @@ public class DeptController {
         } catch (Exception e) {
             return Result.error("system.error");
         }
+    }
+
+
+    /**
+     * 选择菜单树
+     */
+    @At("/selectTree/?")
+    @Ok("th:/sys/dept/tree.html")
+    public void selectTree(String id, HttpServletRequest req) {
+        req.setAttribute("dept", deptService.fetch(id));
+    }
+
+    @At
+    @Ok("json")
+    public List<Map<String, Object>> treeData( @Param("parentId") String parentId,
+                                               @Param("deptName") String deptName) {
+        List<Map<String, Object>> tree = deptService.selectTree(parentId,deptName);
+        return tree;
     }
 }

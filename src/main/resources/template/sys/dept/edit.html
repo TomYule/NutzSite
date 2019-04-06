@@ -43,20 +43,18 @@
 					<input class="form-control" type="text" name="email"th:value="${dept.email}">
 				</div>
 			</div>
-<!--			<div class="form-group">
-				<label class="col-sm-3 control-label">部门状态：</label>
-				<div class="col-sm-8">
-					<div class="radio-box" th:each="dict : ${@dict.getType('sys_normal_disable')}">
-						<input type="radio" th:id="${dict.dictCode}" name="status" th:value="${dict.dictValue}"th:value="${dept.status}">
-						<label th:for="${dict.dictCode}" th:text="${dict.dictLabel}"></label>
-					</div>
-				</div>
-			</div>-->
+            <div class="form-group">
+                <label class="col-sm-3 control-label">部门状态：</label>
+                <div class="col-sm-8">
+                    <label class="radio-box"> <input type="radio" name="status" value="false" th:checked="${!dept.status}" /> 显示 </label>
+                    <label class="radio-box"> <input type="radio" name="status" value="true"  th:checked="${dept.status}"/> 隐藏 </label>
+                </div>
+            </div>
 		</form>
 	</div>
 	<div th:include="include::footer"></div>
 	<script type="text/javascript">
-		var prefix = ctx + "system/dept";
+		var prefix = ctx + "sys/dept";
 		
 		$("#form-dept-edit").validate({
 			rules:{
@@ -102,7 +100,7 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	        	$.operate.save(prefix + "/edit", $('#form-dept-edit').serialize());
+	        	$.operate.save(prefix + "/editDo", $('#form-dept-edit').serialize());
 	        }
 	    }
 	
@@ -113,7 +111,7 @@
 			    var options = {
 					title: '部门选择',
 					width: "380",
-					url: prefix + "/selectDeptTree/" + $("#treeId").val(),
+					url: prefix + "/selectTree/" + $("#treeId").val(),
 					callBack: doSubmit
 				};
 				$.modal.openOptions(options);
