@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.module.tool.gen.models;
 
 import io.nutz.nutzsite.common.base.Model;
+import io.nutz.nutzsite.common.utils.StringUtils;
 import org.nutz.dao.entity.annotation.Column;
 
 import java.io.Serializable;
@@ -33,19 +34,16 @@ public class TableInfo extends Model implements Serializable {
     /**
      * 表的列名(不包含主键)
      */
-    @Column("")
     private List<ColumnInfo> columns;
 
     /**
      * 类名(第一个字母大写)
      */
-    @Column("")
     private String className;
 
     /**
      * 类名(第一个字母小写)
      */
-    @Column("")
     private String classname;
 
     public String getTableName() {
@@ -94,5 +92,15 @@ public class TableInfo extends Model implements Serializable {
 
     public void setClassname(String classname) {
         this.classname = classname;
+    }
+
+    public ColumnInfo getColumnsLast()
+    {
+        ColumnInfo columnInfo = null;
+        if (StringUtils.isNotNull(columns) && columns.size() > 0)
+        {
+            columnInfo = columns.get(0);
+        }
+        return columnInfo;
     }
 }

@@ -21,7 +21,6 @@ public class GenController {
 
     }
 
-
     @At
     @Ok("json")
     public Object list(@Param("pageNum")int pageNum,
@@ -29,8 +28,7 @@ public class GenController {
                        @Param("tableName") String tableName,
                        @Param("tableComment") String tableComment,
                        HttpServletRequest req) {
-//        List<TableInfo> tableInfoList = genService.selectTableList(tableName,tableComment,pageNum,pageSize);
-//        return new TableDataInfo(tableInfoList,1000 );
+
         return genService.selectTableList(tableName,tableComment,pageNum,pageSize);
     }
 }
