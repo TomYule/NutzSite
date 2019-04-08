@@ -84,6 +84,7 @@ public class GenService {
                 "where table_comment <> '' and table_schema = (select database()) and table_name = @tableName";
         Sql sql = Sqls.create(sqlstr);
         sql.params().set("tableName", tableName);
+        sql.setCallback(Sqls.callback.entities());
         Entity<TableInfo> entity = dao.getEntity(TableInfo.class);
         sql.setEntity(entity);
         dao.execute(sql);
@@ -97,10 +98,11 @@ public class GenService {
      * @return 列信息
      */
     public List<ColumnInfo> selectTableColumnsByName(String tableName) {
-        String sqlstr = "elect column_name, data_type, column_comment from information_schema.columns" +
-                "where table_name =@tableName and table_schema = (select database()) order by ordinal_position";
+        String sqlstr = "select column_name, data_type, column_comment from information_schema.columns " +
+                "where table_name = @tableName and table_schema = (select database()) order by ordinal_position";
         Sql sql = Sqls.create(sqlstr);
         sql.params().set("tableName", tableName);
+        sql.setCallback(Sqls.callback.entities());
         Entity<ColumnInfo> entity = dao.getEntity(ColumnInfo.class);
         sql.setEntity(entity);
         dao.execute(sql);
@@ -120,9 +122,11 @@ public class GenService {
         TableInfo table = this.selectTableByName(tableName);
         // 查询列信息
         List<ColumnInfo> columns = this.selectTableColumnsByName(tableName);
-        // 生成代码
-        coding(table, columns, zip);
-        IOUtils.closeQuietly(zip);
+        if(StringUtils.isNotNull(table) && StringUtils.isNotNull(columns)){
+            // 生成代码
+            coding(table, columns, zip);
+            IOUtils.closeQuietly(zip);
+        }
         return outputStream.toByteArray();
     }
 

@@ -1,5 +1,7 @@
 package io.nutz.nutzsite.module.tool.gen.models;
 
+import org.nutz.dao.entity.annotation.Column;
+
 /**
  * 数据库表列信息
  */
@@ -7,16 +9,19 @@ public class ColumnInfo {
     /**
      * 字段名称
      */
+    @Column("column_name")
     private String columnName;
 
     /**
      * 字段类型
      */
+    @Column("data_type")
     private String dataType;
 
     /**
      * 列描述
      */
+    @Column("column_comment")
     private String columnComment;
 
     /**

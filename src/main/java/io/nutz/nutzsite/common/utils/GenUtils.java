@@ -79,16 +79,16 @@ public class GenUtils
     public static List<String> getTemplates()
     {
         List<String> templates = new ArrayList<String>();
-        templates.add("templates/vm/java/domain.java.vm");
-        templates.add("templates/vm/java/Mapper.java.vm");
-        templates.add("templates/vm/java/Service.java.vm");
-        templates.add("templates/vm/java/ServiceImpl.java.vm");
-        templates.add("templates/vm/java/Controller.java.vm");
-        templates.add("templates/vm/xml/Mapper.xml.vm");
-        templates.add("templates/vm/html/list.html.vm");
-        templates.add("templates/vm/html/add.html.vm");
-        templates.add("templates/vm/html/edit.html.vm");
-        templates.add("templates/vm/sql/sql.vm");
+        templates.add("template/vm/java/domain.java.vm");
+        templates.add("template/vm/java/Mapper.java.vm");
+        templates.add("template/vm/java/Service.java.vm");
+        templates.add("template/vm/java/ServiceImpl.java.vm");
+        templates.add("template/vm/java/Controller.java.vm");
+        templates.add("template/vm/xml/Mapper.xml.vm");
+        templates.add("template/vm/html/list.html.vm");
+        templates.add("template/vm/html/add.html.vm");
+        templates.add("template/vm/html/edit.html.vm");
+        templates.add("template/vm/sql/sql.vm");
         return templates;
     }
 
