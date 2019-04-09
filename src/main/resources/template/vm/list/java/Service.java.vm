@@ -1,0 +1,19 @@
+package ${package}.service;
+
+import io.nutz.nutzsite.common.base.Service;
+import org.nutz.dao.Dao;
+import org.nutz.ioc.loader.annotation.IocBean;
+import ${package}.models.${className};
+
+/**
+ * ${tableComment} 服务层实现
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@IocBean(args = {"refer:dao"})
+public class ${className}Service extends Service<${className}> {
+	public ${className}Service(Dao dao) {
+		super(dao);
+	}
+}

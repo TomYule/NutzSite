@@ -93,6 +93,91 @@ public class GenUtils
     }
 
     /**
+     * 获取 列表模板
+     * @return
+     */
+    public static List<String> getListTemplates()
+    {
+        List<String> templates = new ArrayList<String>();
+        templates.add("template/vm/list/java/Models.java.vm");
+        templates.add("template/vm/list/java/Service.java.vm");
+        templates.add("template/vm/list/java/Controller.java.vm");
+        templates.add("template/vm/list/html/list.html.vm");
+        templates.add("template/vm/list/html/add.html.vm");
+        templates.add("template/vm/list/html/edit.html.vm");
+        templates.add("template/vm/sql/sql.vm");
+        return templates;
+    }
+
+
+    /**
+     * 获取列表 文件名
+     * @param template
+     * @param table
+     * @param moduleName
+     * @return
+     */
+    public static String getListFileName(String template, TableInfo table, String moduleName)
+    {
+        // 小写类名
+        String classname = table.getClassname();
+        // 大写类名
+        String className = table.getClassName();
+        String javaPath = PROJECT_PATH;
+        String mybatisPath = MYBATIS_PATH + "/" + moduleName + "/" + className;
+        String htmlPath = TEMPLATES_PATH + "/" + moduleName + "/" + classname;
+
+        if (StringUtils.isNotEmpty(classname))
+        {
+            javaPath += classname.replace(".", "/") + "/";
+        }
+
+        if (template.contains("Models.java.vm"))
+        {
+            return javaPath + "models" + "/" + className + ".java";
+        }
+
+        if (template.contains("Service.java.vm"))
+        {
+            return javaPath + "service" + "/"  + className + "Service.java";
+        }
+
+        if (template.contains("ServiceImpl.java.vm"))
+        {
+            return javaPath + "service" + "/" + className + "ServiceImpl.java";
+        }
+
+        if (template.contains("Controller.java.vm"))
+        {
+            return javaPath + "controller" + "/" + className + "Controller.java";
+        }
+
+        if (template.contains("Mapper.xml.vm"))
+        {
+            return mybatisPath + "Mapper.xml";
+        }
+
+        if (template.contains("list.html.vm"))
+        {
+            return htmlPath + "/" + classname + ".html";
+        }
+        if (template.contains("add.html.vm"))
+        {
+            return htmlPath + "/" + "add.html";
+        }
+        if (template.contains("edit.html.vm"))
+        {
+            return htmlPath + "/" + "edit.html";
+        }
+        if (template.contains("sql.vm"))
+        {
+            return classname + "Menu.sql";
+        }
+        return null;
+    }
+
+
+    /**
      * 表名转换成Java类名
      */
     public static String tableToJava(String tableName)
