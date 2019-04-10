@@ -1,0 +1,62 @@
+package ${package}.models;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import io.nutz.nutzsite.common.base.Model;
+import org.nutz.dao.entity.annotation.*;
+
+import java.io.Serializable;
+#foreach ($column in $columns)
+#if($column.attrType == 'Date')
+import java.util.Date;
+#break
+#end
+#end
+
+/**
+ * ${tableComment}表 ${tableName}
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Table("${tableName}")
+public class ${className} extends Model implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+#foreach ($column in $columns)
+	#if($column.columnName == $primaryKey.columnName)
+	@Name
+	@Column("${column.columnName}")
+	@Comment("$column.columnComment ")
+	@ColDefine(type = ColType.VARCHAR, width = 64)
+	@Prev(els = {@EL("uuid()")})
+	private $column.attrType $column.attrname;
+
+	#else
+	/** $column.columnComment */
+	@Column("${column.columnName}")
+	@Comment("$column.columnComment ")
+	private $column.attrType $column.attrname;
+	#end
+#end
+
+#foreach ($column in $columns)
+	public void set${column.attrName}($column.attrType $column.attrname) 
+	{
+		this.$column.attrname = $column.attrname;
+	}
+
+	public $column.attrType get${column.attrName}() 
+	{
+		return $column.attrname;
+	}
+#end
+
+    public String toString() {
+        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+#foreach ($column in $columns)
+            .append("${column.attrname}", get${column.attrName}())
+#end
+            .toString();
+    }
+}

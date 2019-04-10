@@ -23,31 +23,36 @@ public class DeptService extends Service<Dept> {
      * 对象转部门树
      *
      * @param deptList     部门列表
-     * @param isCheck      是否需要选中
-     * @param roleDeptList 角色已存在菜单列表
      * @return
      */
-    public List<Map<String, Object>> getTrees(List<Dept> deptList, boolean isCheck, List<String> roleDeptList) {
+    public List<Map<String, Object>> getTrees(List<Dept> deptList) {
 
         List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
         for (Dept dept : deptList) {
             if (!dept.isStatus()) {
-                Map<String, Object> deptMap = new HashMap<String, Object>();
-                deptMap.put("id", dept.getId());
-                deptMap.put("pId", dept.getParentId());
-                deptMap.put("name", dept.getDeptName());
-                deptMap.put("title", dept.getDeptName());
-                if (isCheck) {
-                    deptMap.put("checked", roleDeptList.contains(dept.getId() + dept.getDeptName()));
-                } else {
-                    deptMap.put("checked", false);
-                }
-                trees.add(deptMap);
+                Map<String, Object> dataMap = new HashMap<String, Object>();
+                dataMap.put("id", dept.getId());
+                dataMap.put("pId", dept.getParentId());
+                dataMap.put("name", dept.getDeptName());
+                dataMap.put("title", dept.getDeptName());
+                dataMap.put("checked", false);
+//                if (isCheck) {
+//                    deptMap.put("checked", roleDeptList.contains(dept.getId() + dept.getDeptName()));
+//                } else {
+//                    deptMap.put("checked", false);
+//                }
+                trees.add(dataMap);
             }
         }
         return trees;
     }
 
+    /**
+     * 查询数据树
+     * @param parentId
+     * @param name
+     * @return
+     */
     public List<Map<String, Object>> selectTree(String parentId, String name) {
         Cnd cnd = Cnd.NEW();
         if (Strings.isNotBlank(name)) {
@@ -59,7 +64,7 @@ public class DeptService extends Service<Dept> {
         cnd.and("status", "=", false).and("del_flag", "=", false);
         List<Dept> deptList = this.query(cnd);
         List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
-        trees = getTrees(deptList, false, null);
+        trees = getTrees(deptList);
         return trees;
     }
 }

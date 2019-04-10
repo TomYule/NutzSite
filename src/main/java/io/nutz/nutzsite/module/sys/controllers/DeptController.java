@@ -54,7 +54,7 @@ public class DeptController {
         if (data == null) {
             data = new Dept();
             data.setId("0");
-            data.setDeptName("主目录");
+            data.setDeptName("无");
         }
         req.setAttribute("dept", data);
     }
