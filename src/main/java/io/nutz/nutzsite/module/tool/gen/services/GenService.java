@@ -132,6 +132,9 @@ public class GenService {
 
     /**
      * 生成代码
+     * @param table
+     * @param columns
+     * @param zip
      */
     public void coding(TableInfo table, List<ColumnInfo> columns, ZipOutputStream zip) {
         // 表名转换成Java属性名
@@ -149,7 +152,7 @@ public class GenService {
         VelocityContext context = GenUtils.getVelocityContext(table);
 
         // 获取模板列表
-        List<String> templates = GenUtils.getTemplates();
+        List<String> templates = GenUtils.getListTemplates();
         for (String template : templates) {
             // 渲染模板
             StringWriter sw = new StringWriter();

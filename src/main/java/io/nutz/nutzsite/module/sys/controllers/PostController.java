@@ -1,8 +1,8 @@
-package ${package}.controller;
+package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.module.sys.services.PostService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import ${package}.models.${className};
-import ${package}.services.${className}Service;
+import io.nutz.nutzsite.module.sys.models.Post;
 import io.nutz.nutzsite.common.base.Result;;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -19,30 +19,30 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * ${tableComment} 信息操作处理
+ * 岗位 信息操作处理
  * 
- * @author ${author}
- * @date ${datetime}
+ * @author haiming
+ * @date 2019-04-10
  */
 @IocBean
-@At("/${moduleName}/${classname}")
-public class ${className}Controller {
+@At("/sys/post")
+public class PostController {
 	private static final Log log = Logs.get();
 
 	@Inject
-	private ${className}Service ${classname}Service;
+	private PostService postService;
 	
-	@RequiresPermissions("${moduleName}:${classname}:view")
+//	@RequiresPermissions("sys:post:view")
 	@At("")
-	@Ok("th:/${moduleName}/${classname}/${classname}.html")
+	@Ok("th:/sys/post/post.html")
 	public void index(HttpServletRequest req) {
 
 	}
 
 	/**
-	 * 查询${tableComment}列表
+	 * 查询岗位列表
 	 */
-	@RequiresPermissions("${moduleName}:${classname}:list")
+//	@RequiresPermissions("sys:post:list")
 	@At
 	@Ok("json")
 	public Object list(@Param("pageNum")int pageNum,
@@ -53,28 +53,28 @@ public class ${className}Controller {
 		if (!Strings.isBlank(name)){
 			//cnd.and("name", "like", "%" + name +"%");
 		}
-		return ${classname}Service.tableList(pageNum,pageSize,cnd);
+		return postService.tableList(pageNum,pageSize,cnd);
 	}
 
 	/**
-	 * 新增${tableComment}
+	 * 新增岗位
 	 */
 	@At("/add")
-	@Ok("th:/${moduleName}/${classname}/add.html")
+	@Ok("th:/sys/post/add.html")
 	public void add( HttpServletRequest req) {
 
 	}
 
 	/**
-	 * 新增保存${tableComment}
+	 * 新增保存岗位
 	 */
-	@RequiresPermissions("${moduleName}:${classname}:add")
+//	@RequiresPermissions("sys:post:add")
 	@At
 	@POST
 	@Ok("json")
-	public Object addDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
+	public Object addDo(@Param("..") Post post,HttpServletRequest req) {
 		try {
-			${classname}Service.insert(${classname});
+			postService.insert(post);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");
@@ -82,25 +82,25 @@ public class ${className}Controller {
 	}
 
 	/**
-	 * 修改${tableComment}
+	 * 修改岗位
 	 */
 	@At("/edit/?")
-	@Ok("th://${moduleName}/${classname}/edit.html")
+	@Ok("th://sys/post/edit.html")
 	public void edit(String id, HttpServletRequest req) {
-		${className} ${classname} = ${classname}Service.fetch(id);
-		req.setAttribute("${classname}",${classname});
+		Post post = postService.fetch(id);
+		req.setAttribute("post",post);
 	}
 
 	/**
-	 * 修改保存${tableComment}
+	 * 修改保存岗位
 	 */
-	@RequiresPermissions("${moduleName}:${classname}:edit")
+//	@RequiresPermissions("sys:post:edit")
 	@At
 	@POST
 	@Ok("json")
-	public Object editDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
+	public Object editDo(@Param("..") Post post,HttpServletRequest req) {
 		try {
-			${classname}Service.update(${classname});
+			postService.update(post);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");
@@ -108,13 +108,13 @@ public class ${className}Controller {
 	}
 
 	/**
-	 * 删除${tableComment}
+	 * 删除岗位
 	 */
 	@At("/remove")
 	@Ok("json")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
-			${classname}Service.delete(ids);
+			postService.delete(ids);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");
