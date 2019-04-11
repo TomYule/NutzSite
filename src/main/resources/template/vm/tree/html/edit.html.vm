@@ -16,7 +16,7 @@
             </div>
         </div>
 #foreach($column in $columns)
-#if($column.columnName != $primaryKey.columnName)
+#if($column.columnName != $primaryKey.columnName && 'parentId'!=$column.columnName && 'ancestors'!=$column.columnName)
     #if(!${column.configInfo})
         <div class="form-group">
             <label class="col-sm-3 control-label">${column.columnComment}：</label>

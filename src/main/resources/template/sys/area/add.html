@@ -5,8 +5,6 @@
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-area-add">
-        <input id="id" name="id"
-               th:value="${area.id}" type="hidden">
         <input id="treeId" name="parentId" type="hidden" th:value="${area.parentId}"/>
         <div class="form-group">
             <label class="col-sm-3 control-label ">上级：</label>
@@ -96,17 +94,13 @@
 
     function selectTree() {
         var id = $("#treeId").val();
-        if (id > 0) {
-            var options = {
-                title: '选择上级',
-                width: "380",
-                url: prefix + "/selectTree/" + $("#treeId").val(),
-                callBack: doSubmit
-            };
-            $.modal.openOptions(options);
-        } else {
-            $.modal.alertError("父级不能选择");
-        }
+        var options = {
+            title: '选择上级',
+            width: "380",
+            url: prefix + "/selectTree/" + $("#treeId").val(),
+            callBack: doSubmit
+        };
+        $.modal.openOptions(options);
     }
 
     function doSubmit(index, layero) {

@@ -20,7 +20,7 @@ public class Area extends Model implements Serializable {
 
     @Name
     @Column("id")
-    @Comment(" ")
+    @Comment
     @ColDefine(type = ColType.VARCHAR, width = 64)
     @Prev(els = {@EL("uuid()")})
     private String id;

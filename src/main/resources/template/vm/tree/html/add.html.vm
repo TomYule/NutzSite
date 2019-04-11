@@ -16,7 +16,7 @@
             </div>
         </div>
 #foreach($column in $columns)
-#if($column.columnName != $primaryKey.columnName)
+#if($column.columnName != $primaryKey.columnName && 'parentId'!=$column.columnName && 'ancestors'!=$column.columnName)
     #if(!${column.configInfo})
         <div class="form-group">
             <label class="col-sm-3 control-label">${column.columnComment}：</label>
@@ -69,17 +69,13 @@
     }
     function selectTree() {
         var ${primaryKey.attrname} = $("#treeId").val();
-        if (${primaryKey.attrname} > 0) {
-            var options = {
-                title: '选择上级',
-                width: "380",
-                url: prefix + "/selectTree/" + $("#treeId").val(),
-                callBack: doSubmit
-            };
-            $.modal.openOptions(options);
-        } else {
-            $.modal.alertError("父级不能选择");
-        }
+        var options = {
+            title: '选择上级',
+            width: "380",
+            url: prefix + "/selectTree/" + $("#treeId").val(),
+            callBack: doSubmit
+        };
+        $.modal.openOptions(options);
     }
 
     function doSubmit(index, layero) {

@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 10/04/2019 18:00:45
+ Date: 11/04/2019 12:03:07
 */
 
 SET NAMES utf8mb4;
@@ -366,7 +366,12 @@ INSERT INTO `sys_menu` VALUES ('1054', '任务详细', '110', 6, '#', 'F', '0', 
 INSERT INTO `sys_menu` VALUES ('1055', '任务导出', '110', 7, '#', 'F', '0', 'monitor:job:export', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '');
 INSERT INTO `sys_menu` VALUES ('1056', '生成查询', '114', 1, '#', 'F', '0', 'tool:gen:list', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '');
 INSERT INTO `sys_menu` VALUES ('1057', '生成代码', '114', 2, '#', 'F', '0', 'tool:gen:code', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '');
+INSERT INTO `sys_menu` VALUES ('1058', '区域查询', '1062', 1, '#', 'F', '0', 'sys:area:list', '#', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('1059', '区域新增', '1062', 2, '#', 'F', '0', 'sys:area:add', '#', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES ('106', '参数设置', '1', 7, '/system/config', 'C', '0', 'system:config:view', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '参数设置菜单');
+INSERT INTO `sys_menu` VALUES ('1060', '区域修改', '1062', 3, '#', 'F', '0', 'sys:area:edit', '#', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('1061', '区域删除', '1062', 4, '#', 'F', '0', 'sys:area:remove', '#', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('1062', '区域', '3', 1, '/sys/area', 'C', '0', 'sys:area:view', '#', 'admin', '2018-03-01 00:00:00', 'ry', '2018-03-01 00:00:00', '区域菜单');
 INSERT INTO `sys_menu` VALUES ('107', '通知公告', '1', 8, '/system/notice', 'C', '0', 'system:notice:view', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '通知公告菜单');
 INSERT INTO `sys_menu` VALUES ('108', '日志管理', '1', 9, '#', 'M', '0', '', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '日志管理菜单');
 INSERT INTO `sys_menu` VALUES ('109', '在线用户', '2', 1, '/monitor/online', 'C', '0', 'monitor:online:view', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '在线用户菜单');

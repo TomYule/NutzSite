@@ -1,6 +1,5 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.sys.models.Area;
 import io.nutz.nutzsite.module.sys.services.AreaService;
 import io.nutz.nutzsite.common.base.Result;;
@@ -46,28 +45,27 @@ public class AreaController {
 //    @RequiresPermissions("sys:area:list")
     @At
     @Ok("json")
-    public Object list(@Param("pageNum") int pageNum,
-                       @Param("pageSize") int pageSize,
-                       @Param("name") String name,
-                       HttpServletRequest req) {
+    public Object list(@Param("name") String name, HttpServletRequest req) {
         Cnd cnd = Cnd.NEW();
         if (!Strings.isBlank(name)) {
             //cnd.and("name", "like", "%" + name +"%");
         }
-        return areaService.tableList(pageNum, pageSize, cnd);
+        return areaService.query(cnd);
     }
 
     /**
      * 新增区域
      */
-    @At("/add/？")
+    @At({"/add","/add/*"})
     @Ok("th:/sys/area/add.html")
     public void add(@Param("id") String id, HttpServletRequest req) {
         Area area = null;
         if (Strings.isNotBlank(id)) {
             area = areaService.fetch(id);
-        } else {
-            area.setId("0");
+        }
+        if (area ==null) {
+            area =new Area();
+            area.setParentId("0");
             area.setName("无");
         }
         req.setAttribute("area", area);
@@ -141,7 +139,16 @@ public class AreaController {
     @At("/selectTree/?")
     @Ok("th:/sys/area/tree.html")
     public void selectTree(String id, HttpServletRequest req) {
-        req.setAttribute("area", areaService.fetch(id));
+        Area area = null;
+        if (Strings.isNotBlank(id)) {
+            area = areaService.fetch(id);
+        }
+        if (area ==null) {
+            area =new Area();
+            area.setParentId("0");
+            area.setName("无");
+        }
+        req.setAttribute("area", area);
     }
 
     /**

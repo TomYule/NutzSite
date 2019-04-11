@@ -58,7 +58,7 @@ public class AreaService extends Service<Area> {
 		if (Strings.isNotBlank(parentId)) {
 			cnd.and("parent_id", "=", parentId);
 		}
-		cnd.and("status", "=", false).and("del_flag", "=", false);
+//		cnd.and("status", "=", false).and("del_flag", "=", false);
 		List<Area> list = this.query(cnd);
 		List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
 		trees = getTrees(list);
