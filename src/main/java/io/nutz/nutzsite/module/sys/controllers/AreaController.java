@@ -15,6 +15,9 @@ import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
@@ -164,5 +167,38 @@ public class AreaController {
                                               @Param("name") String name) {
         List<Map<String, Object>> tree = areaService.selectTree(parentId, name);
         return tree;
+    }
+
+    public void  initData(){
+
+
+    }
+
+    public static void main(String[] args) {
+        //读取文件
+        String fileName = "/Users/apple/Desktop/area.txt";
+        //读取文件
+        BufferedReader br = null;
+        StringBuffer sb = null;
+        try {
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName),"UTF-8")); //这里可以控制编码
+            sb = new StringBuffer();
+            String line = null;
+            while((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        String data = new String(sb); //StringBuffer ==> String
+        System.out.println("数据为==> " + data);
+
     }
 }
