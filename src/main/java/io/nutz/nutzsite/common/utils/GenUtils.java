@@ -9,6 +9,8 @@ import org.apache.velocity.VelocityContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 代码生成器 工具类
@@ -22,6 +24,11 @@ public class GenUtils
 
     /** html空间路径 */
     private static final String TEMPLATES_PATH = "main/resources/template";
+
+    /**
+     * 大小写范围
+     */
+    private static Pattern p = Pattern.compile("[A-Z]");
 
     /**
      * 设置列信息
@@ -69,26 +76,6 @@ public class GenUtils
         return velocityContext;
     }
 
-    /**
-     * 获取模板信息
-     * 
-     * @return 模板列表
-     */
-    public static List<String> getTemplates()
-    {
-        List<String> templates = new ArrayList<String>();
-        templates.add("template/vm/java/domain.java.vm");
-        templates.add("template/vm/java/Mapper.java.vm");
-        templates.add("template/vm/java/Service.java.vm");
-        templates.add("template/vm/java/ServiceImpl.java.vm");
-        templates.add("template/vm/java/Controller.java.vm");
-        templates.add("template/vm/xml/Mapper.xml.vm");
-        templates.add("template/vm/html/list.html.vm");
-        templates.add("template/vm/html/add.html.vm");
-        templates.add("template/vm/html/edit.html.vm");
-        templates.add("template/vm/sql/sql.vm");
-        return templates;
-    }
 
     /**
      * 获取 列表模板
@@ -108,6 +95,24 @@ public class GenUtils
     }
 
     /**
+     * 获取 树模板
+     * @return
+     */
+    public static List<String> getTreeTemplates()
+    {
+        List<String> templates = new ArrayList<String>();
+        templates.add("template/vm/tree/java/Models.java.vm");
+        templates.add("template/vm/tree/java/Service.java.vm");
+        templates.add("template/vm/tree/java/Controller.java.vm");
+        templates.add("template/vm/tree/html/list.html.vm");
+        templates.add("template/vm/tree/html/add.html.vm");
+        templates.add("template/vm/tree/html/edit.html.vm");
+        templates.add("template/vm/tree/html/tree.html.vm");
+        templates.add("template/vm/sql/sql.vm");
+        return templates;
+    }
+
+    /**
      * 表名转换成Java类名
      */
     public static String tableToJava(String tableName)
@@ -122,6 +127,31 @@ public class GenUtils
         }
         return StringUtils.convertToCamelCase(tableName);
     }
+
+    /**
+     * Java类名转换成表名
+     * @param tableName
+     * @return
+     */
+    public static String javaToTable(String tableName)
+    {
+
+        StringBuilder builder = new StringBuilder(tableName);
+        Matcher mc = p.matcher(tableName);
+        int i = 0;
+        while (mc.find()) {
+//            System.out.println(builder.toString());
+//            System.out.println("mc.start():" + mc.start() + ", i: " + i);
+//            System.out.println("mc.end():" + mc.start() + ", i: " + i);
+            builder.replace(mc.start() + i, mc.end() + i, "_" + mc.group().toLowerCase());
+            i++;
+        }
+        if ('_' == builder.charAt(0)) {
+            builder.deleteCharAt(0);
+        }
+        return builder.toString();
+    }
+
 
     /**
      * 获取列表 文件名
@@ -170,6 +200,10 @@ public class GenUtils
         if (template.contains("edit.html.vm"))
         {
             return htmlPath + "/" + "edit.html";
+        }
+        if (template.contains("tree.html.vm"))
+        {
+            return htmlPath + "/" + "tree.html";
         }
         if (template.contains("sql.vm"))
         {

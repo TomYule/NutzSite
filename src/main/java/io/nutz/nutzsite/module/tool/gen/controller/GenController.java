@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.tool.gen.controller;
 
+import io.nutz.nutzsite.common.utils.GenUtils;
 import io.nutz.nutzsite.module.tool.gen.services.GenService;
 import org.apache.commons.io.IOUtils;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -30,21 +31,34 @@ public class GenController {
                        @Param("pageSize") int pageSize,
                        @Param("tableName") String tableName,
                        @Param("tableComment") String tableComment,
+                       @Param("orderByColumn") String orderByColumn,
+                       @Param("isAsc") String isAsc,
                        HttpServletRequest req) {
 
-        return genService.selectTableList(tableName, tableComment, pageNum, pageSize);
+        return genService.selectTableList(tableName, tableComment, pageNum, pageSize,orderByColumn,isAsc);
     }
 
     @At("/genCode/?")
     @Ok("raw")
     public void genCode(String tableName, HttpServletResponse response) throws IOException {
-        byte[] data = genService.generatorCode(tableName);
+        byte[] data = genService.generatorCode(tableName, GenUtils.getListTemplates());
         response.reset();
-        response.setHeader("Content-Disposition", "attachment; filename=\"ruoyi.zip\"");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + tableName + ".zip\"");
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/octet-stream; charset=UTF-8");
 
         IOUtils.write(data, response.getOutputStream());
     }
 
+    @At("/genTreeCode/?")
+    @Ok("raw")
+    public void genTreeCode(String tableName, HttpServletResponse response) throws IOException {
+        byte[] data = genService.generatorCode(tableName,GenUtils.getTreeTemplates());
+        response.reset();
+        response.setHeader("Content-Disposition", "attachment;filename=\"" + tableName + ".zip\"");
+        response.addHeader("Content-Length", "" + data.length);
+        response.setContentType("application/octet-stream; charset=UTF-8");
+
+        IOUtils.write(data, response.getOutputStream());
+    }
 }

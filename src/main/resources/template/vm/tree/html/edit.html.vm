@@ -1,60 +1,100 @@
 <!DOCTYPE HTML>
-<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-${classname}-edit" >
-            <input id="${primaryKey.attrname}" name="${primaryKey.attrname}"th:value="${${classname}.${primaryKey.attrname}}"  type="hidden">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-${classname}-edit">
+        <input id="${primaryKey.attrname}" name="${primaryKey.attrname}"
+               th:value="${${classname}.${primaryKey.attrname}}" type="hidden">
+        <input id="treeId" name="parentId" type="hidden" th:value="${${classname}.parentId}"/>
+        <div class="form-group">
+            <label class="col-sm-3 control-label ">上级：</label>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" id="treeName" onclick="selectTree()" readonly="true"
+                       th:value="${${classname}.parentName}"/>
+            </div>
+        </div>
 #foreach($column in $columns)
 #if($column.columnName != $primaryKey.columnName)
-	#if(!${column.configInfo})
-				<div class="form-group">
-					<label class="col-sm-3 control-label">${column.columnComment}：</label>
-					<div class="col-sm-8">
-						<input id="${column.attrname}" name="${column.attrname}"th:value="${${classname}.${column.attrname}}" class="form-control" type="text">
-					</div>
-				</div>
-	#else
-		#if(${column.configInfo.type} == "dict")
-					<div class="form-group">
-						<label class="col-sm-3 control-label">${column.columnComment}：</label>
-						<div class="col-sm-8">
-							<select name="${column.attrname}" class="form-control m-b" th:with="type=${@dict.getType('${column.configInfo.value}')}">
-								<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"th:value="${${classname}.${column.attrname}}"></option>
-							</select>
-						</div>
-					</div>
-		#elseif(${column.configInfo.type} == "date")
-					<div class="form-group">
-						<label class="col-sm-3 control-label">${column.columnComment}：</label>
-						<div class="col-sm-8">
-							<input id="${column.attrname}"  name="${column.attrname}"th:value="${${classname}.${column.attrname}}" class="form-control time-input" type="text">
-						</div>
-					</div>
-		#elseif(${column.configInfo.type} == "fk")
-		#end
-		#end
-	#end
+    #if(!${column.configInfo})
+        <div class="form-group">
+            <label class="col-sm-3 control-label">${column.columnComment}：</label>
+            <div class="col-sm-8">
+                <input id="${column.attrname}" name="${column.attrname}"
+                       th:value="${${classname}.${column.attrname}}" class="form-control" type="text">
+            </div>
+        </div>
+    #else
+    #if(${column.configInfo.type} == "dict")
+        <div class="form-group">
+            <label class="col-sm-3 control-label">${column.columnComment}：</label>
+            <div class="col-sm-8">
+                <select name="${column.attrname}" class="form-control m-b"
+                        th:with="type=${@dict.getType('${column.configInfo.value}')}">
+                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                            th:value="${dict.dictValue}"
+                            th:value="${${classname}.${column.attrname}}"></option>
+                </select>
+            </div>
+        </div>
+    #elseif(${column.configInfo.type} == "date")
+        <div class="form-group">
+            <label class="col-sm-3 control-label">${column.columnComment}：</label>
+            <div class="col-sm-8">
+                <input id="${column.attrname}" name="${column.attrname}"
+                       th:value="${${classname}.${column.attrname}}" class="form-control time-input"
+                       type="text">
+            </div>
+        </div>
+    #elseif(${column.configInfo.type} == "fk")
+    #end
+    #end
 #end
-		</form>
-    </div>
-    <div th:include="include::footer"></div>
-    <script type="text/javascript">
-		var prefix = ctx + "${moduleName}/${classname}";
-		$("#form-${classname}-edit").validate({
-			rules:{
-				xxxx:{
-					required:true,
-				},
-			}
-		});
-		
-		function submitHandler() {
-	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/editDo", $('#form-${classname}-edit').serialize());
-	        }
-	    }
-	</script>
+#end
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    var prefix = ctx + "${moduleName}/${classname}";
+    $("#form-${classname}-edit").validate({
+        rules: {
+            xxxx: {
+                required: true,
+            },
+        }
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/editDo", $('#form-${classname}-edit').serialize());
+        }
+    }
+
+    function selectTree() {
+        var ${primaryKey.attrname} = $("#treeId").val();
+        if (${primaryKey.attrname} > 0) {
+            var options = {
+                title: '选择上级',
+                width: "380",
+                url: prefix + "/selectTree/" + $("#treeId").val(),
+                callBack: doSubmit
+            };
+            $.modal.openOptions(options);
+        } else {
+            $.modal.alertError("父级不能选择");
+        }
+    }
+
+    function doSubmit(index, layero) {
+        var tree = layero.find("iframe")[0].contentWindow.$._tree;
+        if ($.tree.notAllowLastLevel(tree)) {
+            var body = layer.getChildFrame('body', index);
+            $("#treeId").val(body.find('#treeId').val());
+            $("#treeName").val(body.find('#treeName').val());
+            layer.close(index);
+        }
+    }
+</script>
 </body>
 </html>

@@ -123,6 +123,7 @@
 		        }]
             };
             $.treeTable.init(options);
+
 			function remove(id) {
 				$.modal.confirm("确定删除该条" + $.table._option.modalName + "信息吗？", function() {
 					$.ajax({

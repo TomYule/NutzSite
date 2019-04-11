@@ -31,11 +31,11 @@
 				</form>
 			</div>
 			
-			<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+<!--			<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
 				<a class="btn btn-success" onclick="javascript:batchGenCode()" shiro:hasPermission="tool:gen:code">
 			        <i class="fa fa-download"></i> 批量生成
 			    </a>
-		    </div>
+		    </div>-->
 		
 		    <div class="col-sm-12 select-table table-striped">
 			    <table id="bootstrap-table" data-mobile-responsive="true"></table>
@@ -90,8 +90,10 @@
 		            width: '20%',
 		            align: 'center',
 		            formatter: function(value, row, index) {
-		                var msg = '<a class="btn btn-primary btn-xs" href="#" onclick="genCode(\'' + row.tableName + '\')"><i class="fa fa-bug"></i>生成代码</a> ';
-		                return msg;
+						var actions = [];
+						actions.push('<a class="btn btn-primary btn-xs" href="#" onclick="genCode(\'' + row.tableName + '\')"><i class="fa fa-bug"></i>生成列表代码</a> ');
+						actions.push('<a class="btn btn-info btn-xs" href="#" onclick="genTreeCode(\'' + row.tableName + '\')"><i class="fa fa-tree"></i>生成树代码</a> ');
+						return actions.join('');
 		            }
 		        }]
 		    };
@@ -104,6 +106,12 @@
 		        location.href = prefix + "/genCode/" + tableName;
 		        layer.msg('执行成功,正在生成代码请稍后…', { icon: 1 });
 		    })
+		}
+		function genTreeCode(tableName) {
+			$.modal.confirm("确定要生成" + tableName + "表代码吗？", function() {
+				location.href = prefix + "/genTreeCode/" + tableName;
+				layer.msg('执行成功,正在生成代码请稍后…', { icon: 1 });
+			})
 		}
 	
 		//批量生成代码

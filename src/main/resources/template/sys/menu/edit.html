@@ -166,30 +166,40 @@
         /*菜单管理-修改-选择菜单树*/
         function selectMenuTree() {
         	var menuId = $("#treeId").val();
-        	console.log(menuId);
-        	if(menuId > 0) {
-        		var url = prefix + "/selectTree/" + menuId;
-        		$.modal.open("选择菜单", url, '380', '380');
-        	} else {
-        		$.modal.alertError("主菜单不能选择");
-        	}
+        	// console.log(menuId);
+			var url = prefix + "/selectTree/" + menuId;
+			$.modal.open("选择菜单", url, '380', '380');
+        	// if(menuId > 0) {
+        	// 	var url = prefix + "/selectTree/" + menuId;
+        	// 	$.modal.open("选择菜单", url, '380', '380');
+        	// } else {
+        	// 	$.modal.alertError("主菜单不能选择");
+        	// }
         }
         
         function selectMenuTree() {
         	var menuId = $("#treeId").val();
-			console.log(menuId);
-        	if(menuId > 0) {
-        		var url = prefix + "/selectTree/" + menuId;
-        		var options = {
-       				title: '菜单选择',
-       				width: "380",
-       				url: url,
-       				callBack: doSubmit
-       			};
-       			$.modal.openOptions(options);
-        	} else {
-        		$.modal.alertError("主菜单不能选择");
-        	}
+			// console.log(menuId);
+			var url = prefix + "/selectTree/" + menuId;
+			var options = {
+				title: '菜单选择',
+				width: "380",
+				url: url,
+				callBack: doSubmit
+			};
+			$.modal.openOptions(options);
+        	// if(menuId > 0) {
+        	// 	var url = prefix + "/selectTree/" + menuId;
+        	// 	var options = {
+       		// 		title: '菜单选择',
+       		// 		width: "380",
+       		// 		url: url,
+       		// 		callBack: doSubmit
+       		// 	};
+       		// 	$.modal.openOptions(options);
+        	// } else {
+        	// 	$.modal.alertError("主菜单不能选择");
+        	// }
 		}
 		
 		function doSubmit(index, layero){

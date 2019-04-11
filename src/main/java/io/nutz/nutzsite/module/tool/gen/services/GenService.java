@@ -28,6 +28,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -48,7 +50,7 @@ public class GenService {
      * @param pageSize
      * @return
      */
-    public TableDataInfo selectTableList(String tableName, String tableComment, int pageNumber, int pageSize) {
+    public TableDataInfo selectTableList(String tableName, String tableComment, int pageNumber, int pageSize, String orderByColumn, String isAsc) {
         String sqlstr = "select table_name, table_comment, create_time, update_time from information_schema.tables " +
                 "where table_comment <> '' and table_schema = (select database()) ";
         if (Strings.isNotBlank(tableName)) {
@@ -56,6 +58,10 @@ public class GenService {
         }
         if (Strings.isNotBlank(tableComment)) {
             sqlstr += "and table_comment like @tableComment";
+        }
+        if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
+
+            sqlstr += " order by " + GenUtils.javaToTable(orderByColumn) + " " + isAsc;
         }
         Sql sql = Sqls.create(sqlstr);
         sql.params().set("tableName", "%" + tableName + "%");
@@ -115,16 +121,16 @@ public class GenService {
      * @param tableName
      * @return
      */
-    public byte[] generatorCode(String tableName) {
+    public byte[] generatorCode(String tableName, List<String> templates) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
         // 查询表信息
         TableInfo table = this.selectTableByName(tableName);
         // 查询列信息
         List<ColumnInfo> columns = this.selectTableColumnsByName(tableName);
-        if(StringUtils.isNotNull(table) && StringUtils.isNotNull(columns)){
+        if (StringUtils.isNotNull(table) && StringUtils.isNotNull(columns)) {
             // 生成代码
-            coding(table, columns, zip);
+            coding(table, columns, zip, templates);
             IOUtils.closeQuietly(zip);
         }
         return outputStream.toByteArray();
@@ -132,11 +138,13 @@ public class GenService {
 
     /**
      * 生成代码
+     *
      * @param table
      * @param columns
      * @param zip
+     * @param templates 模板列表
      */
-    public void coding(TableInfo table, List<ColumnInfo> columns, ZipOutputStream zip) {
+    public void coding(TableInfo table, List<ColumnInfo> columns, ZipOutputStream zip, List<String> templates) {
         // 表名转换成Java属性名
         String className = GenUtils.tableToJava(table.getTableName());
         table.setClassName(className);
@@ -152,7 +160,7 @@ public class GenService {
         VelocityContext context = GenUtils.getVelocityContext(table);
 
         // 获取模板列表
-        List<String> templates = GenUtils.getListTemplates();
+//        List<String> templates = GenUtils.getListTemplates();
         for (String template : templates) {
             // 渲染模板
             StringWriter sw = new StringWriter();
@@ -169,5 +177,4 @@ public class GenService {
             }
         }
     }
-
 }

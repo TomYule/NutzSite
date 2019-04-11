@@ -126,7 +126,16 @@ public class MenuController {
     @At("/selectTree/?")
     @Ok("th:/sys/menu/tree.html")
     public void selectTree(String id, HttpServletRequest req) {
-        req.setAttribute("menu", menuService.fetch(id));
+        Menu menu = null;
+        if (!Strings.isBlank(id)) {
+            menu = menuService.fetch(id);
+        }
+        if (menu == null) {
+            menu = new Menu();
+            menu.setId("0");
+            menu.setMenuName("主目录");
+        }
+        req.setAttribute("menu", menu);
     }
 
     /**
