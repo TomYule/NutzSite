@@ -15,12 +15,27 @@ import org.nutz.integration.shiro.AbstractSimpleAuthorizingRealm;
 import org.nutz.integration.shiro.SimpleShiroToken;
 import org.nutz.ioc.loader.annotation.IocBean;
 
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * 自定义Realm 处理登录 权限
+ */
 @IocBean(name = "shiroRealm", fields = "dao")
-public class SimpleAuthorizingRealm extends AbstractSimpleAuthorizingRealm {
+public class UserRealm extends AbstractSimpleAuthorizingRealm {
 
-
+    /**
+     * 授权
+     * @param principals
+     * @return
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        // 角色列表
+        Set<String> roles = new HashSet<String>();
+        // 功能列表
+        Set<String> menus = new HashSet<String>();
+
         // null usernames are invalid
         if (principals == null) {
             throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
@@ -36,31 +51,37 @@ public class SimpleAuthorizingRealm extends AbstractSimpleAuthorizingRealm {
         return auth;
     }
 
+    /**
+     * 登录验证
+     * @param token
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         SimpleShiroToken upToken = (SimpleShiroToken) token;
 
-        User user = dao().fetch(User.class, (Long) upToken.getPrincipal());
+        User user = dao().fetch(User.class, (String) upToken.getPrincipal());
         if (user == null) {
             return null;
         }
         return new SimpleAccount(user.getId(), user.getPassword(), getName());
     }
 
-    public SimpleAuthorizingRealm() {
+    public UserRealm() {
         this(null, null);
     }
 
-    public SimpleAuthorizingRealm(CacheManager cacheManager, CredentialsMatcher matcher) {
+    public UserRealm(CacheManager cacheManager, CredentialsMatcher matcher) {
         super(cacheManager, matcher);
         setAuthenticationTokenClass(SimpleShiroToken.class);
     }
 
-    public SimpleAuthorizingRealm(CacheManager cacheManager) {
+    public UserRealm(CacheManager cacheManager) {
         this(cacheManager, null);
     }
 
-    public SimpleAuthorizingRealm(CredentialsMatcher matcher) {
+    public UserRealm(CredentialsMatcher matcher) {
         this(null, matcher);
     }
 

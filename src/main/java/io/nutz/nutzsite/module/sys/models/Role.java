@@ -57,7 +57,7 @@ public class Role  extends Model implements Serializable {
     private String remark;
 
     /** 菜单组 */
-    private String[] menuIds;
+    private String menuIds;
 
     /** 部门组（数据权限） */
     private String[] deptIds;
@@ -129,14 +129,6 @@ public class Role  extends Model implements Serializable {
         this.remark = remark;
     }
 
-    public String[] getMenuIds() {
-        return menuIds;
-    }
-
-    public void setMenuIds(String[] menuIds) {
-        this.menuIds = menuIds;
-    }
-
     public String[] getDeptIds() {
         return deptIds;
     }
@@ -151,5 +143,13 @@ public class Role  extends Model implements Serializable {
 
     public void setMenus(List<Menu> menus) {
         this.menus = menus;
+    }
+
+    public String getMenuIds() {
+        return menuIds;
+    }
+
+    public void setMenuIds(String menuIds) {
+        this.menuIds = menuIds;
     }
 }
