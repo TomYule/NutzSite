@@ -2,11 +2,11 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
-<link th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+<link th:href="@{/assets/plugins/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
 <body class="white-bg">
 	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
-		<form class="form-horizontal m" id="form-role-edit" th:object="${role}">
-			<input id="roleId" name="roleId" type="hidden"  th:value="${role.roleId}"/>
+		<form class="form-horizontal m" id="form-role-edit">
+			<input id="id" name="id" type="hidden"  th:value="${role.id}"/>
 			<div class="form-group">
 				<label class="col-sm-3 control-label ">角色名称：</label>
 				<div class="col-sm-8">
@@ -29,7 +29,7 @@
 				<label class="col-sm-3 control-label">状态：</label>
 				<div class="col-sm-8">
 					<div class="onoffswitch">
-                         <input type="checkbox" th:checked="${role.status == '0' ? true : false}" class="onoffswitch-checkbox" id="status" name="status">
+                         <input type="checkbox" th:checked="${role.status == '0' ? false : true}" class="onoffswitch-checkbox" id="status" name="status">
                          <label class="onoffswitch-label" for="status">
                              <span class="onoffswitch-inner"></span>
                              <span class="onoffswitch-switch"></span>
@@ -52,10 +52,10 @@
 		</form>
 	</div>
 	<div th:include="include::footer"></div>
-	<script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
+	<script th:src="@{/assets/plugins/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
 	<script type="text/javascript">
 	     $(function() {
-			var url = ctx + "sys/menu/roleMenuTreeData?roleId=" + $("#roleId").val();
+			var url = ctx + "sys/menu/roleMenuTreeData?id=" + $("#id").val();
 			var options = {
 				id: "menuTrees",
 		        url: url,
@@ -70,12 +70,12 @@
 				roleName:{
 					required:true,
 					remote: {
-		                url: ctx + "system/role/checkRoleNameUnique",
+		                url: ctx + "sys/role/checkRoleNameUnique",
 		                type: "post",
 		                dataType: "json",
 		                data: {
-							"roleId": function() {
-							    return $("#roleId").val();
+							"id": function() {
+							    return $("#id").val();
 							},
 							"roleName": function() {
 							    return $.common.trim($("#roleName").val());
@@ -89,12 +89,12 @@
 				roleKey:{
 					required:true,
 					remote: {
-		                url: ctx + "system/role/checkRoleKeyUnique",
+		                url: ctx + "sys/role/checkRoleKeyUnique",
 		                type: "post",
 		                dataType: "json",
 		                data: {
-							"roleId": function() {
-								return $("#roleId").val();
+							"id": function() {
+								return $("#id").val();
 							},
 							"roleKey": function() {
 							    return $.common.trim($("#roleKey").val());
@@ -121,7 +121,7 @@
 		});
 
 		function edit() {
-			var roleId = $("input[name='roleId']").val();
+			var id = $("input[name='id']").val();
 			var roleName = $("input[name='roleName']").val();
 			var roleKey = $("input[name='roleKey']").val();
 			var roleSort = $("input[name='roleSort']").val();
@@ -131,9 +131,9 @@
 			$.ajax({
 				cache : true,
 				type : "POST",
-				url : ctx + "system/role/edit",
+				url : ctx + "sys/role/editDo",
 				data : {
-					"roleId": roleId,
+					"id": id,
 					"roleName": roleName,
 					"roleKey": roleKey,
 					"roleSort": roleSort,

@@ -156,7 +156,7 @@ public class MenuController {
      */
     @At
     @Ok("json")
-    public List<Map<String, Object>> roleMenuTreeData(String roleId) {
+    public List<Map<String, Object>> roleMenuTreeData(@Param("id")String roleId) {
         List<Map<String, Object>> tree = menuService.roleMenuTreeData(roleId);
         return tree;
     }

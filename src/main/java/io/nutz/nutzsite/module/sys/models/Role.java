@@ -4,6 +4,7 @@ import io.nutz.nutzsite.common.base.Model;
 import org.nutz.dao.entity.annotation.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 角色表
@@ -51,11 +52,18 @@ public class Role  extends Model implements Serializable {
     @ColDefine(type = ColType.BOOLEAN)
     private boolean delFlag;
 
+    @Column
+    @Comment("备注")
+    private String remark;
+
     /** 菜单组 */
-    private Long[] menuIds;
+    private String[] menuIds;
 
     /** 部门组（数据权限） */
-    private Long[] deptIds;
+    private String[] deptIds;
+
+    @ManyMany(from = "role_id", relation = "sys_role_menu", to = "menu_id")
+    protected List<Menu> menus;
 
     public String getId() {
         return id;
@@ -113,19 +121,35 @@ public class Role  extends Model implements Serializable {
         this.delFlag = delFlag;
     }
 
-    public Long[] getMenuIds() {
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String[] getMenuIds() {
         return menuIds;
     }
 
-    public void setMenuIds(Long[] menuIds) {
+    public void setMenuIds(String[] menuIds) {
         this.menuIds = menuIds;
     }
 
-    public Long[] getDeptIds() {
+    public String[] getDeptIds() {
         return deptIds;
     }
 
-    public void setDeptIds(Long[] deptIds) {
+    public void setDeptIds(String[] deptIds) {
         this.deptIds = deptIds;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
     }
 }

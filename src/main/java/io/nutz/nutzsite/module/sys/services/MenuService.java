@@ -2,9 +2,11 @@ package io.nutz.nutzsite.module.sys.services;
 
 import io.nutz.nutzsite.common.base.Service;
 import io.nutz.nutzsite.module.sys.models.Menu;
+import io.nutz.nutzsite.module.sys.models.Role;
 import org.nutz.aop.interceptor.ioc.TransAop;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.aop.Aop;
+import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
 
@@ -22,6 +24,9 @@ public class MenuService extends Service<Menu> {
         super(dao);
     }
 
+    @Inject
+    RoleService roleService;
+
     /**
      * 新增菜单
      *
@@ -30,7 +35,6 @@ public class MenuService extends Service<Menu> {
      */
     @Aop(TransAop.READ_COMMITTED)
     public void save(Menu menu, String pid) {
-
         dao().insert(menu);
     }
 
@@ -91,10 +95,18 @@ public class MenuService extends Service<Menu> {
      */
     public List<Map<String, Object>> roleMenuTreeData(String roleId) {
         List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
+        Role role = roleService.fetch(roleId);
+        role = roleService.fetchLinks(role,"menus");
+        List<String> roleMenuList =new ArrayList<>();
+        if(role.getMenus()!=null && role.getMenus().size()>0){
+            role.getMenus().forEach(menu -> {
+                roleMenuList.add(menu.getId()+ menu.getPerms());
+            });
+        }
+
         List<Menu> menuList = this.query();
         if (Strings.isNotBlank(roleId)) {
-//            List<String> roleMenuList = menuMapper.selectMenuTree(roleId);
-            trees = getTrees(menuList, true, null, true);
+            trees = getTrees(menuList, true, roleMenuList, true);
         } else {
             trees = getTrees(menuList, false, null, true);
         }

@@ -75,7 +75,7 @@ public class RoleController {
     @At
     @POST
     @Ok("json")
-    public Object editDo(@Param("..") Role data,HttpServletRequest req) {
+    public Object editDo(@Param("..") Role data, @Param("mIds")String[] menuids,HttpServletRequest req) {
         try {
             roleService.update(data);
             return Result.success("system.success");
