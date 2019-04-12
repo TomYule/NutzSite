@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * 用户信息
  */
+@Table("sys_user")
 public class User extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -121,7 +122,7 @@ public class User extends Model implements Serializable {
     /**
      * 部门对象
      */
-    @One(field = "dept_id")
+    @One(field = "deptId")
     private Dept dept;
 
     /**
