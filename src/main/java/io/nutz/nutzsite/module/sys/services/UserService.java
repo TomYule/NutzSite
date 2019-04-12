@@ -1,9 +1,13 @@
 package io.nutz.nutzsite.module.sys.services;
 
 import io.nutz.nutzsite.common.base.Service;
+import io.nutz.nutzsite.module.sys.models.Role;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.IocBean;
 import io.nutz.nutzsite.module.sys.models.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 用户 服务层实现
@@ -16,4 +20,17 @@ public class UserService extends Service<User> {
 	public UserService(Dao dao) {
 		super(dao);
 	}
+
+	public List<String> getRoleCodeList(User user) {
+		this.fetchLinks(user, "roles");
+		List<String> roleNameList = new ArrayList<String>();
+		for (Role role : user.getRoles()) {
+			if (role.isStatus() && !role.isDelFlag()) {
+				roleNameList.add(role.getRoleKey());
+			}
+		}
+		return roleNameList;
+	}
+
+
 }

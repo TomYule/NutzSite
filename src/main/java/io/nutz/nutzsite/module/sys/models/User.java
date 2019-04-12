@@ -15,7 +15,6 @@ public class User extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column
-    @Name
     @Comment("ID")
     @ColDefine(type = ColType.VARCHAR, width = 32)
     @Prev(els = {@EL("uuid()")})
@@ -36,6 +35,7 @@ public class User extends Model implements Serializable {
     /**
      * 登录名称
      */
+    @Name
     @Column("login_name")
     @Comment("登录名称")
     private String loginName;
