@@ -10,7 +10,7 @@
             <form id="formId">
                 <div class="select-list">
                     <ul>
-                        <li>
+                       <!-- <li>
                             父节点：<input type="text" name="parentId"/>
                         </li>
 
@@ -25,7 +25,7 @@
                         <li>
                             区域编码：<input type="text" name="adcode"/>
                         </li>
-
+-->
                         <li>
                             行政区名称：<input type="text" name="name"/>
                         </li>
@@ -33,6 +33,7 @@
                         <li>
                             行政区划级别：<input type="text" name="level"/>
                         </li>
+<!--
 
                         <li>
                             创建者：<input type="text" name="createBy"/>
@@ -49,6 +50,7 @@
                         <li>
                             更新时间：<input type="text" name="updateTime"/>
                         </li>
+-->
 
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.treeTable.search()"><i
@@ -114,14 +116,15 @@
                 //     title: '祖节点',
                 //     align: "left"
                 // },
-                {
-                    field: 'citycode',
-                    title: '城市编码',
-                    align: "left"
-                },
+
                 {
                     field: 'adcode',
                     title: '区域编码',
+                    align: "left"
+                },
+                {
+                    field: 'citycode',
+                    title: '城市编码',
                     align: "left"
                 },
                 {

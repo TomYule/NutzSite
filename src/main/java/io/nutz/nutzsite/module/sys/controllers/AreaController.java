@@ -1,5 +1,9 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.type.TypeReference;
+import io.nutz.nutzsite.common.bean.Amap;
+import io.nutz.nutzsite.common.bean.Districts;
 import io.nutz.nutzsite.module.sys.models.Area;
 import io.nutz.nutzsite.module.sys.services.AreaService;
 import io.nutz.nutzsite.common.base.Result;;
@@ -7,6 +11,7 @@ import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
+import org.nutz.lang.random.R;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.At;
@@ -18,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +37,8 @@ import java.util.Map;
 @At("/sys/area")
 public class AreaController {
     private static final Log log = Logs.get();
+
+    public static List<Area> areaList = new ArrayList<>();
 
     @Inject
     private AreaService areaService;
@@ -50,9 +58,10 @@ public class AreaController {
     @Ok("json")
     public Object list(@Param("name") String name, HttpServletRequest req) {
         Cnd cnd = Cnd.NEW();
-        if (!Strings.isBlank(name)) {
-            //cnd.and("name", "like", "%" + name +"%");
-        }
+//        if (!Strings.isBlank(name)) {
+//            cnd.and("name", "like", "%" + name +"%");
+//        }
+        cnd.asc("adcode");
         return areaService.query(cnd);
     }
 
@@ -169,12 +178,28 @@ public class AreaController {
         return tree;
     }
 
-    public void  initData(){
+    public static void getAreaList(List<Districts> list,String pid){
+        list.forEach(districts -> {
+            Area area =new Area();
+            area.setId(R.UU32().toLowerCase());
+            area.setParentId(pid);
+            area.setAdcode(districts.getAdcode());
+            area.setName(districts.getName());
+            area.setLevel(districts.getLevel());
+            if(districts.getCitycode()!=null && districts.getCitycode().size()>0){
+                area.setCitycode(districts.getCitycode().get(0));
+            }
 
-
+            areaList.add(area);
+            if(districts.getDistricts()!=null && districts.getDistricts().size()>0){
+                getAreaList(districts.getDistricts(),area.getId());
+            }
+        });
     }
 
-    public static void main(String[] args) {
+    @At
+    @Ok("json")
+    public String  initData(){
         //读取文件
         String fileName = "/Users/apple/Desktop/area.txt";
         //读取文件
@@ -198,7 +223,17 @@ public class AreaController {
         }
 
         String data = new String(sb); //StringBuffer ==> String
-        System.out.println("数据为==> " + data);
+        Amap amap = JSON.parseObject(data,Amap.class);
+        if(amap!=null && amap.getDistricts()!=null && amap.getDistricts().size()>0){
+            getAreaList(amap.getDistricts(),"0");
+        }
+//        if(areaList!=null && areaList.size()>0){
+//            areaList.forEach(area -> {
+//                areaService.insert(area);
+//            });
+//        }
+        return "successs";
 
     }
+
 }

@@ -115,6 +115,12 @@
             <artifactId>velocity</artifactId>
             <version>1.7</version>
         </dependency>
+        <!-- 阿里JSON解析器 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
