@@ -1,10 +1,9 @@
 package io.nutz.nutzsite.common.shiro;
 
 import io.nutz.nutzsite.module.sys.models.User;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAccount;
+import io.nutz.nutzsite.module.sys.services.RoleService;
+import io.nutz.nutzsite.module.sys.services.UserService;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -13,7 +12,10 @@ import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.nutz.integration.shiro.AbstractSimpleAuthorizingRealm;
 import org.nutz.integration.shiro.SimpleShiroToken;
+import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
+import org.nutz.lang.Strings;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,6 +26,11 @@ import java.util.Set;
 @IocBean(name = "shiroRealm", fields = "dao")
 public class UserRealm extends AbstractSimpleAuthorizingRealm {
 
+    @Inject
+    private UserService userService;
+    @Inject
+    RoleService roleService;
+
     /**
      * 授权
      * @param principals
@@ -31,11 +38,6 @@ public class UserRealm extends AbstractSimpleAuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        // 角色列表
-        Set<String> roles = new HashSet<String>();
-        // 功能列表
-        Set<String> menus = new HashSet<String>();
-
         // null usernames are invalid
         if (principals == null) {
             throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
@@ -45,9 +47,14 @@ public class UserRealm extends AbstractSimpleAuthorizingRealm {
         if (user == null) {
             return null;
         }
+        // 角色列表
+        Set<String> roles =userService.getRoleCodeList(user);
+        // 功能列表
+        Set<String> menus = userService.getMenuPermsList(user);
+
         SimpleAuthorizationInfo auth = new SimpleAuthorizationInfo();
-//		auth.addRole(user.getName());
-		auth.addStringPermission("user:list");
+		auth.setRoles(roles);
+		auth.setStringPermissions(menus);
         return auth;
     }
 
@@ -59,11 +66,16 @@ public class UserRealm extends AbstractSimpleAuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        SimpleShiroToken upToken = (SimpleShiroToken) token;
-
+        UsernamePasswordToken upToken = (UsernamePasswordToken) token;
+        String loginname = upToken.getUsername();
+//        String captcha = upToken.getCredentials();
+        String password = String.valueOf(upToken.getPassword());
+        if (Strings.isBlank(loginname)) {
+            throw Lang.makeThrow(AuthenticationException.class, "Account name is empty");
+        }
         User user = dao().fetch(User.class, (String) upToken.getPrincipal());
-        if (user == null) {
-            return null;
+        if (Lang.isEmpty(user)) {
+            throw Lang.makeThrow(UnknownAccountException.class, "Account [ %s ] not found", loginname);
         }
         return new SimpleAccount(user.getId(), user.getPassword(), getName());
     }
