@@ -3,6 +3,9 @@ package io.nutz.nutzsite.module.sys.services;
 import io.nutz.nutzsite.common.base.Service;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.models.Role;
+import org.apache.shiro.crypto.RandomNumberGenerator;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.IocBean;
 import io.nutz.nutzsite.module.sys.models.User;
@@ -24,6 +27,21 @@ public class UserService extends Service<User> {
     public UserService(Dao dao) {
         super(dao);
     }
+
+
+    @Override
+    public User insert(User user){
+        user.setPasswordSalt(user.getPassword());
+        return dao().insert(user);
+    }
+
+    public int resetUserPwd(User user)
+    {
+        user =this.fetch(user.getId());
+        user.setPasswordSalt(user.getPassword());
+        return dao().update(user);
+    }
+
 
     /**
      * 获取角色列表

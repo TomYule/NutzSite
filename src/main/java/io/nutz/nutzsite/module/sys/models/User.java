@@ -1,6 +1,9 @@
 package io.nutz.nutzsite.module.sys.models;
 
 import io.nutz.nutzsite.common.base.Model;
+import org.apache.shiro.crypto.RandomNumberGenerator;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.nutz.dao.entity.annotation.*;
 
 import java.io.Serializable;
@@ -14,6 +17,7 @@ import java.util.List;
 public class User extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Name
     @Column
     @Comment("ID")
     @ColDefine(type = ColType.VARCHAR, width = 32)
@@ -35,7 +39,6 @@ public class User extends Model implements Serializable {
     /**
      * 登录名称
      */
-    @Name
     @Column("login_name")
     @Comment("登录名称")
     private String loginName;
@@ -140,6 +143,15 @@ public class User extends Model implements Serializable {
      * 岗位组
      */
     private String[] postIds;
+
+    public void setPasswordSalt(String password){
+        RandomNumberGenerator rng = new SecureRandomNumberGenerator();
+        String salt = rng.nextBytes().toBase64();
+        setSalt(salt);
+        String hashedPasswordBase64 = new Sha256Hash(password, salt, 1024).toBase64();
+        setPassword(hashedPasswordBase64);
+    }
+
 
     public String getId() {
         return id;

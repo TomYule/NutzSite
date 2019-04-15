@@ -7,6 +7,7 @@ import io.nutz.nutzsite.common.base.Result;;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -127,4 +128,22 @@ public class UserController {
 		}
 	}
 
+	@At("/resetPwd/?")
+	@Ok("th:/sys/user/resetPwd.html")
+	public void resetPwd(String id, HttpServletRequest req) {
+		User user = userService.fetch(id);
+		req.setAttribute("user",user);
+	}
+
+	@At
+	@POST
+	@Ok("json")
+	public Object resetPwd(@Param("..") User user,HttpServletRequest req) {
+		try {
+			userService.resetUserPwd(user);
+			return Result.success("system.success");
+		} catch (Exception e) {
+			return Result.error("system.error");
+		}
+	}
 }

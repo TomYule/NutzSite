@@ -5,7 +5,7 @@
 <body class="white-bg">
 	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
 		<form class="form-horizontal m" id="form-user-resetPwd">
-			<input name="userId"  type="hidden"  th:value="${user.userId}" />
+			<input name="id"  type="hidden"  th:value="${user.id}" />
 			<div class="form-group">
 				<label class="col-sm-3 control-label ">登录名称：</label>
 				<div class="col-sm-8">
@@ -15,7 +15,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">输入密码：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="password" name="password" id="password" th:value="${@config.getKey('sys.user.initPassword')}">
+					<input class="form-control" type="password" name="password" id="password">
 				</div>
 			</div>
 		</form>
@@ -34,7 +34,7 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	        	$.operate.save(ctx + "system/user/resetPwd", $('#form-user-resetPwd').serialize());
+	        	$.operate.save(ctx + "sys/user/resetPwd", $('#form-user-resetPwd').serialize());
 	        }
 	    }
 	</script>

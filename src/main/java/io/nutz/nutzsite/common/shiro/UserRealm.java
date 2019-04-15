@@ -14,6 +14,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.nutz.dao.Cnd;
 import org.nutz.integration.shiro.AbstractSimpleAuthorizingRealm;
 import org.nutz.integration.shiro.SimpleShiroToken;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -72,7 +73,7 @@ public class UserRealm extends AbstractSimpleAuthorizingRealm {
         if (Strings.isBlank(loginname)) {
             throw Lang.makeThrow(AuthenticationException.class, "Account name is empty");
         }
-        User user = dao().fetch(User.class,loginname);
+        User user = dao().fetch(User.class, Cnd.where("login_name","=",loginname));
         if (Lang.isEmpty(user)) {
             throw Lang.makeThrow(UnknownAccountException.class, "Account [ %s ] not found", loginname);
         }
@@ -103,7 +104,8 @@ public class UserRealm extends AbstractSimpleAuthorizingRealm {
 
     public UserRealm(CacheManager cacheManager, CredentialsMatcher matcher) {
         super(cacheManager, matcher);
-        setAuthenticationTokenClass(SimpleShiroToken.class);
+        // 设置token类型是关键!!!
+        setAuthenticationTokenClass(CaptchaToken.class);
     }
 
     public UserRealm(CacheManager cacheManager) {

@@ -12,13 +12,9 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ThreadContext;
 import org.nutz.dao.Chain;
-import org.nutz.dao.Cnd;
-import org.nutz.dao.Dao;
-import org.nutz.integration.shiro.SimpleShiroToken;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
@@ -36,7 +32,7 @@ public class LoginController {
 
 
     @GET
-    @At("")
+    @At({"","/login"})
     @Ok("th:/login.html")
     public void loginPage() {
 
@@ -58,7 +54,7 @@ public class LoginController {
             subject.login(token);
             User user = (User) subject.getPrincipal();
 //            int count = user.getLoginCount() == null ? 0 : user.getLoginCount();
-            userService.update(Chain.make("login_ip", user.getLoginIp()));
+//            userService.update(Chain.make("loginIp", user.getLoginIp()));
             return Result.success("login.success");
         } catch (IncorrectCaptchaException e) {
             //自定义的验证码错误异常
