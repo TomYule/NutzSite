@@ -27,7 +27,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">密码：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="password" name="password" id="password" th:value="${@config.getKey('sys.user.initPassword')}">
+					<input class="form-control" type="password" name="password" id="password">
 				</div>
 			</div>
 			<div class="form-group">
@@ -45,9 +45,9 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">性别：</label>
 				<div class="col-sm-8">
-					<select id="sex" class="form-control m-b" th:with="type=${@dict.getType('sys_user_sex')}">
+<!--					<select id="gender" class="form-control m-b" th:with="type=${@dict.getType('sys_user_gender')}">
 	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-	                </select>
+	                </select>-->
 				</div>
 			</div>
 			<div class="form-group">
@@ -62,27 +62,26 @@
                      </div>
 				</div>
 			</div>
-			<div class="form-group">
+<!--			<div class="form-group">
 				<label class="col-sm-3 control-label">岗位：</label>
 				<div class="col-sm-8">
 					<select id="post" name="post" class="form-control select2-hidden-accessible" multiple="">
 						<option th:each="post:${posts}" th:value="${post.postId}" th:text="${post.postName}" th:disabled="${post.status == '1'}"></option>
 					</select>
-					
 				</div>
-			</div>
+			</div>-->
 			<div class="form-group">
 				<label class="col-sm-3 control-label">角色：</label>
 				<div class="col-sm-8">
 					<label th:each="role:${roles}" class="check-box">
-						<input name="role" type="checkbox" th:value="${role.roleId}" th:text="${role.roleName}" th:disabled="${role.status == '1'}">
+						<input name="role" type="checkbox" th:value="${role.id}" th:text="${role.roleName}" th:disabled="${role.status == '1'}">
 					</label>
 				</div>
 			</div>
 		</form>
 	</div>
 	<div th:include="include::footer"></div>
-	<script th:src="@{/ajax/libs/select/select2.js}"></script>
+	<script th:src="@{/assets/plugins/select/select2.js}"></script>
 	<script>
         $("#form-user-add").validate({
         	rules:{
@@ -91,7 +90,7 @@
         			minlength: 2,
         			maxlength: 20,
         			remote: {
-                        url: ctx + "system/user/checkLoginNameUnique",
+                        url: ctx + "sys/user/checkLoginNameUnique",
                         type: "post",
                         dataType: "json",
                         data: {
@@ -119,7 +118,7 @@
         			required:true,
                     email:true,
                     remote: {
-                        url: ctx + "system/user/checkEmailUnique",
+                        url: ctx + "sys/user/checkEmailUnique",
                         type: "post",
                         dataType: "json",
                         data: {
@@ -136,7 +135,7 @@
         			required:true,
         			isPhone:true,
                     remote: {
-                        url: ctx + "system/user/checkPhoneUnique",
+                        url: ctx + "sys/user/checkPhoneUnique",
                         type: "post",
                         dataType: "json",
                         data: {
@@ -177,14 +176,14 @@
         	var password = $("input[name='password']").val();
         	var email = $("input[name='email']").val();
         	var phonenumber = $("input[name='phonenumber']").val();
-        	var sex = $("#sex option:selected").val();
+        	var gender = $("#gender option:selected").val();
         	var status = $("input[name='status']").is(':checked') == true ? 0 : 1;
         	var roleIds = $.form.selectCheckeds("role");
         	var postIds = $.form.selectSelects("post");
         	$.ajax({
         		cache : true,
         		type : "POST",
-        		url : ctx + "system/user/add",
+        		url : ctx + "sys/user/addDo",
         		data : {
         			"userId": userId,
         			"deptId": deptId,
@@ -193,7 +192,7 @@
         			"password": password,
         			"email": email,
         			"phonenumber": phonenumber,
-        			"sex": sex,
+        			"gender": gender,
         			"status": status,
         			"roleIds": roleIds,
         			"postIds": postIds

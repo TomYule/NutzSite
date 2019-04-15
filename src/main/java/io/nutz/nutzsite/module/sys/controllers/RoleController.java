@@ -22,7 +22,7 @@ public class RoleController {
     private static final Log log = Logs.get();
 
     @Inject
-    RoleService roleService;
+    private RoleService roleService;
 
     @At("")
     @Ok("th:/sys/role/role.html")

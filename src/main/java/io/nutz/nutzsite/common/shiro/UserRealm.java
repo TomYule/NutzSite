@@ -43,15 +43,14 @@ public class UserRealm extends AbstractSimpleAuthorizingRealm {
         if (principals == null) {
             throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
         }
-        String userId = String.valueOf(principals.getPrimaryPrincipal());
-        User user = dao().fetch(User.class, userId);
+        User user = (User) principals.getPrimaryPrincipal();
         if (user == null) {
             return null;
         }
         // 角色列表
         Set<String> roles =userService.getRoleCodeList(user);
         // 功能列表
-        Set<String> menus = userService.getMenuPermsList(user);
+        Set<String> menus = userService.getMenuPermsList(user.getId());
 
         SimpleAuthorizationInfo auth = new SimpleAuthorizationInfo();
 		auth.setRoles(roles);
@@ -116,4 +115,11 @@ public class UserRealm extends AbstractSimpleAuthorizingRealm {
         this(null, matcher);
     }
 
+    /**
+     * 清理缓存权限
+     */
+    public void clearCachedAuthorizationInfo()
+    {
+        this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
+    }
 }

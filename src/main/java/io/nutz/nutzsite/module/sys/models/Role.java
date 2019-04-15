@@ -52,6 +52,9 @@ public class Role  extends Model implements Serializable {
     @ColDefine(type = ColType.BOOLEAN)
     private boolean delFlag;
 
+    /** 用户是否存在此角色标识 默认不存在 */
+    private boolean flag = false;
+
     @Column
     @Comment("备注")
     private String remark;
@@ -64,6 +67,16 @@ public class Role  extends Model implements Serializable {
 
     @ManyMany(from = "role_id", relation = "sys_role_menu", to = "menu_id")
     protected List<Menu> menus;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Role) {
+            Role role = (Role) obj;
+//            System.out.println("equal"+ role.id);
+            return (id.equals(role.id));
+        }
+        return super.equals(obj);
+    }
 
     public String getId() {
         return id;
@@ -151,5 +164,13 @@ public class Role  extends Model implements Serializable {
 
     public void setMenuIds(String menuIds) {
         this.menuIds = menuIds;
+    }
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 }

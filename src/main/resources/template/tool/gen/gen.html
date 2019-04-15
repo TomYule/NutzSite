@@ -92,7 +92,7 @@
 		            formatter: function(value, row, index) {
 						var actions = [];
 						actions.push('<a class="btn btn-primary btn-xs" href="#" onclick="genCode(\'' + row.tableName + '\')"><i class="fa fa-bug"></i>生成列表代码</a> ');
-						actions.push('<a class="btn btn-info btn-xs" href="#" onclick="genTreeCode(\'' + row.tableName + '\')"><i class="fa fa-tree"></i>生成树代码</a> ');
+						actions.push('<a class="btn btn-warning btn-xs" href="#" onclick="genTreeCode(\'' + row.tableName + '\')"><i class="fa fa-tree"></i>生成树代码</a> ');
 						return actions.join('');
 		            }
 		        }]

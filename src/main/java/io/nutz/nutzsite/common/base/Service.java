@@ -92,9 +92,49 @@ public class Service<T> extends EntityService<T> {
         return this.dao().fastInsert(t);
     }
 
+    /**
+     * 更新
+     * @param obj
+     * @return
+     */
     public int update(Object obj) {
         return this.dao().update(obj);
     }
+
+    /**
+     * 忽略值为null的字段
+     *
+     * @param obj
+     * @return
+     */
+    public int updateIgnoreNull(Object obj) {
+        return this.dao().updateIgnoreNull(obj);
+    }
+
+    /**
+     * 部分更新实体表
+     *
+     * @param chain
+     * @param cnd
+     * @return
+     */
+    @Override
+    public int update(Chain chain, Condition cnd) {
+        return this.dao().update(this.getEntityClass(), chain, cnd);
+    }
+
+    /**
+     * 部分更新表
+     *
+     * @param tableName
+     * @param chain
+     * @param cnd
+     * @return
+     */
+    public int update(String tableName, Chain chain, Condition cnd) {
+        return this.dao().update(tableName, chain, cnd);
+    }
+
 
     public int delete(long id) {
         return this.dao().delete(this.getEntityClass(), id);

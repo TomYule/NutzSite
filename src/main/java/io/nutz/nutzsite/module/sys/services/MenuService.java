@@ -3,8 +3,12 @@ package io.nutz.nutzsite.module.sys.services;
 import io.nutz.nutzsite.common.base.Service;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.models.Role;
+import io.nutz.nutzsite.module.sys.models.User;
 import org.nutz.aop.interceptor.ioc.TransAop;
 import org.nutz.dao.Dao;
+import org.nutz.dao.Sqls;
+import org.nutz.dao.entity.Entity;
+import org.nutz.dao.sql.Sql;
 import org.nutz.ioc.aop.Aop;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -26,7 +30,8 @@ public class MenuService extends Service<Menu> {
 
     @Inject
     RoleService roleService;
-
+    @Inject
+    private MenuService menuService;
     /**
      * 新增菜单
      *
@@ -111,6 +116,28 @@ public class MenuService extends Service<Menu> {
             trees = getTrees(menuList, false, null, true);
         }
         return trees;
+    }
+
+    /**
+     * 查询用户菜单
+     * @param userId 用户id
+     * @return 菜单
+     */
+    public List<Menu> getMenuList(String userId) {
+        String sqlstr = "select distinct m.id, m.parent_id, m.menu_name, m.url, m.perms , m.menu_type, m.icon, m.order_num, m.create_time " +
+                "from sys_menu m " +
+                "left join sys_role_menu rm on m.id = rm.menu_id " +
+                "left join sys_user_role ur on rm.role_id = ur.role_id " +
+                "left join sys_role ro on ur.role_id = ro.id " +
+                "where ur.user_id = @userId and m.menu_type in ('M', 'C') and m.visible = '0' " +
+                "order by m.order_num";
+        Sql sql = Sqls.create(sqlstr);
+        sql.params().set("userId", userId);
+        sql.setCallback(Sqls.callback.entities());
+        Entity<Menu> entity = dao().getEntity(Menu.class);
+        sql.setEntity(entity);
+        dao().execute(sql);
+        return sql.getList(Menu.class);
     }
 
 }

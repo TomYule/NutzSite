@@ -137,13 +137,17 @@ public class User extends Model implements Serializable {
     /**
      * 角色组
      */
-    private String[] roleIds;
+    private String roleIds;
 
     /**
      * 岗位组
      */
-    private String[] postIds;
+    private String postIds;
 
+    /**
+     * 设置 密码 和salt
+     * @param password
+     */
     public void setPasswordSalt(String password){
         RandomNumberGenerator rng = new SecureRandomNumberGenerator();
         String salt = rng.nextBytes().toBase64();
@@ -289,19 +293,19 @@ public class User extends Model implements Serializable {
         this.roles = roles;
     }
 
-    public String[] getRoleIds() {
+    public String getRoleIds() {
         return roleIds;
     }
 
-    public void setRoleIds(String[] roleIds) {
+    public void setRoleIds(String roleIds) {
         this.roleIds = roleIds;
     }
 
-    public String[] getPostIds() {
+    public String getPostIds() {
         return postIds;
     }
 
-    public void setPostIds(String[] postIds) {
+    public void setPostIds(String postIds) {
         this.postIds = postIds;
     }
 }

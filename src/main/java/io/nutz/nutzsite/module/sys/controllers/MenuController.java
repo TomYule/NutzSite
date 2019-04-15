@@ -26,7 +26,7 @@ public class MenuController {
     private static final Log log = Logs.get();
 
     @Inject
-    MenuService menuService;
+    private MenuService menuService;
 
     @At("")
     @Ok("th:/sys/menu/menu.html")

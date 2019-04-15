@@ -79,8 +79,8 @@ public class LoginController {
         }
     }
 
-    @Ok("th:/index.html")
     @At
+    @Ok("th:/login.html")
     public void logout() {
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {

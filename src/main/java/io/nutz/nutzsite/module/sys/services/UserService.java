@@ -6,14 +6,15 @@ import io.nutz.nutzsite.module.sys.models.Role;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
+import org.nutz.dao.sql.Criteria;
+import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import io.nutz.nutzsite.module.sys.models.User;
+import org.nutz.lang.Strings;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -27,7 +28,10 @@ public class UserService extends Service<User> {
     public UserService(Dao dao) {
         super(dao);
     }
-
+    @Inject
+    private RoleService roleService;
+    @Inject
+    private MenuService menuService;
 
     @Override
     public User insert(User user){
@@ -42,6 +46,28 @@ public class UserService extends Service<User> {
         return dao().update(user);
     }
 
+    public int update(User data){
+        List<String> ids = new ArrayList<>();
+        if (data != null && data.getRoleIds() != null) {
+            if (Strings.isNotBlank(data.getRoleIds())) {
+                ids = Arrays.asList(data.getRoleIds().split(","));
+            }
+            //清除已有关系
+            User tmpData = this.fetch(data.getId());
+            this.fetchLinks(tmpData, "roles");
+            dao().clearLinks(tmpData, "roles");
+        }
+        if(ids!=null && ids.size()>0){
+            Criteria cri = Cnd.cri();
+            cri.where().andInStrList("id" , ids);
+            List<Role> roleList = roleService.query(cri);
+            data.setRoles(roleList);
+        }
+        //忽略空字段
+        int count = dao().updateIgnoreNull(data);
+        dao().insertRelation(data, "roles");
+        return count;
+    }
 
     /**
      * 获取角色列表
@@ -53,7 +79,7 @@ public class UserService extends Service<User> {
         this.fetchLinks(user, "roles");
         Set<String> permsSet = new HashSet<>();
         for (Role role : user.getRoles()) {
-            if (role.isStatus() && !role.isDelFlag()) {
+            if (!role.isStatus() && !role.isDelFlag()) {
                 permsSet.add(role.getRoleKey());
             }
         }
@@ -62,23 +88,18 @@ public class UserService extends Service<User> {
 
     /**
      * 获取用户权限
-     * @param user
+     * @param userId
      * @return
      */
-    public Set<String> getMenuPermsList(User user) {
-        this.fetchLinks(user, "roles|menus");
+    public Set<String> getMenuPermsList(String userId) {
         Set<String> permsSet = new HashSet<>();
-        List<Menu> menuList = new ArrayList<>();
-        for (Role role : user.getRoles()) {
-            if (role.getMenus() != null && role.getMenus().size() > 0) {
-                menuList.addAll(role.getMenus());
-            }
-        }
-        menuList.stream().distinct()
-                .forEach(menu -> {
+        List<Menu> menuList = menuService.getMenuList(userId);
+        menuList.forEach(menu -> {
                     permsSet.add(menu.getPerms());
                 });
         return permsSet;
     }
+
+
 
 }

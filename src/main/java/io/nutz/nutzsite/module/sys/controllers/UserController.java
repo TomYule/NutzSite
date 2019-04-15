@@ -1,5 +1,7 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.module.sys.models.Role;
+import io.nutz.nutzsite.module.sys.services.RoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.UserService;
@@ -32,8 +34,11 @@ public class UserController {
 
 	@Inject
 	private UserService userService;
+
+	@Inject
+	private RoleService roleService;
 	
-//	@RequiresPermissions("sys:user:view")
+	@RequiresPermissions("sys:user:view")
 	@At("")
 	@Ok("th:/sys/user/user.html")
 	public void index(HttpServletRequest req) {
@@ -43,7 +48,7 @@ public class UserController {
 	/**
 	 * 查询用户列表
 	 */
-//	@RequiresPermissions("sys:user:list")
+	@RequiresPermissions("sys:user:list")
 	@At
 	@Ok("json")
 	public Object list(@Param("pageNum")int pageNum,
@@ -68,13 +73,14 @@ public class UserController {
 	@At("/add")
 	@Ok("th:/sys/user/add.html")
 	public void add( HttpServletRequest req) {
-
+		List<Role> roles = roleService.query(Cnd.where("status","=",false).and("del_flag","=",false));
+		req.setAttribute("roles",roles);
 	}
 
 	/**
 	 * 新增保存用户
 	 */
-//	@RequiresPermissions("sys:user:add")
+	@RequiresPermissions("sys:user:add")
 	@At
 	@POST
 	@Ok("json")
@@ -94,14 +100,22 @@ public class UserController {
 	@Ok("th://sys/user/edit.html")
 	public void edit(String id, HttpServletRequest req) {
 		User user = userService.fetch(id);
-		userService.fetchLinks(user,"dept");
+		userService.fetchLinks(user,"dept|roles");
+		List<Role> roles = roleService.query(Cnd.where("status","=",false).and("del_flag","=",false));
+		roles.forEach(role -> {
+			if(user.getRoles()!=null && user.getRoles().size()>0){
+//				System.out.println(user.getRoles().contains(role));
+				role.setFlag(user.getRoles().contains(role));
+			}
+		});
 		req.setAttribute("user",user);
+		req.setAttribute("roles",roles);
 	}
 
 	/**
 	 * 修改保存用户
 	 */
-//	@RequiresPermissions("sys:user:edit")
+	@RequiresPermissions("sys:user:edit")
 	@At
 	@POST
 	@Ok("json")
