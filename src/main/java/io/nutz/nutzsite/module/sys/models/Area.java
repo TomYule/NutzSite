@@ -2,7 +2,7 @@ package io.nutz.nutzsite.module.sys.models;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import io.nutz.nutzsite.common.base.Model;
+import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
 
 import java.io.Serializable;
@@ -15,7 +15,7 @@ import java.util.Date;
  * @date 2019-04-11
  */
 @Table("sys_area")
-public class Area extends Model implements Serializable {
+public class Area extends BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Name
@@ -144,34 +144,42 @@ public class Area extends Model implements Serializable {
         return level;
     }
 
+    @Override
     public void setCreateBy(String createBy) {
         this.createBy = createBy;
     }
 
+    @Override
     public String getCreateBy() {
         return createBy;
     }
 
+    @Override
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
+    @Override
     public Date getCreateTime() {
         return createTime;
     }
 
+    @Override
     public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
     }
 
+    @Override
     public String getUpdateBy() {
         return updateBy;
     }
 
+    @Override
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 
+    @Override
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -184,6 +192,7 @@ public class Area extends Model implements Serializable {
         this.parentName = parentName;
     }
 
+    @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())

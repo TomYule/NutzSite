@@ -115,7 +115,7 @@ public class DictController {
 	@Ok("json")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
-			dictService.delete(ids);
+			dictService.vDelete(ids);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");

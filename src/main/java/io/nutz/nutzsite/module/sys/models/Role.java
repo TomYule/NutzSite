@@ -1,6 +1,6 @@
 package io.nutz.nutzsite.module.sys.models;
 
-import io.nutz.nutzsite.common.base.Model;
+import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
 
 import java.io.Serializable;
@@ -10,7 +10,7 @@ import java.util.List;
  * 角色表
  */
 @Table("sys_role")
-public class Role  extends Model implements Serializable {
+public class Role  extends BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column

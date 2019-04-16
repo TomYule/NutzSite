@@ -238,7 +238,7 @@ public class Service<T> extends EntityService<T> {
     public QueryResult listPage( int pageNumber, int pageSize,Condition cnd){
         Pager pager = this.dao().createPager(pageNumber, pageSize);
         List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
-        pager.setRecordCount(this.dao().count(this.getEntityClass()));
+        pager.setRecordCount(this.dao().count(getEntityClass(), cnd));
         return new QueryResult(list, pager);
     }
 
@@ -264,6 +264,6 @@ public class Service<T> extends EntityService<T> {
     public TableDataInfo tableList( int pageNumber, int pageSize,Condition cnd){
         Pager pager = this.dao().createPager(pageNumber, pageSize);
         List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
-        return new TableDataInfo(list, this.dao().count(this.getEntityClass()));
+        return new TableDataInfo(list, this.dao().count(this.getEntityClass(),cnd));
     }
 }

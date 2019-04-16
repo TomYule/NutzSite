@@ -1,6 +1,6 @@
 package io.nutz.nutzsite.module.sys.models;
 
-import io.nutz.nutzsite.common.base.Model;
+import io.nutz.nutzsite.common.base.BaseModel;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -14,7 +14,7 @@ import java.util.List;
  * 用户信息
  */
 @Table("sys_user")
-public class User extends Model implements Serializable {
+public class User extends BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Name

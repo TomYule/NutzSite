@@ -1,15 +1,10 @@
 package ${package}.models;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import io.nutz.nutzsite.common.base.Model;
 import org.nutz.dao.entity.annotation.*;
 
-import java.io.Serializable;
 #foreach ($column in $columns)
 #if($column.attrType == 'Date')
-import java.util.Date;
-#break
+    #break
 #end
 #end
 
@@ -20,7 +15,7 @@ import java.util.Date;
  * @date ${datetime}
  */
 @Table("${tableName}")
-public class ${className} extends Model implements Serializable {
+public class ${className} extends BaseModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 #foreach ($column in $columns)

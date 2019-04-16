@@ -1,6 +1,6 @@
 package io.nutz.nutzsite.module.tool.gen.models;
 
-import io.nutz.nutzsite.common.base.Model;
+import io.nutz.nutzsite.common.base.BaseModel;
 import io.nutz.nutzsite.common.utils.StringUtils;
 import org.nutz.dao.entity.annotation.Column;
 
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 数据库表
  */
-public class TableInfo extends Model implements Serializable {
+public class TableInfo extends BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**

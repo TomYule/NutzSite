@@ -2,14 +2,13 @@ package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.services.RoleService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.UserService;
 import io.nutz.nutzsite.common.base.Result;;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -38,7 +37,7 @@ public class UserController {
 	@Inject
 	private RoleService roleService;
 	
-//	@RequiresPermissions("sys:user:view")
+	@RequiresPermissions("sys:user:view")
 	@At("")
 	@Ok("th:/sys/user/user.html")
 	public void index(HttpServletRequest req) {
@@ -48,7 +47,6 @@ public class UserController {
 	/**
 	 * 查询用户列表
 	 */
-//	@RequiresPermissions("sys:user:list")
 	@At
 	@Ok("json")
 	public Object list(@Param("pageNum")int pageNum,
@@ -98,6 +96,7 @@ public class UserController {
 	 */
 	@At("/edit/?")
 	@Ok("th://sys/user/edit.html")
+	@RequiresPermissions("sys:user:edit")
 	public void edit(String id, HttpServletRequest req) {
 		User user = userService.fetch(id);
 		userService.fetchLinks(user,"dept|roles");
@@ -115,7 +114,7 @@ public class UserController {
 	/**
 	 * 修改保存用户
 	 */
-//	@RequiresPermissions("sys:user:edit")
+	@RequiresPermissions("sys:user:edit")
 	@At
 	@POST
 	@Ok("json")

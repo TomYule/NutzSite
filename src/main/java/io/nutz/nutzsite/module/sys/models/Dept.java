@@ -1,12 +1,12 @@
 package io.nutz.nutzsite.module.sys.models;
 
-import io.nutz.nutzsite.common.base.Model;
+import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
 
 import java.io.Serializable;
 
 @Table("sys_dept")
-public class Dept extends Model implements Serializable {
+public class Dept extends BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column

@@ -82,8 +82,8 @@ public class UserRealm extends AbstractSimpleAuthorizingRealm {
             if (Strings.isBlank(captcha)) {
                 throw Lang.makeThrow(EmptyCaptchaException.class, "Captcha is empty");
             }
-            String _captcha = Strings.sBlank(SecurityUtils.getSubject().getSession(true).getAttribute("captcha"));
-            if (!authcToken.getCaptcha().equalsIgnoreCase(_captcha)) {
+            String captchaTmp = Strings.sBlank(SecurityUtils.getSubject().getSession(true).getAttribute("captcha"));
+            if (!authcToken.getCaptcha().equalsIgnoreCase(captchaTmp)) {
                 throw Lang.makeThrow(IncorrectCaptchaException.class, "Captcha is error");
             }
         }

@@ -2,7 +2,7 @@ package io.nutz.nutzsite.module.sys.models;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import io.nutz.nutzsite.common.base.Model;
+import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
 
 import java.io.Serializable;
@@ -16,7 +16,7 @@ import java.util.Date;
  * @date 2019-04-16
  */
 @Table("sys_dict")
-public class Dict extends Model implements Serializable {
+public class Dict extends BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Name
@@ -155,10 +155,12 @@ public class Dict extends Model implements Serializable {
         return parentId;
     }
 
+    @Override
     public void setCreateBy(String createBy) {
         this.createBy = createBy;
     }
 
+    @Override
     public String getCreateBy() {
         return createBy;
     }
@@ -171,10 +173,12 @@ public class Dict extends Model implements Serializable {
         return createDate;
     }
 
+    @Override
     public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
     }
 
+    @Override
     public String getUpdateBy() {
         return updateBy;
     }
@@ -203,6 +207,7 @@ public class Dict extends Model implements Serializable {
         return delFlag;
     }
 
+    @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())

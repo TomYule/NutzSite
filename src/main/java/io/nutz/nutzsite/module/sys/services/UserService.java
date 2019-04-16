@@ -28,25 +28,25 @@ public class UserService extends Service<User> {
     public UserService(Dao dao) {
         super(dao);
     }
+
     @Inject
     private RoleService roleService;
     @Inject
     private MenuService menuService;
 
     @Override
-    public User insert(User user){
+    public User insert(User user) {
         user.setPasswordSalt(user.getPassword());
         return dao().insert(user);
     }
 
-    public int resetUserPwd(User user)
-    {
-        user =this.fetch(user.getId());
+    public int resetUserPwd(User user) {
+        user = this.fetch(user.getId());
         user.setPasswordSalt(user.getPassword());
         return dao().update(user);
     }
 
-    public int update(User data){
+    public int update(User data) {
         List<String> ids = new ArrayList<>();
         if (data != null && data.getRoleIds() != null) {
             if (Strings.isNotBlank(data.getRoleIds())) {
@@ -57,9 +57,9 @@ public class UserService extends Service<User> {
             this.fetchLinks(tmpData, "roles");
             dao().clearLinks(tmpData, "roles");
         }
-        if(ids!=null && ids.size()>0){
+        if (ids != null && ids.size() > 0) {
             Criteria cri = Cnd.cri();
-            cri.where().andInStrList("id" , ids);
+            cri.where().andInStrList("id", ids);
             List<Role> roleList = roleService.query(cri);
             data.setRoles(roleList);
         }
@@ -88,6 +88,7 @@ public class UserService extends Service<User> {
 
     /**
      * 获取用户权限
+     *
      * @param userId
      * @return
      */
@@ -95,11 +96,13 @@ public class UserService extends Service<User> {
         Set<String> permsSet = new HashSet<>();
         List<Menu> menuList = menuService.getMenuList(userId);
         menuList.forEach(menu -> {
-                    permsSet.add(menu.getPerms());
-                });
+            if (Strings.isNotBlank(menu.getPerms())) {
+                permsSet.add(menu.getPerms());
+            }
+
+        });
         return permsSet;
     }
-
 
 
 }

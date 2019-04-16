@@ -2,7 +2,7 @@ package io.nutz.nutzsite.module.sys.models;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import io.nutz.nutzsite.common.base.Model;
+import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
 
 import java.io.Serializable;
@@ -15,7 +15,7 @@ import java.util.Date;
  * @date 2019-04-10
  */
 @Table("sys_post")
-public class Post extends Model implements Serializable {
+public class Post extends BaseModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 		@Name
@@ -107,39 +107,47 @@ public class Post extends Model implements Serializable {
 	{
 		return status;
 	}
-	public void setCreateBy(String createBy) 
+	@Override
+    public void setCreateBy(String createBy)
 	{
 		this.createBy = createBy;
 	}
 
-	public String getCreateBy() 
+	@Override
+    public String getCreateBy()
 	{
 		return createBy;
 	}
-	public void setCreateTime(Date createTime) 
+	@Override
+    public void setCreateTime(Date createTime)
 	{
 		this.createTime = createTime;
 	}
 
-	public Date getCreateTime() 
+	@Override
+    public Date getCreateTime()
 	{
 		return createTime;
 	}
-	public void setUpdateBy(String updateBy) 
+	@Override
+    public void setUpdateBy(String updateBy)
 	{
 		this.updateBy = updateBy;
 	}
 
-	public String getUpdateBy() 
+	@Override
+    public String getUpdateBy()
 	{
 		return updateBy;
 	}
-	public void setUpdateTime(Date updateTime) 
+	@Override
+    public void setUpdateTime(Date updateTime)
 	{
 		this.updateTime = updateTime;
 	}
 
-	public Date getUpdateTime() 
+	@Override
+    public Date getUpdateTime()
 	{
 		return updateTime;
 	}
@@ -153,6 +161,7 @@ public class Post extends Model implements Serializable {
 		return remark;
 	}
 
+    @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())

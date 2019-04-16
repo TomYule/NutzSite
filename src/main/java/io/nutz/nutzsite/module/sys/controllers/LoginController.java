@@ -87,4 +87,10 @@ public class LoginController {
         }
     }
 
+    @At
+    @Ok("th:/error/unauth.html")
+    public void unauth() {
+
+    }
+
 }

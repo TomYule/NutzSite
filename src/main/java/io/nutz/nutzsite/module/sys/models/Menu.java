@@ -1,6 +1,6 @@
 package io.nutz.nutzsite.module.sys.models;
 
-import io.nutz.nutzsite.common.base.Model;
+import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
 
 import java.io.Serializable;
@@ -11,7 +11,7 @@ import java.util.List;
  * @author Hamming_Yu on 2018/12/29.
  */
 @Table("sys_menu")
-public class Menu extends Model implements Serializable {
+public class Menu extends BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column
