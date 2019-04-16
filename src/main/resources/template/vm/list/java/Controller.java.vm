@@ -32,7 +32,7 @@ public class ${className}Controller {
 	@Inject
 	private ${className}Service ${classname}Service;
 	
-	//@RequiresPermissions("${moduleName}:${classname}:view")
+	@RequiresPermissions("${moduleName}:${classname}:view")
 	@At("")
 	@Ok("th:/${moduleName}/${classname}/${classname}.html")
 	public void index(HttpServletRequest req) {
@@ -42,7 +42,7 @@ public class ${className}Controller {
 	/**
 	 * 查询${tableComment}列表
 	 */
-	//@RequiresPermissions("${moduleName}:${classname}:list")
+	@RequiresPermissions("${moduleName}:${classname}:list")
 	@At
 	@Ok("json")
 	public Object list(@Param("pageNum")int pageNum,
@@ -68,7 +68,7 @@ public class ${className}Controller {
 	/**
 	 * 新增保存${tableComment}
 	 */
-	//@RequiresPermissions("${moduleName}:${classname}:add")
+	@RequiresPermissions("${moduleName}:${classname}:add")
 	@At
 	@POST
 	@Ok("json")
@@ -94,7 +94,7 @@ public class ${className}Controller {
 	/**
 	 * 修改保存${tableComment}
 	 */
-	//@RequiresPermissions("${moduleName}:${classname}:edit")
+	@RequiresPermissions("${moduleName}:${classname}:edit")
 	@At
 	@POST
 	@Ok("json")
@@ -112,6 +112,7 @@ public class ${className}Controller {
 	 */
 	@At("/remove")
 	@Ok("json")
+	@RequiresPermissions("${moduleName}:${classname}:remove")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			${classname}Service.delete(ids);

@@ -7,6 +7,7 @@ import io.nutz.nutzsite.common.bean.Districts;
 import io.nutz.nutzsite.module.sys.models.Area;
 import io.nutz.nutzsite.module.sys.services.AreaService;
 import io.nutz.nutzsite.common.base.Result;;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -43,7 +44,7 @@ public class AreaController {
     @Inject
     private AreaService areaService;
 
-//    @RequiresPermissions("sys:area:view")
+    @RequiresPermissions("sys:area:view")
     @At("")
     @Ok("th:/sys/area/area.html")
     public void index(HttpServletRequest req) {
@@ -53,7 +54,7 @@ public class AreaController {
     /**
      * 查询区域列表
      */
-//    @RequiresPermissions("sys:area:list")
+    @RequiresPermissions("sys:area:list")
     @At
     @Ok("json")
     public Object list(@Param("name") String name, HttpServletRequest req) {
@@ -86,7 +87,7 @@ public class AreaController {
     /**
      * 新增保存区域
      */
-//    @RequiresPermissions("sys:area:add")
+    @RequiresPermissions("sys:area:add")
     @At
     @POST
     @Ok("json")
@@ -118,7 +119,7 @@ public class AreaController {
     /**
      * 修改保存区域
      */
-//    @RequiresPermissions("sys:area:edit")
+    @RequiresPermissions("sys:area:edit")
     @At
     @POST
     @Ok("json")
@@ -136,6 +137,7 @@ public class AreaController {
      */
     @At("/remove/?")
     @Ok("json")
+    @RequiresPermissions("sys:area:remove")
     public Object remove(String id, HttpServletRequest req) {
         try {
             areaService.delete(id);

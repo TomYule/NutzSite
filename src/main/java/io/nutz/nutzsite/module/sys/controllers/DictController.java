@@ -32,7 +32,7 @@ public class DictController {
 	@Inject
 	private DictService dictService;
 	
-//	@RequiresPermissions("sys:dict:view")
+	@RequiresPermissions("sys:dict:view")
 	@At("")
 	@Ok("th:/sys/dict/dict.html")
 	public void index(HttpServletRequest req) {
@@ -42,7 +42,7 @@ public class DictController {
 	/**
 	 * 查询字典列表
 	 */
-//	@RequiresPermissions("sys:dict:list")
+	@RequiresPermissions("sys:dict:list")
 	@At
 	@Ok("json")
 	public Object list(@Param("pageNum")int pageNum,
@@ -69,7 +69,7 @@ public class DictController {
 	/**
 	 * 新增保存字典
 	 */
-//	@RequiresPermissions("sys:dict:add")
+	@RequiresPermissions("sys:dict:add")
 	@At
 	@POST
 	@Ok("json")
@@ -95,7 +95,7 @@ public class DictController {
 	/**
 	 * 修改保存字典
 	 */
-//	@RequiresPermissions("sys:dict:edit")
+	@RequiresPermissions("sys:dict:edit")
 	@At
 	@POST
 	@Ok("json")
@@ -113,6 +113,7 @@ public class DictController {
 	 */
 	@At("/remove")
 	@Ok("json")
+	@RequiresPermissions("sys:dict:remove")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			dictService.vDelete(ids);

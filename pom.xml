@@ -63,6 +63,13 @@
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-thymeleaf</artifactId>
         </dependency>
+        <!-- thymeleaf模板引擎和shiro框架的整合 -->
+        <dependency>
+            <groupId>com.github.theborakompanioni</groupId>
+            <artifactId>thymeleaf-extras-shiro</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-swagger</artifactId>

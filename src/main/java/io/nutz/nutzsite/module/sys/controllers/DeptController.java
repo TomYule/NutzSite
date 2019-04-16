@@ -4,6 +4,7 @@ import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.module.sys.models.Dept;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.services.DeptService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -29,6 +30,7 @@ public class DeptController {
 
     @At("")
     @Ok("th:/sys/dept/dept.html")
+    @RequiresPermissions("sys:dept:view")
     public void index(HttpServletRequest req) {
 
     }
@@ -62,6 +64,7 @@ public class DeptController {
     @At
     @POST
     @Ok("json")
+    @RequiresPermissions("sys:dept:add")
     public Object addDo(@Param("..") Dept data, @Param("parentId") String parentId, HttpServletRequest req) {
         try {
             deptService.insert(data);
@@ -87,6 +90,7 @@ public class DeptController {
     @At
     @POST
     @Ok("json")
+    @RequiresPermissions("sys:dept:edit")
     public Object editDo(@Param("..") Dept data, HttpServletRequest req) {
         try {
             deptService.update(data);
@@ -98,6 +102,7 @@ public class DeptController {
 
     @At("/remove/?")
     @Ok("json")
+    @RequiresPermissions("sys:dept:remove")
     public Object remove(String id, HttpServletRequest req) {
         try {
             deptService.vDelete(id);

@@ -3,6 +3,7 @@ package io.nutz.nutzsite.module.sys.controllers;
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.services.RoleService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -26,6 +27,7 @@ public class RoleController {
 
     @At("")
     @Ok("th:/sys/role/role.html")
+    @RequiresPermissions("sys:role:view")
     public void index(HttpServletRequest req) {
 
     }
@@ -63,6 +65,7 @@ public class RoleController {
     @At
     @POST
     @Ok("json")
+    @RequiresPermissions("sys:role:add")
     public Object addDo(@Param("..") Role data,HttpServletRequest req) {
         try {
             roleService.insert(data);
@@ -75,6 +78,7 @@ public class RoleController {
     @At
     @POST
     @Ok("json")
+    @RequiresPermissions("sys:role:edit")
     public Object editDo(@Param("..") Role data, @Param("mIds")String[] menuids,HttpServletRequest req) {
         try {
             roleService.update(data);
@@ -86,6 +90,7 @@ public class RoleController {
 
     @At("/remove")
     @Ok("json")
+    @RequiresPermissions("sys:role:remove")
     public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
         try {
             roleService.delete(ids);

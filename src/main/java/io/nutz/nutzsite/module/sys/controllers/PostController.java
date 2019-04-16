@@ -32,7 +32,7 @@ public class PostController {
 	@Inject
 	private PostService postService;
 	
-//	@RequiresPermissions("sys:post:view")
+	@RequiresPermissions("sys:post:view")
 	@At("")
 	@Ok("th:/sys/post/post.html")
 	public void index(HttpServletRequest req) {
@@ -42,7 +42,7 @@ public class PostController {
 	/**
 	 * 查询岗位列表
 	 */
-//	@RequiresPermissions("sys:post:list")
+	@RequiresPermissions("sys:post:list")
 	@At
 	@Ok("json")
 	public Object list(@Param("pageNum")int pageNum,
@@ -68,7 +68,7 @@ public class PostController {
 	/**
 	 * 新增保存岗位
 	 */
-//	@RequiresPermissions("sys:post:add")
+	@RequiresPermissions("sys:post:add")
 	@At
 	@POST
 	@Ok("json")
@@ -94,7 +94,7 @@ public class PostController {
 	/**
 	 * 修改保存岗位
 	 */
-//	@RequiresPermissions("sys:post:edit")
+	@RequiresPermissions("sys:post:edit")
 	@At
 	@POST
 	@Ok("json")
@@ -112,6 +112,7 @@ public class PostController {
 	 */
 	@At("/remove")
 	@Ok("json")
+	@RequiresPermissions("sys:post:remove")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			postService.delete(ids);

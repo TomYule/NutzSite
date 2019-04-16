@@ -4,6 +4,7 @@ import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.services.MenuService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -30,6 +31,7 @@ public class MenuController {
 
     @At("")
     @Ok("th:/sys/menu/menu.html")
+    @RequiresPermissions("sys:menu:view")
     public void index(HttpServletRequest req) {
 
     }
@@ -70,6 +72,7 @@ public class MenuController {
     @At
     @POST
     @Ok("json")
+    @RequiresPermissions("sys:menu:add")
     public Object addDo(@Param("..") Menu menu, @Param("parentId") String parentId, HttpServletRequest req) {
         try {
             menuService.save(menu, parentId);
@@ -97,6 +100,7 @@ public class MenuController {
     @At
     @POST
     @Ok("json")
+    @RequiresPermissions("sys:menu:edit")
     public Object editDo(@Param("..") Menu menu, @Param("parentId") String parentId, HttpServletRequest req) {
         try {
             if (menu != null && Strings.isEmpty(menu.getParentId())) {
@@ -111,6 +115,7 @@ public class MenuController {
 
     @At("/remove/?")
     @Ok("json")
+    @RequiresPermissions("sys:menu:remove")
     public Object remove(String id, HttpServletRequest req) {
         try {
             menuService.delete(id);

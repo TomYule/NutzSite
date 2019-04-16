@@ -127,6 +127,7 @@ public class ${className}Controller {
 	 */
 	@At("/remove/?")
 	@Ok("json")
+	@RequiresPermissions("${moduleName}:${classname}:remove")
 	public Object remove(String id, HttpServletRequest req) {
 		try {
 			${classname}Service.delete(id);

@@ -65,19 +65,19 @@
 			</div>
 			
 	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
-	        	<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:user:add">
+	        	<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="sys:user:add">
 	                <i class="fa fa-plus"></i> 新增
 	            </a>
-	             <a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:user:edit">
+	             <a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="sys:user:edit">
 		            <i class="fa fa-edit"></i> 修改
 		        </a>
-	            <a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:user:remove">
+	            <a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="sys:user:remove">
 	                <i class="fa fa-remove"></i> 删除
 	            </a>
-	            <a class="btn btn-info" onclick="$.table.importExcel()" shiro:hasPermission="system:user:import">
+	            <a class="btn btn-info" onclick="$.table.importExcel()" shiro:hasPermission="sys:user:import">
 		            <i class="fa fa-download"></i> 导入
 		        </a>
-	            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:user:export">
+	            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="sys:user:export">
 		            <i class="fa fa-download"></i> 导出
 		        </a>
 	        </div>

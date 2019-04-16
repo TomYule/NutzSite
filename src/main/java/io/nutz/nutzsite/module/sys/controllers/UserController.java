@@ -78,7 +78,7 @@ public class UserController {
 	/**
 	 * 新增保存用户
 	 */
-//	@RequiresPermissions("sys:user:add")
+	@RequiresPermissions("sys:user:add")
 	@At
 	@POST
 	@Ok("json")
@@ -96,7 +96,6 @@ public class UserController {
 	 */
 	@At("/edit/?")
 	@Ok("th://sys/user/edit.html")
-	@RequiresPermissions("sys:user:edit")
 	public void edit(String id, HttpServletRequest req) {
 		User user = userService.fetch(id);
 		userService.fetchLinks(user,"dept|roles");
@@ -132,6 +131,7 @@ public class UserController {
 	 */
 	@At("/remove")
 	@Ok("json")
+	@RequiresPermissions("sys:user:remove")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			userService.delete(ids);
@@ -151,6 +151,7 @@ public class UserController {
 	@At
 	@POST
 	@Ok("json")
+	@RequiresPermissions("sys:user:resetPwd")
 	public Object resetPwd(@Param("..") User user,HttpServletRequest req) {
 		try {
 			userService.resetUserPwd(user);
