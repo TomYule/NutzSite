@@ -14,7 +14,6 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ThreadContext;
-import org.nutz.dao.Chain;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
@@ -32,7 +31,7 @@ public class LoginController {
 
 
     @GET
-    @At({"","/login"})
+    @At("")
     @Ok("th:/login.html")
     public void loginPage() {
 
@@ -80,7 +79,7 @@ public class LoginController {
     }
 
     @At
-    @Ok("th:/login.html")
+    @Ok(">>:/login")
     public void logout() {
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {

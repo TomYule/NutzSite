@@ -38,7 +38,7 @@ public class UserController {
 	@Inject
 	private RoleService roleService;
 	
-	@RequiresPermissions("sys:user:view")
+//	@RequiresPermissions("sys:user:view")
 	@At("")
 	@Ok("th:/sys/user/user.html")
 	public void index(HttpServletRequest req) {
@@ -48,7 +48,7 @@ public class UserController {
 	/**
 	 * 查询用户列表
 	 */
-	@RequiresPermissions("sys:user:list")
+//	@RequiresPermissions("sys:user:list")
 	@At
 	@Ok("json")
 	public Object list(@Param("pageNum")int pageNum,
@@ -80,7 +80,7 @@ public class UserController {
 	/**
 	 * 新增保存用户
 	 */
-	@RequiresPermissions("sys:user:add")
+//	@RequiresPermissions("sys:user:add")
 	@At
 	@POST
 	@Ok("json")
@@ -115,7 +115,7 @@ public class UserController {
 	/**
 	 * 修改保存用户
 	 */
-	@RequiresPermissions("sys:user:edit")
+//	@RequiresPermissions("sys:user:edit")
 	@At
 	@POST
 	@Ok("json")

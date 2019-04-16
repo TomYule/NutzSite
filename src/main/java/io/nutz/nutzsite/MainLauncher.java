@@ -7,7 +7,6 @@ import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.MenuService;
 import org.nutz.boot.NbApp;
 import org.nutz.conf.NutConf;
-import org.nutz.dao.Cnd;
 import org.nutz.ioc.impl.PropertiesProxy;
 import org.nutz.ioc.loader.annotation.*;
 import org.nutz.lang.Lang;
@@ -26,7 +25,7 @@ public class MainLauncher {
     @Inject
     private MenuService menuService;
 
-    @At({"/", "/index"})
+    @At
     @Ok("re")
     public String index( HttpServletRequest req) {
         User user = ShiroUtils.getSysUser();

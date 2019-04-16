@@ -1,8 +1,8 @@
-package ${package}.controller;
+package io.nutz.nutzsite.module.sys.controllers;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import ${package}.models.${className};
-import ${package}.services.${className}Service;
+import io.nutz.nutzsite.module.sys.models.Dict;
+import io.nutz.nutzsite.module.sys.services.DictService;
 import io.nutz.nutzsite.common.base.Result;;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -19,30 +19,30 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * ${tableComment} 信息操作处理
+ * 字典 信息操作处理
  * 
- * @author ${author}
- * @date ${datetime}
+ * @author haiming
+ * @date 2019-04-16
  */
 @IocBean
-@At("/${moduleName}/${classname}")
-public class ${className}Controller {
+@At("/sys/dict")
+public class DictController {
 	private static final Log log = Logs.get();
 
 	@Inject
-	private ${className}Service ${classname}Service;
+	private DictService dictService;
 	
-	//@RequiresPermissions("${moduleName}:${classname}:view")
+//	@RequiresPermissions("sys:dict:view")
 	@At("")
-	@Ok("th:/${moduleName}/${classname}/${classname}.html")
+	@Ok("th:/sys/dict/dict.html")
 	public void index(HttpServletRequest req) {
 
 	}
 
 	/**
-	 * 查询${tableComment}列表
+	 * 查询字典列表
 	 */
-	//@RequiresPermissions("${moduleName}:${classname}:list")
+//	@RequiresPermissions("sys:dict:list")
 	@At
 	@Ok("json")
 	public Object list(@Param("pageNum")int pageNum,
@@ -53,28 +53,29 @@ public class ${className}Controller {
 		if (!Strings.isBlank(name)){
 			//cnd.and("name", "like", "%" + name +"%");
 		}
-		return ${classname}Service.tableList(pageNum,pageSize,cnd);
+        cnd.and("del_flag","=",false);
+		return dictService.tableList(pageNum,pageSize,cnd);
 	}
 
 	/**
-	 * 新增${tableComment}
+	 * 新增字典
 	 */
 	@At("/add")
-	@Ok("th:/${moduleName}/${classname}/add.html")
+	@Ok("th:/sys/dict/add.html")
 	public void add( HttpServletRequest req) {
 
 	}
 
 	/**
-	 * 新增保存${tableComment}
+	 * 新增保存字典
 	 */
-	//@RequiresPermissions("${moduleName}:${classname}:add")
+//	@RequiresPermissions("sys:dict:add")
 	@At
 	@POST
 	@Ok("json")
-	public Object addDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
+	public Object addDo(@Param("..") Dict dict,HttpServletRequest req) {
 		try {
-			${classname}Service.insert(${classname});
+			dictService.insert(dict);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");
@@ -82,25 +83,25 @@ public class ${className}Controller {
 	}
 
 	/**
-	 * 修改${tableComment}
+	 * 修改字典
 	 */
 	@At("/edit/?")
-	@Ok("th://${moduleName}/${classname}/edit.html")
+	@Ok("th://sys/dict/edit.html")
 	public void edit(String id, HttpServletRequest req) {
-		${className} ${classname} = ${classname}Service.fetch(id);
-		req.setAttribute("${classname}",${classname});
+		Dict dict = dictService.fetch(id);
+		req.setAttribute("dict",dict);
 	}
 
 	/**
-	 * 修改保存${tableComment}
+	 * 修改保存字典
 	 */
-	//@RequiresPermissions("${moduleName}:${classname}:edit")
+//	@RequiresPermissions("sys:dict:edit")
 	@At
 	@POST
 	@Ok("json")
-	public Object editDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
+	public Object editDo(@Param("..") Dict dict,HttpServletRequest req) {
 		try {
-			${classname}Service.update(${classname});
+			dictService.update(dict);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");
@@ -108,13 +109,13 @@ public class ${className}Controller {
 	}
 
 	/**
-	 * 删除${tableComment}
+	 * 删除字典
 	 */
 	@At("/remove")
 	@Ok("json")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
-			${classname}Service.delete(ids);
+			dictService.delete(ids);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");
