@@ -6,7 +6,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
-        <nutzboot.version>2.3.3.v20190329</nutzboot.version>
+        <nutzboot.version>2.3.4.v20190410</nutzboot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencyManagement>
