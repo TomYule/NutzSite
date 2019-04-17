@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.base.Result;
+import io.nutz.nutzsite.common.utils.GenUtils;
 import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.services.RoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -38,6 +39,8 @@ public class RoleController {
                        @Param("pageSize")int pageSize,
                        @Param("dictName") String dictName,
                        @Param("dictType") String dictType,
+                       @Param("orderByColumn") String orderByColumn,
+                       @Param("isAsc") String isAsc,
                        HttpServletRequest req) {
         Cnd cnd = Cnd.NEW();
 /*        if (!Strings.isBlank(dictName)){
@@ -46,6 +49,9 @@ public class RoleController {
         if (!Strings.isBlank(dictType)){
             cnd.and("dict_type", "=", dictType);
         }*/
+        if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
+            cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
+        }
         return roleService.tableList(pageNum,pageSize,cnd);
     }
 

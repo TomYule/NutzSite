@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.utils.GenUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.sys.models.Dict;
 import io.nutz.nutzsite.module.sys.services.DictService;
@@ -49,12 +50,17 @@ public class DictController {
 	public Object list(@Param("pageNum")int pageNum,
 					   @Param("pageSize")int pageSize,
 					   @Param("name") String name,
+					   @Param("orderByColumn") String orderByColumn,
+					   @Param("isAsc") String isAsc,
 					   HttpServletRequest req) {
 		Cnd cnd = Cnd.NEW();
 		if (!Strings.isBlank(name)){
 			//cnd.and("name", "like", "%" + name +"%");
 		}
         cnd.and("del_flag","=",false);
+		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
+			cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
+		}
 		return dictService.tableList(pageNum,pageSize,cnd);
 	}
 

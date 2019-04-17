@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.utils.GenUtils;
 import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.services.RoleService;
 import io.nutz.nutzsite.module.sys.models.User;
@@ -53,6 +54,8 @@ public class UserController {
 					   @Param("pageSize")int pageSize,
 					   @Param("deptId") String deptId,
 					   @Param("name") String name,
+					   @Param("orderByColumn") String orderByColumn,
+					   @Param("isAsc") String isAsc,
 					   HttpServletRequest req) {
 		Cnd cnd = Cnd.NEW();
 		if (!Strings.isBlank(name)){
@@ -61,6 +64,9 @@ public class UserController {
 		if (!Strings.isBlank(deptId)){
 			cnd.where().andInBySql("dept_id","SELECT id FROM sys_dept  WHERE FIND_IN_SET ('%s',ancestors)", deptId)
 					.or("dept_id","=", deptId);
+		}
+		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
+			cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
 		}
 		return userService.tableList(pageNum,pageSize,cnd);
 	}
