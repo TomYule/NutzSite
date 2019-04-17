@@ -9,15 +9,16 @@ import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
 import org.nutz.dao.entity.Entity;
 import org.nutz.dao.sql.Sql;
+import org.nutz.dao.sql.SqlCallback;
 import org.nutz.ioc.aop.Aop;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 /**
  * @author Hamming_Yu on 2019/1/1.
@@ -32,6 +33,7 @@ public class MenuService extends Service<Menu> {
     RoleService roleService;
     @Inject
     private MenuService menuService;
+
     /**
      * 新增菜单
      *
@@ -101,11 +103,11 @@ public class MenuService extends Service<Menu> {
     public List<Map<String, Object>> roleMenuTreeData(String roleId) {
         List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
         Role role = roleService.fetch(roleId);
-        role = roleService.fetchLinks(role,"menus");
-        List<String> roleMenuList =new ArrayList<>();
-        if(role.getMenus()!=null && role.getMenus().size()>0){
+        role = roleService.fetchLinks(role, "menus");
+        List<String> roleMenuList = new ArrayList<>();
+        if (role.getMenus() != null && role.getMenus().size() > 0) {
             role.getMenus().forEach(menu -> {
-                roleMenuList.add(menu.getId()+ menu.getPerms());
+                roleMenuList.add(menu.getId() + menu.getPerms());
             });
         }
 
@@ -120,6 +122,7 @@ public class MenuService extends Service<Menu> {
 
     /**
      * 查询用户菜单
+     *
      * @param userId 用户id
      * @return 菜单
      */
@@ -138,6 +141,24 @@ public class MenuService extends Service<Menu> {
         sql.setEntity(entity);
         dao().execute(sql);
         return sql.getList(Menu.class);
+    }
+
+    /**
+     * 查询用户权限
+     *
+     * @param userId
+     * @return
+     */
+    public List<String> getPermsByUserId(String userId) {
+        String sqlstr = " select distinct m.perms from sys_menu m " +
+                " left join sys_role_menu rm on m.id = rm.menu_id " +
+                " left join sys_user_role ur on rm.role_id = ur.role_id " +
+                " where ur.user_id = @userId";
+        Sql sql = Sqls.create(sqlstr);
+        sql.params().set("userId", userId);
+        sql.setCallback(Sqls.callback.strList());
+        dao().execute(sql);
+        return sql.getList(String.class);
     }
 
 }

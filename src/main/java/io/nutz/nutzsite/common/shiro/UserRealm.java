@@ -50,7 +50,7 @@ public class UserRealm extends AbstractSimpleAuthorizingRealm {
         // 角色列表
         Set<String> roles =userService.getRoleCodeList(user);
         // 功能列表
-        Set<String> menus = userService.getMenuPermsList(user.getId());
+        Set<String> menus = userService.getPermsByUserId(user.getId());
 
         SimpleAuthorizationInfo auth = new SimpleAuthorizationInfo();
 		auth.setRoles(roles);

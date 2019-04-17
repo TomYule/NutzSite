@@ -92,12 +92,12 @@ public class UserService extends Service<User> {
      * @param userId
      * @return
      */
-    public Set<String> getMenuPermsList(String userId) {
+    public Set<String> getPermsByUserId(String userId) {
         Set<String> permsSet = new HashSet<>();
-        List<Menu> menuList = menuService.getMenuList(userId);
+        List<String> menuList = menuService.getPermsByUserId(userId);
         menuList.forEach(menu -> {
-            if (Strings.isNotBlank(menu.getPerms())) {
-                permsSet.add(menu.getPerms());
+            if (Strings.isNotBlank(menu)) {
+                permsSet.add(menu);
             }
 
         });

@@ -1,101 +1,102 @@
 <!DOCTYPE HTML>
-<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-dict-edit" >
-            <input id="id" name="id"th:value="${dict.id}"  type="hidden">
-					<div class="form-group">
-					<label class="col-sm-3 control-label">数据值：</label>
-					<div class="col-sm-8">
-						<input id="value" name="value"th:value="${dict.value}" class="form-control" type="text">
-					</div>
-				</div>
-							<div class="form-group">
-					<label class="col-sm-3 control-label">标签名：</label>
-					<div class="col-sm-8">
-						<input id="label" name="label"th:value="${dict.label}" class="form-control" type="text">
-					</div>
-				</div>
-							<div class="form-group">
-					<label class="col-sm-3 control-label">类型：</label>
-					<div class="col-sm-8">
-						<input id="type" name="type"th:value="${dict.type}" class="form-control" type="text">
-					</div>
-				</div>
-							<div class="form-group">
-					<label class="col-sm-3 control-label">描述：</label>
-					<div class="col-sm-8">
-						<input id="description" name="description"th:value="${dict.description}" class="form-control" type="text">
-					</div>
-				</div>
-							<div class="form-group">
-					<label class="col-sm-3 control-label">排序（升序）：</label>
-					<div class="col-sm-8">
-						<input id="sort" name="sort"th:value="${dict.sort}" class="form-control" type="text">
-					</div>
-				</div>
-							<div class="form-group">
-					<label class="col-sm-3 control-label">父级编号：</label>
-					<div class="col-sm-8">
-						<input id="parentId" name="parentId"th:value="${dict.parentId}" class="form-control" type="text">
-					</div>
-				</div>
-							<div class="form-group">
-					<label class="col-sm-3 control-label">创建者：</label>
-					<div class="col-sm-8">
-						<input id="createBy" name="createBy"th:value="${dict.createBy}" class="form-control" type="text">
-					</div>
-				</div>
-							<div class="form-group">
-					<label class="col-sm-3 control-label">创建时间：</label>
-					<div class="col-sm-8">
-						<input id="createDate" name="createDate"th:value="${dict.createDate}" class="form-control" type="text">
-					</div>
-				</div>
-							<div class="form-group">
-					<label class="col-sm-3 control-label">更新者：</label>
-					<div class="col-sm-8">
-						<input id="updateBy" name="updateBy"th:value="${dict.updateBy}" class="form-control" type="text">
-					</div>
-				</div>
-							<div class="form-group">
-					<label class="col-sm-3 control-label">更新时间：</label>
-					<div class="col-sm-8">
-						<input id="updateDate" name="updateDate"th:value="${dict.updateDate}" class="form-control" type="text">
-					</div>
-				</div>
-							<div class="form-group">
-					<label class="col-sm-3 control-label">备注信息：</label>
-					<div class="col-sm-8">
-						<input id="remarks" name="remarks"th:value="${dict.remarks}" class="form-control" type="text">
-					</div>
-				</div>
-							<div class="form-group">
-					<label class="col-sm-3 control-label">删除标记：</label>
-					<div class="col-sm-8">
-						<input id="delFlag" name="delFlag"th:value="${dict.delFlag}" class="form-control" type="text">
-					</div>
-				</div>
-				</form>
-    </div>
-    <div th:include="include::footer"></div>
-    <script type="text/javascript">
-		var prefix = ctx + "sys/dict";
-		$("#form-dict-edit").validate({
-			rules:{
-				xxxx:{
-					required:true,
-				},
-			}
-		});
-		
-		function submitHandler() {
-	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/editDo", $('#form-dict-edit').serialize());
-	        }
-	    }
-	</script>
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-dict-edit">
+        <input id="id" name="id" th:value="${dict.id}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">数据值：</label>
+            <div class="col-sm-8">
+                <input id="value" name="value" th:value="${dict.value}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">标签：</label>
+            <div class="col-sm-8">
+                <input id="label" name="label" th:value="${dict.label}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">类型：</label>
+            <div class="col-sm-8">
+                <input id="type" name="type" th:value="${dict.type}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">描述：</label>
+            <div class="col-sm-8">
+                <input id="description" name="description" th:value="${dict.description}" class="form-control"
+                       type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">排序：</label>
+            <div class="col-sm-8">
+                <input id="sort" name="sort" th:value="${dict.sort}" class="form-control" type="text">
+            </div>
+        </div>
+        <!--<div class="form-group">
+            <label class="col-sm-3 control-label">父级编号：</label>
+            <div class="col-sm-8">
+                <input id="parentId" name="parentId" th:value="${dict.parentId}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">创建者：</label>
+            <div class="col-sm-8">
+                <input id="createBy" name="createBy" th:value="${dict.createBy}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">创建时间：</label>
+            <div class="col-sm-8">
+                <input id="createDate" name="createDate" th:value="${dict.createDate}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">更新者：</label>
+            <div class="col-sm-8">
+                <input id="updateBy" name="updateBy" th:value="${dict.updateBy}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">更新时间：</label>
+            <div class="col-sm-8">
+                <input id="updateDate" name="updateDate" th:value="${dict.updateDate}" class="form-control" type="text">
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-sm-3 control-label">备注信息：</label>
+            <div class="col-sm-8">
+                <input id="remarks" name="remarks" th:value="${dict.remarks}" class="form-control" type="text">
+            </div>
+        </div>
+<!--        <div class="form-group">
+            <label class="col-sm-3 control-label">删除标记：</label>
+            <div class="col-sm-8">
+                <input id="delFlag" name="delFlag" th:value="${dict.delFlag}" class="form-control" type="text">
+            </div>
+        </div>-->
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    var prefix = ctx + "sys/dict";
+    $("#form-dict-edit").validate({
+        rules: {
+            xxxx: {
+                required: true,
+            },
+        }
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/editDo", $('#form-dict-edit').serialize());
+        }
+    }
+</script>
 </body>
 </html>
