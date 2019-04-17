@@ -1,6 +1,11 @@
 package io.nutz.nutzsite.common.base;
 
+import io.nutz.nutzsite.common.utils.ShiroUtils;
+import io.nutz.nutzsite.module.sys.models.User;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.nutz.dao.entity.annotation.*;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.lang.random.R;
 import org.nutz.mvc.Mvcs;
@@ -15,83 +20,43 @@ import java.util.Date;
 public abstract class BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Prev(els=@EL("$me.createTime()"))
+    @Column("create_by")
+    @Comment("创建者")
+    @Prev(els = @EL("$me.uid()"))
+    @ColDefine(type = ColType.VARCHAR, width = 32)
+    private String createBy;
+
     @Column("create_time")
+    @Prev(els = {@EL("$me.now()")})
     protected Date createTime;
+
+    @Column("update_by")
+    @Comment("更新者")
+    @Prev(els = @EL("$me.uid()"))
+    @ColDefine(type = ColType.VARCHAR, width = 32)
+    private String updateBy;
 
     @Prev(els=@EL("$me.now()"))
     @Column("update_time")
     protected Date updateTime;
 
-    @Column("create_by")
-    @Comment("创建者")
-    @Prev(els = @EL("$me.createBy()"))
-    @ColDefine(type = ColType.VARCHAR, width = 32)
-    private String createBy;
-
-    @Column("update_by")
-    @Comment("更新者")
-    @Prev(els = @EL("$me.updateBy()"))
-    @ColDefine(type = ColType.VARCHAR, width = 32)
-    private String updateBy;
-
-//    @Column("del_flag")
-//    @Comment("删除标记")
-//    @Prev(els = @EL("$me.flag()"))
-//    @ColDefine(type = ColType.BOOLEAN)
-//    private Boolean delFlag;
-
     public String uuid() {
         return R.UU32().toLowerCase();
     }
 
-    public Date createTime() {
-        if(getCreateTime()!=null){
-            return getCreateTime();
+    public String uid() {
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            User user = (User) subject.getPrincipal();
+            return user == null ? "" : user.getId();
+        } catch (Exception e) {
+            return "";
         }
-        return new Date();
     }
+
     public Date now() {
         return new Date();
     }
-
-    public String createBy() {
-        String uid = getCreateBy();
-        if (Strings.isNotBlank(uid)) {
-            return uid;
-        }
-        try {
-            HttpServletRequest request = Mvcs.getReq();
-            if (request != null) {
-                return Strings.sNull(request.getSession(true).getAttribute("platform_uid"));
-            }
-        } catch (Exception e) {
-        }
-        return "";
-    }
-
-
-
-    public String updateBy() {
-        try {
-            HttpServletRequest request = Mvcs.getReq();
-            if (request != null) {
-                return Strings.sNull(request.getSession(true).getAttribute("platform_uid"));
-            }
-        } catch (Exception e) {
-        }
-        return "";
-    }
-
-
-    /**
-     * 初始化删除
-     * @return
-     */
-    public Boolean flag() {
-        return false;
-    }
-
 
     public Date getCreateTime() {
         return createTime;
@@ -125,11 +90,4 @@ public abstract class BaseModel implements Serializable {
         this.updateBy = updateBy;
     }
 
-//    public Boolean getDelFlag() {
-//        return delFlag;
-//    }
-//
-//    public void setDelFlag(Boolean delFlag) {
-//        this.delFlag = delFlag;
-//    }
 }

@@ -54,6 +54,7 @@ public class LoginController {
             User user = (User) subject.getPrincipal();
 //            int count = user.getLoginCount() == null ? 0 : user.getLoginCount();
 //            userService.update(Chain.make("loginIp", user.getLoginIp()));
+//            session.setAttribute("uid",  user.getId());
             return Result.success("login.success");
         } catch (IncorrectCaptchaException e) {
             //自定义的验证码错误异常

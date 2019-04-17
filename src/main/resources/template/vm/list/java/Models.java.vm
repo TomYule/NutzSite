@@ -1,11 +1,17 @@
 package ${package}.models;
 
-import org.nutz.dao.entity.annotation.*;
+import io.nutz.nutzsite.common.base.BaseModel;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
+import org.nutz.dao.entity.annotation.*;
+import java.io.Serializable;
 #foreach ($column in $columns)
-#if($column.attrType == 'Date')
-    #break
-#end
+	#if($column.attrType == 'Date')
+	import java.util.Date;
+		#break
+		#break
+	#end
 #end
 
 /**
@@ -32,6 +38,7 @@ public class ${className} extends BaseModel implements Serializable {
 	@Column("${column.columnName}")
 	@Comment("$column.columnComment ")
 	private $column.attrType $column.attrname;
+
 	#end
 #end
 
@@ -45,6 +52,7 @@ public class ${className} extends BaseModel implements Serializable {
 	{
 		return $column.attrname;
 	}
+
 #end
 
     public String toString() {

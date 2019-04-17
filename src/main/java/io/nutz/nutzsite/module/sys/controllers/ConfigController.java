@@ -1,8 +1,8 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import io.nutz.nutzsite.module.sys.models.Dict;
-import io.nutz.nutzsite.module.sys.services.DictService;
+import io.nutz.nutzsite.module.sys.models.Config;
+import io.nutz.nutzsite.module.sys.services.ConfigService;
 import io.nutz.nutzsite.common.base.Result;;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -16,34 +16,33 @@ import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.List;
 
 /**
- * 字典 信息操作处理
+ * 系统参数 信息操作处理
  * 
  * @author haiming
- * @date 2019-04-16
+ * @date 2019-04-17
  */
 @IocBean
-@At("/sys/dict")
-public class DictController {
+@At("/sys/config")
+public class ConfigController {
 	private static final Log log = Logs.get();
 
 	@Inject
-	private DictService dictService;
+	private ConfigService configService;
 	
-	@RequiresPermissions("sys:dict:view")
+	@RequiresPermissions("sys:config:view")
 	@At("")
-	@Ok("th:/sys/dict/dict.html")
+	@Ok("th:/sys/config/config.html")
 	public void index(HttpServletRequest req) {
 
 	}
 
 	/**
-	 * 查询字典列表
+	 * 查询系统参数列表
 	 */
-	@RequiresPermissions("sys:dict:list")
+	@RequiresPermissions("sys:config:list")
 	@At
 	@Ok("json")
 	public Object list(@Param("pageNum")int pageNum,
@@ -54,29 +53,28 @@ public class DictController {
 		if (!Strings.isBlank(name)){
 			//cnd.and("name", "like", "%" + name +"%");
 		}
-        cnd.and("del_flag","=",false);
-		return dictService.tableList(pageNum,pageSize,cnd);
+		return configService.tableList(pageNum,pageSize,cnd);
 	}
 
 	/**
-	 * 新增字典
+	 * 新增系统参数
 	 */
 	@At("/add")
-	@Ok("th:/sys/dict/add.html")
+	@Ok("th:/sys/config/add.html")
 	public void add( HttpServletRequest req) {
 
 	}
 
 	/**
-	 * 新增保存字典
+	 * 新增保存系统参数
 	 */
-	@RequiresPermissions("sys:dict:add")
+	@RequiresPermissions("sys:config:add")
 	@At
 	@POST
 	@Ok("json")
-	public Object addDo(@Param("..") Dict dict,HttpServletRequest req) {
+	public Object addDo(@Param("..") Config config,HttpServletRequest req) {
 		try {
-			dictService.insert(dict);
+			configService.insert(config);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");
@@ -84,26 +82,25 @@ public class DictController {
 	}
 
 	/**
-	 * 修改字典
+	 * 修改系统参数
 	 */
 	@At("/edit/?")
-	@Ok("th://sys/dict/edit.html")
+	@Ok("th://sys/config/edit.html")
 	public void edit(String id, HttpServletRequest req) {
-		Dict dict = dictService.fetch(id);
-		req.setAttribute("dict",dict);
+		Config config = configService.fetch(id);
+		req.setAttribute("config",config);
 	}
 
 	/**
-	 * 修改保存字典
+	 * 修改保存系统参数
 	 */
-	@RequiresPermissions("sys:dict:edit")
+	@RequiresPermissions("sys:config:edit")
 	@At
 	@POST
 	@Ok("json")
-	public Object editDo(@Param("..") Dict dict,HttpServletRequest req) {
+	public Object editDo(@Param("..") Config config,HttpServletRequest req) {
 		try {
-			dict.setUpdateTime(new Date());
-			dictService.update(dict);
+			configService.update(config);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");
@@ -111,14 +108,14 @@ public class DictController {
 	}
 
 	/**
-	 * 删除字典
+	 * 删除系统参数
 	 */
 	@At("/remove")
 	@Ok("json")
-	@RequiresPermissions("sys:dict:remove")
+	@RequiresPermissions("sys:config:remove")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
-			dictService.vDelete(ids);
+			configService.delete(ids);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");

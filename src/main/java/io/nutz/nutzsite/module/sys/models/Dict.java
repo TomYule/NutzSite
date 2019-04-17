@@ -67,25 +67,28 @@ public class Dict extends BaseModel implements Serializable {
      */
     @Column("create_by")
     @Comment("创建者 ")
+    @Prev(els = @EL("cBy()"))
     private String createBy;
     /**
      * 创建时间
      */
-    @Column("create_date")
+    @Column("create_time")
     @Comment("创建时间 ")
-    private Date createDate;
+    private Date createTime;
     /**
      * 更新者
      */
     @Column("update_by")
     @Comment("更新者 ")
+    @Prev(els = @EL("upBy()"))
     private String updateBy;
     /**
      * 更新时间
      */
-    @Column("update_date")
+    @Column("update_time")
     @Comment("更新时间 ")
-    private Date updateDate;
+    private Date updateTime;
+
     /**
      * 备注信息
      */
@@ -97,7 +100,7 @@ public class Dict extends BaseModel implements Serializable {
      */
     @Column("del_flag")
     @Comment("删除标记 ")
-    private String delFlag;
+    private boolean delFlag;
 
     public void setId(String id) {
         this.id = id;
@@ -155,42 +158,6 @@ public class Dict extends BaseModel implements Serializable {
         return parentId;
     }
 
-    @Override
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    @Override
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    @Override
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    @Override
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
@@ -199,12 +166,52 @@ public class Dict extends BaseModel implements Serializable {
         return remarks;
     }
 
-    public void setDelFlag(String delFlag) {
+    public boolean isDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(boolean delFlag) {
         this.delFlag = delFlag;
     }
 
-    public String getDelFlag() {
-        return delFlag;
+    @Override
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    @Override
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    @Override
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    @Override
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    @Override
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    @Override
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    @Override
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override
@@ -218,11 +225,7 @@ public class Dict extends BaseModel implements Serializable {
                 .append("sort", getSort())
                 .append("parentId", getParentId())
                 .append("createBy", getCreateBy())
-                .append("createDate", getCreateDate())
-                .append("updateBy", getUpdateBy())
-                .append("updateDate", getUpdateDate())
                 .append("remarks", getRemarks())
-                .append("delFlag", getDelFlag())
                 .toString();
     }
 }
