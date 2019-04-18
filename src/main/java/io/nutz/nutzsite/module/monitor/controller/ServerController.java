@@ -9,6 +9,7 @@ import org.nutz.mvc.annotation.Ok;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 服务器监控
  * @Author: Haimming
  * @Date: 2019-04-18 16:12
  * @Version 1.0
@@ -17,9 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 @At("/monitor/server")
 public class ServerController {
 
-    @RequiresPermissions("monitor:server:view")
     @At("")
     @Ok("th:/monitor/server/server.html")
+    @RequiresPermissions("monitor:server:view")
     public void index(HttpServletRequest req) {
         Server server = new Server();
         try {
@@ -29,4 +30,5 @@ public class ServerController {
         }
         req.setAttribute("server",server);
     }
+
 }
