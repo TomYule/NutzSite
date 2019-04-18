@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * @author Hamming_Yu on 2018/12/18.
  */
-@IocBean
+//@IocBean
 public class SitemeshFilterStarter extends ConfigurableSiteMeshFilter implements WebFilterFace {
     @Inject("refer:$ioc")
     protected Ioc ioc;

@@ -3,6 +3,8 @@ package io.nutz.nutzsite.module.sys.controllers;
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.exception.EmptyCaptchaException;
 import io.nutz.nutzsite.common.exception.IncorrectCaptchaException;
+import io.nutz.nutzsite.common.manager.AsyncManager;
+import io.nutz.nutzsite.common.manager.factory.AsyncFactory;
 import io.nutz.nutzsite.common.shiro.filter.AuthenticationFilter;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.UserService;
@@ -28,6 +30,8 @@ public class LoginController {
 
     @Inject
     private UserService userService;
+    @Inject
+    private AsyncFactory asyncFactory;
 
 
     @GET
@@ -52,9 +56,8 @@ public class LoginController {
             ThreadContext.bind(subject);
             subject.login(token);
             User user = (User) subject.getPrincipal();
-//            int count = user.getLoginCount() == null ? 0 : user.getLoginCount();
-//            userService.update(Chain.make("loginIp", user.getLoginIp()));
-//            session.setAttribute("uid",  user.getId());
+            AsyncManager.me().execute(asyncFactory.recordLogininfor(user.getLoginName(), true,"user.login.success"));
+            userService.recordLoginInfo(user);
             return Result.success("login.success");
         } catch (IncorrectCaptchaException e) {
             //自定义的验证码错误异常

@@ -181,7 +181,7 @@ public class GenUtils
 
         if (template.contains("Service.java.vm"))
         {
-            return javaPath + "service" + "/" + className + "Service.java";
+            return javaPath + "services" + "/" + className + "Service.java";
         }
 
         if (template.contains("Controller.java.vm"))

@@ -1,4 +1,4 @@
-package ${package}.service;
+package ${package}.services;
 
 import io.nutz.nutzsite.common.base.Service;
 import org.nutz.dao.Dao;

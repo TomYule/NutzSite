@@ -1,6 +1,8 @@
 package io.nutz.nutzsite.module.sys.services;
 
 import io.nutz.nutzsite.common.base.Service;
+import io.nutz.nutzsite.common.utils.DateUtils;
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.models.Role;
 import org.apache.shiro.crypto.RandomNumberGenerator;
@@ -104,5 +106,13 @@ public class UserService extends Service<User> {
         return permsSet;
     }
 
+    /**
+     * 记录登录信息
+     */
+    public void recordLoginInfo(User user) {
+        user.setLoginIp(ShiroUtils.getIp());
+        user.setLoginDate(DateUtils.getNowDate());
+        dao().updateIgnoreNull(user);
+    }
 
 }
