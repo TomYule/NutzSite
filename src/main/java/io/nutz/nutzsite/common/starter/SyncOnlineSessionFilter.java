@@ -14,6 +14,7 @@ import javax.servlet.Filter;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -21,7 +22,7 @@ import java.util.Map;
  *
  * @author haimming
  */
-//@IocBean
+@IocBean(name = "syncOnlineSession")
 public class SyncOnlineSessionFilter extends PathMatchingFilter implements WebFilterFace {
     @Inject("refer:$ioc")
     protected Ioc ioc;
@@ -51,10 +52,6 @@ public class SyncOnlineSessionFilter extends PathMatchingFilter implements WebFi
                 DispatcherType.ASYNC,
                 DispatcherType.ERROR);
     }
-    @IocBean(name="syncOnlineSession")
-    public SyncOnlineSessionFilter createNutFilter() {
-        return new SyncOnlineSessionFilter();
-    }
 
     @Override
     public Filter getFilter() {
@@ -63,7 +60,7 @@ public class SyncOnlineSessionFilter extends PathMatchingFilter implements WebFi
 
     @Override
     public Map<String, String> getInitParameters() {
-        return null;
+        return new HashMap<String, String>();
     }
 
     @Override

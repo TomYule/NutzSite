@@ -9,6 +9,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.SessionContext;
 import org.apache.shiro.session.mgt.SessionFactory;
 import org.apache.shiro.web.session.mgt.WebSessionContext;
+import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.Mvcs;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author ruoyi
  */
-
+@IocBean
 public class OnlineSessionFactory implements SessionFactory {
     public Session createSession(UserOnline userOnline) {
         OnlineSession onlineSession = userOnline.getSession();
