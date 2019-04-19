@@ -122,4 +122,13 @@ public class LogininforController {
 		}
 	}
 
+	@At("/clean")
+	@Ok("json")
+	@RequiresPermissions("monitor:logininfor:remove")
+	public Object clean()
+	{
+		logininforService.cleanLogininfor();
+		return Result.success("system.success");
+	}
+
 }

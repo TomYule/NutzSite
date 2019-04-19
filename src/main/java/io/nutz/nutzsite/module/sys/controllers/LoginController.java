@@ -5,14 +5,12 @@ import io.nutz.nutzsite.common.manager.AsyncManager;
 import io.nutz.nutzsite.common.manager.factory.AsyncFactory;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.UserService;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ThreadContext;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.lang.Strings;
 import org.nutz.mvc.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +45,7 @@ public class LoginController {
         int errCount = 0;
         try {
             //输错三次显示验证码窗口
-            errCount = NumberUtils.toInt(Strings.sNull(SecurityUtils.getSubject().getSession(true).getAttribute("errCount")));
+//            errCount = NumberUtils.toInt(Strings.sNull(SecurityUtils.getSubject().getSession(true).getAttribute("errCount")));
             Subject subject = SecurityUtils.getSubject();
             ThreadContext.bind(subject);
             subject.login(new UsernamePasswordToken(username,password,rememberMe));

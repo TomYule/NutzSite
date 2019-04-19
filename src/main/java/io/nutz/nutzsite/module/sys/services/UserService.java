@@ -16,7 +16,6 @@ import io.nutz.nutzsite.module.sys.models.User;
 import org.nutz.lang.Strings;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * 用户 服务层实现
@@ -35,6 +34,13 @@ public class UserService extends Service<User> {
     @Inject
     private MenuService menuService;
 
+
+    /**
+     * 新增
+     *
+     * @param user
+     * @return
+     */
     @Override
     public User insert(User user) {
         RandomNumberGenerator rng = new SecureRandomNumberGenerator();
@@ -42,23 +48,38 @@ public class UserService extends Service<User> {
         user.setSalt(salt);
         String hashedPasswordBase64 = new Sha256Hash(user.getPassword(), salt, 1024).toBase64();
         user.setPassword(hashedPasswordBase64);
-        return dao().insert(user);
-    }
-
-    public int resetUserPwd(User user) {
-        user = this.fetch(user.getId());
-        RandomNumberGenerator rng = new SecureRandomNumberGenerator();
-        String salt = rng.nextBytes().toBase64();
-        user.setSalt(salt);
-        String hashedPasswordBase64 = new Sha256Hash(user.getPassword(), salt, 1024).toBase64();
-        user.setPassword(hashedPasswordBase64);
-        user.setUpdateTime(new Date());
-        return dao().update(user);
-    }
-
-    public int update(User data) {
         List<String> ids = new ArrayList<>();
-        if (data != null && data.getRoleIds() != null) {
+        if (user != null && user.getRoleIds() != null) {
+            if (Strings.isNotBlank(user.getRoleIds())) {
+                ids = Arrays.asList(user.getRoleIds().split(","));
+            }
+        }
+        dao().insert(user);
+        this.updataRelation(user);
+        return user;
+    }
+
+    /**
+     * 更新
+     *
+     * @param data
+     * @return
+     */
+    public int update(User data) {
+        //忽略空字段
+        int count = dao().updateIgnoreNull(data);
+        this.updataRelation(data);
+        return count;
+    }
+
+    /**
+     * 更新角色
+     *
+     * @param data
+     */
+    public void updataRelation(User data) {
+        List<String> ids = new ArrayList<>();
+        if (data != null && Strings.isNotBlank(data.getRoleIds())) {
             if (Strings.isNotBlank(data.getRoleIds())) {
                 ids = Arrays.asList(data.getRoleIds().split(","));
             }
@@ -73,10 +94,25 @@ public class UserService extends Service<User> {
             List<Role> roleList = roleService.query(cri);
             data.setRoles(roleList);
         }
-        //忽略空字段
-        int count = dao().updateIgnoreNull(data);
+        //更新关系
         dao().insertRelation(data, "roles");
-        return count;
+    }
+
+
+    /**
+     * 重置密码
+     *
+     * @param user
+     * @return
+     */
+    public int resetUserPwd(User user) {
+        RandomNumberGenerator rng = new SecureRandomNumberGenerator();
+        String salt = rng.nextBytes().toBase64();
+        user.setSalt(salt);
+        String hashedPasswordBase64 = new Sha256Hash(user.getPassword(), salt, 1024).toBase64();
+        user.setPassword(hashedPasswordBase64);
+        user.setUpdateTime(new Date());
+        return dao().updateIgnoreNull(user);
     }
 
     /**
@@ -121,6 +157,25 @@ public class UserService extends Service<User> {
         user.setLoginIp(ShiroUtils.getIp());
         user.setLoginDate(DateUtils.getNowDate());
         dao().updateIgnoreNull(user);
+    }
+
+    /**
+     * 查询用户所属角色组
+     *
+     * @param userId
+     * @return
+     */
+    public String getUserRoleGroup(String userId) {
+        User user = this.fetch(userId);
+        user = this.fetchLinks(user, "roles");
+        StringBuffer idsStr = new StringBuffer();
+        for (Role role : user.getRoles()) {
+            idsStr.append(role.getRoleName()).append(",");
+        }
+        if (Strings.isNotBlank(idsStr.toString())) {
+            return idsStr.substring(0, idsStr.length() - 1);
+        }
+        return idsStr.toString();
     }
 
 }

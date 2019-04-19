@@ -124,7 +124,8 @@
 		        },
 		        {
 		            field: 'id',
-		            title: '用户ID'
+		            title: '用户ID',
+					visible: false
 		        },
 		        {
 		            field: 'loginName',
@@ -152,9 +153,12 @@
 		            field: 'status',
 		            title: '状态',
 		            align: 'center',
-		            // formatter: function(value, row, index) {
-		            // 	return $.table.selectDictLabel(datas, value);
-		            // }
+		            formatter: function(value, row, index) {
+		            	if(value){
+							return '<span class="badge badge-danger">停用</span>';
+						}
+		            	return '<span class="badge badge-primary">正常</span>';
+		            }
 		        },
 		        {
 		            field: 'createTime',

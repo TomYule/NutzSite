@@ -4,47 +4,47 @@
 <head th:include="include :: header"></head>
 <body class="white-bg">
 	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
-		<form class="form-horizontal m" id="form-user-edit" th:object="${user}">
-			<input name="userId"  type="hidden"  th:field="*{userId}" />
+		<form class="form-horizontal m" id="form-user-edit">
+			<input name="userId"  type="hidden"  th:value="${user.id}" />
 			<div class="form-group">
 				<label class="col-sm-3 control-label ">登录名称：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" readonly="true" th:field="*{loginName}"/>
+					<input class="form-control" type="text" readonly="true" th:value="${user.loginName}"/>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">部门名称：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" readonly="true" th:field="*{dept.deptName}">
+					<input class="form-control" type="text" readonly="true" th:value="${user.dept.deptName}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">用户名称：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" name="userName" id="userName" th:field="*{userName}">
+					<input class="form-control" type="text" name="userName" id="userName" th:value="${user.userName}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">邮箱：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" name="email" th:field="*{email}">
+					<input class="form-control" type="text" name="email" th:value="${user.email}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">手机：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" name="phonenumber" id="phonenumber" th:field="*{phonenumber}">
+					<input class="form-control" type="text" name="phonenumber" id="phonenumber" th:value="${user.phonenumber}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">性别：</label>
 				<div class="col-sm-8">
 					<div class="radio-box">
-						<input type="radio" id="radio1" th:field="*{sex}" name="sex" value="0">
+						<input type="radio" id="radio1" th:value="${user.sex}" name="sex" value="0">
 						<label for="radio1">男</label>
 					</div>
 					<div class="radio-box">
-						<input type="radio" id="radio2" th:field="*{sex}" name="sex" value="1">
+						<input type="radio" id="radio2" th:value="${user.sex}" name="sex" value="1">
 						<label for="radio2">女</label>
 					</div>
 				</div>
@@ -63,7 +63,7 @@
 					required:true,
 		            email:true,
 		            remote: {
-		                url: ctx + "system/user/checkEmailUnique",
+		                url: ctx + "sys/user/checkEmailUnique",
 		                type: "post",
 		                dataType: "json",
 		                data: {
@@ -83,7 +83,7 @@
 					required:true,
 					isPhone:true,
 		            remote: {
-		                url: ctx + "system/user/checkPhoneUnique",
+		                url: ctx + "sys/user/checkPhoneUnique",
 		                type: "post",
 		                dataType: "json",
 		                data: {
@@ -112,7 +112,7 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	        	$.operate.save(ctx + "system/user/profile/update", $('#form-user-edit').serialize());
+	        	$.operate.save(ctx + "sys/user/profile/update", $('#form-user-edit').serialize());
 	        }
 	    }
 	</script>
