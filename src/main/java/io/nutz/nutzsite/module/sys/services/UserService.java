@@ -38,13 +38,21 @@ public class UserService extends Service<User> {
 
     @Override
     public User insert(User user) {
-        user.setPasswordSalt(user.getPassword());
+        RandomNumberGenerator rng = new SecureRandomNumberGenerator();
+        String salt = rng.nextBytes().toBase64();
+        user.setSalt(salt);
+        String hashedPasswordBase64 = new Sha256Hash(user.getPassword(), salt, 1024).toBase64();
+        user.setPassword(hashedPasswordBase64);
         return dao().insert(user);
     }
 
     public int resetUserPwd(User user) {
         user = this.fetch(user.getId());
-        user.setPasswordSalt(user.getPassword());
+        RandomNumberGenerator rng = new SecureRandomNumberGenerator();
+        String salt = rng.nextBytes().toBase64();
+        user.setSalt(salt);
+        String hashedPasswordBase64 = new Sha256Hash(user.getPassword(), salt, 1024).toBase64();
+        user.setPassword(hashedPasswordBase64);
         return dao().update(user);
     }
 

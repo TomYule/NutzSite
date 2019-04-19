@@ -55,7 +55,7 @@ public class SyncOnlineSessionFilter extends PathMatchingFilter implements WebFi
 
     @Override
     public Filter getFilter() {
-        return ioc.get(SyncOnlineSessionFilter.class, "syncOnlineSession");
+        return this;
     }
 
     @Override

@@ -4,6 +4,7 @@
 <head th:include="include :: header"></head>
 <link th:href="@{/assets/css/ui.css}" rel="stylesheet"/>
 <link th:href="@{/assets/plugins/datapicker/datepicker3.css}" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/plugins/jquery-ztree/3.5/css/default/zTreeStyle.css" type="text/css">
 <style>
     .droppable-active {
         background-color: #ffe !important
@@ -94,17 +95,10 @@
                             <label class="col-sm-3 control-label">单选框：
                             </label>
                             <div class="col-sm-8">
-                                <label class="radio-box"> <input type="radio" name="status" value="false" checked /> 选项1 </label>
-                                <label class="radio-box"> <input type="radio" name="status" value="true" /> 选项2 </label>
+                                <label class="radio-box"> <input type="radio" name="status" value="false" checked/> 选项1
+                                </label>
+                                <label class="radio-box"> <input type="radio" name="status" value="true"/> 选项2 </label>
                             </div>
-<!--                            <div class="col-sm-8">
-                                <label class="radio-box"><input type="radio" checked="" value="option1"
-                                                                id="optionsRadios1" name="optionsRadios">选项1
-                                </label>
-                                <label class="radio-box"><input type="radio" value="option2" id="optionsRadios2"
-                                                                name="optionsRadios">选项2
-                                </label>
-                            </div>-->
                         </div>
                         <div class="form-group draggable">
                             <label class="col-sm-3 control-label">复选框：</label>
@@ -148,6 +142,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group draggable">
                             <label class="col-sm-3 control-label">地图选择：</label>
 
@@ -159,24 +154,84 @@
                                 <button id="id_get_data" type="button" class="btn btn-default">获取当前位置数据</button>
                                 <p id="id_data_display"></p>
                             </div>
-<!--
+                            <!--
 
-<script type="text/javascript"
-        src="http://webapi.amap.com/maps?v=1.3&key=ed1fafa0307bb4991da41f54d8a88b46"></script>
-<script src="/assets/plugins/bootstrap-amap/bootstrap.AMapPositionPicker.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-    //源码地址 https://gitee.com/kinegratii/Bootstrap-AMapPositionPicker
-      var p = $("#id_address_input").AMapPositionPicker();
-        $("#id_get_data").on('click', function () {
-            $("#id_data_display").html(JSON.stringify(p.AMapPositionPicker('position')));
-        });
+                            <script type="text/javascript"
+                                    src="http://webapi.amap.com/maps?v=1.3&key=ed1fafa0307bb4991da41f54d8a88b46"></script>
+                            <script src="/assets/plugins/bootstrap-amap/bootstrap.AMapPositionPicker.js"></script>
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                //源码地址 https://gitee.com/kinegratii/Bootstrap-AMapPositionPicker
+                                  var p = $("#id_address_input").AMapPositionPicker();
+                                    $("#id_get_data").on('click', function () {
+                                        $("#id_data_display").html(JSON.stringify(p.AMapPositionPicker('position')));
+                                    });
 
-    });
-</script>
--->
+                                });
+                            </script>
+                            -->
                         </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">树：</label>
 
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <ul id="treeDemo" class="ztree"></ul>
+                                </div>
+                            </div>
+                            <!--
+
+                            <link rel="stylesheet" href="/assets/plugins/jquery-ztree/3.5/css/default/zTreeStyle.css" type="text/css">
+                            <script type="text/javascript" src="/assets/plugins/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js"></script>
+                            <SCRIPT type="text/javascript">
+
+                                var setting = {
+                                    data: {
+                                        simpleData: {
+                                            enable: true
+                                        }
+                                    }
+                                };
+
+                                var zNodes =[
+                                    { id:1, pId:0, name:"父节点1 - 展开", open:true},
+                                    { id:11, pId:1, name:"父节点11 - 折叠"},
+                                    { id:111, pId:11, name:"叶子节点111"},
+                                    { id:112, pId:11, name:"叶子节点112"},
+                                    { id:113, pId:11, name:"叶子节点113"},
+                                    { id:114, pId:11, name:"叶子节点114"},
+                                    { id:12, pId:1, name:"父节点12 - 折叠"},
+                                    { id:121, pId:12, name:"叶子节点121"},
+                                    { id:122, pId:12, name:"叶子节点122"},
+                                    { id:123, pId:12, name:"叶子节点123"},
+                                    { id:124, pId:12, name:"叶子节点124"},
+                                    { id:13, pId:1, name:"父节点13 - 没有子节点", isParent:true},
+                                    { id:2, pId:0, name:"父节点2 - 折叠"},
+                                    { id:21, pId:2, name:"父节点21 - 展开", open:true},
+                                    { id:211, pId:21, name:"叶子节点211"},
+                                    { id:212, pId:21, name:"叶子节点212"},
+                                    { id:213, pId:21, name:"叶子节点213"},
+                                    { id:214, pId:21, name:"叶子节点214"},
+                                    { id:22, pId:2, name:"父节点22 - 折叠"},
+                                    { id:221, pId:22, name:"叶子节点221"},
+                                    { id:222, pId:22, name:"叶子节点222"},
+                                    { id:223, pId:22, name:"叶子节点223"},
+                                    { id:224, pId:22, name:"叶子节点224"},
+                                    { id:23, pId:2, name:"父节点23 - 折叠"},
+                                    { id:231, pId:23, name:"叶子节点231"},
+                                    { id:232, pId:23, name:"叶子节点232"},
+                                    { id:233, pId:23, name:"叶子节点233"},
+                                    { id:234, pId:23, name:"叶子节点234"},
+                                    { id:3, pId:0, name:"父节点3 - 没有子节点", isParent:true}
+                                ];
+
+                                $(document).ready(function(){
+                                    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                                });
+                            </SCRIPT>
+
+                            -->
+                        </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group draggable">
                             <div class="col-sm-12 col-sm-offset-3">
@@ -224,16 +279,72 @@
 <script th:src="@{/assets/plugins/iCheck/icheck.min.js}"></script>
 <script th:src="@{/assets/plugins/datapicker/bootstrap-datepicker.js}"></script>
 <script th:src="@{/assets/plugins/beautifyhtml/beautifyhtml.js}"></script>
+
+<script type="text/javascript" src="/assets/plugins/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js"></script>
+<SCRIPT type="text/javascript">
+    <!--
+
+
+    $(document).ready(function () {
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+    //-->
+</SCRIPT>
+
 <script type="text/javascript"
         src="http://webapi.amap.com/maps?v=1.3&key=ed1fafa0307bb4991da41f54d8a88b46"></script>
 <script src="/assets/plugins/bootstrap-amap/bootstrap.AMapPositionPicker.js"></script>
 <script>
+    //zTree start
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        }
+    };
+
+    var zNodes = [
+        {id: 1, pId: 0, name: "父节点1 - 展开", open: true},
+        {id: 11, pId: 1, name: "父节点11 - 折叠"},
+        {id: 111, pId: 11, name: "叶子节点111"},
+        {id: 112, pId: 11, name: "叶子节点112"},
+        {id: 113, pId: 11, name: "叶子节点113"},
+        {id: 114, pId: 11, name: "叶子节点114"},
+        {id: 12, pId: 1, name: "父节点12 - 折叠"},
+        {id: 121, pId: 12, name: "叶子节点121"},
+        {id: 122, pId: 12, name: "叶子节点122"},
+        {id: 123, pId: 12, name: "叶子节点123"},
+        {id: 124, pId: 12, name: "叶子节点124"},
+        {id: 13, pId: 1, name: "父节点13 - 没有子节点", isParent: true},
+        {id: 2, pId: 0, name: "父节点2 - 折叠"},
+        {id: 21, pId: 2, name: "父节点21 - 展开", open: true},
+        {id: 211, pId: 21, name: "叶子节点211"},
+        {id: 212, pId: 21, name: "叶子节点212"},
+        {id: 213, pId: 21, name: "叶子节点213"},
+        {id: 214, pId: 21, name: "叶子节点214"},
+        {id: 22, pId: 2, name: "父节点22 - 折叠"},
+        {id: 221, pId: 22, name: "叶子节点221"},
+        {id: 222, pId: 22, name: "叶子节点222"},
+        {id: 223, pId: 22, name: "叶子节点223"},
+        {id: 224, pId: 22, name: "叶子节点224"},
+        {id: 23, pId: 2, name: "父节点23 - 折叠"},
+        {id: 231, pId: 23, name: "叶子节点231"},
+        {id: 232, pId: 23, name: "叶子节点232"},
+        {id: 233, pId: 23, name: "叶子节点233"},
+        {id: 234, pId: 23, name: "叶子节点234"},
+        {id: 3, pId: 0, name: "父节点3 - 没有子节点", isParent: true}
+    ];
+    //ztree end
+
     $(document).ready(function () {
         //地图
         var p = $("#id_address_input").AMapPositionPicker();
         $("#id_get_data").on('click', function () {
             $("#id_data_display").html(JSON.stringify(p.AMapPositionPicker('position')));
         });
+        //zTree
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
 
         setup_draggable();
         $("#n-columns").on("change", function () {
