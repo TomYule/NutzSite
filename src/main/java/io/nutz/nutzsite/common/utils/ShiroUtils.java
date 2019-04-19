@@ -1,10 +1,8 @@
 package io.nutz.nutzsite.common.utils;
 
 
-import io.nutz.nutzsite.common.shiro.UserRealm;
 import io.nutz.nutzsite.module.sys.models.User;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -52,13 +50,6 @@ public class ShiroUtils
         PrincipalCollection newPrincipalCollection = new SimplePrincipalCollection(user, realmName);
         // 重新加载Principal
         subject.runAs(newPrincipalCollection);
-    }
-
-    public static void clearCachedAuthorizationInfo()
-    {
-        RealmSecurityManager rsm = (RealmSecurityManager) SecurityUtils.getSecurityManager();
-        UserRealm realm = (UserRealm) rsm.getRealms().iterator().next();
-        realm.clearCachedAuthorizationInfo();
     }
 
     public static String getUserId()

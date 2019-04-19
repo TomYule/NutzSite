@@ -1,6 +1,5 @@
 package io.nutz.nutzsite.common.base;
 
-import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

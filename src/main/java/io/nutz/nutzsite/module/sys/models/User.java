@@ -81,21 +81,21 @@ public class User extends BaseModel implements Serializable {
     /**
      * 用户性别
      */
-    @Column("gender")
+    @Column
     @Comment("用户性别")
     private String gender;
 
     /**
      * 用户头像
      */
-    @Column("gender")
-    @Comment("用户性别")
+    @Column
+    @Comment("用户头像")
     private String avatar;
 
     /**
      * 帐号状态（0正常 1停用）
      */
-    @Column("status")
+    @Column
     @Comment("帐号状态（0正常 1停用） ")
     private boolean status;
 
@@ -104,7 +104,6 @@ public class User extends BaseModel implements Serializable {
      */
     @Column("del_flag")
     @Comment("删除标记")
-    @Prev(els = @EL("$me.flag()"))
     @ColDefine(type = ColType.BOOLEAN)
     private boolean delFlag;
 
@@ -143,19 +142,6 @@ public class User extends BaseModel implements Serializable {
      * 岗位组
      */
     private String postIds;
-
-    /**
-     * 设置 密码 和salt
-     * @param password
-     */
-    public void setPasswordSalt(String password){
-        RandomNumberGenerator rng = new SecureRandomNumberGenerator();
-        String salt = rng.nextBytes().toBase64();
-        setSalt(salt);
-        String hashedPasswordBase64 = new Sha256Hash(password, salt, 1024).toBase64();
-        setPassword(hashedPasswordBase64);
-    }
-
 
     public String getId() {
         return id;

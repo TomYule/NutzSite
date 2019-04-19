@@ -3,7 +3,6 @@ package io.nutz.nutzsite.module.sys.services;
 import io.nutz.nutzsite.common.base.Service;
 import io.nutz.nutzsite.common.utils.DateUtils;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
-import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.models.Role;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
@@ -53,6 +52,7 @@ public class UserService extends Service<User> {
         user.setSalt(salt);
         String hashedPasswordBase64 = new Sha256Hash(user.getPassword(), salt, 1024).toBase64();
         user.setPassword(hashedPasswordBase64);
+        user.setUpdateTime(new Date());
         return dao().update(user);
     }
 

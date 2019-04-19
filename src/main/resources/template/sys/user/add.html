@@ -45,11 +45,13 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">性别：</label>
 				<div class="col-sm-8">
-<!--					<select id="gender" class="form-control m-b" th:with="type=${@dict.getType('sys_user_gender')}">
-	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-	                </select>-->
+					<select class="form-control" id="gender" name="gender">
+						<option selected value="0">男</option>
+						<option value="1">女</option>
+					</select>
 				</div>
 			</div>
+
 			<div class="form-group">
 				<label class="col-sm-3 control-label">状态：</label>
 				<div class="col-sm-8">
@@ -192,7 +194,7 @@
         			"password": password,
         			"email": email,
         			"phonenumber": phonenumber,
-        			"gender": gender,
+        			// "gender": gender,
         			"status": status,
         			"roleIds": roleIds,
         			"postIds": postIds
@@ -211,11 +213,11 @@
         function selectDeptTree() {
         	var treeId = $("#treeId").val();
         	var deptId = $.common.isEmpty(treeId) ? "100" : $("#treeId").val();
-        	var url = ctx + "system/dept/selectDeptTree/" + deptId;
+        	var url = ctx + "sys/dept/selectTree/" + deptId;
 			var options = {
 				title: '选择部门',
 				width: "380",
-				url: ctx + "system/dept/selectDeptTree/" + deptId,
+				url: ctx + "sys/dept/selectTree/" + deptId,
 				callBack: doSubmit
 			};
 			$.modal.openOptions(options);

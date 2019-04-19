@@ -1,8 +1,6 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.base.Result;
-import io.nutz.nutzsite.common.exception.EmptyCaptchaException;
-import io.nutz.nutzsite.common.exception.IncorrectCaptchaException;
 import io.nutz.nutzsite.common.manager.AsyncManager;
 import io.nutz.nutzsite.common.manager.factory.AsyncFactory;
 import io.nutz.nutzsite.module.sys.models.User;
@@ -60,16 +58,13 @@ public class LoginController {
         } catch (LockedAccountException e) {
             return Result.error(3, "login.error.locked");
         } catch (UnknownAccountException e) {
-            errCount++;
-//            SecurityUtils.getSubject().getSession(true).setAttribute("errCount", errCount);
+            e.printStackTrace();
             return Result.error(4, "login.error.user");
         } catch (AuthenticationException e) {
-            errCount++;
-//            SecurityUtils.getSubject().getSession(true).setAttribute("errCount", errCount);
+            e.printStackTrace();
             return Result.error(5, "login.error.user");
         } catch (Exception e) {
-            errCount++;
-//            SecurityUtils.getSubject().getSession(true).setAttribute("errCount", errCount);
+            e.printStackTrace();
             return Result.error(6, "login.error.system");
         }
     }
