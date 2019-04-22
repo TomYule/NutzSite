@@ -113,34 +113,43 @@
 				},
 				{
 					field : 'status', 
-					title : '状态（0正常 1停用）',
-					sortable: true
+					title : '状态',
+					sortable: true,
+					formatter: function(value, row, index) {
+						// console.log(value);
+						// console.log('0'==value );
+						// console.log(0==value );
+						if('1'==value ){
+							return '<span class="badge badge-danger">停用</span>';
+						}
+						return '<span class="badge badge-primary">正常</span>';
+					}
 				},
-				{
-					field : 'createBy', 
-					title : '创建者',
-					sortable: true
-				},
-				{
-					field : 'createTime', 
-					title : '创建时间',
-					sortable: true
-				},
-				{
-					field : 'updateBy', 
-					title : '更新者',
-					sortable: true
-				},
-				{
-					field : 'updateTime', 
-					title : '更新时间',
-					sortable: true
-				},
-				{
-					field : 'remark', 
-					title : '备注',
-					sortable: true
-				},
+				// {
+				// 	field : 'createBy',
+				// 	title : '创建者',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'createTime',
+				// 	title : '创建时间',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'updateBy',
+				// 	title : '更新者',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'updateTime',
+				// 	title : '更新时间',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'remark',
+				// 	title : '备注',
+				// 	sortable: true
+				// },
 		        {
 		            title: '操作',
 		            align: 'center',

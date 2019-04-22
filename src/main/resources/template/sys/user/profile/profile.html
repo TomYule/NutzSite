@@ -35,7 +35,8 @@
                     <div class="contact-box">
 	                        <div class="col-sm-4">
 	                            <div class="text-center">
-	                                <img alt="image" class="img-circle m-t-xs img-responsive" th:src="(${user.avatar} == '' || ${user.avatar} == null) ? @{/assets/img/profile.jpg} : @{/profile/avatar/} + ${user.avatar}">
+	                                <img alt="image" class="img-circle m-t-xs img-responsive" th:if="(${user.avatar} == '' or ${user.avatar== null} )" th:src="@{/assets/img/profile.jpg}">
+                                    <img alt="image" class="img-circle m-t-xs img-responsive" th:if="(${user.avatar} != '' and ${user.avatar!= null} )" th:src=" @{/profile/avatar/} + ${user.avatar}">
 	                                <div class="m-t-xs font-bold">[[${user.loginIp}]]</div>
 	                            </div>
 	                        </div>

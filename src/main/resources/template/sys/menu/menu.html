@@ -112,9 +112,13 @@
 							title: '可见',
 							width: '10%',
 							align: "left",
-							// formatter: function(value, row, index) {
-							// 	return $.table.selectDictLabel(datas, row.visible);
-							// }
+							formatter: function(value, row, index) {
+								if(value){
+									return '<span class="badge badge-danger">隐藏</span>';
+								}
+								return '<span class="badge badge-primary">显示</span>';
+								// return $.table.selectDictLabel(datas, value);
+							}
 						},
 						{
 							field: 'perms',

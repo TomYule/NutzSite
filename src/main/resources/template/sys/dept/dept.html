@@ -78,9 +78,12 @@
 		            field: 'status',
 		            title: '状态',
 		            align: "left",
-		            // formatter: function(value, item, index) {
-		            // 	return $.table.selectDictLabel(datas, item.status);
-		            // }
+					formatter: function(value, row, index) {
+						if(value){
+							return '<span class="badge badge-danger">停用</span>';
+						}
+						return '<span class="badge badge-primary">正常</span>';
+					}
 		        },
 		        {
 		            field: 'createTime',
