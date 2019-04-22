@@ -2,7 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <meta charset="utf-8">
 <title>用户头像修改</title>
-<link th:href="@{/ajax/libs/cropbox/cropbox.css}" rel="stylesheet"/>
+<link th:href="@{/assets/plugins/cropbox/cropbox.css}" rel="stylesheet"/>
 <body class="white-bg">
     <div class="container"> 
         <div class="imageBox"> 
@@ -21,7 +21,7 @@
 	   <div class="cropped"></div> 
     </div>
 <div th:include="include::footer"></div>
-<script th:src="@{/ajax/libs/cropbox/cropbox.js}"></script>
+<script th:src="@{/assets/plugins/cropbox/cropbox.js}"></script>
 <script type="text/javascript">
 var cropper;
 $(window).load(function() {
@@ -68,7 +68,7 @@ function submitHandler() {
     var formdata = new FormData();
     formdata.append("avatarfile", img);
     $.ajax({
-        url: ctx + "system/user/profile/updateAvatar",
+        url: ctx + "sys/user/profile/updateAvatar",
         data: formdata,
         type: "post",
         processData: false,

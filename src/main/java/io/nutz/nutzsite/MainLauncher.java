@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @IocBean(create = "init", depose = "depose")
-@Localization(value = "msg/", defaultLocalizationKey = "zh-CN")
+@Localization(value = "locales/", defaultLocalizationKey = "zh-CN")
 public class MainLauncher {
 
     @Inject

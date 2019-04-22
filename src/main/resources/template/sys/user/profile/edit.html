@@ -5,7 +5,7 @@
 <body class="white-bg">
 	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
 		<form class="form-horizontal m" id="form-user-edit">
-			<input name="userId"  type="hidden"  th:value="${user.id}" />
+			<input name="id"  type="hidden"  th:value="${user.id}" />
 			<div class="form-group">
 				<label class="col-sm-3 control-label ">登录名称：</label>
 				<div class="col-sm-8">
@@ -39,14 +39,10 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">性别：</label>
 				<div class="col-sm-8">
-					<div class="radio-box">
-						<input type="radio" id="radio1" th:value="${user.sex}" name="sex" value="0">
-						<label for="radio1">男</label>
-					</div>
-					<div class="radio-box">
-						<input type="radio" id="radio2" th:value="${user.sex}" name="sex" value="1">
-						<label for="radio2">女</label>
-					</div>
+					<select class="form-control" id="gender" name="gender">
+						<option th:selected="${'0'==user.gender}" value="0">男</option>
+						<option th:selected="${'1'==user.gender}" value="1">女</option>
+					</select>
 				</div>
 			</div>
 			
@@ -67,8 +63,8 @@
 		                type: "post",
 		                dataType: "json",
 		                data: {
-		                	"userId": function() {
-		                        return $("#userId").val();
+		                	"id": function() {
+		                        return $("#id").val();
 		                    },
 		        			"email": function() {
 		                        return $.common.trim($("#email").val());
@@ -87,8 +83,8 @@
 		                type: "post",
 		                dataType: "json",
 		                data: {
-		                	"userId": function() {
-		                		return $("#userId").val();
+		                	"id": function() {
+		                		return $("#id").val();
 		                    },
 		        			"phonenumber": function() {
 		                        return $.common.trim($("#phonenumber").val());

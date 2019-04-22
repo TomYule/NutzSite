@@ -5,7 +5,7 @@
 <body class="white-bg">
 	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
 		<form class="form-horizontal m" id="form-user-resetPwd">
-			<input name="userId"  type="hidden"  th:value="${user.userId}" />
+			<input name="id"  type="hidden"  th:value="${user.id}" />
 			<div class="form-group">
 				<label class="col-sm-3 control-label ">登录名称：</label>
 				<div class="col-sm-8">
@@ -41,7 +41,7 @@
 				oldPassword:{
 					required:true,
 					remote: {
-	                    url: ctx + "system/user/profile/checkPassword",
+	                    url: ctx + "sys/profile/checkPassword",
 	                    type: "get",
 	                    dataType: "json",
 	                    data: {
@@ -81,7 +81,7 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	        	$.operate.save(ctx + "system/user/profile/resetPwd", $('#form-user-resetPwd').serialize());
+	        	$.operate.save(ctx + "sys/user/profile/resetPwdDo", $('#form-user-resetPwd').serialize());
 	        }
 	    }
 	</script>

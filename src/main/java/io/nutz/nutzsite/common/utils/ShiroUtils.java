@@ -42,6 +42,18 @@ public class ShiroUtils
         return user;
     }
 
+    public static String getSysUserId()
+    {
+        User user = null;
+        Object obj = getSubject().getPrincipal();
+        if (StringUtils.isNotNull(obj))
+        {
+            user = new User();
+            BeanUtils.copyBeanProp(user, obj);
+        }
+        return user.getId();
+    }
+
     public static void setSysUser(User user)
     {
         Subject subject = getSubject();

@@ -56,13 +56,13 @@ public class LoginController {
         } catch (LockedAccountException e) {
             return Result.error(3, "login.error.locked");
         } catch (UnknownAccountException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return Result.error(4, "login.error.user");
         } catch (AuthenticationException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return Result.error(5, "login.error.user");
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return Result.error(6, "login.error.system");
         }
     }
