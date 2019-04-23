@@ -9,6 +9,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Strings;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -75,7 +76,7 @@ public class OnlineSessionDAO extends EnterpriseCacheSessionDAO {
                 // 时间差不足 无需同步
                 needSync = false;
             }
-            boolean isGuest = onlineSession.getUserId() == null || onlineSession.getUserId() == 0L;
+            boolean isGuest = Strings.isEmpty(onlineSession.getUserId());
 
             // session 数据变更了 同步
             if (isGuest == false && onlineSession.isAttributeChanged()) {

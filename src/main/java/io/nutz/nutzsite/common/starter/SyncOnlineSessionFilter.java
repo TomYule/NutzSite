@@ -22,17 +22,15 @@ import java.util.Map;
  *
  * @author haimming
  */
-@IocBean(name = "syncOnlineSession")
+@IocBean
 public class SyncOnlineSessionFilter extends PathMatchingFilter implements WebFilterFace {
-    @Inject("refer:$ioc")
-    protected Ioc ioc;
 
     @Inject
     private OnlineSessionDAO onlineSessionDAO;
 
     @Override
     public String getName() {
-        return "syncOnlineSession";
+        return "syncOnlineSessionFilter";
     }
 
     @Override
