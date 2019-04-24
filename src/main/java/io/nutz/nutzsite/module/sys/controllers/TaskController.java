@@ -16,7 +16,6 @@ import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * 定时任务 信息操作处理
@@ -31,6 +30,7 @@ public class TaskController {
 
     @Inject
     private TaskService taskService;
+
 
     @RequiresPermissions("sys:task:view")
     @At("")
@@ -74,7 +74,8 @@ public class TaskController {
     @Ok("json")
     public Object addDo(@Param("..") Task task, HttpServletRequest req) {
         try {
-            taskService.insert(task);
+            Task sysTask =taskService.insert(task);
+            taskService.addQuartz(sysTask);
             return Result.success("system.success");
         } catch (Exception e) {
             return Result.error("system.error");
@@ -98,9 +99,14 @@ public class TaskController {
     @At
     @POST
     @Ok("json")
-    public Object editDo(@Param("..") Task task, HttpServletRequest req) {
+    public Object editDo(@Param("..") Task sysTask, HttpServletRequest req) {
         try {
-            taskService.update(task);
+            try {
+                taskService.addQuartz(sysTask);
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+            taskService.update(sysTask);
             return Result.success("system.success");
         } catch (Exception e) {
             return Result.error("system.error");

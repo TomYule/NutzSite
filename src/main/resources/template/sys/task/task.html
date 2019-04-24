@@ -17,6 +17,7 @@
 							<li>
 								执行类：<input type="text" name="jobClass"/>
 							</li>
+<!--
 
 							<li>
 								任务说明：<input type="text" name="note"/>
@@ -37,12 +38,13 @@
 							<li>
 								执行结果：<input type="text" name="exeResult"/>
 							</li>
+-->
 
 							<li>
-								状态（0正常 1暂停）：<input type="text" name="status"/>
+								状态：<input type="text" name="status"/>
 							</li>
 
-							<li>
+							<!--<li>
 								创建者：<input type="text" name="createBy"/>
 							</li>
 
@@ -60,7 +62,7 @@
 
 							<li>
 								备注信息：<input type="text" name="remark"/>
-							</li>
+							</li>-->
 
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -132,46 +134,51 @@
 					title : '定时规则',
 					sortable: true
 				},
-				{
-					field : 'data', 
-					title : '执行参数',
-					sortable: true
-				},
-				{
-					field : 'exeAt', 
-					title : '执行时间',
-					sortable: true
-				},
-				{
-					field : 'exeResult', 
-					title : '执行结果',
-					sortable: true
-				},
+				// {
+				// 	field : 'data',
+				// 	title : '执行参数',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'exeAt',
+				// 	title : '执行时间',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'exeResult',
+				// 	title : '执行结果',
+				// 	sortable: true
+				// },
 				{
 					field : 'status', 
-					title : '状态（0正常 1暂停）',
-					sortable: true
+					title : '状态',
+					formatter: function(value, row, index) {
+						if(value){
+							return '<span class="badge badge-danger">停用</span>';
+						}
+						return '<span class="badge badge-primary">正常</span>';
+					}
 				},
-				{
-					field : 'createBy', 
-					title : '创建者',
-					sortable: true
-				},
-				{
-					field : 'createTime', 
-					title : '创建时间',
-					sortable: true
-				},
-				{
-					field : 'updateBy', 
-					title : '更新者',
-					sortable: true
-				},
-				{
-					field : 'updateTime', 
-					title : '更新时间',
-					sortable: true
-				},
+				// {
+				// 	field : 'createBy',
+				// 	title : '创建者',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'createTime',
+				// 	title : '创建时间',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'updateBy',
+				// 	title : '更新者',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'updateTime',
+				// 	title : '更新时间',
+				// 	sortable: true
+				// },
 				{
 					field : 'remark', 
 					title : '备注信息',

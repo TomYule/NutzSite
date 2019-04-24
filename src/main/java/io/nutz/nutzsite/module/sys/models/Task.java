@@ -80,7 +80,7 @@ public class Task extends BaseModel implements Serializable {
      */
     @Column("status")
     @Comment("状态（0正常 1暂停） ")
-    private String status;
+    private boolean status;
 
     /**
      * 创建者
@@ -182,12 +182,12 @@ public class Task extends BaseModel implements Serializable {
         return exeResult;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public boolean isStatus() {
+        return status;
     }
 
-    public String getStatus() {
-        return status;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setCreateBy(String createBy) {
@@ -241,7 +241,7 @@ public class Task extends BaseModel implements Serializable {
                 .append("data", getData())
                 .append("exeAt", getExeAt())
                 .append("exeResult", getExeResult())
-                .append("status", getStatus())
+                .append("status", isStatus())
                 .append("createBy", getCreateBy())
                 .append("createTime", getCreateTime())
                 .append("updateBy", getUpdateBy())
