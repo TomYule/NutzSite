@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,22 +13,115 @@
 </head>
 
 <body class="gray-bg">
-    <div class="row  border-bottom white-bg dashboard-header">
+<div class="row  border-bottom white-bg dashboard-header">
+
+    <div class="col-sm-5">
+        <h2>NutzSite后台管理框架</h2>
+        <p>一直想做一款后台管理系统，看了很多优秀的开源项目但是发现没有合适自己的。于是利用空闲休息时间开始自己写一套后台系统。如此有了NutzSite管理系统。
+            <b>网站管理后台</b>
+            系统会陆续更新一些实用功能。</p>
+        <p>
+            <b>当前版本：</b><span>v1.0.0</span>
+        </p>
+        <p>
+            <span class="label label-warning">&yen;免费开源</span>
+        </p>
+        <br>
+        <p>
+            <a class="btn btn-success btn-outline" href="https://gitee.com/HammingYu/NutzSite" target="_blank">
+                <i class="fa fa-cloud"> </i> 访问码云
+            </a>
+        </p>
+    </div>
+    <div class="col-sm-4">
+        <h4>技术选型：</h4>
+        <ol>
+            <li>核心框架：NutzBoot。</li>
+            <li>安全框架：Apache Shiro。</li>
+            <li>模板引擎：Thymeleaf。</li>
+            <li>定时任务:Quartz。</li>
+            <li>数据库连接池：Druid。</li>
+            <li>工具类：Fastjson。</li>
+            <li>更多……</li>
+        </ol>
+    </div>
+
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
         <div class="col-sm-4">
-            <h4>技术选型：</h4>
-            <ol>
-                <li>核心框架：NutzBoot。</li>
-                <li>安全框架：Apache Shiro。</li>
-                <li>模板引擎：Thymeleaf。</li>
-                <li>持久层框架：NutzDao。</li>
-				<li>定时任务:Quartz。</li>
-                <li>数据库连接池：Druid。</li>
-                <li>工具类：Fastjson。</li>
-                <li>更多……</li>
-            </ol>
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>联系信息</h5>
+
+                </div>
+                <div class="ibox-content">
+                    我使用的时候如果出现问题怎么办？
+                    <p><i class="fa fa-send-o"></i> <a href="http://qun.qq.com/#jointhegroup/gid/68428921">Nutz社区群（68428921）超级群</a>
+                    </p>
+                    <p>
+                        上 <a href="https://nutz.cn/">Nutz社区论坛</a>，有问必答，秒回复
+                    </p>
+                    <p>
+                        到 <a href="https://github.com/HaimmingYu/ns/issues">github</a>（<a
+                            href="https://gitee.com/HammingYu/NutzSite/issues">Git@OSC</a>）上报告 issue
+                    </p>
+                    <p>
+                        鸣谢:<li>&nbsp; <a href="https://github.com/wendal">@wendal</a> (代码贡献者,技术大牛,Nutz主要作者,无所不知且乐于助人)</li>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>更新日志</h5>
+                </div>
+                <div class="ibox-content no-padding">
+                    <div class="panel-body">
+                        <div class="panel-group" id="version">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#version" href="#v00">v1.0.0</a><code
+                                            class="pull-right">2019-04-26</code>
+                                    </h4>
+                                </div>
+                                <div id="v00" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ol>
+                                            <li>NutzSite管理系统正式发布。</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>捐赠</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="alert alert-warning">
+                        请作者喝杯咖啡。
+                    </div>
+                    <p id="pay-qrcode">
+                        <a href="javascript:;"><img th:src="@{/assets/img/pay.jpg}" width="100%" alt="请使用手机支付宝或者微信扫码支付">
+                        </a>
+                    </p>
+
+                </div>
+            </div>
         </div>
     </div>
-    <script th:src="@{/assets/js/jquery.min.js}"></script>
-    <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+</div>
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
 </body>
 </html>
