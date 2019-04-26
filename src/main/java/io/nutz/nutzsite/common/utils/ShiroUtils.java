@@ -40,6 +40,8 @@ public class ShiroUtils {
         User user = null;
         Object obj = getSubject().getPrincipal();
         if (StringUtils.isNotNull(obj)) {
+            user = new User();
+            BeanUtils.copyBeanProp(user, obj);
             return user.getId();
         }
         return "";

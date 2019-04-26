@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 23/04/2019 18:17:48
+ Date: 26/04/2019 16:03:44
 */
 
 SET NAMES utf8mb4;
@@ -3818,17 +3818,16 @@ CREATE TABLE `sys_dept` (
 -- Records of sys_dept
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_dept` VALUES ('100', '0', '0', '若依科技', 0, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
-INSERT INTO `sys_dept` VALUES ('101', '100', '0,100', '深圳总公司', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
-INSERT INTO `sys_dept` VALUES ('102', '100', '0,100', '长沙分公司', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
-INSERT INTO `sys_dept` VALUES ('103', '101', '0,100,101', '研发部门', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
-INSERT INTO `sys_dept` VALUES ('104', '101', '0,100,101', '市场部门', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
-INSERT INTO `sys_dept` VALUES ('105', '101', '0,100,101', '测试部门', 3, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
-INSERT INTO `sys_dept` VALUES ('106', '101', '0,100,101', '财务部门', 4, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
-INSERT INTO `sys_dept` VALUES ('107', '101', '0,100,101', '运维部门', 5, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
-INSERT INTO `sys_dept` VALUES ('108', '102', '0,100,102', '市场部门', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
-INSERT INTO `sys_dept` VALUES ('109', '102', '0,100,102', '财务部门', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
-INSERT INTO `sys_dept` VALUES ('16e464185d2949958cf81caa3e776d17', '102', NULL, '冰科技', 300, '', '', '', '0', '1', NULL, NULL, NULL, NULL);
+INSERT INTO `sys_dept` VALUES ('100', '0', '0', '某某科技', 0, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
+INSERT INTO `sys_dept` VALUES ('101', '100', '0,100', '深圳总公司', 1, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
+INSERT INTO `sys_dept` VALUES ('102', '100', '0,100', '长沙分公司', 2, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
+INSERT INTO `sys_dept` VALUES ('103', '101', '0,100,101', '研发部门', 1, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
+INSERT INTO `sys_dept` VALUES ('104', '101', '0,100,101', '市场部门', 2, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
+INSERT INTO `sys_dept` VALUES ('105', '101', '0,100,101', '测试部门', 3, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
+INSERT INTO `sys_dept` VALUES ('106', '101', '0,100,101', '财务部门', 4, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
+INSERT INTO `sys_dept` VALUES ('107', '101', '0,100,101', '运维部门', 5, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
+INSERT INTO `sys_dept` VALUES ('108', '102', '0,100,102', '市场部门', 1, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
+INSERT INTO `sys_dept` VALUES ('109', '102', '0,100,102', '财务部门', 2, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
 COMMIT;
 
 -- ----------------------------
@@ -4023,70 +4022,12 @@ CREATE TABLE `sys_logininfor` (
 -- Records of sys_logininfor
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_logininfor` VALUES ('0305bde1c5714633acf9460d0b1d4434', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-19 09:49:31');
-INSERT INTO `sys_logininfor` VALUES ('0577a80ddda341028abd8e3b4adbd1fd', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 05:56:18');
-INSERT INTO `sys_logininfor` VALUES ('0c9cb31f8ae146838e259f95b225ecd0', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 02:44:39');
-INSERT INTO `sys_logininfor` VALUES ('0e55950a199b4468b7f3707bd9d788a1', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 10:11:01');
-INSERT INTO `sys_logininfor` VALUES ('1061b3d0e2b0452b94fe8f28959aa911', 'yuhaiming', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 07:29:12');
-INSERT INTO `sys_logininfor` VALUES ('17500c06a91a4c3cba8416a62f67b9f1', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 09:15:16');
-INSERT INTO `sys_logininfor` VALUES ('19c34030d5084ad3bf3043aeec501a2b', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 09:16:33');
-INSERT INTO `sys_logininfor` VALUES ('211178e31bb9484b980078aed46508b0', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 05:57:34');
-INSERT INTO `sys_logininfor` VALUES ('234d770fbd404ccdb33e6d221636693e', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 09:24:56');
-INSERT INTO `sys_logininfor` VALUES ('251e1d68670d451a9f3960d87d03f224', 'yuhaiming', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 07:29:43');
-INSERT INTO `sys_logininfor` VALUES ('2c7a6e18bbc346a5ac40f2ac66803da9', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 09:13:31');
-INSERT INTO `sys_logininfor` VALUES ('36ab2f2844ca43bdb1be0b00419fc523', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 08:43:48');
-INSERT INTO `sys_logininfor` VALUES ('38935d72a32b470b86d4efc300e4972b', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-19 09:59:35');
-INSERT INTO `sys_logininfor` VALUES ('3c963965534b4d729d4574b81e9d1e02', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 09:18:23');
-INSERT INTO `sys_logininfor` VALUES ('3e33ffc98bce47cb8170afbc7c4eabe4', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 03:40:25');
-INSERT INTO `sys_logininfor` VALUES ('448b9f0535444e00a76a879d0515c7d7', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-19 09:41:28');
-INSERT INTO `sys_logininfor` VALUES ('4b87c9862ca6424aa6e595276fe0e5a9', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 09:20:56');
-INSERT INTO `sys_logininfor` VALUES ('4da7ac3a7c7a43389ac1364b0a92f7c2', 'yuhaiming', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 07:59:47');
-INSERT INTO `sys_logininfor` VALUES ('524378c9fb124d4ba849c7d326302347', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 10:14:08');
-INSERT INTO `sys_logininfor` VALUES ('562e6752788c43c687cbc2632f79a2d3', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 09:20:02');
-INSERT INTO `sys_logininfor` VALUES ('571b156f09e4472fa3ee3daa38071923', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 05:55:10');
-INSERT INTO `sys_logininfor` VALUES ('5c7bf83b07ac4531aee97b43a13dcbb3', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 07:28:39');
-INSERT INTO `sys_logininfor` VALUES ('5fab9260b2114d3986fc1bf42d8dd4c4', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 01:57:00');
-INSERT INTO `sys_logininfor` VALUES ('6416da28e368470db4da22e4226daa10', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 03:28:09');
-INSERT INTO `sys_logininfor` VALUES ('679e7e9b37d04dd9bc6e7ef708e3e0c9', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-19 09:57:46');
-INSERT INTO `sys_logininfor` VALUES ('67e655a79ce045a1839a556c8b001768', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 02:49:32');
-INSERT INTO `sys_logininfor` VALUES ('68fcb77ddc5a445290a2cc457af0a28a', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 06:09:10');
-INSERT INTO `sys_logininfor` VALUES ('69e91f8d5b2d4238b4522ede3dcdcc75', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 09:04:40');
-INSERT INTO `sys_logininfor` VALUES ('6ec8ab26e8f94497adad451bc1d7a82f', 'yuhaiming', '127.0.0.1', '内网IP', 'Firefox', 'Mac OS X', '1', 'user.login.success', '2019-04-22 03:32:16');
-INSERT INTO `sys_logininfor` VALUES ('72fb2fa255344dbbb653aa41264baa09', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 06:01:11');
-INSERT INTO `sys_logininfor` VALUES ('731ca72e122d4d7aa580fc99f0aa4ba4', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 05:30:00');
-INSERT INTO `sys_logininfor` VALUES ('76c81c0680f04d15882e0dfabb8e0e89', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-19 09:58:35');
-INSERT INTO `sys_logininfor` VALUES ('78914bc7759f47d2a11c4289d12cc0de', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 02:09:10');
-INSERT INTO `sys_logininfor` VALUES ('8b82356729274c89920e83688c7e9b68', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 09:16:58');
-INSERT INTO `sys_logininfor` VALUES ('8e21c43329d44480b3460c47cf46fea1', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 08:55:05');
-INSERT INTO `sys_logininfor` VALUES ('8ed19a5fc69047d69fbff8fb60f25d76', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 09:09:33');
-INSERT INTO `sys_logininfor` VALUES ('939c982ea8264f6da15ad219a737cb98', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 08:23:08');
-INSERT INTO `sys_logininfor` VALUES ('94ac8f34f62d4636af524ec250397033', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-19 09:47:54');
-INSERT INTO `sys_logininfor` VALUES ('955453bae89d4e5a8610bae9075720c6', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 01:10:11');
-INSERT INTO `sys_logininfor` VALUES ('9f03d505adf143ce928da12512fca712', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 08:37:50');
-INSERT INTO `sys_logininfor` VALUES ('9f97a49898e143b3b81cf7befb5e13d2', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 03:45:19');
-INSERT INTO `sys_logininfor` VALUES ('a22dce12383048618b589fde4e43e49a', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 09:33:35');
-INSERT INTO `sys_logininfor` VALUES ('a52fdd3a34eb4132a97b2f311b5b8077', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 09:17:26');
-INSERT INTO `sys_logininfor` VALUES ('a7389143546a496da702ddb0aa274ce0', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 09:22:29');
-INSERT INTO `sys_logininfor` VALUES ('ad364fb879314fb587cccd40dfb13874', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 08:00:54');
-INSERT INTO `sys_logininfor` VALUES ('b92b8c2624ee4927bff05a1cca7d3d5c', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 08:59:04');
-INSERT INTO `sys_logininfor` VALUES ('ba2fc8267b26447d93004a0e6df3f1a3', 'yuhaiming', '127.0.0.1', '内网IP', 'Firefox', 'Mac OS X', '1', 'user.login.success', '2019-04-22 03:28:42');
-INSERT INTO `sys_logininfor` VALUES ('ba89f76fd51a4fe0a1f90d0b4d3dddb7', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 06:05:48');
-INSERT INTO `sys_logininfor` VALUES ('bcba5028712f49b3b8cb0b1cab1bdd2d', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 02:09:48');
-INSERT INTO `sys_logininfor` VALUES ('c394c350212e49b48cd2f8bff852a4e0', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 05:58:44');
-INSERT INTO `sys_logininfor` VALUES ('d01502686e2f4f3e92c3a85115a7d8a5', 'yuhaiming', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 07:56:44');
-INSERT INTO `sys_logininfor` VALUES ('d140e5884d884ead90c62a9ac6627ce1', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-19 10:03:00');
-INSERT INTO `sys_logininfor` VALUES ('d631aa380f414ee9b58e9c821edfc8b8', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 03:36:24');
-INSERT INTO `sys_logininfor` VALUES ('d6cf1def648e4fbd9cb0c084e2e533fe', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 06:06:26');
-INSERT INTO `sys_logininfor` VALUES ('dd98ad839e6f42339e17bac4028f70fb', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 03:41:33');
-INSERT INTO `sys_logininfor` VALUES ('e8c247b6859645129f2112300193058d', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 01:51:19');
-INSERT INTO `sys_logininfor` VALUES ('ea6e0597b6684895bb87f41abe7bd644', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-19 10:01:21');
-INSERT INTO `sys_logininfor` VALUES ('ebcd57f3d0b54defab5478d16a77b253', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-19 09:04:43');
-INSERT INTO `sys_logininfor` VALUES ('ed3fee96e6bc4c5db3ee6a93824cb08f', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 08:39:40');
-INSERT INTO `sys_logininfor` VALUES ('ef3a901ee497454fbb428c7948554006', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 01:30:59');
-INSERT INTO `sys_logininfor` VALUES ('f56a0612bde84c72b8a773dd07240992', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 06:03:56');
-INSERT INTO `sys_logininfor` VALUES ('fbde66ac939a4f9f824a006084cdbb54', 'yuhaiming', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-22 07:52:19');
-INSERT INTO `sys_logininfor` VALUES ('ff3ebba489b843b8ab3fd5cbf2f387b3', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-19 09:50:11');
-INSERT INTO `sys_logininfor` VALUES ('ff4b814c137f42538aebe8cfed9544a5', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', 'user.login.success', '2019-04-23 01:55:57');
+INSERT INTO `sys_logininfor` VALUES ('1c4c753c35bc47d5879a032cdba11859', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 15:40:35');
+INSERT INTO `sys_logininfor` VALUES ('2df0439aa0d0440580c81835fa73df84', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 14:15:49');
+INSERT INTO `sys_logininfor` VALUES ('7f9f7c677135480880a0d468f2388d31', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 15:57:01');
+INSERT INTO `sys_logininfor` VALUES ('9423368db066423d99b8eb6900290622', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 15:55:21');
+INSERT INTO `sys_logininfor` VALUES ('ad2cf8367c91403085f50cc40a0530f2', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 15:55:05');
+INSERT INTO `sys_logininfor` VALUES ('b26da39bbfd14c15910ed95daba3b819', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 15:04:38');
 COMMIT;
 
 -- ----------------------------
@@ -4186,7 +4127,7 @@ INSERT INTO `sys_menu` VALUES ('106', '参数设置', '1', 7, '/sys/config', 'C'
 INSERT INTO `sys_menu` VALUES ('1060', '区域修改', '1062', 3, '#', 'F', '0', 'sys:area:edit', '#', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES ('1061', '区域删除', '1062', 4, '#', 'F', '0', 'sys:area:remove', '#', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES ('1062', '区域', '1', 11, '/sys/area', 'C', '0', 'sys:area:view', '#', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('107', '通知公告', '1', 8, '/sys/notice', 'C', '0', 'sys:notice:view', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '通知公告菜单');
+INSERT INTO `sys_menu` VALUES ('107', '通知公告', '1', 8, '/sys/notice', 'C', '1', 'sys:notice:view', '#', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES ('108', '日志管理', '1', 9, '#', 'M', '0', '', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '日志管理菜单');
 INSERT INTO `sys_menu` VALUES ('109', '在线用户', '2', 1, '/monitor/online', 'C', '0', 'monitor:online:view', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '在线用户菜单');
 INSERT INTO `sys_menu` VALUES ('110', '定时任务', '1', 20, '/sys/task', 'C', '0', 'sys:task:view', '#', NULL, NULL, NULL, NULL, NULL);
@@ -4301,8 +4242,8 @@ CREATE TABLE `sys_role` (
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role` VALUES ('1', '管理员', 'admin', 1, NULL, '0', '0', NULL, NULL, NULL, NULL, '管理员');
-INSERT INTO `sys_role` VALUES ('2', '普通角色', 'common', 2, NULL, '0', '0', NULL, NULL, NULL, NULL, '普通角色');
+INSERT INTO `sys_role` VALUES ('1', '管理员', 'admin', 1, NULL, '0', '0', NULL, '2019-04-26 14:02:18', NULL, '2019-04-26 14:02:27', '管理员');
+INSERT INTO `sys_role` VALUES ('2', '普通角色', 'common', 2, NULL, '0', '0', NULL, '2019-04-26 14:02:23', NULL, '2019-04-26 14:02:30', '普通角色');
 COMMIT;
 
 -- ----------------------------
@@ -4329,8 +4270,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
-  `menu_id` bigint(20) NOT NULL COMMENT '菜单ID',
+  `role_id` varchar(64) NOT NULL COMMENT '角色ID',
+  `menu_id` varchar(64) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`role_id`,`menu_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色和菜单关联表';
 
@@ -4338,95 +4279,95 @@ CREATE TABLE `sys_role_menu` (
 -- Records of sys_role_menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role_menu` VALUES (1, 1);
-INSERT INTO `sys_role_menu` VALUES (1, 2);
-INSERT INTO `sys_role_menu` VALUES (1, 3);
-INSERT INTO `sys_role_menu` VALUES (1, 100);
-INSERT INTO `sys_role_menu` VALUES (1, 101);
-INSERT INTO `sys_role_menu` VALUES (1, 102);
-INSERT INTO `sys_role_menu` VALUES (1, 103);
-INSERT INTO `sys_role_menu` VALUES (1, 104);
-INSERT INTO `sys_role_menu` VALUES (1, 105);
-INSERT INTO `sys_role_menu` VALUES (1, 106);
-INSERT INTO `sys_role_menu` VALUES (1, 107);
-INSERT INTO `sys_role_menu` VALUES (1, 108);
-INSERT INTO `sys_role_menu` VALUES (1, 109);
-INSERT INTO `sys_role_menu` VALUES (1, 110);
-INSERT INTO `sys_role_menu` VALUES (1, 111);
-INSERT INTO `sys_role_menu` VALUES (1, 112);
-INSERT INTO `sys_role_menu` VALUES (1, 113);
-INSERT INTO `sys_role_menu` VALUES (1, 114);
-INSERT INTO `sys_role_menu` VALUES (1, 115);
-INSERT INTO `sys_role_menu` VALUES (1, 500);
-INSERT INTO `sys_role_menu` VALUES (1, 501);
-INSERT INTO `sys_role_menu` VALUES (1, 1000);
-INSERT INTO `sys_role_menu` VALUES (1, 1001);
-INSERT INTO `sys_role_menu` VALUES (1, 1002);
-INSERT INTO `sys_role_menu` VALUES (1, 1003);
-INSERT INTO `sys_role_menu` VALUES (1, 1004);
-INSERT INTO `sys_role_menu` VALUES (1, 1005);
-INSERT INTO `sys_role_menu` VALUES (1, 1006);
-INSERT INTO `sys_role_menu` VALUES (1, 1007);
-INSERT INTO `sys_role_menu` VALUES (1, 1008);
-INSERT INTO `sys_role_menu` VALUES (1, 1009);
-INSERT INTO `sys_role_menu` VALUES (1, 1010);
-INSERT INTO `sys_role_menu` VALUES (1, 1011);
-INSERT INTO `sys_role_menu` VALUES (1, 1012);
-INSERT INTO `sys_role_menu` VALUES (1, 1013);
-INSERT INTO `sys_role_menu` VALUES (1, 1014);
-INSERT INTO `sys_role_menu` VALUES (1, 1015);
-INSERT INTO `sys_role_menu` VALUES (1, 1016);
-INSERT INTO `sys_role_menu` VALUES (1, 1017);
-INSERT INTO `sys_role_menu` VALUES (1, 1018);
-INSERT INTO `sys_role_menu` VALUES (1, 1019);
-INSERT INTO `sys_role_menu` VALUES (1, 1020);
-INSERT INTO `sys_role_menu` VALUES (1, 1021);
-INSERT INTO `sys_role_menu` VALUES (1, 1022);
-INSERT INTO `sys_role_menu` VALUES (1, 1023);
-INSERT INTO `sys_role_menu` VALUES (1, 1024);
-INSERT INTO `sys_role_menu` VALUES (1, 1025);
-INSERT INTO `sys_role_menu` VALUES (1, 1026);
-INSERT INTO `sys_role_menu` VALUES (1, 1027);
-INSERT INTO `sys_role_menu` VALUES (1, 1028);
-INSERT INTO `sys_role_menu` VALUES (1, 1029);
-INSERT INTO `sys_role_menu` VALUES (1, 1030);
-INSERT INTO `sys_role_menu` VALUES (1, 1031);
-INSERT INTO `sys_role_menu` VALUES (1, 1032);
-INSERT INTO `sys_role_menu` VALUES (1, 1033);
-INSERT INTO `sys_role_menu` VALUES (1, 1034);
-INSERT INTO `sys_role_menu` VALUES (1, 1035);
-INSERT INTO `sys_role_menu` VALUES (1, 1036);
-INSERT INTO `sys_role_menu` VALUES (1, 1037);
-INSERT INTO `sys_role_menu` VALUES (1, 1038);
-INSERT INTO `sys_role_menu` VALUES (1, 1039);
-INSERT INTO `sys_role_menu` VALUES (1, 1040);
-INSERT INTO `sys_role_menu` VALUES (1, 1041);
-INSERT INTO `sys_role_menu` VALUES (1, 1042);
-INSERT INTO `sys_role_menu` VALUES (1, 1043);
-INSERT INTO `sys_role_menu` VALUES (1, 1044);
-INSERT INTO `sys_role_menu` VALUES (1, 1045);
-INSERT INTO `sys_role_menu` VALUES (1, 1046);
-INSERT INTO `sys_role_menu` VALUES (1, 1047);
-INSERT INTO `sys_role_menu` VALUES (1, 1048);
-INSERT INTO `sys_role_menu` VALUES (1, 1049);
-INSERT INTO `sys_role_menu` VALUES (1, 1050);
-INSERT INTO `sys_role_menu` VALUES (1, 1051);
-INSERT INTO `sys_role_menu` VALUES (1, 1052);
-INSERT INTO `sys_role_menu` VALUES (1, 1053);
-INSERT INTO `sys_role_menu` VALUES (1, 1054);
-INSERT INTO `sys_role_menu` VALUES (1, 1055);
-INSERT INTO `sys_role_menu` VALUES (1, 1056);
-INSERT INTO `sys_role_menu` VALUES (1, 1057);
-INSERT INTO `sys_role_menu` VALUES (1, 1058);
-INSERT INTO `sys_role_menu` VALUES (1, 1059);
-INSERT INTO `sys_role_menu` VALUES (1, 1060);
-INSERT INTO `sys_role_menu` VALUES (1, 1061);
-INSERT INTO `sys_role_menu` VALUES (1, 1062);
-INSERT INTO `sys_role_menu` VALUES (2, 1);
-INSERT INTO `sys_role_menu` VALUES (2, 100);
-INSERT INTO `sys_role_menu` VALUES (2, 101);
-INSERT INTO `sys_role_menu` VALUES (2, 1000);
-INSERT INTO `sys_role_menu` VALUES (2, 1007);
+INSERT INTO `sys_role_menu` VALUES ('1', '1');
+INSERT INTO `sys_role_menu` VALUES ('1', '100');
+INSERT INTO `sys_role_menu` VALUES ('1', '1000');
+INSERT INTO `sys_role_menu` VALUES ('1', '1001');
+INSERT INTO `sys_role_menu` VALUES ('1', '1002');
+INSERT INTO `sys_role_menu` VALUES ('1', '1003');
+INSERT INTO `sys_role_menu` VALUES ('1', '1004');
+INSERT INTO `sys_role_menu` VALUES ('1', '1005');
+INSERT INTO `sys_role_menu` VALUES ('1', '1006');
+INSERT INTO `sys_role_menu` VALUES ('1', '1007');
+INSERT INTO `sys_role_menu` VALUES ('1', '1008');
+INSERT INTO `sys_role_menu` VALUES ('1', '1009');
+INSERT INTO `sys_role_menu` VALUES ('1', '101');
+INSERT INTO `sys_role_menu` VALUES ('1', '1010');
+INSERT INTO `sys_role_menu` VALUES ('1', '1011');
+INSERT INTO `sys_role_menu` VALUES ('1', '1012');
+INSERT INTO `sys_role_menu` VALUES ('1', '1013');
+INSERT INTO `sys_role_menu` VALUES ('1', '1014');
+INSERT INTO `sys_role_menu` VALUES ('1', '1015');
+INSERT INTO `sys_role_menu` VALUES ('1', '1016');
+INSERT INTO `sys_role_menu` VALUES ('1', '1017');
+INSERT INTO `sys_role_menu` VALUES ('1', '1018');
+INSERT INTO `sys_role_menu` VALUES ('1', '1019');
+INSERT INTO `sys_role_menu` VALUES ('1', '102');
+INSERT INTO `sys_role_menu` VALUES ('1', '1020');
+INSERT INTO `sys_role_menu` VALUES ('1', '1021');
+INSERT INTO `sys_role_menu` VALUES ('1', '1022');
+INSERT INTO `sys_role_menu` VALUES ('1', '1023');
+INSERT INTO `sys_role_menu` VALUES ('1', '1024');
+INSERT INTO `sys_role_menu` VALUES ('1', '1025');
+INSERT INTO `sys_role_menu` VALUES ('1', '1026');
+INSERT INTO `sys_role_menu` VALUES ('1', '1027');
+INSERT INTO `sys_role_menu` VALUES ('1', '1028');
+INSERT INTO `sys_role_menu` VALUES ('1', '1029');
+INSERT INTO `sys_role_menu` VALUES ('1', '103');
+INSERT INTO `sys_role_menu` VALUES ('1', '1030');
+INSERT INTO `sys_role_menu` VALUES ('1', '1031');
+INSERT INTO `sys_role_menu` VALUES ('1', '1032');
+INSERT INTO `sys_role_menu` VALUES ('1', '1033');
+INSERT INTO `sys_role_menu` VALUES ('1', '1034');
+INSERT INTO `sys_role_menu` VALUES ('1', '1035');
+INSERT INTO `sys_role_menu` VALUES ('1', '1036');
+INSERT INTO `sys_role_menu` VALUES ('1', '1037');
+INSERT INTO `sys_role_menu` VALUES ('1', '1038');
+INSERT INTO `sys_role_menu` VALUES ('1', '1039');
+INSERT INTO `sys_role_menu` VALUES ('1', '104');
+INSERT INTO `sys_role_menu` VALUES ('1', '1040');
+INSERT INTO `sys_role_menu` VALUES ('1', '1041');
+INSERT INTO `sys_role_menu` VALUES ('1', '1042');
+INSERT INTO `sys_role_menu` VALUES ('1', '1043');
+INSERT INTO `sys_role_menu` VALUES ('1', '1044');
+INSERT INTO `sys_role_menu` VALUES ('1', '1045');
+INSERT INTO `sys_role_menu` VALUES ('1', '1046');
+INSERT INTO `sys_role_menu` VALUES ('1', '1047');
+INSERT INTO `sys_role_menu` VALUES ('1', '1048');
+INSERT INTO `sys_role_menu` VALUES ('1', '1049');
+INSERT INTO `sys_role_menu` VALUES ('1', '105');
+INSERT INTO `sys_role_menu` VALUES ('1', '1050');
+INSERT INTO `sys_role_menu` VALUES ('1', '1051');
+INSERT INTO `sys_role_menu` VALUES ('1', '1052');
+INSERT INTO `sys_role_menu` VALUES ('1', '1053');
+INSERT INTO `sys_role_menu` VALUES ('1', '1054');
+INSERT INTO `sys_role_menu` VALUES ('1', '1055');
+INSERT INTO `sys_role_menu` VALUES ('1', '1056');
+INSERT INTO `sys_role_menu` VALUES ('1', '1057');
+INSERT INTO `sys_role_menu` VALUES ('1', '1058');
+INSERT INTO `sys_role_menu` VALUES ('1', '1059');
+INSERT INTO `sys_role_menu` VALUES ('1', '106');
+INSERT INTO `sys_role_menu` VALUES ('1', '1060');
+INSERT INTO `sys_role_menu` VALUES ('1', '1061');
+INSERT INTO `sys_role_menu` VALUES ('1', '1062');
+INSERT INTO `sys_role_menu` VALUES ('1', '107');
+INSERT INTO `sys_role_menu` VALUES ('1', '108');
+INSERT INTO `sys_role_menu` VALUES ('1', '109');
+INSERT INTO `sys_role_menu` VALUES ('1', '110');
+INSERT INTO `sys_role_menu` VALUES ('1', '111');
+INSERT INTO `sys_role_menu` VALUES ('1', '112');
+INSERT INTO `sys_role_menu` VALUES ('1', '113');
+INSERT INTO `sys_role_menu` VALUES ('1', '114');
+INSERT INTO `sys_role_menu` VALUES ('1', '115');
+INSERT INTO `sys_role_menu` VALUES ('1', '2');
+INSERT INTO `sys_role_menu` VALUES ('1', '3');
+INSERT INTO `sys_role_menu` VALUES ('1', '500');
+INSERT INTO `sys_role_menu` VALUES ('1', '501');
+INSERT INTO `sys_role_menu` VALUES ('2', '1');
+INSERT INTO `sys_role_menu` VALUES ('2', '100');
+INSERT INTO `sys_role_menu` VALUES ('2', '1000');
+INSERT INTO `sys_role_menu` VALUES ('2', '1007');
+INSERT INTO `sys_role_menu` VALUES ('2', '101');
 COMMIT;
 
 -- ----------------------------
@@ -4455,7 +4396,7 @@ CREATE TABLE `sys_task` (
 -- Records of sys_task
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_task` VALUES ('bf1c60009c104e93b2a2d4d573087ae3', '测试任务', 'cn.wizzer.common.quartz.job.TestJob', '微信号：wizzer | 欢迎发送红包以示支持，多谢。。', '*/5 * * * * ?', '{\"hi\":\"Wechat:wizzer | send red packets of support,thank u\"}', NULL, NULL, '0', '', NULL, '', NULL, '');
+INSERT INTO `sys_task` VALUES ('bf1c60009c104e93b2a2d4d573087ae3', '测试任务', 'io.nutz.nutzsite.common.quartz.job.TestJob', '', '*/5 * * * * ?', '{\"hi\":\"send red packets of support,thank u\"}', NULL, '', '1', '', NULL, '', NULL, '');
 COMMIT;
 
 -- ----------------------------
@@ -4490,8 +4431,9 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '若依11111', '00', 'ry@163.com', '15111111111', '1', '', 'vM7xT6KolcQbX7xlYfjisIJkrleH3De2t7wnmZ2zIB8=', '6dXimQAQqHBXkhI79IRKcg==', '0', '0', '127.0.0.1', '2019-04-23 10:14:08', 'admin', '2018-03-16 11:33:00', 'ry', '2019-04-19 07:06:38', '管理员');
+INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '小明', '00', 'ry@163.com', '15111111111', '0', '', 'vM7xT6KolcQbX7xlYfjisIJkrleH3De2t7wnmZ2zIB8=', '6dXimQAQqHBXkhI79IRKcg==', '0', '0', '127.0.0.1', '2019-04-26 15:57:01', 'admin', '2018-03-16 11:33:00', 'ry', '2019-04-19 07:06:38', '管理员');
 INSERT INTO `sys_user` VALUES ('92f5c91df48644a1812c55c164716fa7', '108', 'yuhaiming', 'Tom', '00', 'deal_2018@163.com', '15888888888', '1', NULL, 'I5HArEABibh3QIHygtY/RlYjhZq+/THnvr84VEm41Wg=', '5wQghHKKPJZ8T8fp3xREeQ==', '0', '0', '127.0.0.1', '2019-04-22 07:59:47', '1', '2019-04-19 07:48:19', '1', '2019-04-22 07:57:06', '');
+INSERT INTO `sys_user` VALUES ('a14731cfa4cb4e46b1f4eb1061950c6d', '105', 'haiming', 'Tom', '00', 'brave.yhm@gmail.com', '15111111111', NULL, NULL, 'DymenKivzL744ODeXSLyvkz6qnnP3qhgdtbpwZ9Txyo=', 'gA208ZKZ684tEg0Jg+UhSQ==', '0', '0', '127.0.0.1', '2019-04-26 03:01:40', '1', '2019-04-26 03:00:24', '1', '2019-04-26 03:00:24', '');
 COMMIT;
 
 -- ----------------------------
@@ -4549,6 +4491,7 @@ INSERT INTO `sys_user_role` VALUES ('1', '1');
 INSERT INTO `sys_user_role` VALUES ('1', '2');
 INSERT INTO `sys_user_role` VALUES ('2', '2');
 INSERT INTO `sys_user_role` VALUES ('92f5c91df48644a1812c55c164716fa7', '2');
+INSERT INTO `sys_user_role` VALUES ('a14731cfa4cb4e46b1f4eb1061950c6d', '1e1017b4f424435899adea31249f45dc');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
