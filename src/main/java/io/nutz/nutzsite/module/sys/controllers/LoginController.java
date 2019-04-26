@@ -50,19 +50,23 @@ public class LoginController {
             ThreadContext.bind(subject);
             subject.login(new UsernamePasswordToken(username,password,rememberMe));
             User user = (User) subject.getPrincipal();
-            AsyncManager.me().execute(asyncFactory.recordLogininfor(user.getLoginName(), true,"user.login.success"));
+            AsyncManager.me().execute(asyncFactory.recordLogininfor(user.getLoginName(), true,"登录成功"));
             userService.recordLoginInfo(user);
             return Result.success("login.success");
         } catch (LockedAccountException e) {
+            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,"账号锁定"));
             return Result.error(3, "login.error.locked");
         } catch (UnknownAccountException e) {
 //            e.printStackTrace();
+            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,"用户不存在"));
             return Result.error(4, "login.error.user");
         } catch (AuthenticationException e) {
 //            e.printStackTrace();
+            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,"密码错误"));
             return Result.error(5, "login.error.user");
         } catch (Exception e) {
 //            e.printStackTrace();
+            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,"登录系统异常"));
             return Result.error(6, "login.error.system");
         }
     }

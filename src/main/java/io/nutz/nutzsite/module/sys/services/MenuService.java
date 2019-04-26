@@ -5,6 +5,7 @@ import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.models.User;
 import org.nutz.aop.interceptor.ioc.TransAop;
+import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
 import org.nutz.dao.entity.Entity;
@@ -13,6 +14,7 @@ import org.nutz.dao.sql.SqlCallback;
 import org.nutz.ioc.aop.Aop;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 
 import java.sql.Connection;
@@ -102,15 +104,16 @@ public class MenuService extends Service<Menu> {
      */
     public List<Map<String, Object>> roleMenuTreeData(String roleId) {
         List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
-        Role role = roleService.fetch(roleId);
-        role = roleService.fetchLinks(role, "menus");
         List<String> roleMenuList = new ArrayList<>();
-        if (role.getMenus() != null && role.getMenus().size() > 0) {
-            role.getMenus().forEach(menu -> {
-                roleMenuList.add(menu.getId() + menu.getPerms());
-            });
+        if(Strings.isNotBlank(roleId)){
+            Role role = roleService.fetch(roleId);
+            role = roleService.fetchLinks(role, "menus");
+            if (role.getMenus() != null && role.getMenus().size() > 0) {
+                role.getMenus().forEach(menu -> {
+                    roleMenuList.add(menu.getId() + menu.getPerms());
+                });
+            }
         }
-
         List<Menu> menuList = this.query();
         if (Strings.isNotBlank(roleId)) {
             trees = getTrees(menuList, true, roleMenuList, true);
@@ -161,4 +164,22 @@ public class MenuService extends Service<Menu> {
         return sql.getList(String.class);
     }
 
+
+    public boolean checkMenuUnique(String id,String parentId,String menuName) {
+        Cnd cnd =Cnd.NEW();
+        if(Strings.isNotBlank(id)){
+            cnd.and("id","!=",id);
+        }
+        if(Strings.isNotBlank(parentId)){
+            cnd.and("parent_id","=",parentId);
+        }
+        if(Strings.isNotBlank(menuName)){
+            cnd.and("menu_name", "=", menuName);
+        }
+        List<Menu> list = this.query(cnd);
+        if (Lang.isEmpty(list)) {
+            return true;
+        }
+        return false;
+    }
 }

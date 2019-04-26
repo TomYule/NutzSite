@@ -64,9 +64,10 @@ public class MenuController {
     @At
     @POST
     @Ok("json")
-    public boolean checkMenuNameUnique(Menu menu) {
-//        return menuService.checkMenuNameUnique(menu);
-        return true;
+    public boolean checkMenuUnique(@Param("id") String id,
+                                   @Param("parentId") String parentId,
+                                   @Param("menuName") String menuName) {
+        return menuService.checkMenuUnique(id,parentId,menuName);
     }
 
     @At
@@ -162,6 +163,7 @@ public class MenuController {
     @At
     @Ok("json")
     public List<Map<String, Object>> roleMenuTreeData(@Param("id")String roleId) {
+
         List<Map<String, Object>> tree = menuService.roleMenuTreeData(roleId);
         return tree;
     }

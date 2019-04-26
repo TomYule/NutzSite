@@ -9,6 +9,7 @@ import org.nutz.dao.Dao;
 import org.nutz.dao.sql.Criteria;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class RoleService extends Service<Role> {
 
     /**
      * 新增角色
+     *
      * @param data
      * @return
      */
@@ -39,9 +41,9 @@ public class RoleService extends Service<Role> {
                 ids = Arrays.asList(data.getMenuIds().split(","));
             }
         }
-        if(ids!=null && ids.size()>0){
+        if (ids != null && ids.size() > 0) {
             Criteria cri = Cnd.cri();
-            cri.where().andInStrList("id" , ids);
+            cri.where().andInStrList("id", ids);
             List<Menu> menuList = menuService.query(cri);
             data.setMenus(menuList);
         }
@@ -67,15 +69,48 @@ public class RoleService extends Service<Role> {
             this.fetchLinks(tmpData, "menus");
             dao().clearLinks(tmpData, "menus");
         }
-        if(ids!=null && ids.size()>0){
+        if (ids != null && ids.size() > 0) {
             Criteria cri = Cnd.cri();
-            cri.where().andInStrList("id" , ids);
+            cri.where().andInStrList("id", ids);
             List<Menu> menuList = menuService.query(cri);
             data.setMenus(menuList);
         }
         int count = dao().update(data);
         dao().insertRelation(data, "menus");
         return count;
+    }
+
+    @Override
+    public void delete(String[] ids) {
+        List<Role> roleList =this.query(Cnd.where("id", "in", ids));
+        roleList.forEach(role -> {
+            dao().clearLinks(role, "menus");
+        });
+
+        this.dao().clear(Role.class, Cnd.where("id", "in", ids));
+    }
+
+    /**
+     * 校验角色名称是否唯一
+     * @param roleName
+     * @return
+     */
+    public boolean checkRoleNameUnique(String id,String roleName,String roleKey) {
+        Cnd cnd =Cnd.NEW();
+        if(Strings.isNotBlank(id)){
+            cnd.and("id","!=",id);
+        }
+        if(Strings.isNotBlank(roleName)){
+            cnd.and("role_name", "=", roleName);
+        }
+        if(Strings.isNotBlank(roleKey)){
+            cnd.and("role_key", "=", roleKey);
+        }
+        List<Role> roleList = this.query(cnd);
+        if (Lang.isEmpty(roleList)) {
+            return true;
+        }
+        return false;
     }
 
 }

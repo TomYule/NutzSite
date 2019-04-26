@@ -43,6 +43,7 @@
     <script type="text/javascript">
 		var prefix = ctx + "${moduleName}/${classname}";
 		$("#form-${classname}-edit").validate({
+			onkeyup: false,
 			rules:{
 				xxxx:{
 					required:true,

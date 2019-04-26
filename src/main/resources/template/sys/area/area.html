@@ -10,22 +10,22 @@
             <form id="formId">
                 <div class="select-list">
                     <ul>
-                       <!-- <li>
-                            父节点：<input type="text" name="parentId"/>
-                        </li>
+                        <!-- <li>
+                             父节点：<input type="text" name="parentId"/>
+                         </li>
 
-                        <li>
-                            祖节点：<input type="text" name="ancestors"/>
-                        </li>
+                         <li>
+                             祖节点：<input type="text" name="ancestors"/>
+                         </li>
 
-                        <li>
-                            城市编码：<input type="text" name="citycode"/>
-                        </li>
+                         <li>
+                             城市编码：<input type="text" name="citycode"/>
+                         </li>
 
-                        <li>
-                            区域编码：<input type="text" name="adcode"/>
-                        </li>
--->
+                         <li>
+                             区域编码：<input type="text" name="adcode"/>
+                         </li>
+ -->
                         <li>
                             行政区名称：<input type="text" name="name"/>
                         </li>
@@ -33,24 +33,24 @@
                         <li>
                             行政区划级别：<input type="text" name="level"/>
                         </li>
-<!--
+                        <!--
 
-                        <li>
-                            创建者：<input type="text" name="createBy"/>
-                        </li>
+                                                <li>
+                                                    创建者：<input type="text" name="createBy"/>
+                                                </li>
 
-                        <li>
-                            创建时间：<input type="text" name="createTime"/>
-                        </li>
+                                                <li>
+                                                    创建时间：<input type="text" name="createTime"/>
+                                                </li>
 
-                        <li>
-                            更新者：<input type="text" name="updateBy"/>
-                        </li>
+                                                <li>
+                                                    更新者：<input type="text" name="updateBy"/>
+                                                </li>
 
-                        <li>
-                            更新时间：<input type="text" name="updateTime"/>
-                        </li>
--->
+                                                <li>
+                                                    更新时间：<input type="text" name="updateTime"/>
+                                                </li>
+                        -->
 
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.treeTable.search()"><i
@@ -101,6 +101,8 @@
             updateUrl: prefix + "/edit/{id}",
             removeUrl: prefix + "/remove",
             modalName: "区域",
+            expandAll: false,
+            expandFirst: true,
             columns: [
                 {
                     field: 'selectItem',
@@ -116,17 +118,17 @@
                 //     title: '祖节点',
                 //     align: "left"
                 // },
-
-                {
-                    field: 'adcode',
-                    title: '区域编码',
-                    align: "left"
-                },
                 {
                     field: 'citycode',
                     title: '城市编码',
                     align: "left"
                 },
+                {
+                    field: 'adcode',
+                    title: '区域编码',
+                    align: "left"
+                },
+
                 {
                     field: 'name',
                     title: '行政区名称',
@@ -135,7 +137,18 @@
                 {
                     field: 'level',
                     title: '行政区划级别',
-                    align: "left"
+                    align: "left",
+                    formatter: function (value, item, index) {
+                        if (value == 'country') {
+                            return '国家';
+                        } else if (value == 'province') {
+                            return '省';
+                        } else if (value == 'city') {
+                            return '市';
+                        } else {
+                            return '区';
+                        }
+                    }
                 },
                 // {
                 //     field: 'createBy',

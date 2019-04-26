@@ -13,6 +13,7 @@ import org.nutz.dao.sql.Criteria;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import io.nutz.nutzsite.module.sys.models.User;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 
 import java.util.*;
@@ -176,6 +177,14 @@ public class UserService extends Service<User> {
             return idsStr.substring(0, idsStr.length() - 1);
         }
         return idsStr.toString();
+    }
+
+    public boolean checkLoginNameUnique(String name) {
+        List<User> list = this.query(Cnd.where("login_name", "=", name));
+        if (Lang.isEmpty(list)) {
+            return true;
+        }
+        return false;
     }
 
 }

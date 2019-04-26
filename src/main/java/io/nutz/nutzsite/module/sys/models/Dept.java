@@ -73,7 +73,6 @@ public class Dept extends BaseModel implements Serializable {
 
     @Column("del_flag")
     @Comment("删除标记")
-    @Prev(els = @EL("$me.flag()"))
     @ColDefine(type = ColType.BOOLEAN)
     private boolean delFlag;
 

@@ -65,11 +65,12 @@
 		});
 		
 		$("#form-role-add").validate({
+			onkeyup: false,
 			rules:{
 				roleName:{
 					required:true,
 					remote: {
-		                url: ctx + "system/role/checkRoleNameUnique",
+		                url: ctx + "sys/role/checkRoleNameUnique",
 		                type: "post",
 		                dataType: "json",
 		                data: {
@@ -78,23 +79,23 @@
 		                    }
 		                },
 		                dataFilter: function(data, type) {
-		                	return $.validate.unique(data);
+		                	return data;
 		                }
 		            }
 				},
 				roleKey:{
 					required:true,
 					remote: {
-		                url: ctx + "system/role/checkRoleKeyUnique",
+		                url: ctx + "sys/role/checkRoleNameUnique",
 		                type: "post",
 		                dataType: "json",
 		                data: {
-		                	"roleName" : function() {
-		                        return $.common.trim($("#roleName").val());
+		                	"roleKey" : function() {
+		                        return $.common.trim($("#roleKey").val());
 		                    }
 		                },
 		                dataFilter: function(data, type) {
-		                	return $.validate.unique(data);
+		                	return data;
 		                }
 		            }
 				},
@@ -129,7 +130,7 @@
 			$.ajax({
 				cache : true,
 				type : "POST",
-				url : ctx + "sys/role/add",
+				url : ctx + "sys/role/addDo",
 				data : {
 					"roleName": roleName,
 					"roleKey": roleKey,

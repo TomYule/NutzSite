@@ -82,14 +82,14 @@
 							}
 		                },
 		                dataFilter: function(data, type) {
-		                	return $.validate.unique(data);
+		                	return data;
 		                }
 		            }
 				},
 				roleKey:{
 					required:true,
 					remote: {
-		                url: ctx + "sys/role/checkRoleKeyUnique",
+		                url: ctx + "sys/role/checkRoleNameUnique",
 		                type: "post",
 		                dataType: "json",
 		                data: {
@@ -101,7 +101,7 @@
 							}
 		                },
 		                dataFilter: function(data, type) {
-		                	return $.validate.unique(data);
+							return data;
 		                }
 		            }
 				},

@@ -105,4 +105,13 @@ public class RoleController {
             return Result.error("system.error");
         }
     }
+
+    @At
+    @POST
+    @Ok("json")
+    public Object checkRoleNameUnique(@Param("id") String id, @Param("roleName") String roleName, @Param("roleKey") String roleKey,HttpServletRequest req) {
+        return roleService.checkRoleNameUnique(id,roleName,roleKey);
+    }
+
+
 }

@@ -166,4 +166,12 @@ public class UserController {
 			return Result.error("system.error");
 		}
 	}
+
+	@At
+	@POST
+	@Ok("json")
+	public Object checkLoginNameUnique(@Param("id") String id,@Param("name") String name, HttpServletRequest req) {
+		return userService.checkLoginNameUnique(name);
+	}
+
 }
