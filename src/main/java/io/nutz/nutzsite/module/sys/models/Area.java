@@ -61,30 +61,39 @@ public class Area extends BaseModel implements Serializable {
     @Column("level")
     @Comment("行政区划级别 ")
     private String level;
+
     /**
      * 创建者
      */
     @Column("create_by")
     @Comment("创建者 ")
+    @Prev(els = @EL("$me.uid()"))
     private String createBy;
+
     /**
      * 创建时间
      */
     @Column("create_time")
     @Comment("创建时间 ")
+    @Prev(els = {@EL("$me.now()")})
     private Date createTime;
+
     /**
      * 更新者
      */
     @Column("update_by")
     @Comment("更新者 ")
+    @Prev(els = @EL("$me.uid()"))
     private String updateBy;
+
     /**
      * 更新时间
      */
     @Column("update_time")
     @Comment("更新时间 ")
+    @Prev(els = {@EL("$me.now()")})
     private Date updateTime;
+
 
     private String parentName;
 

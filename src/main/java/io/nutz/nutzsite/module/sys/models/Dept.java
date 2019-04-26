@@ -4,6 +4,7 @@ import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Table("sys_dept")
 public class Dept extends BaseModel implements Serializable {
@@ -75,6 +76,38 @@ public class Dept extends BaseModel implements Serializable {
     @Comment("删除标记")
     @ColDefine(type = ColType.BOOLEAN)
     private boolean delFlag;
+    /**
+     * 创建者
+     */
+    @Column("create_by")
+    @Comment("创建者 ")
+    @Prev(els = @EL("$me.uid()"))
+    private String createBy;
+
+    /**
+     * 创建时间
+     */
+    @Column("create_time")
+    @Comment("创建时间 ")
+    @Prev(els = {@EL("$me.now()")})
+    private Date createTime;
+
+    /**
+     * 更新者
+     */
+    @Column("update_by")
+    @Comment("更新者 ")
+    @Prev(els = @EL("$me.uid()"))
+    private String updateBy;
+
+    /**
+     * 更新时间
+     */
+    @Column("update_time")
+    @Comment("更新时间 ")
+    @Prev(els = {@EL("$me.now()")})
+    private Date updateTime;
+
 
     /**
      * 父部门名称
@@ -167,5 +200,45 @@ public class Dept extends BaseModel implements Serializable {
 
     public void setParentName(String parentName) {
         this.parentName = parentName;
+    }
+
+    @Override
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    @Override
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    @Override
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    @Override
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    @Override
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    @Override
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    @Override
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

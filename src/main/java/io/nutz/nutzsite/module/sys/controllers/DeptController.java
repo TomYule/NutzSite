@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.base.Result;
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Dept;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.services.DeptService;
@@ -8,6 +9,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -17,6 +19,7 @@ import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -83,6 +86,7 @@ public class DeptController {
             if (parentData != null) {
                 data.setParentName( parentData.getDeptName());
             }
+
             req.setAttribute("dept", data);
         }
     }
@@ -93,7 +97,11 @@ public class DeptController {
     @RequiresPermissions("sys:dept:edit")
     public Object editDo(@Param("..") Dept data, HttpServletRequest req) {
         try {
-            deptService.update(data);
+            if(Lang.isNotEmpty(data)){
+                data.setUpdateBy(ShiroUtils.getSysUserId());
+                data.setUpdateTime(new Date());
+                deptService.update(data);
+            }
             return Result.success("system.success");
         } catch (Exception e) {
             return Result.error("system.error");

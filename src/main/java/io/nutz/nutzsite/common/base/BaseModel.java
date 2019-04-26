@@ -23,7 +23,7 @@ public abstract class BaseModel implements Serializable {
     @Comment("创建者")
     @Prev(els = @EL("$me.uid()"))
     @ColDefine(type = ColType.VARCHAR, width = 32)
-    private String createBy;
+    protected String createBy;
 
     @Column("create_time")
     @Prev(els = {@EL("$me.now()")})
@@ -33,7 +33,7 @@ public abstract class BaseModel implements Serializable {
     @Comment("更新者")
     @Prev(els = @EL("$me.uid()"))
     @ColDefine(type = ColType.VARCHAR, width = 32)
-    private String updateBy;
+    protected String updateBy;
 
     @Prev(els=@EL("$me.now()"))
     @Column("update_time")

@@ -62,32 +62,6 @@ public class Dict extends BaseModel implements Serializable {
     @Column("parent_id")
     @Comment("父级编号 ")
     private String parentId;
-    /**
-     * 创建者
-     */
-    @Column("create_by")
-    @Comment("创建者 ")
-    @Prev(els = @EL("cBy()"))
-    private String createBy;
-    /**
-     * 创建时间
-     */
-    @Column("create_time")
-    @Comment("创建时间 ")
-    private Date createTime;
-    /**
-     * 更新者
-     */
-    @Column("update_by")
-    @Comment("更新者 ")
-    @Prev(els = @EL("upBy()"))
-    private String updateBy;
-    /**
-     * 更新时间
-     */
-    @Column("update_time")
-    @Comment("更新时间 ")
-    private Date updateTime;
 
     /**
      * 备注信息
@@ -101,6 +75,39 @@ public class Dict extends BaseModel implements Serializable {
     @Column("del_flag")
     @Comment("删除标记 ")
     private boolean delFlag;
+
+    /**
+     * 创建者
+     */
+    @Column("create_by")
+    @Comment("创建者 ")
+    @Prev(els = @EL("$me.uid()"))
+    private String createBy;
+
+    /**
+     * 创建时间
+     */
+    @Column("create_time")
+    @Comment("创建时间 ")
+    @Prev(els = {@EL("$me.now()")})
+    private Date createTime;
+
+    /**
+     * 更新者
+     */
+    @Column("update_by")
+    @Comment("更新者 ")
+    @Prev(els = @EL("$me.uid()"))
+    private String updateBy;
+
+    /**
+     * 更新时间
+     */
+    @Column("update_time")
+    @Comment("更新时间 ")
+    @Prev(els = {@EL("$me.now()")})
+    private Date updateTime;
+
 
     public void setId(String id) {
         this.id = id;

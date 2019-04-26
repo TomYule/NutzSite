@@ -14,10 +14,11 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
-
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+import java.util.Date;
 /**
  * ${tableComment} 信息操作处理
  * 
@@ -115,7 +116,11 @@ public class ${className}Controller {
 	@Ok("json")
 	public Object editDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
 		try {
-			${classname}Service.update(${classname});
+			if(Lang.isNotEmpty(${classname})){
+				${classname}.setUpdateBy(ShiroUtils.getSysUserId());
+				${classname}.setUpdateTime(new Date());
+				${classname}Service.update(${classname});
+			}
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");

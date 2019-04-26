@@ -10,52 +10,42 @@ import org.apache.shiro.subject.Subject;
 
 /**
  * shiro 工具类
- * 
+ *
  * @author ruoyi
  */
-public class ShiroUtils
-{
-    public static Subject getSubject()
-    {
+public class ShiroUtils {
+    public static Subject getSubject() {
         return SecurityUtils.getSubject();
     }
 
-    public static Session getSession()
-    {
+    public static Session getSession() {
         return SecurityUtils.getSubject().getSession();
     }
 
-    public static void logout()
-    {
+    public static void logout() {
         getSubject().logout();
     }
 
-    public static User getSysUser()
-    {
+    public static User getSysUser() {
         User user = null;
         Object obj = getSubject().getPrincipal();
-        if (StringUtils.isNotNull(obj))
-        {
+        if (StringUtils.isNotNull(obj)) {
             user = new User();
             BeanUtils.copyBeanProp(user, obj);
         }
         return user;
     }
 
-    public static String getSysUserId()
-    {
+    public static String getSysUserId() {
         User user = null;
         Object obj = getSubject().getPrincipal();
-        if (StringUtils.isNotNull(obj))
-        {
-            user = new User();
-            BeanUtils.copyBeanProp(user, obj);
+        if (StringUtils.isNotNull(obj)) {
+            return user.getId();
         }
-        return user.getId();
+        return "";
     }
 
-    public static void setSysUser(User user)
-    {
+    public static void setSysUser(User user) {
         Subject subject = getSubject();
         PrincipalCollection principalCollection = subject.getPrincipals();
         String realmName = principalCollection.getRealmNames().iterator().next();
@@ -64,23 +54,19 @@ public class ShiroUtils
         subject.runAs(newPrincipalCollection);
     }
 
-    public static String getUserId()
-    {
+    public static String getUserId() {
         return getSysUser().getId();
     }
 
-    public static String getLoginName()
-    {
+    public static String getLoginName() {
         return getSysUser().getLoginName();
     }
 
-    public static String getIp()
-    {
+    public static String getIp() {
         return getSubject().getSession().getHost();
     }
 
-    public static String getSessionId()
-    {
+    public static String getSessionId() {
         return String.valueOf(getSubject().getSession().getId());
     }
 }

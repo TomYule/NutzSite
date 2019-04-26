@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.utils.GenUtils;
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.services.RoleService;
 import io.nutz.nutzsite.module.sys.models.User;
@@ -10,6 +11,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -19,6 +21,7 @@ import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -125,7 +128,11 @@ public class UserController {
 	@Ok("json")
 	public Object editDo(@Param("..") User user,HttpServletRequest req) {
 		try {
-			userService.update(user);
+			if(Lang.isNotEmpty(user)){
+				user.setUpdateBy(ShiroUtils.getSysUserId());
+				user.setUpdateTime(new Date());
+				userService.update(user);
+			}
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");

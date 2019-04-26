@@ -4,6 +4,7 @@ import io.nutz.nutzsite.common.page.TableDataInfo;
 import org.nutz.dao.*;
 import org.nutz.dao.pager.Pager;
 import org.nutz.lang.Lang;
+import org.nutz.lang.Strings;
 import org.nutz.service.EntityService;
 
 import java.util.List;
@@ -264,6 +265,23 @@ public class Service<T> extends EntityService<T> {
     public TableDataInfo tableList( int pageNumber, int pageSize,Condition cnd){
         Pager pager = this.dao().createPager(pageNumber, pageSize);
         List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
+        return new TableDataInfo(list, this.dao().count(this.getEntityClass(),cnd));
+    }
+
+    /**
+     * 分页查询数据封装 查询关联数据
+     * @param pageNumber
+     * @param pageSize
+     * @param cnd
+     * @param linkname
+     * @return
+     */
+    public TableDataInfo tableList( int pageNumber, int pageSize,Condition cnd,String linkname){
+        Pager pager = this.dao().createPager(pageNumber, pageSize);
+        List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
+        if (!Strings.isBlank(linkname)) {
+            this.dao().fetchLinks(list, linkname);
+        }
         return new TableDataInfo(list, this.dao().count(this.getEntityClass(),cnd));
     }
 }

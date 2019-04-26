@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.sys.models.Task;
 import io.nutz.nutzsite.module.sys.services.TaskService;
@@ -7,6 +8,7 @@ import io.nutz.nutzsite.common.base.Result;;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -16,6 +18,7 @@ import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * 定时任务 信息操作处理
@@ -106,7 +109,12 @@ public class TaskController {
             } catch (Exception e) {
                 log.error(e.getMessage());
             }
-            taskService.update(sysTask);
+            if(Lang.isNotEmpty(sysTask)){
+                sysTask.setUpdateBy(ShiroUtils.getSysUserId());
+                sysTask.setUpdateTime(new Date());
+                taskService.update(sysTask);
+            }
+
             return Result.success("system.success");
         } catch (Exception e) {
             return Result.error("system.error");

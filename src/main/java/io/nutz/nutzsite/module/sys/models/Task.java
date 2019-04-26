@@ -87,6 +87,7 @@ public class Task extends BaseModel implements Serializable {
      */
     @Column("create_by")
     @Comment("创建者 ")
+    @Prev(els = @EL("$me.uid()"))
     private String createBy;
 
     /**
@@ -94,6 +95,7 @@ public class Task extends BaseModel implements Serializable {
      */
     @Column("create_time")
     @Comment("创建时间 ")
+    @Prev(els = {@EL("$me.now()")})
     private Date createTime;
 
     /**
@@ -101,6 +103,7 @@ public class Task extends BaseModel implements Serializable {
      */
     @Column("update_by")
     @Comment("更新者 ")
+    @Prev(els = @EL("$me.uid()"))
     private String updateBy;
 
     /**
@@ -108,7 +111,9 @@ public class Task extends BaseModel implements Serializable {
      */
     @Column("update_time")
     @Comment("更新时间 ")
+    @Prev(els = {@EL("$me.now()")})
     private Date updateTime;
+
 
     /**
      * 备注信息
@@ -190,34 +195,42 @@ public class Task extends BaseModel implements Serializable {
         this.status = status;
     }
 
+    @Override
     public void setCreateBy(String createBy) {
         this.createBy = createBy;
     }
 
+    @Override
     public String getCreateBy() {
         return createBy;
     }
 
+    @Override
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
+    @Override
     public Date getCreateTime() {
         return createTime;
     }
 
+    @Override
     public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
     }
 
+    @Override
     public String getUpdateBy() {
         return updateBy;
     }
 
+    @Override
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 
+    @Override
     public Date getUpdateTime() {
         return updateTime;
     }

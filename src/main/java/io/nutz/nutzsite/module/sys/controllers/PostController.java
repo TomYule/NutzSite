@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.services.PostService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.sys.models.Post;
@@ -7,6 +8,7 @@ import io.nutz.nutzsite.common.base.Result;;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -16,6 +18,7 @@ import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -100,7 +103,11 @@ public class PostController {
 	@Ok("json")
 	public Object editDo(@Param("..") Post post,HttpServletRequest req) {
 		try {
-			postService.update(post);
+			if(Lang.isNotEmpty(post)){
+				post.setUpdateBy(ShiroUtils.getSysUserId());
+				post.setUpdateTime(new Date());
+				postService.update(post);
+			}
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");

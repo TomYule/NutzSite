@@ -45,6 +45,7 @@ public class Config extends BaseModel implements Serializable {
      */
     @Column("create_by")
     @Comment("创建者 ")
+    @Prev(els = @EL("$me.uid()"))
     private String createBy;
 
     /**
@@ -52,6 +53,7 @@ public class Config extends BaseModel implements Serializable {
      */
     @Column("create_time")
     @Comment("创建时间 ")
+    @Prev(els = {@EL("$me.now()")})
     private Date createTime;
 
     /**
@@ -59,6 +61,7 @@ public class Config extends BaseModel implements Serializable {
      */
     @Column("update_by")
     @Comment("更新者 ")
+    @Prev(els = @EL("$me.uid()"))
     private String updateBy;
 
     /**
@@ -66,7 +69,9 @@ public class Config extends BaseModel implements Serializable {
      */
     @Column("update_time")
     @Comment("更新时间 ")
+    @Prev(els = {@EL("$me.now()")})
     private Date updateTime;
+
 
 
     public String getConfigKey() {

@@ -4,6 +4,7 @@ import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -66,6 +67,38 @@ public class Role  extends BaseModel implements Serializable {
 
     @ManyMany(from = "role_id", relation = "sys_role_menu", to = "menu_id")
     protected List<Menu> menus;
+
+    /**
+     * 创建者
+     */
+    @Column("create_by")
+    @Comment("创建者 ")
+    @Prev(els = @EL("$me.uid()"))
+    private String createBy;
+
+    /**
+     * 创建时间
+     */
+    @Column("create_time")
+    @Comment("创建时间 ")
+    @Prev(els = {@EL("$me.now()")})
+    private Date createTime;
+
+    /**
+     * 更新者
+     */
+    @Column("update_by")
+    @Comment("更新者 ")
+    @Prev(els = @EL("$me.uid()"))
+    private String updateBy;
+
+    /**
+     * 更新时间
+     */
+    @Column("update_time")
+    @Comment("更新时间 ")
+    @Prev(els = {@EL("$me.now()")})
+    private Date updateTime;
 
     @Override
     public boolean equals(Object obj) {
@@ -133,12 +166,28 @@ public class Role  extends BaseModel implements Serializable {
         this.delFlag = delFlag;
     }
 
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
     public String getRemark() {
         return remark;
     }
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getMenuIds() {
+        return menuIds;
+    }
+
+    public void setMenuIds(String menuIds) {
+        this.menuIds = menuIds;
     }
 
     public String[] getDeptIds() {
@@ -157,19 +206,43 @@ public class Role  extends BaseModel implements Serializable {
         this.menus = menus;
     }
 
-    public String getMenuIds() {
-        return menuIds;
+    @Override
+    public String getCreateBy() {
+        return createBy;
     }
 
-    public void setMenuIds(String menuIds) {
-        this.menuIds = menuIds;
+    @Override
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
     }
 
-    public boolean isFlag() {
-        return flag;
+    @Override
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setFlag(boolean flag) {
-        this.flag = flag;
+    @Override
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    @Override
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    @Override
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    @Override
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

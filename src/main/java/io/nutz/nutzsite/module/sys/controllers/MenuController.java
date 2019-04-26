@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.base.Result;
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.services.MenuService;
@@ -8,6 +9,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.lang.util.NutMap;
 import org.nutz.log.Log;
@@ -15,6 +17,7 @@ import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -107,7 +110,11 @@ public class MenuController {
             if (menu != null && Strings.isEmpty(menu.getParentId())) {
                 menu.setParentId("0");
             }
-            menuService.update(menu);
+            if(Lang.isNotEmpty(menu)){
+                menu.setUpdateBy(ShiroUtils.getSysUserId());
+                menu.setUpdateTime(new Date());
+                menuService.update(menu);
+            }
             return Result.success("system.success");
         } catch (Exception e) {
             return Result.error("system.error");

@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.utils.GenUtils;
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.sys.models.Dict;
 import io.nutz.nutzsite.module.sys.services.DictService;
@@ -8,6 +9,7 @@ import io.nutz.nutzsite.common.base.Result;;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -108,8 +110,11 @@ public class DictController {
 	@Ok("json")
 	public Object editDo(@Param("..") Dict dict,HttpServletRequest req) {
 		try {
-			dict.setUpdateTime(new Date());
-			dictService.update(dict);
+			if(Lang.isNotEmpty(dict)){
+				dict.setUpdateBy(ShiroUtils.getSysUserId());
+				dict.setUpdateTime(new Date());
+				dictService.update(dict);
+			}
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");

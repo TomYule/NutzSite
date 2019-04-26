@@ -143,6 +143,39 @@ public class User extends BaseModel implements Serializable {
      */
     private String postIds;
 
+    /**
+     * 创建者
+     */
+    @Column("create_by")
+    @Comment("创建者 ")
+    @Prev(els = @EL("$me.uid()"))
+    private String createBy;
+
+    /**
+     * 创建时间
+     */
+    @Column("create_time")
+    @Comment("创建时间 ")
+    @Prev(els = {@EL("$me.now()")})
+    private Date createTime;
+
+    /**
+     * 更新者
+     */
+    @Column("update_by")
+    @Comment("更新者 ")
+    @Prev(els = @EL("$me.uid()"))
+    private String updateBy;
+
+    /**
+     * 更新时间
+     */
+    @Column("update_time")
+    @Comment("更新时间 ")
+    @Prev(els = {@EL("$me.now()")})
+    private Date updateTime;
+
+
     public String getId() {
         return id;
     }
@@ -293,5 +326,45 @@ public class User extends BaseModel implements Serializable {
 
     public void setPostIds(String postIds) {
         this.postIds = postIds;
+    }
+
+    @Override
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    @Override
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    @Override
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    @Override
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    @Override
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    @Override
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    @Override
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

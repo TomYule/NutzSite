@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.sys.models.Config;
 import io.nutz.nutzsite.module.sys.services.ConfigService;
@@ -7,6 +8,7 @@ import io.nutz.nutzsite.common.base.Result;;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -16,6 +18,7 @@ import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -100,7 +103,11 @@ public class ConfigController {
 	@Ok("json")
 	public Object editDo(@Param("..") Config config,HttpServletRequest req) {
 		try {
-			configService.update(config);
+			if(Lang.isNotEmpty(config)){
+				config.setUpdateBy(ShiroUtils.getSysUserId());
+				config.setUpdateTime(new Date());
+				configService.update(config);
+			}
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");

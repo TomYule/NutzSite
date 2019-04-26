@@ -2,12 +2,14 @@ package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.utils.GenUtils;
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.services.RoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -17,7 +19,11 @@ import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
+/**
+ * 角色管理
+ */
 @IocBean
 @At("/sys/role")
 public class RoleController {
@@ -37,18 +43,18 @@ public class RoleController {
     @Ok("json")
     public Object list(@Param("pageNum")int pageNum,
                        @Param("pageSize")int pageSize,
-                       @Param("dictName") String dictName,
-                       @Param("dictType") String dictType,
+                       @Param("roleName") String roleName,
+                       @Param("roleKey") String roleKey,
                        @Param("orderByColumn") String orderByColumn,
                        @Param("isAsc") String isAsc,
                        HttpServletRequest req) {
         Cnd cnd = Cnd.NEW();
-/*        if (!Strings.isBlank(dictName)){
-            cnd.and("dict_name", "like", "%" + dictName +"%");
+        if (!Strings.isBlank(roleName)){
+            cnd.and("role_name", "like", "%" + roleName +"%");
         }
-        if (!Strings.isBlank(dictType)){
-            cnd.and("dict_type", "=", dictType);
-        }*/
+        if (!Strings.isBlank(roleKey)){
+            cnd.and("role_key", "=", roleKey);
+        }
         if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
             cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
         }
@@ -85,9 +91,13 @@ public class RoleController {
     @POST
     @Ok("json")
     @RequiresPermissions("sys:role:edit")
-    public Object editDo(@Param("..") Role data, @Param("mIds")String[] menuids,HttpServletRequest req) {
+    public Object editDo(@Param("..") Role data,HttpServletRequest req) {
         try {
-            roleService.update(data);
+            if(Lang.isNotEmpty(data)){
+                data.setUpdateBy(ShiroUtils.getSysUserId());
+                data.setUpdateTime(new Date());
+                roleService.update(data);
+            }
             return Result.success("system.success");
         } catch (Exception e) {
             return Result.error("system.error");
@@ -109,7 +119,9 @@ public class RoleController {
     @At
     @POST
     @Ok("json")
-    public Object checkRoleNameUnique(@Param("id") String id, @Param("roleName") String roleName, @Param("roleKey") String roleKey,HttpServletRequest req) {
+    public Object checkRoleNameUnique(@Param("id") String id,
+                                      @Param("roleName") String roleName,
+                                      @Param("roleKey") String roleKey,HttpServletRequest req) {
         return roleService.checkRoleNameUnique(id,roleName,roleKey);
     }
 

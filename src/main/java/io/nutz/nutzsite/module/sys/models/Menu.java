@@ -5,6 +5,7 @@ import org.nutz.dao.entity.annotation.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,6 +64,39 @@ public class Menu extends BaseModel implements Serializable {
     @Column
     @Comment("备注")
     private String remark;
+
+    /**
+     * 创建者
+     */
+    @Column("create_by")
+    @Comment("创建者 ")
+    @Prev(els = @EL("$me.uid()"))
+    private String createBy;
+
+    /**
+     * 创建时间
+     */
+    @Column("create_time")
+    @Comment("创建时间 ")
+    @Prev(els = {@EL("$me.now()")})
+    private Date createTime;
+
+    /**
+     * 更新者
+     */
+    @Column("update_by")
+    @Comment("更新者 ")
+    @Prev(els = @EL("$me.uid()"))
+    private String updateBy;
+
+    /**
+     * 更新时间
+     */
+    @Column("update_time")
+    @Comment("更新时间 ")
+    @Prev(els = {@EL("$me.now()")})
+    private Date updateTime;
+
 
     /** 子菜单 */
     private List<Menu> children = new ArrayList<Menu>();
@@ -161,5 +195,45 @@ public class Menu extends BaseModel implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Override
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    @Override
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    @Override
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    @Override
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    @Override
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    @Override
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    @Override
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }
