@@ -3,7 +3,9 @@ package io.nutz.nutzsite.common.starter;
 import io.nutz.nutzsite.common.bean.OnlineSession;
 import io.nutz.nutzsite.common.constant.ShiroConstants;
 import io.nutz.nutzsite.common.shiro.session.OnlineSessionDAO;
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import org.apache.shiro.web.filter.PathMatchingFilter;
+import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.nutz.boot.starter.WebFilterFace;
 import org.nutz.ioc.Ioc;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -24,6 +26,9 @@ import java.util.Map;
  */
 @IocBean
 public class SyncOnlineSessionFilter extends PathMatchingFilter implements WebFilterFace {
+
+    @Inject
+    private WebSecurityManager webSecurityManager;
 
     @Inject
     private OnlineSessionDAO onlineSessionDAO;
@@ -71,8 +76,9 @@ public class SyncOnlineSessionFilter extends PathMatchingFilter implements WebFi
      */
     @Override
     protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
-        OnlineSession session = (OnlineSession) request.getAttribute(ShiroConstants.ONLINE_SESSION);
-        
+//        ShiroUtils.getSession();
+        OnlineSession session = (OnlineSession) request.getAttribute("sid");
+//        webSecurityManager.
         // 如果session stop了 也不同步
         // session停止时间，如果stopTimestamp不为null，则代表已停止
         if (session != null && session.getUserId() != null && session.getStopTimestamp() == null) {

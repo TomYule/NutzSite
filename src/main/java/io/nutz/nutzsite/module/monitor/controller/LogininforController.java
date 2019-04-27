@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.monitor.controller;
 
+import io.nutz.nutzsite.common.utils.GenUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.monitor.models.Logininfor;
 import io.nutz.nutzsite.module.monitor.services.LogininforService;
@@ -48,10 +49,15 @@ public class LogininforController {
 	public Object list(@Param("pageNum")int pageNum,
 					   @Param("pageSize")int pageSize,
 					   @Param("name") String name,
+					   @Param("orderByColumn") String orderByColumn,
+					   @Param("isAsc") String isAsc,
 					   HttpServletRequest req) {
 		Cnd cnd = Cnd.NEW();
 		if (!Strings.isBlank(name)){
 			//cnd.and("name", "like", "%" + name +"%");
+		}
+		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
+			cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
 		}
 		return logininforService.tableList(pageNum,pageSize,cnd);
 	}
