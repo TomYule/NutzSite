@@ -88,16 +88,15 @@ public class XssFilterStarter implements WebFilterFace,Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException,ServletException {
-        if(log.isDebugEnabled()){
-            log.debug("xss filter is open");
-        }
+//        if(log.isDebugEnabled()){
+//            log.debug("xss filter is open");
+//        }
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         if(handleExcludeURL(req, resp)){
             filterChain.doFilter(request, response);
             return;
         }
-
         XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request,enabled);
         filterChain.doFilter(xssRequest, response);
     }

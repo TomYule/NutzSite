@@ -57,11 +57,17 @@ public class OnlineSessionDAO extends EnterpriseCacheSessionDAO {
      */
     @Override
     protected Session doReadSession(Serializable sessionId) {
-        UserOnline userOnline = onlineService.fetch(String.valueOf(sessionId));
-        if (userOnline == null) {
+        try{
+            UserOnline userOnline = onlineService.fetch(String.valueOf(sessionId));
+            if (userOnline == null) {
+                return null;
+            }
+            return onlineSessionFactory.createSession(userOnline);
+        }catch (Exception e){
+//            e.printStackTrace();
+        }finally {
             return null;
         }
-        return onlineSessionFactory.createSession(userOnline);
     }
 
     /**

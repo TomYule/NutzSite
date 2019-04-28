@@ -21,7 +21,7 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-       <dependency>
+        <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-nutz-mvc</artifactId>
         </dependency>
@@ -29,10 +29,10 @@
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-nutz-dao</artifactId>
         </dependency>
-<!--        <dependency>
-            <groupId>org.nutz</groupId>
-            <artifactId>nutzboot-servlet3</artifactId>
-        </dependency>-->
+        <!--        <dependency>
+                    <groupId>org.nutz</groupId>
+                    <artifactId>nutzboot-servlet3</artifactId>
+                </dependency>-->
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-jetty</artifactId>
@@ -41,15 +41,30 @@
            <groupId>org.nutz</groupId>
            <artifactId>nutzboot-starter-tomcat</artifactId>
        </dependency>-->
-       <dependency>
+        <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-quartz</artifactId>
         </dependency>
 
-       <dependency>
+        <!--    caffeine缓存    -->
+        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutzboot-starter-caffeine</artifactId>
+            <version>${nutzboot.version}</version>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-shiro</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-jdbc</artifactId>
@@ -89,8 +104,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-             <groupId>org.slf4j</groupId>
-             <artifactId>slf4j-log4j12</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -100,6 +115,7 @@
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>apache-jstl</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.sitemesh</groupId>
             <artifactId>sitemesh</artifactId>

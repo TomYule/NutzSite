@@ -19,6 +19,7 @@ import javax.servlet.Filter;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,6 +84,7 @@ public class OnlineSessionFilter extends AccessControlFilter implements WebFilte
             return true;
         }
         try {
+            Collection<Session> sessions =  onlineSessionDAO.getActiveSessions();
             Session session = onlineSessionDAO.readSession(subject.getSession().getId());
             if (session != null && session instanceof OnlineSession) {
                 OnlineSession onlineSession = (OnlineSession) session;
@@ -103,7 +105,7 @@ public class OnlineSessionFilter extends AccessControlFilter implements WebFilte
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         } finally {
             return true;
         }

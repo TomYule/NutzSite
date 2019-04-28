@@ -2,14 +2,16 @@ package io.nutz.nutzsite.common.xss;
 
 import io.nutz.nutzsite.common.utils.JsoupUtil;
 import io.nutz.nutzsite.common.utils.StringUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.util.Arrays;
 
 /**
- * 这里采用Jsoup 来防止xss注入
+ * 这里采用Jsoup 来防止xss注入 防止SQL 注入
  *
  * @author haiming
  */
@@ -36,6 +38,9 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         name = JsoupUtil.clean(name);
         String value = super.getParameter(name);
         if (StringUtils.isNotBlank(value)) {
+            // SQL injection characters
+            value = StringEscapeUtils.escapeSql(value);
+            // HTML transformation characters
             value = JsoupUtil.clean(value);
         }
         return value;
@@ -45,7 +50,11 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     public String[] getParameterValues(String name) {
         String[] arr = super.getParameterValues(name);
         if(arr != null){
-            for (int i=0;i<arr.length;i++) {
+            long length = arr.length;
+            for (int i=0;i<length;i++) {
+                // SQL injection characters
+                arr[i] = StringEscapeUtils.escapeSql(arr[i]);
+                // HTML transformation characters
                 arr[i] = JsoupUtil.clean(arr[i]);
             }
         }
