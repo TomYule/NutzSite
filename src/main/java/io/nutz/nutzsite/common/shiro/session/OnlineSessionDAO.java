@@ -7,6 +7,7 @@ import io.nutz.nutzsite.module.monitor.models.UserOnline;
 import io.nutz.nutzsite.module.monitor.services.UserOnlineService;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
+import org.nutz.aop.interceptor.async.Async;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
@@ -73,6 +74,7 @@ public class OnlineSessionDAO extends EnterpriseCacheSessionDAO {
     /**
      * 更新会话；如更新会话最后访问时间/停止会话/设置超时时间/设置移除属性等会调用
      */
+    @Async
     public void syncToDb(OnlineSession onlineSession) {
         Date lastSyncTimestamp = (Date) onlineSession.getAttribute(LAST_SYNC_DB_TIMESTAMP);
         if (lastSyncTimestamp != null) {

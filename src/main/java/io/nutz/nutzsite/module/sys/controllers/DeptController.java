@@ -1,9 +1,10 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.aspectj.annotation.NSLog;
+import io.nutz.nutzsite.common.aspectj.enums.BusinessType;
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Dept;
-import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.services.DeptService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
@@ -17,6 +18,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
+import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -68,6 +70,7 @@ public class DeptController {
     @POST
     @Ok("json")
     @RequiresPermissions("sys:dept:add")
+    @NSLog(title = "部门管理", businessType = BusinessType.INSERT)
     public Object addDo(@Param("..") Dept data, @Param("parentId") String parentId, HttpServletRequest req) {
         try {
             deptService.insert(data);
@@ -95,6 +98,7 @@ public class DeptController {
     @POST
     @Ok("json")
     @RequiresPermissions("sys:dept:edit")
+    @NSLog(title = "部门管理", businessType = BusinessType.UPDATE)
     public Object editDo(@Param("..") Dept data, HttpServletRequest req) {
         try {
             if(Lang.isNotEmpty(data)){
@@ -111,6 +115,7 @@ public class DeptController {
     @At("/remove/?")
     @Ok("json")
     @RequiresPermissions("sys:dept:remove")
+    @NSLog(title = "部门管理", businessType = BusinessType.DELETE)
     public Object remove(String id, HttpServletRequest req) {
         try {
             deptService.vDelete(id);

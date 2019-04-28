@@ -105,7 +105,7 @@ public class OnlineSessionFilter extends AccessControlFilter implements WebFilte
                 }
             }
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         } finally {
             return true;
         }

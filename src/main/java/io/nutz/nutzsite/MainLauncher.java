@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @IocBean(create = "init", depose = "depose")
+@IocBy(args="*slog")
 @Localization(value = "locales/", defaultLocalizationKey = "zh-CN")
 public class MainLauncher {
     @Inject("refer:$ioc")
