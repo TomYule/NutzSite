@@ -14,7 +14,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
-
+import org.nutz.plugins.slog.annotation.Slog;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,10 +50,23 @@ public class ${className}Controller {
 	public Object list(@Param("pageNum")int pageNum,
 					   @Param("pageSize")int pageSize,
 					   @Param("name") String name,
+					   @Param("beginTime") Date beginTime,
+					   @Param("endTime") Date endTime,
+					   @Param("orderByColumn") String orderByColumn,
+					   @Param("isAsc") String isAsc,
 					   HttpServletRequest req) {
 		Cnd cnd = Cnd.NEW();
 		if (!Strings.isBlank(name)){
 			//cnd.and("name", "like", "%" + name +"%");
+		}
+		if(Lang.isNotEmpty(beginTime)){
+			cnd.and("create_time",">=", beginTime);
+		}
+		if(Lang.isNotEmpty(endTime)){
+			cnd.and("create_time","<=", endTime);
+		}
+		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
+			cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
 		}
 		return ${classname}Service.tableList(pageNum,pageSize,cnd);
 	}
@@ -70,10 +83,11 @@ public class ${className}Controller {
 	/**
 	 * 新增保存${tableComment}
 	 */
-	@RequiresPermissions("${moduleName}:${classname}:add")
 	@At
 	@POST
 	@Ok("json")
+	@RequiresPermissions("${moduleName}:${classname}:add")
+	@Slog(tag="${tableComment}", after="新增保存${tableComment} id=${args[0].$primaryKey.columnName}")
 	public Object addDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
 		try {
 			${classname}Service.insert(${classname});
@@ -96,10 +110,11 @@ public class ${className}Controller {
 	/**
 	 * 修改保存${tableComment}
 	 */
-	@RequiresPermissions("${moduleName}:${classname}:edit")
 	@At
 	@POST
 	@Ok("json")
+	@RequiresPermissions("${moduleName}:${classname}:edit")
+	@Slog(tag="${tableComment}", after="修改保存${tableComment}")
 	public Object editDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
 		try {
 			if(Lang.isNotEmpty(${classname})){
@@ -119,6 +134,7 @@ public class ${className}Controller {
 	@At("/remove")
 	@Ok("json")
 	@RequiresPermissions("${moduleName}:${classname}:remove")
+	@Slog(tag ="${tableComment}", after= "删除${tableComment}:${array2str(args[0])}")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			${classname}Service.delete(ids);

@@ -28,9 +28,9 @@
 #elseif(${column.configInfo.type} == "date")
 							<li class="select-time">
 								<label>${column.columnComment}： </label>
-								<input type="text" class="time-input" id="start${column.attrName}" placeholder="开始" name="params[begin${column.attrName}]"/>
+								<input type="text" class="time-input" id="start${column.attrName}" placeholder="开始" name="begin${column.attrName}"/>
 								<span>-</span>
-								<input type="text" class="time-input" id="end${column.attrName}" placeholder="结束" name="params[end${column.attrName}]"/>
+								<input type="text" class="time-input" id="end${column.attrName}" placeholder="结束" name="end${column.attrName}"/>
 							</li>
 #elseif(${column.configInfo.type} == "fk")					
 #end

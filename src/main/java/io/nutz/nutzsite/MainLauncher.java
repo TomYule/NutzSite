@@ -1,5 +1,6 @@
 package io.nutz.nutzsite;
 
+import com.alibaba.fastjson.JSON;
 import io.nutz.nutzsite.common.base.Globals;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.common.utils.TreeUtils;
@@ -11,6 +12,8 @@ import io.nutz.nutzsite.module.sys.services.UserService;
 import org.nutz.boot.NbApp;
 import org.nutz.conf.NutConf;
 import org.nutz.dao.Dao;
+import org.nutz.el.opt.RunMethod;
+import org.nutz.el.opt.custom.CustomMake;
 import org.nutz.ioc.Ioc;
 import org.nutz.ioc.impl.PropertiesProxy;
 import org.nutz.ioc.loader.annotation.*;
@@ -65,6 +68,19 @@ public class MainLauncher {
     public void init() {
         // 初始化系统变量
         Globals.init(ioc.get(ConfigService.class));
+        CustomMake.me().register("array2str", new RunMethod(){
+
+            @Override
+            public Object run(List<Object> fetchParam) {
+                String tmp = JSON.toJSONString(fetchParam);
+                return tmp;
+            }
+
+            @Override
+            public String fetchSelf() {
+                return "array2str";
+            }
+        });
         // NB自身初始化完成后会调用这个方法
 //        Daos.createTablesInPackage(dao, "io.nutz.nutzsite.module", false);
     }

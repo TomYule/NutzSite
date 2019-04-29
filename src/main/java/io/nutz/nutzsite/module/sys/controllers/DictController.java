@@ -130,7 +130,7 @@ public class DictController {
 	@At("/remove")
 	@Ok("json")
 	@RequiresPermissions("sys:dict:remove")
-	@Slog(tag ="字典", after= "删除字典:${args[0]}")
+	@Slog(tag ="字典", after= "删除字典:${array2str(args[0])}")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			dictService.vDelete(ids);

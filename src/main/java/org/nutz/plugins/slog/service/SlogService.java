@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import eu.bitwalker.useragentutils.UserAgent;
 import io.nutz.nutzsite.common.page.TableDataInfo;
 import io.nutz.nutzsite.common.utils.AddressUtils;
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.common.utils.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.nutz.Nutz;
@@ -112,10 +113,7 @@ public class SlogService {
     public void log(String t, String tag, String source, String msg, boolean async) {
         SlogBean slog = c(t, tag, source, msg);
         try {
-            Object uid = GET_USER_ID.call();
-            if (uid != null && uid instanceof Number) {
-                slog.setUid(String.valueOf(uid));
-            }
+            slog.setUid(ShiroUtils.getSysUserId());
         }
         catch (Exception e) {
             if (log.isDebugEnabled()) {
@@ -123,8 +121,7 @@ public class SlogService {
             }
         }
         try {
-            Object uname = GET_USER_NAME.call();
-            slog.setUsername(Strings.sBlank(uname));
+            slog.setUsername(ShiroUtils.getLoginName());
         }
         catch (Exception e) {
             if (log.isDebugEnabled()) {

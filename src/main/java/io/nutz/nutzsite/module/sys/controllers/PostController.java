@@ -123,7 +123,7 @@ public class PostController {
 	@At("/remove")
 	@Ok("json")
 	@RequiresPermissions("sys:post:remove")
-	@Slog(tag ="岗位", after= "删除岗位:${args[0]}")
+	@Slog(tag ="岗位", after= "删除岗位:${array2str.args}")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			postService.delete(ids);

@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.utils.DateUtils;
 import io.nutz.nutzsite.common.utils.GenUtils;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Role;
@@ -57,13 +58,25 @@ public class UserController {
 	public Object list(@Param("pageNum")int pageNum,
 					   @Param("pageSize")int pageSize,
 					   @Param("deptId") String deptId,
-					   @Param("name") String name,
+					   @Param("loginName") String loginName,
+					   @Param("phonenumber") String phonenumber,
+					   @Param("beginTime") Date beginTime,
+					   @Param("endTime") Date endTime,
 					   @Param("orderByColumn") String orderByColumn,
 					   @Param("isAsc") String isAsc,
 					   HttpServletRequest req) {
 		Cnd cnd = Cnd.NEW();
-		if (!Strings.isBlank(name)){
-			//cnd.and("name", "like", "%" + name +"%");
+		if (!Strings.isBlank(loginName)){
+			cnd.and("user_name", "like", "%" + loginName +"%");
+		}
+		if (!Strings.isBlank(phonenumber)){
+			cnd.and("phonenumber", "=",  phonenumber);
+		}
+		if(Lang.isNotEmpty(beginTime)){
+			cnd.and("create_time",">=", beginTime);
+		}
+		if(Lang.isNotEmpty(endTime)){
+			cnd.and("create_time","<=", endTime);
 		}
 		if (!Strings.isBlank(deptId)){
 			cnd.where().andInBySql("dept_id","SELECT id FROM sys_dept  WHERE FIND_IN_SET ('%s',ancestors)", deptId)
@@ -72,7 +85,7 @@ public class UserController {
 		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
 			cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
 		}
-		return userService.tableList(pageNum,pageSize,cnd);
+		return userService.tableList(pageNum,pageSize,cnd,"dept");
 	}
 
 	/**

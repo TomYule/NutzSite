@@ -62,7 +62,7 @@ public class OperLogController {
 			cnd.and("tg", "like", "%" + name +"%");
 		}
 		if (!Strings.isBlank(uid)){
-			cnd.and("u_id", "=", uid);
+			cnd.and("u_name", "=", uid);
 		}
 		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
 			cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
