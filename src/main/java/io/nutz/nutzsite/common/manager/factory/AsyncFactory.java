@@ -66,22 +66,6 @@ public class AsyncFactory {
         };
     }
 
-    /**
-     * 操作日志记录
-     *
-     * @param operLog 操作日志信息
-     * @return 任务task
-     */
-    public TimerTask recordOper( OperLog operLog) {
-        return new TimerTask() {
-            @Override
-            public void run() {
-                // 远程查询操作地点
-                operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
-                operLogService.insert(operLog);
-            }
-        };
-    }
 
     /**
      * 记录登陆信息
@@ -134,4 +118,22 @@ public class AsyncFactory {
             }
         };
     }
+
+//    /**
+//     * 操作日志记录
+//     *
+//     * @param operLog 操作日志信息
+//     * @return 任务task
+//     */
+//    public TimerTask recordOper( OperLog operLog) {
+//        return new TimerTask() {
+//            @Override
+//            public void run() {
+//                // 远程查询操作地点
+//                operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
+//                operLogService.insert(operLog);
+//            }
+//        };
+//    }
+
 }

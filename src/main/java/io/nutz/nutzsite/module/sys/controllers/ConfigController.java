@@ -16,6 +16,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
+import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -75,6 +76,7 @@ public class ConfigController {
 	@At
 	@POST
 	@Ok("json")
+	@Slog(tag="系统参数", after="新增保存系统参数id=${args[0].configKey}")
 	public Object addDo(@Param("..") Config config,HttpServletRequest req) {
 		try {
 			configService.insert(config);
@@ -101,6 +103,7 @@ public class ConfigController {
 	@At
 	@POST
 	@Ok("json")
+	@Slog(tag="系统参数", after="修改保存系统参数")
 	public Object editDo(@Param("..") Config config,HttpServletRequest req) {
 		try {
 			if(Lang.isNotEmpty(config)){
@@ -120,10 +123,11 @@ public class ConfigController {
 	@At("/remove")
 	@Ok("json")
 	@RequiresPermissions("sys:config:remove")
+	@Slog(tag ="系统参数", after= "删除系统参数:${args}")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			configService.delete(ids);
-			return Result.success("system.success");
+			return Result.success("system.success",ids);
 		} catch (Exception e) {
 			return Result.error("system.error");
 		}

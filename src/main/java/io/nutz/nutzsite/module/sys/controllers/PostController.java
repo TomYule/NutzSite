@@ -16,6 +16,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
+import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -75,6 +76,7 @@ public class PostController {
 	@At
 	@POST
 	@Ok("json")
+	@Slog(tag="岗位", after="新增保存岗位id=${args[0].id}")
 	public Object addDo(@Param("..") Post post,HttpServletRequest req) {
 		try {
 			postService.insert(post);
@@ -101,6 +103,7 @@ public class PostController {
 	@At
 	@POST
 	@Ok("json")
+	@Slog(tag="岗位", after="修改保存岗位")
 	public Object editDo(@Param("..") Post post,HttpServletRequest req) {
 		try {
 			if(Lang.isNotEmpty(post)){
@@ -120,6 +123,7 @@ public class PostController {
 	@At("/remove")
 	@Ok("json")
 	@RequiresPermissions("sys:post:remove")
+	@Slog(tag ="岗位", after= "删除岗位:${args[0]}")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			postService.delete(ids);

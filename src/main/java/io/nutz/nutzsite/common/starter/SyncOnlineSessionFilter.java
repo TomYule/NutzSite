@@ -24,7 +24,7 @@ import java.util.Map;
  *
  * @author haimming
  */
-@IocBean
+//@IocBean
 public class SyncOnlineSessionFilter extends PathMatchingFilter implements WebFilterFace {
 
     @Inject

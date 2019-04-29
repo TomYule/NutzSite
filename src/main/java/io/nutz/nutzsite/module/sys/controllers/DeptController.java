@@ -1,7 +1,5 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
-import io.nutz.nutzsite.common.aspectj.annotation.NSLog;
-import io.nutz.nutzsite.common.aspectj.enums.BusinessType;
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Dept;
@@ -70,11 +68,11 @@ public class DeptController {
     @POST
     @Ok("json")
     @RequiresPermissions("sys:dept:add")
-    @NSLog(title = "部门管理", businessType = BusinessType.INSERT)
+    @Slog(tag="部门管理", after=" 新增部门id=${args[0].id}")
     public Object addDo(@Param("..") Dept data, @Param("parentId") String parentId, HttpServletRequest req) {
         try {
             deptService.insert(data);
-            return Result.success("system.success");
+            return Result.success("system.success",data);
         } catch (Exception e) {
             return Result.error("system.error");
         }
@@ -98,7 +96,7 @@ public class DeptController {
     @POST
     @Ok("json")
     @RequiresPermissions("sys:dept:edit")
-    @NSLog(title = "部门管理", businessType = BusinessType.UPDATE)
+    @Slog(tag="部门管理", after="修改部门")
     public Object editDo(@Param("..") Dept data, HttpServletRequest req) {
         try {
             if(Lang.isNotEmpty(data)){
@@ -115,7 +113,7 @@ public class DeptController {
     @At("/remove/?")
     @Ok("json")
     @RequiresPermissions("sys:dept:remove")
-    @NSLog(title = "部门管理", businessType = BusinessType.DELETE)
+    @Slog(tag ="删除单位", after= "删除部门:${args[0]}")
     public Object remove(String id, HttpServletRequest req) {
         try {
             deptService.vDelete(id);

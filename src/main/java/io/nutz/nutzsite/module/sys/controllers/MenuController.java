@@ -15,6 +15,7 @@ import org.nutz.lang.util.NutMap;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.*;
+import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -77,6 +78,7 @@ public class MenuController {
     @POST
     @Ok("json")
     @RequiresPermissions("sys:menu:add")
+    @Slog(tag="菜单", after="新增保存菜单id=${args[0].id}")
     public Object addDo(@Param("..") Menu menu, @Param("parentId") String parentId, HttpServletRequest req) {
         try {
             menuService.save(menu, parentId);
@@ -105,6 +107,7 @@ public class MenuController {
     @POST
     @Ok("json")
     @RequiresPermissions("sys:menu:edit")
+    @Slog(tag="菜单", after="修改保存菜单")
     public Object editDo(@Param("..") Menu menu, @Param("parentId") String parentId, HttpServletRequest req) {
         try {
             if (menu != null && Strings.isEmpty(menu.getParentId())) {
@@ -124,6 +127,7 @@ public class MenuController {
     @At("/remove/?")
     @Ok("json")
     @RequiresPermissions("sys:menu:remove")
+    @Slog(tag ="菜单", after= "删除菜单:${args[0]}")
     public Object remove(String id, HttpServletRequest req) {
         try {
             menuService.delete(id);

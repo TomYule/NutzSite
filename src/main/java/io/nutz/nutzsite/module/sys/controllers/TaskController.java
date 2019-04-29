@@ -16,6 +16,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
+import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -75,6 +76,7 @@ public class TaskController {
     @At
     @POST
     @Ok("json")
+    @Slog(tag="定时任务", after="新增保存定时任务id=${args[0].id}")
     public Object addDo(@Param("..") Task task, HttpServletRequest req) {
         try {
             Task sysTask =taskService.insert(task);
@@ -102,6 +104,7 @@ public class TaskController {
     @At
     @POST
     @Ok("json")
+    @Slog(tag="定时任务", after="修改保存定时任务")
     public Object editDo(@Param("..") Task sysTask, HttpServletRequest req) {
         try {
             try {
@@ -127,6 +130,7 @@ public class TaskController {
     @At("/remove")
     @Ok("json")
     @RequiresPermissions("sys:task:remove")
+    @Slog(tag ="定时任务", after= "删除定时任务:${args[0]}")
     public Object remove(@Param("ids") String[] ids, HttpServletRequest req) {
         try {
             taskService.delete(ids);

@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * 自定义访问控制
  */
-@IocBean
+//@IocBean
 public class OnlineSessionFilter extends AccessControlFilter implements WebFilterFace {
     @Inject("java:$conf.get('shiro.url.login')")
     private String loginUrl;

@@ -1,0 +1,15 @@
+#https://docs.travis-ci.com/user/tutorial/
+#测试配置
+sudo: false
+language: java
+script: mvn -Dmaven.test.skip=true clean package
+jdk:
+  - oraclejdk8
+# whitelist
+branches:
+  only:
+    - master
+notifications:
+  email: false
+before_install:
+  - export TZ=Asia/Shanghai

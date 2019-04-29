@@ -17,6 +17,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
+import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -78,6 +79,7 @@ public class RoleController {
     @POST
     @Ok("json")
     @RequiresPermissions("sys:role:add")
+    @Slog(tag="角色", after="新增保存角色id=${args[0].id}")
     public Object addDo(@Param("..") Role data,HttpServletRequest req) {
         try {
             roleService.insert(data);
@@ -91,6 +93,7 @@ public class RoleController {
     @POST
     @Ok("json")
     @RequiresPermissions("sys:role:edit")
+    @Slog(tag="角色", after="修改保存角色")
     public Object editDo(@Param("..") Role data,HttpServletRequest req) {
         try {
             if(Lang.isNotEmpty(data)){
@@ -107,6 +110,7 @@ public class RoleController {
     @At("/remove")
     @Ok("json")
     @RequiresPermissions("sys:role:remove")
+    @Slog(tag ="角色", after= "删除角色:${args[0]}")
     public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
         try {
             roleService.delete(ids);

@@ -21,6 +21,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
+import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -94,6 +95,7 @@ public class AreaController {
     @At
     @POST
     @Ok("json")
+    @Slog(tag="区域", after="新增保存区域id=${args[0].id}")
     public Object addDo(@Param("..") Area area, HttpServletRequest req) {
         try {
             areaService.insert(area);
@@ -126,6 +128,7 @@ public class AreaController {
     @At
     @POST
     @Ok("json")
+    @Slog(tag="区域", after="修改保存区域")
     public Object editDo(@Param("..") Area area, HttpServletRequest req) {
         try {
             if(Lang.isNotEmpty(area)){
@@ -146,6 +149,7 @@ public class AreaController {
     @At("/remove/?")
     @Ok("json")
     @RequiresPermissions("sys:area:remove")
+    @Slog(tag ="区域", after= "删除区域:${args[0]}")
     public Object remove(String id, HttpServletRequest req) {
         try {
             areaService.delete(id);

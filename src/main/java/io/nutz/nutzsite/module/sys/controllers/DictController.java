@@ -17,6 +17,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
+import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -82,6 +83,7 @@ public class DictController {
 	@At
 	@POST
 	@Ok("json")
+	@Slog(tag="字典", after="新增保存字典id=${args[0].id}")
 	public Object addDo(@Param("..") Dict dict,HttpServletRequest req) {
 		try {
 			dictService.insert(dict);
@@ -108,6 +110,7 @@ public class DictController {
 	@At
 	@POST
 	@Ok("json")
+	@Slog(tag="字典", after="修改保存字典")
 	public Object editDo(@Param("..") Dict dict,HttpServletRequest req) {
 		try {
 			if(Lang.isNotEmpty(dict)){
@@ -127,6 +130,7 @@ public class DictController {
 	@At("/remove")
 	@Ok("json")
 	@RequiresPermissions("sys:dict:remove")
+	@Slog(tag ="字典", after= "删除字典:${args[0]}")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			dictService.vDelete(ids);

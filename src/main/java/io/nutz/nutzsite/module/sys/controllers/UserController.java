@@ -19,6 +19,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
+import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -91,6 +92,7 @@ public class UserController {
 	@At
 	@POST
 	@Ok("json")
+	@Slog(tag="用户管理", after="新增保存用户管理id=${args[0].id}")
 	public Object addDo(@Param("..") User user,HttpServletRequest req) {
 		try {
 			userService.insert(user);
@@ -126,6 +128,7 @@ public class UserController {
 	@At
 	@POST
 	@Ok("json")
+	@Slog(tag="用户管理", after="修改保存用户管理")
 	public Object editDo(@Param("..") User user,HttpServletRequest req) {
 		try {
 			if(Lang.isNotEmpty(user)){
@@ -145,6 +148,7 @@ public class UserController {
 	@At("/remove")
 	@Ok("json")
 	@RequiresPermissions("sys:user:remove")
+	@Slog(tag ="用户管理", after= "删除用户管理:${args[0]}")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			userService.delete(ids);
@@ -165,6 +169,7 @@ public class UserController {
 	@POST
 	@Ok("json")
 	@RequiresPermissions("sys:user:resetPwd")
+	@Slog(tag="用户管理", after="重置密码")
 	public Object resetPwd(@Param("..") User user,HttpServletRequest req) {
 		try {
 			userService.resetUserPwd(user);

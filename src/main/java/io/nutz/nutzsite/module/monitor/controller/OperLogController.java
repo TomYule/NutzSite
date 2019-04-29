@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.monitor.controller;
 
+import io.nutz.nutzsite.common.utils.GenUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.monitor.models.OperLog;
 import io.nutz.nutzsite.module.monitor.services.OperLogService;
@@ -8,12 +9,16 @@ import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
+import org.nutz.lang.util.NutMap;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
+import org.nutz.plugins.slog.annotation.Slog;
+import org.nutz.plugins.slog.bean.SlogBean;
+import org.nutz.plugins.slog.service.SlogService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -47,11 +52,20 @@ public class OperLogController {
 	@Ok("json")
 	public Object list(@Param("pageNum")int pageNum,
 					   @Param("pageSize")int pageSize,
-					   @Param("name") String name,
+					   @Param("title") String name,
+					   @Param("operName") String uid,
+					   @Param("orderByColumn") String orderByColumn,
+					   @Param("isAsc") String isAsc,
 					   HttpServletRequest req) {
 		Cnd cnd = Cnd.NEW();
 		if (!Strings.isBlank(name)){
-			//cnd.and("name", "like", "%" + name +"%");
+			cnd.and("tg", "like", "%" + name +"%");
+		}
+		if (!Strings.isBlank(uid)){
+			cnd.and("u_id", "=", uid);
+		}
+		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
+			cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
 		}
 		return operLogService.tableList(pageNum,pageSize,cnd);
 	}
@@ -65,47 +79,17 @@ public class OperLogController {
 
 	}
 
-	/**
-	 * 新增保存操作日志记录
-	 */
-	@RequiresPermissions("monitor:operLog:add")
-	@At
-	@POST
-	@Ok("json")
-	public Object addDo(@Param("..") OperLog operLog,HttpServletRequest req) {
-		try {
-			operLogService.insert(operLog);
-			return Result.success("system.success");
-		} catch (Exception e) {
-			return Result.error("system.error");
-		}
-	}
 
 	/**
-	 * 修改操作日志记录
+	 * 作日志记录详情
 	 */
-	@At("/edit/?")
-	@Ok("th://monitor/operLog/edit.html")
-	public void edit(String id, HttpServletRequest req) {
-		OperLog operLog = operLogService.fetch(id);
+	@At("/detail/?")
+	@Ok("th://monitor/operLog/detail.html")
+	public void detail(String id, HttpServletRequest req) {
+		SlogBean operLog = operLogService.fetch(id);
 		req.setAttribute("operLog",operLog);
 	}
 
-	/**
-	 * 修改保存操作日志记录
-	 */
-	@RequiresPermissions("monitor:operLog:edit")
-	@At
-	@POST
-	@Ok("json")
-	public Object editDo(@Param("..") OperLog operLog,HttpServletRequest req) {
-		try {
-			operLogService.update(operLog);
-			return Result.success("system.success");
-		} catch (Exception e) {
-			return Result.error("system.error");
-		}
-	}
 
 	/**
 	 * 删除操作日志记录
@@ -122,4 +106,13 @@ public class OperLogController {
 		}
 	}
 
+	@At("/clean")
+	@Ok("json")
+	@Slog(tag="作日志记录", after="清除作日志记录")
+	@RequiresPermissions("monitor:logininfor:remove")
+	public Object clean()
+	{
+		operLogService.cleanInfor();
+		return Result.success("system.success");
+	}
 }

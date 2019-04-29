@@ -13,10 +13,12 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
+import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 个人信息
  * @Author: Haimming
  * @Date: 2019-04-19 17:39
  * @Version 1.0
@@ -47,6 +49,7 @@ public class ProfileController {
     @At
     @POST
     @Ok("json")
+    @Slog(tag="个人信息", after="修改保存个人信息")
     public Object update(@Param("..") User user, HttpServletRequest req) {
         try {
             User userTmp = ShiroUtils.getSysUser();
@@ -81,6 +84,7 @@ public class ProfileController {
     @At
     @POST
     @Ok("json")
+    @Slog(tag="个人信息", after="重置密码")
     public Result resetPwdDo(@Param("oldPassword") String oldPassword,
                            @Param("newPassword") String newPassword) {
         User user = ShiroUtils.getSysUser();

@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 26/04/2019 16:03:44
+ Date: 29/04/2019 14:37:17
 */
 
 SET NAMES utf8mb4;
@@ -3818,6 +3818,8 @@ CREATE TABLE `sys_dept` (
 -- Records of sys_dept
 -- ----------------------------
 BEGIN;
+INSERT INTO `sys_dept` VALUES ('03514e42a2664d84a0239d4b5ed7bd75', '100', NULL, '112', 112, '', '', '', '0', '1', '1', '2019-04-29 11:37:15', '1', '2019-04-29 11:37:15');
+INSERT INTO `sys_dept` VALUES ('0dd95e3636b14b2da5508198e4f6797a', '100', NULL, 'test1', 111, '', '', '', '0', '1', '1', '2019-04-28 17:59:21', '1', '2019-04-28 17:59:21');
 INSERT INTO `sys_dept` VALUES ('100', '0', '0', '某某科技', 0, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
 INSERT INTO `sys_dept` VALUES ('101', '100', '0,100', '深圳总公司', 1, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
 INSERT INTO `sys_dept` VALUES ('102', '100', '0,100', '长沙分公司', 2, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
@@ -3827,7 +3829,17 @@ INSERT INTO `sys_dept` VALUES ('105', '101', '0,100,101', '测试部门', 3, '�
 INSERT INTO `sys_dept` VALUES ('106', '101', '0,100,101', '财务部门', 4, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
 INSERT INTO `sys_dept` VALUES ('107', '101', '0,100,101', '运维部门', 5, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
 INSERT INTO `sys_dept` VALUES ('108', '102', '0,100,102', '市场部门', 1, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
-INSERT INTO `sys_dept` VALUES ('109', '102', '0,100,102', '财务部门', 2, '若依', '15888888888', '', '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00');
+INSERT INTO `sys_dept` VALUES ('109', '102', NULL, '财务部门', 2, '若依', '15888888888', '', '0', '0', NULL, NULL, '1', '2019-04-29 14:24:18');
+INSERT INTO `sys_dept` VALUES ('1ddaaba7b5dc42078e131f9f281f4a7c', '100', NULL, 'test11', 111, '', '', '', '0', '1', '1', '2019-04-28 18:01:03', '1', '2019-04-28 18:01:03');
+INSERT INTO `sys_dept` VALUES ('275e2c793dae4d91906d4779ae79b7b6', '100', NULL, '市场部门', 1111, '', '', '', '0', '1', '1', '2019-04-28 15:20:35', '1', '2019-04-28 15:20:35');
+INSERT INTO `sys_dept` VALUES ('2f744b6897cd4122b594d4b3aeed8ae4', '100', NULL, '1111', 112, '', '', '', '0', '1', '1', '2019-04-29 11:35:18', '1', '2019-04-29 11:35:18');
+INSERT INTO `sys_dept` VALUES ('4f7cc380f54044fb8ac489871781b831', '100', NULL, '科技', 111, '', '', '', '0', '1', '1', '2019-04-28 16:28:10', '1', '2019-04-28 16:28:10');
+INSERT INTO `sys_dept` VALUES ('814777e31afd49c8b8a69c0dd75313bf', '100', NULL, '市场勘察', 100, '', '', '', '0', '1', '1', '2019-04-28 14:59:03', '1', '2019-04-28 14:59:03');
+INSERT INTO `sys_dept` VALUES ('87f92aa0d73444349cc4be5f783502f7', '100', NULL, 'test', 111, '', '', '', '0', '1', '1', '2019-04-28 16:49:19', '1', '2019-04-28 16:49:19');
+INSERT INTO `sys_dept` VALUES ('9b919caafd264b77b6a7d5b585f10a96', '100', NULL, 'test12', 112, '', '', '', '0', '1', NULL, NULL, '1', '2019-04-29 11:33:09');
+INSERT INTO `sys_dept` VALUES ('d8ab3f45799541bdb147c46149d72e32', '100', NULL, '113', 113, '', '', '', '0', '1', '1', '2019-04-29 11:38:14', '1', '2019-04-29 11:38:14');
+INSERT INTO `sys_dept` VALUES ('ded3a10c89d64ac1a6d15db8d5251aa7', '100', NULL, '114', 114, '', '', '', '0', '1', '1', '2019-04-29 11:40:44', '1', '2019-04-29 11:40:44');
+INSERT INTO `sys_dept` VALUES ('f8021a25427f4a79915d786a5e99bb8a', '100', NULL, 'test', 111, '', '', '', '0', '1', '1', '2019-04-28 15:00:45', '1', '2019-04-28 15:00:45');
 COMMIT;
 
 -- ----------------------------
@@ -4002,6 +4014,35 @@ INSERT INTO `sys_job` VALUES (2, 'ryTask', '系统默认（有参）', 'ryParams
 COMMIT;
 
 -- ----------------------------
+-- Table structure for sys_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_log`;
+CREATE TABLE `sys_log` (
+  `uu32` varchar(128) NOT NULL,
+  `t` varchar(128) DEFAULT NULL,
+  `tg` varchar(128) DEFAULT NULL COMMENT '系统模块',
+  `url` varchar(1024) DEFAULT NULL COMMENT '请求地址',
+  `src` varchar(1024) DEFAULT NULL COMMENT '操作方法',
+  `msg` varchar(4000) DEFAULT NULL COMMENT '操作信息',
+  `u_id` varchar(128) DEFAULT NULL COMMENT '操作用户',
+  `u_name` varchar(128) DEFAULT NULL,
+  `param` varchar(255) DEFAULT NULL COMMENT '请求参数',
+  `os` varchar(128) DEFAULT NULL COMMENT '操作系统',
+  `browser` varchar(128) DEFAULT NULL COMMENT '客户端浏览器',
+  `ip` varchar(128) DEFAULT NULL COMMENT '主机地址',
+  `location` varchar(128) DEFAULT NULL COMMENT '操作地点',
+  `ct` datetime DEFAULT NULL COMMENT '操作时间',
+  PRIMARY KEY (`uu32`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作日志记录';
+
+-- ----------------------------
+-- Records of sys_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_log` VALUES ('fb7422d4252646978e364c7fe7bb1752', 'aop.after', '部门管理', '/sys/dept/editDo', 'io.nutz.nutzsite.module.sys.controllers.DeptController#editDo', '修改部门', NULL, 'io.nutz.nutzsite.module.sys.models.User@56f47af4', '{\"deptName\":[\"财务部门\"],\"leader\":[\"若依\"],\"phone\":[\"15888888888\"],\"orderNum\":[\"2\"],\"id\":[\"109\"],\"parentId\":[\"102\"],\"email\":[\"\"],\"status\":[\"false\"]}', 'Mac OS X', 'Chrome', '127.0.0.1', '内网IP', '2019-04-29 14:24:18');
+COMMIT;
+
+-- ----------------------------
 -- Table structure for sys_logininfor
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_logininfor`;
@@ -4022,12 +4063,65 @@ CREATE TABLE `sys_logininfor` (
 -- Records of sys_logininfor
 -- ----------------------------
 BEGIN;
+INSERT INTO `sys_logininfor` VALUES ('055f70c18363418d89acea9748cd267d', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 09:15:29');
+INSERT INTO `sys_logininfor` VALUES ('0f23481372b54bc5bd59a2ab7497cd98', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 14:58:18');
+INSERT INTO `sys_logininfor` VALUES ('123268ae32af49d4a84a27cf0a19fc5f', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 12:15:31');
 INSERT INTO `sys_logininfor` VALUES ('1c4c753c35bc47d5879a032cdba11859', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 15:40:35');
+INSERT INTO `sys_logininfor` VALUES ('1d62735babba4598a2888c2d1e582411', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 13:55:24');
+INSERT INTO `sys_logininfor` VALUES ('281b3f0cecd9481d9f136cf0c93bfe32', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 09:02:05');
 INSERT INTO `sys_logininfor` VALUES ('2df0439aa0d0440580c81835fa73df84', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 14:15:49');
+INSERT INTO `sys_logininfor` VALUES ('32fae5c35f7d405fbcbe64f7fe1ea9b2', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 11:50:04');
+INSERT INTO `sys_logininfor` VALUES ('399d686af97948e7a75593b70b87d2b3', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 17:04:07');
+INSERT INTO `sys_logininfor` VALUES ('416f0fdc0a2943599fea731d3af02234', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 14:27:23');
+INSERT INTO `sys_logininfor` VALUES ('541ce9eb7f7449deb20f58997e1deaeb', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 11:55:02');
+INSERT INTO `sys_logininfor` VALUES ('5aed767b199e43d396cf9f68158ee00c', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 14:31:11');
+INSERT INTO `sys_logininfor` VALUES ('5cd627d34574494ebc31787e43a57de5', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 11:18:47');
+INSERT INTO `sys_logininfor` VALUES ('5fffdf3e496b44038354627f6b05afdd', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 10:54:24');
+INSERT INTO `sys_logininfor` VALUES ('601cf7ebe1b04003b0d20176a533cb84', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 12:58:04');
+INSERT INTO `sys_logininfor` VALUES ('63d5b38ed73147a48d83f325e03cdf65', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 09:16:38');
+INSERT INTO `sys_logininfor` VALUES ('67ab14cb0b29498db81c8b6ce65a7122', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 11:40:30');
+INSERT INTO `sys_logininfor` VALUES ('6bb31e2bfb284af3b5c2ee2777e6af64', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 12:11:45');
+INSERT INTO `sys_logininfor` VALUES ('6f42ab52aedc44809c299706643f0659', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 09:52:39');
+INSERT INTO `sys_logininfor` VALUES ('71ae7fddd69c40619a33e8739c13e7da', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 17:55:26');
 INSERT INTO `sys_logininfor` VALUES ('7f9f7c677135480880a0d468f2388d31', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 15:57:01');
+INSERT INTO `sys_logininfor` VALUES ('808355e43a39421eb1d8ec04a76b0719', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 18:01:55');
+INSERT INTO `sys_logininfor` VALUES ('80b0ab979287465daaf59606e17c4e1a', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 11:56:45');
+INSERT INTO `sys_logininfor` VALUES ('82eb3fea7ca84405abe5f08a64f8c81e', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 14:24:12');
+INSERT INTO `sys_logininfor` VALUES ('895252082b39441b8862e218a805f912', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 15:20:23');
+INSERT INTO `sys_logininfor` VALUES ('8bd340bebd804170bd4c9c040963e011', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 14:10:43');
+INSERT INTO `sys_logininfor` VALUES ('8c8a2732fead4f36bd79a60fb1e19ef8', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 12:13:28');
+INSERT INTO `sys_logininfor` VALUES ('8cee2919ba2542a59b3c5df16e01b39d', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 14:29:57');
+INSERT INTO `sys_logininfor` VALUES ('8d5ac2f453794719926c9da43918f6d0', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 15:26:47');
+INSERT INTO `sys_logininfor` VALUES ('936ee31828fa493c94bc9024285f1992', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 14:00:30');
 INSERT INTO `sys_logininfor` VALUES ('9423368db066423d99b8eb6900290622', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 15:55:21');
+INSERT INTO `sys_logininfor` VALUES ('98913b60e3294c59a567de5187b5248d', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 16:28:45');
+INSERT INTO `sys_logininfor` VALUES ('9bd73bed0dbb4f71882a39effbaba540', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 12:55:51');
+INSERT INTO `sys_logininfor` VALUES ('9dc7a5bb35a14ce089edc05a8ede1b3f', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 11:36:59');
+INSERT INTO `sys_logininfor` VALUES ('9f17b924834d44ffb2874a71b785f945', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 11:54:03');
+INSERT INTO `sys_logininfor` VALUES ('a92d7b5692e84d21b03e2fd35ab7fc28', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 13:45:19');
 INSERT INTO `sys_logininfor` VALUES ('ad2cf8367c91403085f50cc40a0530f2', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 15:55:05');
 INSERT INTO `sys_logininfor` VALUES ('b26da39bbfd14c15910ed95daba3b819', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 15:04:38');
+INSERT INTO `sys_logininfor` VALUES ('b60f0fadefdf4c0f888cb7557b84ca28', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 14:32:22');
+INSERT INTO `sys_logininfor` VALUES ('b99a5c39772c4adc93580cc3ac87b94e', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 11:01:21');
+INSERT INTO `sys_logininfor` VALUES ('ba395b427206490fb0d28e21bdf156d9', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 12:54:23');
+INSERT INTO `sys_logininfor` VALUES ('bb922bee93484aa8a0984eaa0b9397c2', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 18:09:54');
+INSERT INTO `sys_logininfor` VALUES ('bdf5c099699c421996410fbc42959a42', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 16:49:09');
+INSERT INTO `sys_logininfor` VALUES ('be03ff1907024defaae2fa08eaa1c53a', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 10:53:23');
+INSERT INTO `sys_logininfor` VALUES ('bf97db8456364aacaecbda8876f0b4c0', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 12:16:59');
+INSERT INTO `sys_logininfor` VALUES ('c0ddaad6382346e8b3453e835c63a563', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 18:03:15');
+INSERT INTO `sys_logininfor` VALUES ('c148ad3350d24ab68edccc7f7a385156', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 17:59:10');
+INSERT INTO `sys_logininfor` VALUES ('c69e2d1c03a542cbac3477665cfe4e28', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 09:15:08');
+INSERT INTO `sys_logininfor` VALUES ('ca18b722cc7d4bd6a34757cfb36951a6', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 15:17:16');
+INSERT INTO `sys_logininfor` VALUES ('cae1f53ba6b743a3aeb63b3148523710', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 11:33:01');
+INSERT INTO `sys_logininfor` VALUES ('ced9cf5660a444d690d0a51265729d1b', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 18:00:25');
+INSERT INTO `sys_logininfor` VALUES ('d039c884be28493d91ddcc90283d51d2', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 15:06:26');
+INSERT INTO `sys_logininfor` VALUES ('d37713d34baf460f8d7596acbb17263a', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 11:51:44');
+INSERT INTO `sys_logininfor` VALUES ('d410f57ad43e45e28958eed2971a4041', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 13:46:25');
+INSERT INTO `sys_logininfor` VALUES ('ddad8c18f4584025be249846a68df592', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-26 17:58:53');
+INSERT INTO `sys_logininfor` VALUES ('e695ce89e12e46128c527e5d7fd910f3', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-28 16:27:58');
+INSERT INTO `sys_logininfor` VALUES ('e6abb18bec5b4cd2a991b2e1843da233', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 14:26:03');
+INSERT INTO `sys_logininfor` VALUES ('f3ed2a30c2a94bb88826c09e3aea0e74', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 14:16:54');
+INSERT INTO `sys_logininfor` VALUES ('f5852a544f4b415aac87d5d6cbc35c48', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-04-29 11:30:16');
 COMMIT;
 
 -- ----------------------------
@@ -4169,28 +4263,6 @@ INSERT INTO `sys_notice` VALUES (2, '维护通知：2018-07-01 若依系统凌�
 COMMIT;
 
 -- ----------------------------
--- Table structure for sys_oper_log
--- ----------------------------
-DROP TABLE IF EXISTS `sys_oper_log`;
-CREATE TABLE `sys_oper_log` (
-  `id` varchar(64) NOT NULL COMMENT '日志主键',
-  `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '模块标题',
-  `business_type` int(2) DEFAULT '0' COMMENT '业务类型（0其它 1新增 2修改 3删除）',
-  `method` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '方法名称',
-  `operator_type` int(1) DEFAULT '0' COMMENT '操作类别（0其它 1后台用户 2手机端用户）',
-  `oper_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '操作人员',
-  `dept_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '部门名称',
-  `oper_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '请求URL',
-  `oper_ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '主机地址',
-  `oper_location` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '操作地点',
-  `oper_param` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '请求参数',
-  `status` int(1) DEFAULT '0' COMMENT '操作状态（0正常 1异常）',
-  `error_msg` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '错误消息',
-  `oper_time` datetime DEFAULT NULL COMMENT '操作时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志记录';
-
--- ----------------------------
 -- Table structure for sys_post
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_post`;
@@ -4215,7 +4287,7 @@ BEGIN;
 INSERT INTO `sys_post` VALUES ('1', 'ceo', '董事长', 1, '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '');
 INSERT INTO `sys_post` VALUES ('2', 'se', '项目经理', 2, '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '');
 INSERT INTO `sys_post` VALUES ('3', 'hr', '人力资源', 3, '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '');
-INSERT INTO `sys_post` VALUES ('4', 'user', '普通员工', 4, '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '');
+INSERT INTO `sys_post` VALUES ('4', 'user', '普通员工', 4, '0', 'admin', NULL, '1', '2019-04-26 18:10:30', '<a rel=\"nofollow\">111</a>');
 COMMIT;
 
 -- ----------------------------
@@ -4431,7 +4503,7 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '小明', '00', 'ry@163.com', '15111111111', '0', '', 'vM7xT6KolcQbX7xlYfjisIJkrleH3De2t7wnmZ2zIB8=', '6dXimQAQqHBXkhI79IRKcg==', '0', '0', '127.0.0.1', '2019-04-26 15:57:01', 'admin', '2018-03-16 11:33:00', 'ry', '2019-04-19 07:06:38', '管理员');
+INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '小明', '00', 'ry@163.com', '15111111111', '0', '', 'vM7xT6KolcQbX7xlYfjisIJkrleH3De2t7wnmZ2zIB8=', '6dXimQAQqHBXkhI79IRKcg==', '0', '0', '127.0.0.1', '2019-04-29 14:32:22', 'admin', '2018-03-16 11:33:00', 'ry', '2019-04-19 07:06:38', '管理员');
 INSERT INTO `sys_user` VALUES ('92f5c91df48644a1812c55c164716fa7', '108', 'yuhaiming', 'Tom', '00', 'deal_2018@163.com', '15888888888', '1', NULL, 'I5HArEABibh3QIHygtY/RlYjhZq+/THnvr84VEm41Wg=', '5wQghHKKPJZ8T8fp3xREeQ==', '0', '0', '127.0.0.1', '2019-04-22 07:59:47', '1', '2019-04-19 07:48:19', '1', '2019-04-22 07:57:06', '');
 INSERT INTO `sys_user` VALUES ('a14731cfa4cb4e46b1f4eb1061950c6d', '105', 'haiming', 'Tom', '00', 'brave.yhm@gmail.com', '15111111111', NULL, NULL, 'DymenKivzL744ODeXSLyvkz6qnnP3qhgdtbpwZ9Txyo=', 'gA208ZKZ684tEg0Jg+UhSQ==', '0', '0', '127.0.0.1', '2019-04-26 03:01:40', '1', '2019-04-26 03:00:24', '1', '2019-04-26 03:00:24', '');
 COMMIT;
