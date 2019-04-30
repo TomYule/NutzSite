@@ -14,6 +14,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
+import org.nutz.plugins.slog.annotation.Slog;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -43,9 +44,9 @@ public class ${className}Controller {
 	/**
 	 * 查询${tableComment}列表
 	 */
-	@RequiresPermissions("${moduleName}:${classname}:list")
 	@At
 	@Ok("json")
+	@RequiresPermissions("${moduleName}:${classname}:list")
 	public Object list(@Param("pageNum")int pageNum,
 					   @Param("pageSize")int pageSize,
 					   @Param("name") String name,
@@ -78,10 +79,12 @@ public class ${className}Controller {
 	/**
 	 * 新增保存${tableComment}
 	 */
-	@RequiresPermissions("${moduleName}:${classname}:add")
+
 	@At
 	@POST
 	@Ok("json")
+	@RequiresPermissions("${moduleName}:${classname}:add")
+	@Slog(tag="${tableComment}", after="新增保存${tableComment} id=${args[0].$primaryKey.columnName}")
 	public Object addDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
 		try {
 			${classname}Service.insert(${classname});
@@ -110,10 +113,12 @@ public class ${className}Controller {
 	/**
 	 * 修改保存${tableComment}
 	 */
-	@RequiresPermissions("${moduleName}:${classname}:edit")
+
 	@At
 	@POST
 	@Ok("json")
+	@RequiresPermissions("${moduleName}:${classname}:edit")
+	@Slog(tag="${tableComment}", after="修改保存${tableComment}")
 	public Object editDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
 		try {
 			if(Lang.isNotEmpty(${classname})){
@@ -133,6 +138,7 @@ public class ${className}Controller {
 	@At("/remove/?")
 	@Ok("json")
 	@RequiresPermissions("${moduleName}:${classname}:remove")
+	@Slog(tag ="${tableComment}", after= "删除${tableComment}:${args[0]}")
 	public Object remove(String id, HttpServletRequest req) {
 		try {
 			${classname}Service.delete(id);

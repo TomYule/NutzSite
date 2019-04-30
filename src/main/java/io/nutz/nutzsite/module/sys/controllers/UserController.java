@@ -161,7 +161,7 @@ public class UserController {
 	@At("/remove")
 	@Ok("json")
 	@RequiresPermissions("sys:user:remove")
-	@Slog(tag ="用户管理", after= "删除用户管理:${args[0]}")
+	@Slog(tag ="用户管理", after= "删除用户:${array2str(args[0])}")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			userService.delete(ids);

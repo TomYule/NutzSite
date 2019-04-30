@@ -65,23 +65,29 @@ public class MainLauncher {
         return NutMap.NEW().setv("version", "1.0");
     }
 
+    /**
+     * NB自身初始化完成后会调用这个方法
+     */
     public void init() {
         // 初始化系统变量
         Globals.init(ioc.get(ConfigService.class));
+        /**
+         * 自定义EL表达式
+         * 文档
+         * http://nutzam.com/core/el/overview.html
+         */
         CustomMake.me().register("array2str", new RunMethod(){
-
             @Override
             public Object run(List<Object> fetchParam) {
                 String tmp = JSON.toJSONString(fetchParam);
                 return tmp;
             }
-
             @Override
             public String fetchSelf() {
                 return "array2str";
             }
         });
-        // NB自身初始化完成后会调用这个方法
+        // 创建数据库
 //        Daos.createTablesInPackage(dao, "io.nutz.nutzsite.module", false);
     }
 

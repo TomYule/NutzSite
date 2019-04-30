@@ -110,7 +110,7 @@ public class RoleController {
     @At("/remove")
     @Ok("json")
     @RequiresPermissions("sys:role:remove")
-    @Slog(tag ="角色", after= "删除角色:${args[0]}")
+    @Slog(tag ="角色", after= "删除角色:${array2str(args[0])}")
     public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
         try {
             roleService.delete(ids);

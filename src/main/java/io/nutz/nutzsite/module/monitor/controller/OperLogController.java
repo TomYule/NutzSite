@@ -97,6 +97,7 @@ public class OperLogController {
 	@At("/remove")
 	@Ok("json")
 	@RequiresPermissions("monitor:operLog:remove")
+	@Slog(tag ="作日志记录", after= "删除作日志记录:${array2str(args[0])}")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			operLogService.delete(ids);

@@ -123,7 +123,7 @@ public class ConfigController {
 	@At("/remove")
 	@Ok("json")
 	@RequiresPermissions("sys:config:remove")
-	@Slog(tag ="系统参数", after= "删除系统参数:${args}")
+	@Slog(tag ="系统参数", after= "删除系统参数:${array2str(args[0])}")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			configService.delete(ids);

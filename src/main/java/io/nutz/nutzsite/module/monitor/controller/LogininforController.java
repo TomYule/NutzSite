@@ -70,7 +70,7 @@ public class LogininforController {
 	@At("/remove")
 	@Ok("json")
 	@RequiresPermissions("monitor:logininfor:remove")
-	@Slog(tag ="系统访问记录", after= "删除系统访问记录:${args[0]}")
+	@Slog(tag ="系统访问记录", after= "删除系统访问记录:${array2str(args[0])}")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			logininforService.delete(ids);

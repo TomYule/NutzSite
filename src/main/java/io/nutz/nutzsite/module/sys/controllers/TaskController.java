@@ -130,7 +130,7 @@ public class TaskController {
     @At("/remove")
     @Ok("json")
     @RequiresPermissions("sys:task:remove")
-    @Slog(tag ="定时任务", after= "删除定时任务:${args[0]}")
+    @Slog(tag ="定时任务", after= "删除定时任务:${array2str(args[0])}")
     public Object remove(@Param("ids") String[] ids, HttpServletRequest req) {
         try {
             taskService.delete(ids);
