@@ -244,6 +244,7 @@ public class Task extends BaseModel implements Serializable {
     }
 
 
+    @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())

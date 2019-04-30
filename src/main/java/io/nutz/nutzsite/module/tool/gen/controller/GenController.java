@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 代码生成
+ * @author haiming
+ */
 @IocBean
 @At("/tool/gen")
 public class GenController {

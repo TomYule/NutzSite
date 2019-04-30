@@ -25,6 +25,9 @@ import org.nutz.mvc.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * @author haiming
+ */
 @IocBean(create = "init", depose = "depose")
 @IocBy(args="*slog")
 @Localization(value = "locales/", defaultLocalizationKey = "zh-CN")

@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * 用户信息
+ * @author haiming
  */
 @Table("sys_user")
 public class User extends BaseModel implements Serializable {

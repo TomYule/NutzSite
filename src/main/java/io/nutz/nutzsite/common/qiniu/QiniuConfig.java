@@ -3,6 +3,9 @@ package io.nutz.nutzsite.common.qiniu;
 
 import com.qiniu.util.Auth;
 
+/**
+ * @author haiming
+ */
 public final class QiniuConfig {
     //dummy ak & sk
     public static final String dummyAccessKey = "";

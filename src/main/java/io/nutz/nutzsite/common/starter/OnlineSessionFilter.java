@@ -26,6 +26,7 @@ import java.util.Map;
 
 /**
  * 自定义访问控制
+ * @author haiming
  */
 //@IocBean
 public class OnlineSessionFilter extends AccessControlFilter implements WebFilterFace {
@@ -107,9 +108,9 @@ public class OnlineSessionFilter extends AccessControlFilter implements WebFilte
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            return true;
-        }
 
+        }
+        return true;
     }
 
     /**

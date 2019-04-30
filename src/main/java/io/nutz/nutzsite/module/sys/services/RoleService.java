@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author haiming
+ */
 @IocBean(args = {"refer:dao"})
 public class RoleService extends Service<Role> {
 

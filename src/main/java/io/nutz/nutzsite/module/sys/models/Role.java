@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * 角色表
+ * @author haiming
  */
 @Table("sys_role")
 public class Role  extends BaseModel implements Serializable {

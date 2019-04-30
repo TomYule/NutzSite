@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * 数据库表
+ * @author apple
  */
 public class TableInfo extends BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;

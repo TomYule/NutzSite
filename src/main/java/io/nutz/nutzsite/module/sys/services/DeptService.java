@@ -12,6 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 部门service
+ * @author haiming
+ */
 @IocBean(args = {"refer:dao"})
 public class DeptService extends Service<Dept> {
 

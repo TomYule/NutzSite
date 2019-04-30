@@ -4,6 +4,7 @@ import org.nutz.dao.entity.annotation.Column;
 
 /**
  * 数据库表列信息
+ * @author haiming
  */
 public class ColumnInfo {
     /**

@@ -67,8 +67,9 @@ public class OnlineSessionDAO extends EnterpriseCacheSessionDAO {
         }catch (Exception e){
 //            e.printStackTrace();
         }finally {
-            return null;
+
         }
+        return null;
     }
 
     /**

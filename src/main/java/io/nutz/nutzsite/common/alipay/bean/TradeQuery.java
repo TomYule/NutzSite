@@ -2,6 +2,7 @@ package io.nutz.nutzsite.common.alipay.bean;
 
 /**
  * 订单查询 JSON解析实体类
+ * @author haimming
  */
 public class TradeQuery {
 

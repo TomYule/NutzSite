@@ -7,6 +7,7 @@ import org.nutz.dao.entity.annotation.*;
 
 /**
  * 操作日志记录
+ * @author Haiming
  */
 @Table("sys_log")
 public class SlogBean implements Serializable {

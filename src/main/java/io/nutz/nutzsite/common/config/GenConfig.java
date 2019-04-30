@@ -6,6 +6,8 @@ import java.util.Properties;
 
 /**
  * 读取代码生成相关配置
+ *
+ * @author haiming
  */
 public class GenConfig {
     /**

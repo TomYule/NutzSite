@@ -76,6 +76,8 @@ public class IpUtils
                 {
                     case SECTION_6:
                         return true;
+                    default:
+                        return false;
                 }
             default:
                 return false;

@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 /**
  * 代码生成器 工具类
  *
+ * @author haiming
  */
 public class GenUtils
 {

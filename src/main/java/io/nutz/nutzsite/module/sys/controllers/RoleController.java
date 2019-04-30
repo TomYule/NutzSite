@@ -24,6 +24,7 @@ import java.util.Date;
 
 /**
  * 角色管理
+ * @author haiming
  */
 @IocBean
 @At("/sys/role")

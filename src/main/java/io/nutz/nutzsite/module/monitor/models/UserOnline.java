@@ -197,6 +197,7 @@ public class UserOnline implements Serializable {
         this.session = session;
     }
 
+    @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("sessionId", getSessionId())

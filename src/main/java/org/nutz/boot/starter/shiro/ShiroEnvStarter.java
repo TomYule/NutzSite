@@ -41,6 +41,9 @@ import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.plugins.cache.impl.lcache.LCacheManager;
 import org.nutz.plugins.cache.impl.redis.RedisCacheManager;
 
+/**
+ * @author haiming
+ */
 @IocBean
 public class ShiroEnvStarter implements WebEventListenerFace {
 
@@ -117,6 +120,7 @@ public class ShiroEnvStarter implements WebEventListenerFace {
     @IocBean(name = "shiroWebSecurityManager")
     public WebSecurityManager getWebSecurityManager() {
         DefaultWebSecurityManager webSecurityManager = new DefaultWebSecurityManager() {
+            @Override
             protected SubjectContext resolveSession(SubjectContext context) {
                 if (context.resolveSession() != null) {
                     return context;
@@ -147,12 +151,14 @@ public class ShiroEnvStarter implements WebEventListenerFace {
         if (ioc.has("authenticationStrategy")) {
             ModularRealmAuthenticator modularRealmAuthenticator = new ModularRealmAuthenticator();
             modularRealmAuthenticator.setAuthenticationStrategy(ioc.get(AuthenticationStrategy.class, "authenticationStrategy"));
-            if (realms.size() > 0)
+            if (realms.size() > 0) {
                 modularRealmAuthenticator.setRealms(realms);
+            }
             webSecurityManager.setAuthenticator(modularRealmAuthenticator);
         }
-        if (realms.size() > 0)
+        if (realms.size() > 0) {
             webSecurityManager.setRealms(realms);
+        }
         webSecurityManager.setRememberMeManager(ioc.get(RememberMeManager.class, "shiroRememberMeManager"));
         return webSecurityManager;
     }
@@ -242,8 +248,9 @@ public class ShiroEnvStarter implements WebEventListenerFace {
      */
     protected Object _getCacheManager() {
         net.sf.ehcache.CacheManager cacheManager = net.sf.ehcache.CacheManager.getInstance();
-        if (cacheManager != null)
+        if (cacheManager != null) {
             return cacheManager;
+        }
         return net.sf.ehcache.CacheManager.newInstance();
     }
 }

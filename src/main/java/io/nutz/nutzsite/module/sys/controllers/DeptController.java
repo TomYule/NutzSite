@@ -23,6 +23,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 部门控制类
+ * @author haiming
+ */
 @IocBean
 @At("/sys/dept")
 public class DeptController {

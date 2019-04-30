@@ -4,7 +4,9 @@ import org.nutz.lang.Strings;
 import org.nutz.mvc.Mvcs;
 
 /**
- * Created by wizzer on 2016/6/22.
+ *
+ * @author wizzer
+ * @date 2016/6/22
  */
 public class Result {
 

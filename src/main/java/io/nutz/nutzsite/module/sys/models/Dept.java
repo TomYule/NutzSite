@@ -6,6 +6,10 @@ import org.nutz.dao.entity.annotation.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 部门
+ * @author haiming
+ */
 @Table("sys_dept")
 public class Dept extends BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;

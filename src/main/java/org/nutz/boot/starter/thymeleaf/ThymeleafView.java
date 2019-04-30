@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
+/**
+ * @author apple
+ */
 public class ThymeleafView extends AbstractPathView {
 
     private static final Log log = Logs.get();

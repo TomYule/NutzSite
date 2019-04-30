@@ -22,6 +22,9 @@ import org.thymeleaf.templateresolver.FileTemplateResolver;
 
 import java.io.File;
 
+/**
+ * @author haiming
+ */
 @IocBean(name = "$views_thymeleaf", create = "init")
 public class ThymeleafViewMakerStarter implements ViewMaker {
 
@@ -111,8 +114,9 @@ public class ThymeleafViewMakerStarter implements ViewMaker {
         for (String key : conf.keySet()) {
             if (key.startsWith("thymeleaf.dialects.")) {
                 String prefix = key.substring("thymeleaf.dialects.".length());
-                if ("default".equals(prefix))
+                if ("default".equals(prefix)) {
                     prefix = null;
+                }
                 String dialects = conf.get(key);
                 addDialect(prefix, dialects);
             }

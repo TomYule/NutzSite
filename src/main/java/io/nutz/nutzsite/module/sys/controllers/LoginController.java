@@ -16,6 +16,9 @@ import org.nutz.mvc.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author haiming
+ */
 @At("/login")
 @IocBean
 public class LoginController {

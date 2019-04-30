@@ -20,6 +20,9 @@ import org.nutz.lang.Strings;
 
 import java.util.Set;
 
+/**
+ * @author haiming
+ */
 @IocBean(name="shiroRealm")
 public class SimpleAuthorizingRealm extends AuthorizingRealm {
 	@Inject
