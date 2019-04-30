@@ -5,6 +5,7 @@ import io.nutz.nutzsite.common.utils.StringUtils;
 import org.nutz.dao.entity.annotation.Column;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,8 +30,11 @@ public class TableInfo extends BaseModel implements Serializable {
     /**
      * 表的主键列信息
      */
-    @Column("")
+    @Column
     private ColumnInfo primaryKey;
+
+    @Column("create_time")
+    private Date createTime;
 
     /**
      * 表的列名(不包含主键)
@@ -93,6 +97,16 @@ public class TableInfo extends BaseModel implements Serializable {
 
     public void setClassname(String classname) {
         this.classname = classname;
+    }
+
+    @Override
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    @Override
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public ColumnInfo getColumnsLast()

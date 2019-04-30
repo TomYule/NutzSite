@@ -82,10 +82,7 @@ public class UserController {
 			cnd.where().andInBySql("dept_id","SELECT id FROM sys_dept  WHERE FIND_IN_SET ('%s',ancestors)", deptId)
 					.or("dept_id","=", deptId);
 		}
-		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
-			cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
-		}
-		return userService.tableList(pageNum,pageSize,cnd,"dept");
+		return userService.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,"dept");
 	}
 
 	/**

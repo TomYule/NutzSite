@@ -57,10 +57,7 @@ public class RoleController {
         if (!Strings.isBlank(roleKey)){
             cnd.and("role_key", "=", roleKey);
         }
-        if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
-            cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
-        }
-        return roleService.tableList(pageNum,pageSize,cnd);
+        return roleService.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
     }
 
     @At("/add")

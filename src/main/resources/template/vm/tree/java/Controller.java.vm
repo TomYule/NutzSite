@@ -50,12 +50,22 @@ public class ${className}Controller {
 	public Object list(@Param("pageNum")int pageNum,
 					   @Param("pageSize")int pageSize,
 					   @Param("name") String name,
+					   @Param("beginTime") Date beginTime,
+					   @Param("endTime") Date endTime,
+					   @Param("orderByColumn") String orderByColumn,
+					   @Param("isAsc") String isAsc,
 					   HttpServletRequest req) {
 		Cnd cnd = Cnd.NEW();
 		if (!Strings.isBlank(name)){
 			//cnd.and("name", "like", "%" + name +"%");
 		}
-		return ${classname}Service.tableList(pageNum,pageSize,cnd);
+		if(Lang.isNotEmpty(beginTime)){
+			cnd.and("create_time",">=", beginTime);
+		}
+		if(Lang.isNotEmpty(endTime)){
+			cnd.and("create_time","<=", endTime);
+		}
+		return ${classname}Service.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
 	}
 
 	/**

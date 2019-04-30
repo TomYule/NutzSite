@@ -61,10 +61,7 @@ public class DictController {
 			//cnd.and("name", "like", "%" + name +"%");
 		}
         cnd.and("del_flag","=",false);
-		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
-			cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
-		}
-		return dictService.tableList(pageNum,pageSize,cnd);
+		return dictService.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
 	}
 
 	/**

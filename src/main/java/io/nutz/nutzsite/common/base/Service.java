@@ -1,7 +1,9 @@
 package io.nutz.nutzsite.common.base;
 
 import io.nutz.nutzsite.common.page.TableDataInfo;
+import io.nutz.nutzsite.common.utils.GenUtils;
 import org.nutz.dao.*;
+import org.nutz.dao.entity.MappingField;
 import org.nutz.dao.pager.Pager;
 import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
@@ -262,7 +264,7 @@ public class Service<T> extends EntityService<T> {
      * @param cnd
      * @return
      */
-    public TableDataInfo tableList( int pageNumber, int pageSize,Condition cnd){
+    public TableDataInfo tableList( int pageNumber, int pageSize,Cnd cnd){
         Pager pager = this.dao().createPager(pageNumber, pageSize);
         List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
         return new TableDataInfo(list, this.dao().count(this.getEntityClass(),cnd));
@@ -276,8 +278,14 @@ public class Service<T> extends EntityService<T> {
      * @param linkname
      * @return
      */
-    public TableDataInfo tableList( int pageNumber, int pageSize,Condition cnd,String linkname){
+    public TableDataInfo tableList( int pageNumber, int pageSize,Cnd cnd,String orderByColumn,String isAsc,String linkname){
         Pager pager = this.dao().createPager(pageNumber, pageSize);
+        if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
+            MappingField field =dao().getEntity(this.getEntityClass()).getField(orderByColumn);
+            if(Lang.isNotEmpty(field)){
+                cnd.orderBy(field.getColumnName(),isAsc);
+            }
+        }
         List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
         if (!Strings.isBlank(linkname)) {
             this.dao().fetchLinks(list, linkname);

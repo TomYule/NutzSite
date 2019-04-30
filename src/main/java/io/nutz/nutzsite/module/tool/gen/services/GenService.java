@@ -16,11 +16,13 @@ import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
 import org.nutz.dao.entity.Entity;
+import org.nutz.dao.entity.MappingField;
 import org.nutz.dao.pager.Pager;
 import org.nutz.dao.sql.Sql;
 import org.nutz.dao.util.Daos;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.apache.commons.io.IOUtils;
 
@@ -52,7 +54,8 @@ public class GenService {
      * @param pageSize
      * @return
      */
-    public TableDataInfo selectTableList(String tableName, String tableComment, int pageNumber, int pageSize, String orderByColumn, String isAsc) {
+    public TableDataInfo selectTableList(String tableName, String tableComment,
+                                         int pageNumber, int pageSize, String orderByColumn, String isAsc) {
         String sqlstr = "select table_name, table_comment, create_time, update_time from information_schema.tables " +
                 "where table_comment <> '' and table_schema = (select database()) ";
         if (Strings.isNotBlank(tableName)) {
@@ -62,8 +65,11 @@ public class GenService {
             sqlstr += "and table_comment like @tableComment";
         }
         if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
+            MappingField field =dao.getEntity(TableInfo.class).getField(orderByColumn);
+            if(Lang.isNotEmpty(field)){
+                sqlstr += " order by " + field.getColumnName() + " " + isAsc;
+            }
 
-            sqlstr += " order by " + GenUtils.javaToTable(orderByColumn) + " " + isAsc;
         }
         Sql sql = Sqls.create(sqlstr);
         sql.params().set("tableName", "%" + tableName + "%");

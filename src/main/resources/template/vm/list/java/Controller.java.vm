@@ -65,10 +65,7 @@ public class ${className}Controller {
 		if(Lang.isNotEmpty(endTime)){
 			cnd.and("create_time","<=", endTime);
 		}
-		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
-			cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
-		}
-		return ${classname}Service.tableList(pageNum,pageSize,cnd);
+		return ${classname}Service.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
 	}
 
 	/**

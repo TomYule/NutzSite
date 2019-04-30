@@ -5,6 +5,7 @@ import org.nutz.dao.Cnd;
 import org.nutz.dao.Condition;
 import org.nutz.dao.pager.Pager;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Strings;
 import org.nutz.plugins.slog.bean.SlogBean;
 import org.nutz.plugins.slog.service.SlogService;
 
@@ -43,8 +44,12 @@ public class OperLogService extends SlogService {
 	 * @param cnd
 	 * @return
 	 */
-	public TableDataInfo tableList(int pageNumber, int pageSize, Condition cnd){
+	public TableDataInfo tableList(int pageNumber, int pageSize, Cnd cnd,String orderByColumn,String isAsc){
 		Pager pager = this.dao().createPager(pageNumber, pageSize);
+		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
+			String orderby = dao().getEntity(SlogBean.class).getColumn(orderByColumn).getName();
+			cnd.orderBy(orderby,isAsc);
+		}
 		List<SlogBean> list = this.dao().query(SlogBean.class, cnd, pager);
 		return new TableDataInfo(list, this.dao().count(SlogBean.class,cnd));
 	}

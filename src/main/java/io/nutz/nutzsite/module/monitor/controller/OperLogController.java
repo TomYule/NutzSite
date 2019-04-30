@@ -64,10 +64,7 @@ public class OperLogController {
 		if (!Strings.isBlank(uid)){
 			cnd.and("u_name", "=", uid);
 		}
-		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
-			cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
-		}
-		return operLogService.tableList(pageNum,pageSize,cnd);
+		return operLogService.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc);
 	}
 
 	/**

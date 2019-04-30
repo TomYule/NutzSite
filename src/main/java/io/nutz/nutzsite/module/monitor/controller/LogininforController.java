@@ -57,10 +57,7 @@ public class LogininforController {
 		if (!Strings.isBlank(name)){
 			//cnd.and("name", "like", "%" + name +"%");
 		}
-		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
-			cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
-		}
-		return logininforService.tableList(pageNum,pageSize,cnd);
+		return logininforService.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
 	}
 
 

@@ -60,10 +60,7 @@ public class UserOnlineController {
 		if (!Strings.isBlank(loginName)){
 			cnd.and("login_name", "=", loginName);
 		}
-		if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
-			cnd.orderBy( GenUtils.javaToTable(orderByColumn),isAsc);
-		}
-		return userOnlineService.tableList(pageNum,pageSize,cnd);
+		return userOnlineService.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
 	}
 
 	/**
