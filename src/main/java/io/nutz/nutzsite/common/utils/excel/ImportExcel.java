@@ -4,6 +4,7 @@
 package io.nutz.nutzsite.common.utils.excel;
 
 import com.google.common.collect.Lists;
+import io.nutz.nutzsite.common.utils.DictUtils;
 import io.nutz.nutzsite.common.utils.excel.annotation.ExcelField;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -258,6 +259,7 @@ public class ImportExcel {
 		}
 		// Field sorting
 		Collections.sort(annotationList, new Comparator<Object[]>() {
+			@Override
 			public int compare(Object[] o1, Object[] o2) {
 				return new Integer(((ExcelField)o1[0]).sort()).compareTo(
 						new Integer(((ExcelField)o2[0]).sort()));

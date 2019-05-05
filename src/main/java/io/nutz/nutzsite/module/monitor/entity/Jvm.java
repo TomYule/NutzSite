@@ -4,6 +4,7 @@ import io.nutz.nutzsite.common.utils.Arith;
 import io.nutz.nutzsite.common.utils.DateUtils;
 
 import java.lang.management.ManagementFactory;
+import java.util.Date;
 
 /**
  * JVM相关信息
@@ -118,6 +119,6 @@ public class Jvm
      */
     public String getRunTime()
     {
-        return DateUtils.getDatePoor(DateUtils.getNowDate(), DateUtils.getServerStartDate());
+        return DateUtils.getDatePoor(new Date(), DateUtils.getServerStartDate());
     }
 }

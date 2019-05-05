@@ -3,37 +3,37 @@
  */
 package io.nutz.nutzsite.common.utils.excel.fieldtype;
 
+
 import io.nutz.nutzsite.common.utils.StringUtils;
-import io.nutz.nutzsite.module.sys.models.Area;
-import io.nutz.nutzsite.module.sys.services.AreaService;
+import io.nutz.nutzsite.module.sys.models.Dept;
+import io.nutz.nutzsite.module.sys.services.DeptService;
 import org.nutz.ioc.Ioc;
 import org.nutz.ioc.impl.NutIoc;
 import org.nutz.ioc.loader.combo.ComboIocLoader;
 
 /**
- * 区域查询
+ * 部门查询名称
  */
-public class AreaType {
+public class DeptType {
 	public static Ioc ioc;
 
-	private static AreaService areaService;
+	private static DeptService deptService;
 
 	static {
 		try {
 			ioc = new NutIoc(new ComboIocLoader("*anoo"));
-			areaService = ioc.get(AreaService.class);
+			deptService = ioc.get(DeptService.class);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
-
 	/**
 	 * 获取对象值（导入）
 	 */
 	public static Object getValue(String val) {
-		for (Area e : areaService.query()){
-			if (StringUtils.trimToEmpty(val).equals(e.getName())){
+		for (Dept e : deptService.query()){
+			if (StringUtils.trimToEmpty(val).equals(e.getDeptName())){
 				return e;
 			}
 		}
@@ -41,11 +41,11 @@ public class AreaType {
 	}
 
 	/**
-	 * 获取对象值（导出）
+	 * 设置对象值（导出）
 	 */
 	public static String setValue(Object val) {
-		if (val != null && ((Area)val).getName() != null){
-			return ((Area)val).getName();
+		if (val != null && ((Dept)val).getDeptName() != null){
+			return ((Dept)val).getDeptName();
 		}
 		return "";
 	}

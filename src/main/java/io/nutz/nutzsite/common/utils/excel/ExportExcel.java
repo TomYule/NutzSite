@@ -4,6 +4,8 @@
 package io.nutz.nutzsite.common.utils.excel;
 
 import com.google.common.collect.Lists;
+import io.nutz.nutzsite.common.utils.DictUtils;
+import io.nutz.nutzsite.common.utils.Encodes;
 import io.nutz.nutzsite.common.utils.excel.annotation.ExcelField;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
@@ -124,6 +126,7 @@ public class ExportExcel {
 		}
 		// Field sorting
 		Collections.sort(annotationList, new Comparator<Object[]>() {
+			@Override
 			public int compare(Object[] o1, Object[] o2) {
 				return new Integer(((ExcelField)o1[0]).sort()).compareTo(
 						new Integer(((ExcelField)o2[0]).sort()));
@@ -408,7 +411,7 @@ public class ExportExcel {
 	public ExportExcel write(HttpServletResponse response, String fileName) throws IOException{
 		response.reset();
         response.setContentType("application/octet-stream; charset=utf-8");
-        response.setHeader("Content-Disposition", "attachment; filename="+Encodes.urlEncode(fileName));
+        response.setHeader("Content-Disposition", "attachment; filename="+ Encodes.urlEncode(fileName));
 		write(response.getOutputStream());
 		return this;
 	}

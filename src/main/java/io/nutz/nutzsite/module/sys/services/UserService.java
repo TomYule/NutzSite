@@ -156,7 +156,7 @@ public class UserService extends Service<User> {
      */
     public void recordLoginInfo(User user) {
         user.setLoginIp(ShiroUtils.getIp());
-        user.setLoginDate(DateUtils.getNowDate());
+        user.setLoginDate(new Date());
         dao().updateIgnoreNull(user);
     }
 
