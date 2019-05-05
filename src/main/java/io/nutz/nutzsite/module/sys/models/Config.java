@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.module.sys.models;
 
 import io.nutz.nutzsite.common.base.BaseModel;
+import io.nutz.nutzsite.common.utils.excel.annotation.ExcelField;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.nutz.dao.entity.annotation.*;
@@ -23,14 +24,16 @@ public class Config extends BaseModel implements Serializable {
     @Column("configKey")
     @Comment("配置项 ")
     @ColDefine(type = ColType.VARCHAR, width = 200)
+    @ExcelField(title="配置项", type=1, align=2, sort=1)
     private String configKey;
 
     /**
      * 参数值
      */
     @Column("configValue")
-    @Comment("参数值 ")
+    @Comment("参数值")
     @ColDefine(type = ColType.VARCHAR, width = 500)
+    @ExcelField(title="参数值", align=2, sort=20)
     private String configValue;
 
     /**
@@ -38,6 +41,7 @@ public class Config extends BaseModel implements Serializable {
      */
     @Column("note")
     @Comment("说明 ")
+    @ExcelField(title="说明", align=2, sort=20)
     private String note;
 
     /**

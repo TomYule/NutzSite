@@ -1,6 +1,8 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.utils.DateUtils;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
+import io.nutz.nutzsite.common.utils.excel.ExportExcel;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.sys.models.Config;
 import io.nutz.nutzsite.module.sys.services.ConfigService;
@@ -19,6 +21,8 @@ import org.nutz.mvc.annotation.Param;
 import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -131,6 +135,20 @@ public class ConfigController {
 		} catch (Exception e) {
 			return Result.error("system.error");
 		}
+	}
+
+	@At
+	@Ok("raw")
+	public Object export(HttpServletRequest req, HttpServletResponse resp){
+		String fileName = "系统参数"+ DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
+		List<Config> list =configService.query();
+		try {
+			new ExportExcel("系统参数", Config.class).setDataList(list).write(resp, fileName).dispose();
+			return Result.success("system.success");
+		} catch (IOException e) {
+//			e.printStackTrace();
+		}
+		return Result.success("system.success");
 	}
 
 }
