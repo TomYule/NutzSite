@@ -1,16 +1,14 @@
 package io.nutz.nutzsite.module.sys.services;
 
 import io.nutz.nutzsite.common.base.Service;
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Dept;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 部门service
@@ -71,4 +69,25 @@ public class DeptService extends Service<Dept> {
         trees = getTrees(deptList);
         return trees;
     }
+
+    public Dept insertDept(Dept dept) throws Exception {
+        Dept info = this.fetch(dept.getParentId());
+        if(info.isStatus()){
+            throw new Exception("dept.stop");
+        }
+        dept.setAncestors(info.getAncestors() + "," + dept.getParentId());
+        return this.dao().insert(dept);
+    }
+
+    public int update(Dept dept) throws Exception {
+        Dept info = this.fetch(dept.getParentId());
+        if(info.isStatus()){
+            throw new Exception("dept.stop");
+        }
+        dept.setAncestors(info.getAncestors() + "," + dept.getParentId());
+        dept.setUpdateBy(ShiroUtils.getSysUserId());
+        dept.setUpdateTime(new Date());
+        return this.dao().update(dept);
+    }
+
 }

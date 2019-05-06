@@ -75,9 +75,12 @@ public class DeptController {
     @Slog(tag="部门管理", after=" 新增部门id=${args[0].id}")
     public Object addDo(@Param("..") Dept data, @Param("parentId") String parentId, HttpServletRequest req) {
         try {
-            deptService.insert(data);
+            deptService.insertDept(data);
             return Result.success("system.success",data);
         } catch (Exception e) {
+            if(Lang.isNotEmpty(e) && Strings.isNotBlank(e.getMessage())){
+                return Result.error(e.getMessage());
+            }
             return Result.error("system.error");
         }
     }
@@ -103,13 +106,12 @@ public class DeptController {
     @Slog(tag="部门管理", after="修改部门")
     public Object editDo(@Param("..") Dept data, HttpServletRequest req) {
         try {
-            if(Lang.isNotEmpty(data)){
-                data.setUpdateBy(ShiroUtils.getSysUserId());
-                data.setUpdateTime(new Date());
-                deptService.update(data);
-            }
+            deptService.update(data);
             return Result.success("system.success");
         } catch (Exception e) {
+            if(Lang.isNotEmpty(e) && Strings.isNotBlank(e.getMessage())){
+                return Result.error(e.getMessage());
+            }
             return Result.error("system.error");
         }
     }

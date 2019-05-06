@@ -6,7 +6,6 @@ import io.nutz.nutzsite.common.utils.AddressUtils;
 import io.nutz.nutzsite.common.utils.LogUtils;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.monitor.models.Logininfor;
-import io.nutz.nutzsite.module.monitor.models.OperLog;
 import io.nutz.nutzsite.module.monitor.models.UserOnline;
 import io.nutz.nutzsite.module.monitor.services.LogininforService;
 import io.nutz.nutzsite.module.monitor.services.OperLogService;

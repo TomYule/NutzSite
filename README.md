@@ -18,11 +18,11 @@ NutzSite基于Nutz的开源企业级开发框架
 * 高德地图
 * 七牛云
 * XSS攻击过滤 SQL注入过滤
+* Excel 导出数据
 ## 给自己挖坑 后期支持待完善功能
 * 审批流
 * 微信公众平台
 * CMS
-* Excel 导出数据
 
 本压缩包是一个maven工程, eclipse/idea均可按maven项目导入
 

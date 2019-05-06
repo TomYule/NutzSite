@@ -2,7 +2,6 @@ package io.nutz.nutzsite.module.monitor.controller;
 
 import io.nutz.nutzsite.common.utils.GenUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import io.nutz.nutzsite.module.monitor.models.OperLog;
 import io.nutz.nutzsite.module.monitor.services.OperLogService;
 import io.nutz.nutzsite.common.base.Result;;
 import org.nutz.dao.Cnd;

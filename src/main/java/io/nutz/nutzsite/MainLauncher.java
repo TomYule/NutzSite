@@ -12,6 +12,7 @@ import io.nutz.nutzsite.module.sys.services.UserService;
 import org.nutz.boot.NbApp;
 import org.nutz.conf.NutConf;
 import org.nutz.dao.Dao;
+import org.nutz.dao.util.Daos;
 import org.nutz.el.opt.RunMethod;
 import org.nutz.el.opt.custom.CustomMake;
 import org.nutz.ioc.Ioc;
@@ -34,6 +35,9 @@ import java.util.List;
 public class MainLauncher {
     @Inject("refer:$ioc")
     private Ioc ioc;
+
+    @Inject
+    protected Dao dao;
 
     @Inject
     protected PropertiesProxy conf;
@@ -91,7 +95,7 @@ public class MainLauncher {
             }
         });
         // 创建数据库
-//        Daos.createTablesInPackage(dao, "io.nutz.nutzsite.module", false);
+//        Daos.createTablesInPackage(dao, "io.nutz.nutzsite", false);
     }
 
     public void depose() {

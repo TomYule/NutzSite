@@ -45,6 +45,11 @@
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-quartz</artifactId>
         </dependency>
+        <!--activiti 审批流-->
+<!--        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutzboot-starter-activiti</artifactId>
+        </dependency>-->
 
         <!--    caffeine缓存    -->
         <dependency>
