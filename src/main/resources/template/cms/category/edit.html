@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-category-edit">
+        <input id="id" name="id"
+               th:value="${category.id}" type="hidden">
+        <input id="treeId" name="parentId" type="hidden" th:value="${category.parentId}"/>
+        <div class="form-group">
+            <label class="col-sm-3 control-label ">上级：</label>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" id="treeName" onclick="selectTree()" readonly="true"
+                       th:value="${category.parentName}"/>
+            </div>
+        </div>
+            <div class="form-group">
+            <label class="col-sm-3 control-label">父级编号：</label>
+            <div class="col-sm-8">
+                <input id="parentId" name="parentId"
+                       th:value="${category.parentId}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">所有父级编号：</label>
+            <div class="col-sm-8">
+                <input id="parentIds" name="parentIds"
+                       th:value="${category.parentIds}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">站点编号：</label>
+            <div class="col-sm-8">
+                <input id="siteId" name="siteId"
+                       th:value="${category.siteId}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">归属机构：</label>
+            <div class="col-sm-8">
+                <input id="officeId" name="officeId"
+                       th:value="${category.officeId}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">栏目模块：</label>
+            <div class="col-sm-8">
+                <input id="module" name="module"
+                       th:value="${category.module}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">栏目名称：</label>
+            <div class="col-sm-8">
+                <input id="name" name="name"
+                       th:value="${category.name}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">栏目图片：</label>
+            <div class="col-sm-8">
+                <input id="image" name="image"
+                       th:value="${category.image}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">链接：</label>
+            <div class="col-sm-8">
+                <input id="href" name="href"
+                       th:value="${category.href}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">目标：</label>
+            <div class="col-sm-8">
+                <input id="target" name="target"
+                       th:value="${category.target}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">描述：</label>
+            <div class="col-sm-8">
+                <input id="description" name="description"
+                       th:value="${category.description}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">关键字：</label>
+            <div class="col-sm-8">
+                <input id="keywords" name="keywords"
+                       th:value="${category.keywords}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">排序（升序）：</label>
+            <div class="col-sm-8">
+                <input id="sort" name="sort"
+                       th:value="${category.sort}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">是否在导航中显示：</label>
+            <div class="col-sm-8">
+                <input id="inMenu" name="inMenu"
+                       th:value="${category.inMenu}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">是否在分类页中显示列表：</label>
+            <div class="col-sm-8">
+                <input id="inList" name="inList"
+                       th:value="${category.inList}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">展现方式：</label>
+            <div class="col-sm-8">
+                <input id="showModes" name="showModes"
+                       th:value="${category.showModes}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">是否允许评论：</label>
+            <div class="col-sm-8">
+                <input id="allowComment" name="allowComment"
+                       th:value="${category.allowComment}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">是否需要审核：</label>
+            <div class="col-sm-8">
+                <input id="isAudit" name="isAudit"
+                       th:value="${category.isAudit}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">自定义列表视图：</label>
+            <div class="col-sm-8">
+                <input id="customListView" name="customListView"
+                       th:value="${category.customListView}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">自定义内容视图：</label>
+            <div class="col-sm-8">
+                <input id="customContentView" name="customContentView"
+                       th:value="${category.customContentView}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">视图配置：</label>
+            <div class="col-sm-8">
+                <input id="viewConfig" name="viewConfig"
+                       th:value="${category.viewConfig}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">创建者：</label>
+            <div class="col-sm-8">
+                <input id="createBy" name="createBy"
+                       th:value="${category.createBy}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">创建时间：</label>
+            <div class="col-sm-8">
+                <input id="createDate" name="createDate"
+                       th:value="${category.createDate}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">更新者：</label>
+            <div class="col-sm-8">
+                <input id="updateBy" name="updateBy"
+                       th:value="${category.updateBy}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">更新时间：</label>
+            <div class="col-sm-8">
+                <input id="updateDate" name="updateDate"
+                       th:value="${category.updateDate}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">备注信息：</label>
+            <div class="col-sm-8">
+                <input id="remarks" name="remarks"
+                       th:value="${category.remarks}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">删除标记：</label>
+            <div class="col-sm-8">
+                <input id="delFlag" name="delFlag"
+                       th:value="${category.delFlag}" class="form-control" type="text">
+            </div>
+        </div>
+        </form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    var prefix = ctx + "cms/category";
+    $("#form-category-edit").validate({
+        onkeyup: false,
+        rules: {
+            xxxx: {
+                required: true,
+            },
+        }
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/editDo", $('#form-category-edit').serialize());
+        }
+    }
+
+    function selectTree() {
+        var id = $("#treeId").val();
+        if (id > 0) {
+            var options = {
+                title: '选择上级',
+                width: "380",
+                url: prefix + "/selectTree/" + $("#treeId").val(),
+                callBack: doSubmit
+            };
+            $.modal.openOptions(options);
+        } else {
+            $.modal.alertError("父级不能选择");
+        }
+    }
+
+    function doSubmit(index, layero) {
+        var tree = layero.find("iframe")[0].contentWindow.$._tree;
+        if ($.tree.notAllowLastLevel(tree)) {
+            var body = layer.getChildFrame('body', index);
+            $("#treeId").val(body.find('#treeId').val());
+            $("#treeName").val(body.find('#treeName').val());
+            layer.close(index);
+        }
+    }
+</script>
+</body>
+</html>

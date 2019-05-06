@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+
+                        <li>
+                            栏目名称：<input type="text" name="name"/>
+                        </li>
+
+
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.treeTable.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="cms:category:add">
+                <i class="fa fa-plus"></i> 添加
+            </a>
+            <a class="btn btn-primary btn-edit disabled" onclick="$.operate.editTree()"
+               shiro:hasPermission="cms:category:edit">
+                <i class="fa fa-edit"></i> 修改
+            </a>
+            <a class="btn btn-info" id="expandAllBtn">
+                <i class="fa fa-exchange"></i> 展开/折叠
+            </a>
+            <!--
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="cms:category:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="cms:category:export">
+						<i class="fa fa-download"></i> 导出
+				 </a>-->
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-tree-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:inline="javascript">
+    var prefix = ctx + "cms/category";
+
+    $(function () {
+        var options = {
+            code: "id",
+            parentCode: "parentId",
+            uniqueId: "id",
+            url: prefix + "/list",
+            createUrl: prefix + "/add/{id}",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            modalName: "栏目",
+            columns: [
+                {
+                    field: 'selectItem',
+                    radio: true
+                },
+                // {
+                //     field: 'parentId',
+                //     title: '父级编号',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'parentIds',
+                //     title: '所有父级编号',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'siteId',
+                //     title: '站点编号',
+                //     align: "left"
+                // },
+                {
+                    field: 'officeId',
+                    title: '归属机构',
+                    align: "left"
+                },
+                {
+                    field: 'module',
+                    title: '栏目模块',
+                    align: "left"
+                },
+                {
+                    field: 'name',
+                    title: '栏目名称',
+                    align: "left"
+                },
+                // {
+                //     field: 'image',
+                //     title: '栏目图片',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'href',
+                //     title: '链接',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'target',
+                //     title: '目标',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'description',
+                //     title: '描述',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'keywords',
+                //     title: '关键字',
+                //     align: "left"
+                // },
+                {
+                    field: 'sort',
+                    title: '排序（升序）',
+                    align: "left"
+                },
+                {
+                    field: 'inMenu',
+                    title: '是否在导航中显示',
+                    align: "left"
+                },
+                // {
+                //     field: 'inList',
+                //     title: '是否在分类页中显示列表',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'showModes',
+                //     title: '展现方式',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'allowComment',
+                //     title: '是否允许评论',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'isAudit',
+                //     title: '是否需要审核',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'customListView',
+                //     title: '自定义列表视图',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'customContentView',
+                //     title: '自定义内容视图',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'viewConfig',
+                //     title: '视图配置',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'createBy',
+                //     title: '创建者',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'createDate',
+                //     title: '创建时间',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'updateBy',
+                //     title: '更新者',
+                //     align: "left"
+                // },
+                // {
+                //     field: 'updateDate',
+                //     title: '更新时间',
+                //     align: "left"
+                // },
+                {
+                    field: 'remarks',
+                    title: '备注信息',
+                    align: "left"
+                },
+                // {
+                //     field: 'delFlag',
+                //     title: '删除标记',
+                //     align: "left"
+                // },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs " href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-info  btn-xs" href="#" onclick="$.operate.add(\'' + row.id + '\')"><i class="fa fa-plus">新增</i></a> ');
+                        actions.push('<a class="btn btn-danger btn-xs " href="#" onclick="remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.treeTable.init(options);
+
+        function remove(id) {
+            $.modal.confirm("确定删除该条" + $.table._option.modalName + "信息吗？", function () {
+                $.ajax({
+                    type: 'post',
+                    url: prefix + "/remove/" + id,
+                    success: function (result) {
+                        if (result.code == web_status.SUCCESS) {
+                            $.modal.msgSuccess(result.msg);
+                            $.treeTable.refresh();
+                        } else {
+                            $.modal.msgError(result.msg);
+                        }
+                    }
+                });
+            });
+        }
+    });
+</script>
+</body>
+</html>

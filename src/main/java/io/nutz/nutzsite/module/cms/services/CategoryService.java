@@ -1,37 +1,37 @@
-package ${package}.service;
+package io.nutz.nutzsite.module.cms.services;
 
 import io.nutz.nutzsite.common.base.Service;
+import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.IocBean;
-import ${package}.models.${className};
+import io.nutz.nutzsite.module.cms.models.Category;
+import org.nutz.lang.Strings;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.nutz.lang.Strings;
-import org.nutz.dao.Cnd;
 /**
- * ${tableComment} 服务层实现
+ * 栏目 服务层实现
  * 
- * @author ${author}
- * @date ${datetime}
+ * @author haiming
+ * @date 2019-05-06
  */
 @IocBean(args = {"refer:dao"})
-public class ${className}Service extends Service<${className}> {
-	public ${className}Service(Dao dao) {
+public class CategoryService extends Service<Category> {
+	public CategoryService(Dao dao) {
 		super(dao);
 	}
 
 	/**
-     * 对象转 ${tableComment} 树
+     * 对象转 栏目 树
      *
-     * @param list ${tableComment}列表
+     * @param list 栏目列表
      * @return
      */
-	public List<Map<String, Object>> getTrees(List<${className}> list) {
+	public List<Map<String, Object>> getTrees(List<Category> list) {
 		List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
-		for (${className} data : list) {
+		for (Category data : list) {
 			Map<String, Object> dataMap = new HashMap<String, Object>();
 			dataMap.put("id", data.getId());
 			dataMap.put("pId", data.getParentId());
@@ -58,7 +58,7 @@ public class ${className}Service extends Service<${className}> {
 			cnd.and("parent_id", "=", parentId);
 		}
 		//cnd.and("status", "=", false).and("del_flag", "=", false);
-		List<${className}> list = this.query(cnd);
+		List<Category> list = this.query(cnd);
 		List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
 		trees = getTrees(list);
 		return trees;

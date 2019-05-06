@@ -84,7 +84,7 @@ public class ${className}Controller {
 	@POST
 	@Ok("json")
 	@RequiresPermissions("${moduleName}:${classname}:add")
-	@Slog(tag="${tableComment}", after="新增保存${tableComment} id=${args[0].$primaryKey.columnName}")
+	@Slog(tag="${tableComment}", after="新增保存${tableComment} id=${args[0].id}")
 	public Object addDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
 		try {
 			${classname}Service.insert(${classname});

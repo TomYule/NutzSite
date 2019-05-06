@@ -6,6 +6,7 @@ import io.nutz.nutzsite.common.constant.CommonMap;
 import io.nutz.nutzsite.module.tool.gen.models.ColumnInfo;
 import io.nutz.nutzsite.module.tool.gen.models.TableInfo;
 import org.apache.velocity.VelocityContext;
+import org.nutz.lang.random.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,11 @@ public class GenUtils
         velocityContext.put("package", packageName);
         velocityContext.put("author", GenConfig.getAuthor());
         velocityContext.put("datetime", DateUtils.getDate());
+        velocityContext.put("uuid1", R.UU32().toLowerCase());
+        velocityContext.put("uuid2", R.UU32().toLowerCase());
+        velocityContext.put("uuid3", R.UU32().toLowerCase());
+        velocityContext.put("uuid4", R.UU32().toLowerCase());
+        velocityContext.put("uuid5", R.UU32().toLowerCase());
         return velocityContext;
     }
 

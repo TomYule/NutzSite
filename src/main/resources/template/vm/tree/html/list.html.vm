@@ -10,37 +10,37 @@
             <form id="formId">
                 <div class="select-list">
                     <ul>
-                        #foreach($column in $columns)
-                            #if($column.columnName != $primaryKey.columnName)
-                                #if(!${column.configInfo})
-                                    <li>
-                                        ${column.columnComment}：<input type="text" name="${column.attrname}"/>
-                                    </li>
+            #foreach($column in $columns)
+                #if($column.columnName != $primaryKey.columnName)
+                    #if(!${column.configInfo})
+<li>
+    ${column.columnComment}：<input type="text" name="${column.attrname}"/>
+</li>
 
-                                #else
-                                    #if(${column.configInfo.type} == "dict")
-                                        <li>
-                                            ${column.columnComment}：<select name="${column.attrname}"
-                                                                            th:with="type=${@dict.getType('${column.configInfo.value}')}">
-                                            <option value="">所有</option>
-                                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
-                                                    th:value="${dict.dictValue}"></option>
-                                        </select>
-                                        </li>
-                                    #elseif(${column.configInfo.type} == "date")
-                                        <li class="select-time">
-                                            <label>${column.columnComment}： </label>
-                                            <input type="text" class="time-input" id="start${column.attrName}"
-                                                   placeholder="开始" name="params[begin${column.attrName}]"/>
-                                            <span>-</span>
-                                            <input type="text" class="time-input" id="end${column.attrName}"
-                                                   placeholder="结束" name="params[end${column.attrName}]"/>
-                                        </li>
-                                    #elseif(${column.configInfo.type} == "fk")
-                                    #end
-                                #end
-                            #end
+                    #else
+                        #if(${column.configInfo.type} == "dict")
+<li>
+    ${column.columnComment}：<select name="${column.attrname}"
+                                    th:with="type=${@dict.getType('${column.configInfo.value}')}">
+    <option value="">所有</option>
+    <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+            th:value="${dict.dictValue}"></option>
+</select>
+</li>
+                        #elseif(${column.configInfo.type} == "date")
+<li class="select-time">
+    <label>${column.columnComment}： </label>
+    <input type="text" class="time-input" id="start${column.attrName}"
+           placeholder="开始" name="params[begin${column.attrName}]"/>
+    <span>-</span>
+    <input type="text" class="time-input" id="end${column.attrName}"
+           placeholder="结束" name="params[end${column.attrName}]"/>
+</li>
+                        #elseif(${column.configInfo.type} == "fk")
                         #end
+                    #end
+                #end
+            #end
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.treeTable.search()"><i
                                     class="fa fa-search"></i>&nbsp;搜索</a>

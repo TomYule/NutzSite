@@ -182,4 +182,18 @@ public class MenuService extends Service<Menu> {
         }
         return false;
     }
+
+    @Override
+    public int delete(String name) {
+        Menu menu =this.fetch(name);
+        List<Menu> list = this.query(Cnd.NEW().and("parent_id","=",menu.getId()));
+        if(Lang.isNotEmpty(list) && list.size()>0){
+            List<String> ids =new ArrayList<>();
+            list.forEach(m->{
+                ids.add(m.getId());
+            });
+            this.dao().clear(Menu.class, Cnd.where("id", "in", ids));
+        }
+        return this.dao().delete(Menu.class, name);
+    }
 }

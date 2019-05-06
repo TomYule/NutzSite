@@ -1,12 +1,13 @@
-package ${package}.controller;
+package io.nutz.nutzsite.module.cms.controller;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import ${package}.models.${className};
-import ${package}.services.${className}Service;
+import io.nutz.nutzsite.module.cms.models.Category;
+import io.nutz.nutzsite.module.cms.services.CategoryService;
 import io.nutz.nutzsite.common.base.Result;;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -21,32 +22,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.Date;
 /**
- * ${tableComment} 信息操作处理
+ * 栏目 信息操作处理
  * 
- * @author ${author}
- * @date ${datetime}
+ * @author haiming
+ * @date 2019-05-06
  */
 @IocBean
-@At("/${moduleName}/${classname}")
-public class ${className}Controller {
+@At("/cms/category")
+public class CategoryController {
 	private static final Log log = Logs.get();
 
 	@Inject
-	private ${className}Service ${classname}Service;
+	private CategoryService categoryService;
 	
-	@RequiresPermissions("${moduleName}:${classname}:view")
+	@RequiresPermissions("cms:category:view")
 	@At("")
-	@Ok("th:/${moduleName}/${classname}/${classname}.html")
+	@Ok("th:/cms/category/category.html")
 	public void index(HttpServletRequest req) {
 
 	}
 
 	/**
-	 * 查询${tableComment}列表
+	 * 查询栏目列表
 	 */
 	@At
 	@Ok("json")
-	@RequiresPermissions("${moduleName}:${classname}:list")
+	@RequiresPermissions("cms:category:list")
 	public Object list(@Param("pageNum")int pageNum,
 					   @Param("pageSize")int pageSize,
 					   @Param("name") String name,
@@ -65,39 +66,39 @@ public class ${className}Controller {
 		if(Lang.isNotEmpty(endTime)){
 			cnd.and("create_time","<=", endTime);
 		}
-		return ${classname}Service.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
+		return categoryService.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
 	}
 
 	/**
-	 * 新增${tableComment}
+	 * 新增栏目
 	 */
 	@At("/add/？")
-	@Ok("th:/${moduleName}/${classname}/add.html")
+	@Ok("th:/cms/category/add.html")
 	public void add(@Param("id") String id, HttpServletRequest req) {
-		${className} ${classname} = null;
+		Category category = null;
 		if(Strings.isNotBlank(id)) {
-			${classname} = ${classname}Service.fetch(id);
+			category = categoryService.fetch(id);
 		}
-		if (${classname} ==null)  {
-			${classname}=new ${className}();
-			${classname}.setParentId("0");
-			${classname}.setName("无");
+		if (category ==null)  {
+			category=new Category();
+			category.setParentId("0");
+			category.setName("无");
 		}
-		req.setAttribute("${classname}",${classname});
+		req.setAttribute("category",category);
 	}
 
 	/**
-	 * 新增保存${tableComment}
+	 * 新增保存栏目
 	 */
 
 	@At
 	@POST
 	@Ok("json")
-	@RequiresPermissions("${moduleName}:${classname}:add")
-	@Slog(tag="${tableComment}", after="新增保存${tableComment} id=${args[0].id}")
-	public Object addDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
+	@RequiresPermissions("cms:category:add")
+	@Slog(tag="栏目", after="新增保存栏目 id=${args[0].id}")
+	public Object addDo(@Param("..") Category category,HttpServletRequest req) {
 		try {
-			${classname}Service.insert(${classname});
+			categoryService.insert(category);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");
@@ -105,36 +106,36 @@ public class ${className}Controller {
 	}
 
 	/**
-	 * 修改${tableComment}
+	 * 修改栏目
 	 */
 	@At("/edit/?")
-	@Ok("th://${moduleName}/${classname}/edit.html")
+	@Ok("th://cms/category/edit.html")
 	public void edit(String id, HttpServletRequest req) {
-		${className} ${classname} = ${classname}Service.fetch(id);
-		if(${classname}!=null){
-			${className} parentData = ${classname}Service.fetch(${classname}.getParentId());
+		Category category = categoryService.fetch(id);
+		if(category!=null){
+			Category parentData = categoryService.fetch(category.getParentId());
 			if (parentData != null) {
-				${classname}.setParentName( parentData.getName());
+				category.setParentName( parentData.getName());
 			}
 		}
-		req.setAttribute("${classname}",${classname});
+		req.setAttribute("category",category);
 	}
 
 	/**
-	 * 修改保存${tableComment}
+	 * 修改保存栏目
 	 */
 
 	@At
 	@POST
 	@Ok("json")
-	@RequiresPermissions("${moduleName}:${classname}:edit")
-	@Slog(tag="${tableComment}", after="修改保存${tableComment}")
-	public Object editDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
+	@RequiresPermissions("cms:category:edit")
+	@Slog(tag="栏目", after="修改保存栏目")
+	public Object editDo(@Param("..") Category category,HttpServletRequest req) {
 		try {
-			if(Lang.isNotEmpty(${classname})){
-				${classname}.setUpdateBy(ShiroUtils.getSysUserId());
-				${classname}.setUpdateTime(new Date());
-				${classname}Service.update(${classname});
+			if(Lang.isNotEmpty(category)){
+				category.setUpdateBy(ShiroUtils.getSysUserId());
+				category.setUpdateTime(new Date());
+				categoryService.update(category);
 			}
 			return Result.success("system.success");
 		} catch (Exception e) {
@@ -143,15 +144,15 @@ public class ${className}Controller {
 	}
 
 	/**
-	 * 删除${tableComment}
+	 * 删除栏目
 	 */
 	@At("/remove/?")
 	@Ok("json")
-	@RequiresPermissions("${moduleName}:${classname}:remove")
-	@Slog(tag ="${tableComment}", after= "删除${tableComment}:${args[0]}")
+	@RequiresPermissions("cms:category:remove")
+	@Slog(tag ="栏目", after= "删除栏目:${args[0]}")
 	public Object remove(String id, HttpServletRequest req) {
 		try {
-			${classname}Service.delete(id);
+			categoryService.delete(id);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");
@@ -162,9 +163,9 @@ public class ${className}Controller {
 	 * 选择菜单树
 	 */
 	@At("/selectTree/?")
-	@Ok("th:/${moduleName}/${classname}/tree.html")
+	@Ok("th:/cms/category/tree.html")
 	public void selectTree(String id, HttpServletRequest req) {
-		req.setAttribute("${classname}", ${classname}Service.fetch(id));
+		req.setAttribute("category", categoryService.fetch(id));
 	}
 
 	/**
@@ -177,7 +178,7 @@ public class ${className}Controller {
 	@Ok("json")
 	public List<Map<String, Object>> treeData( @Param("parentId") String parentId,
 											   @Param("name") String name) {
-		List<Map<String, Object>> tree = ${classname}Service.selectTree(parentId,name);
+		List<Map<String, Object>> tree = categoryService.selectTree(parentId,name);
 		return tree;
 	}
 }
