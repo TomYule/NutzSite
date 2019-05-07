@@ -16,6 +16,10 @@ public class Globals {
      * UTF-8 字符集
      */
     public static final String UTF8 = "UTF-8";
+
+    //文件上传路径
+    public static String AppUploadPath = "/upload";
+
     /**
      * 系统自定义参数
      */
@@ -29,7 +33,14 @@ public class Globals {
         }
         List<Config> configList = configService.query();
         for (Config sysConfig : configList) {
-            Globals.MyConfig.put(sysConfig.getConfigKey(), sysConfig.getConfigValue());
+            switch (sysConfig.getConfigKey()) {
+                case "AppUploadPath":
+                    Globals.AppUploadPath = sysConfig.getConfigValue();
+                    break;
+                default:
+                    Globals.MyConfig.put(sysConfig.getConfigKey(), sysConfig.getConfigValue());
+                    break;
+            }
         }
     }
 }

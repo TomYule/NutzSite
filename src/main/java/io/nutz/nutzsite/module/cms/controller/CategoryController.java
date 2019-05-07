@@ -48,13 +48,9 @@ public class CategoryController {
 	@At
 	@Ok("json")
 	@RequiresPermissions("cms:category:list")
-	public Object list(@Param("pageNum")int pageNum,
-					   @Param("pageSize")int pageSize,
-					   @Param("name") String name,
+	public Object list(@Param("name") String name,
 					   @Param("beginTime") Date beginTime,
 					   @Param("endTime") Date endTime,
-					   @Param("orderByColumn") String orderByColumn,
-					   @Param("isAsc") String isAsc,
 					   HttpServletRequest req) {
 		Cnd cnd = Cnd.NEW();
 		if (!Strings.isBlank(name)){
@@ -66,18 +62,19 @@ public class CategoryController {
 		if(Lang.isNotEmpty(endTime)){
 			cnd.and("create_time","<=", endTime);
 		}
-		return categoryService.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
+		return categoryService.query(cnd);
 	}
 
 	/**
 	 * 新增栏目
 	 */
-	@At("/add/？")
+	@At({"/add/?","/add"})
 	@Ok("th:/cms/category/add.html")
 	public void add(@Param("id") String id, HttpServletRequest req) {
 		Category category = null;
 		if(Strings.isNotBlank(id)) {
 			category = categoryService.fetch(id);
+			category.setParentName(category.getName());
 		}
 		if (category ==null)  {
 			category=new Category();
@@ -165,7 +162,17 @@ public class CategoryController {
 	@At("/selectTree/?")
 	@Ok("th:/cms/category/tree.html")
 	public void selectTree(String id, HttpServletRequest req) {
-		req.setAttribute("category", categoryService.fetch(id));
+		Category category = null;
+		if(Strings.isNotBlank(id)) {
+			category = categoryService.fetch(id);
+		}
+		if (category ==null)  {
+			category=new Category();
+			category.setId("");
+			category.setParentId("0");
+			category.setName("无");
+		}
+		req.setAttribute("category",category);
 	}
 
 	/**

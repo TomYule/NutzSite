@@ -1,7 +1,9 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.base.Result;
+import io.nutz.nutzsite.common.utils.Base64Utils;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
+import io.nutz.nutzsite.common.utils.UpLoadUtil;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -9,10 +11,9 @@ import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
-import org.nutz.mvc.annotation.At;
-import org.nutz.mvc.annotation.Ok;
-import org.nutz.mvc.annotation.POST;
-import org.nutz.mvc.annotation.Param;
+import org.nutz.mvc.annotation.*;
+import org.nutz.mvc.upload.TempFile;
+import org.nutz.mvc.upload.UploadAdaptor;
 import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
@@ -107,5 +108,21 @@ public class ProfileController {
         User user = userService.fetch(ShiroUtils.getUserId());
         req.setAttribute("user", user);
     }
+
+    @At
+    @POST
+    @Ok("json")
+    @Slog(tag="个人信息", after="修改头像")
+    @AdaptBy(type = UploadAdaptor.class)
+    public Object updateAvatar(@Param("avatarfile") TempFile avatarfile){
+        User user = userService.fetch(ShiroUtils.getUserId());
+//        String base64Str = UpLoadUtil.upLoadFileSysConfigPath(avatarfile);
+//        user.setAvatar(base64Str);
+//        userService.updateIgnoreNull(user);
+        ShiroUtils.setSysUser(userService.fetch(user.getId()));
+        return Result.success("system.success");
+    }
+
+
 
 }

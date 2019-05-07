@@ -47,13 +47,9 @@ public class ${className}Controller {
 	@At
 	@Ok("json")
 	@RequiresPermissions("${moduleName}:${classname}:list")
-	public Object list(@Param("pageNum")int pageNum,
-					   @Param("pageSize")int pageSize,
-					   @Param("name") String name,
+	public Object list(@Param("name") String name,
 					   @Param("beginTime") Date beginTime,
 					   @Param("endTime") Date endTime,
-					   @Param("orderByColumn") String orderByColumn,
-					   @Param("isAsc") String isAsc,
 					   HttpServletRequest req) {
 		Cnd cnd = Cnd.NEW();
 		if (!Strings.isBlank(name)){
@@ -65,18 +61,19 @@ public class ${className}Controller {
 		if(Lang.isNotEmpty(endTime)){
 			cnd.and("create_time","<=", endTime);
 		}
-		return ${classname}Service.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
+		return ${classname}Service.query(cnd);
 	}
 
 	/**
 	 * 新增${tableComment}
 	 */
-	@At("/add/？")
+	@At({"/add/?","/add"})
 	@Ok("th:/${moduleName}/${classname}/add.html")
 	public void add(@Param("id") String id, HttpServletRequest req) {
 		${className} ${classname} = null;
 		if(Strings.isNotBlank(id)) {
 			${classname} = ${classname}Service.fetch(id);
+			${classname}.setParentName(${classname}.getName());
 		}
 		if (${classname} ==null)  {
 			${classname}=new ${className}();
@@ -164,7 +161,17 @@ public class ${className}Controller {
 	@At("/selectTree/?")
 	@Ok("th:/${moduleName}/${classname}/tree.html")
 	public void selectTree(String id, HttpServletRequest req) {
-		req.setAttribute("${classname}", ${classname}Service.fetch(id));
+        ${className} ${classname} = null;
+        if(Strings.isNotBlank(id)) {
+            ${classname} = ${classname}Service.fetch(id);
+        }
+        if (${classname} ==null)  {
+            ${classname}=new ${className}();
+            ${classname}.setId("");
+            ${classname}.setParentId("0");
+            ${classname}.setName("无");
+        }
+        req.setAttribute("${classname}",${classname});
 	}
 
 	/**
