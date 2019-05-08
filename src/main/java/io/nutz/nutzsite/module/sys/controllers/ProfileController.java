@@ -116,9 +116,9 @@ public class ProfileController {
     @AdaptBy(type = UploadAdaptor.class)
     public Object updateAvatar(@Param("avatarfile") TempFile avatarfile){
         User user = userService.fetch(ShiroUtils.getUserId());
-//        String base64Str = UpLoadUtil.upLoadFileSysConfigPath(avatarfile);
-//        user.setAvatar(base64Str);
-//        userService.updateIgnoreNull(user);
+        String base64Str = UpLoadUtil.upLoadFileSysConfigPath(avatarfile,ShiroUtils.getUserId());
+        user.setAvatar(base64Str);
+        userService.updateIgnoreNull(user);
         ShiroUtils.setSysUser(userService.fetch(user.getId()));
         return Result.success("system.success");
     }

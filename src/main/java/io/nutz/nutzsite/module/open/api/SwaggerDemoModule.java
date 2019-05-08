@@ -1,4 +1,4 @@
-package io.nutz.nutzsite.module.api;
+package io.nutz.nutzsite.module.open.api;
 
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.util.NutMap;

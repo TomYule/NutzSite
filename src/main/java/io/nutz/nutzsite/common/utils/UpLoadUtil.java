@@ -7,15 +7,21 @@ import com.qiniu.storage.UploadManager;
 import io.nutz.nutzsite.common.base.Globals;
 import io.nutz.nutzsite.common.qiniu.QiniuConfig;
 import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.tika.Tika;
+import org.apache.tika.config.TikaConfig;
+import org.apache.tika.mime.MediaType;
+import org.apache.tika.mime.MimeType;
+import org.apache.tika.mime.MimeTypeException;
+import org.apache.tika.mime.MimeTypes;
 import org.nutz.lang.Files;
 import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.lang.random.R;
 import org.nutz.mvc.upload.TempFile;
+import sun.jvm.hotspot.oops.Metadata;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.activation.MimetypesFileTypeMap;
+import java.io.*;
 import java.util.Date;
 
 /**
@@ -50,21 +56,27 @@ public class UpLoadUtil {
         return QiniuConfig.dummyUrl + "/" + name;
     }
 
-    public static String upLoadFileSysConfigPath(TempFile tf) {
+    public static String upLoadFileSysConfigPath(TempFile tf,String userId) {
+        String f ="";
         if (tf == null) {
             return "";
         }
-        String name ="";
-        if(Lang.isNotEmpty(tf.getFile())){
-            name = tf.getFile().getName().substring(tf.getFile().getName().lastIndexOf("."));
-        }
-
-        String f = Globals.AppUploadPath + "/" + ShiroUtils.getUserId() +"/" + DateUtils.getYear() + DateUtils.getMonth() + "/" + R.UU32() +"."+ name;
-        try {
-            Files.write(new File(f), tf.getInputStream());
+       try {
+           Tika tika = new Tika();
+           String contentType =tika.detect(tf.getFile());
+           MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
+           MimeType mimeType = allTypes.forName(contentType);
+           String extension = mimeType.getExtension();
+           if(Strings.isEmpty(userId)){
+               userId = ShiroUtils.getUserId();
+           }
+           f = Globals.AppUploadPath + "/" + userId +"/" + DateUtils.getYear() + DateUtils.getMonth() + "/" + R.UU32()+ extension;
+           Files.write(new File(f), tf.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } catch (MimeTypeException e) {
+           e.printStackTrace();
+       }
         return f;
     }
 
