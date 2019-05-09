@@ -131,7 +131,7 @@ public class ${className}Controller {
 	@At("/remove")
 	@Ok("json")
 	@RequiresPermissions("${moduleName}:${classname}:remove")
-	@Slog(tag ="${tableComment}", after= "删除${tableComment}:${array2str(args[0])}")
+	@Slog(tag ="${tableComment}", after= "删除${tableComment}:${array2str}")
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
 			${classname}Service.delete(ids);

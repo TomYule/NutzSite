@@ -80,6 +80,9 @@ public class GenUtils
         velocityContext.put("uuid3", R.UU32().toLowerCase());
         velocityContext.put("uuid4", R.UU32().toLowerCase());
         velocityContext.put("uuid5", R.UU32().toLowerCase());
+        //args[0].
+        velocityContext.put("array2str", "${array2str(args[0])}");
+        velocityContext.put("args", "${args[0].");
         return velocityContext;
     }
 
