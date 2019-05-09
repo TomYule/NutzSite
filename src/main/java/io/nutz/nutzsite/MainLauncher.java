@@ -54,8 +54,11 @@ public class MainLauncher {
         if (Lang.isEmpty(user)) {
             return "th:/login.html";
         }
-        user =userService.fetchLinks(user,"dept");
+        user =userService.fetchLinks(user,"dept|image");
         req.setAttribute("user", user);
+        if(Lang.isNotEmpty(user.getImage())){
+            req.setAttribute("image", user.getImage().getBase64());
+        }
         List<Menu> menuList = menuService.getMenuList(user.getId());
         req.setAttribute("menus", TreeUtils.getChildPerms(menuList, "0"));
         return "th:/index.html";

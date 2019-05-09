@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.nutz.dao.entity.annotation.*;
 import java.io.Serializable;
 #foreach ($column in $columns)
-	#if($column.attrType == 'Date')
+	#if($!column.attrType == 'Date')
 	import java.util.Date;
 		#break
 		#break
@@ -28,27 +28,27 @@ public class ${className} extends BaseModel implements Serializable {
 	#if($column.columnName == $primaryKey.columnName)
 	@Name
 	@Column("${column.columnName}")
-	@Comment("$column.columnComment ")
+	@Comment("$column.columnComment")
 	@ColDefine(type = ColType.VARCHAR, width = 64)
 	@Prev(els = {@EL("uuid()")})
-	private $column.attrType $column.attrname;
+	private $!column.attrType $column.attrname;
 
 	#else
 	/** $column.columnComment */
 	@Column("${column.columnName}")
-	@Comment("$column.columnComment ")
-	private $column.attrType $column.attrname;
+	@Comment("$column.columnComment")
+	private $!column.attrType $column.attrname;
 
 	#end
 #end
 
 #foreach ($column in $columns)
-	public void set${column.attrName}($column.attrType $column.attrname) 
+	public void set${column.attrName}($!column.attrType $column.attrname) 
 	{
 		this.$column.attrname = $column.attrname;
 	}
 
-	public $column.attrType get${column.attrName}() 
+	public $!column.attrType get${column.attrName}() 
 	{
 		return $column.attrname;
 	}

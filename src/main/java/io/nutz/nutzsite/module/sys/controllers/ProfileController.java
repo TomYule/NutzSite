@@ -1,15 +1,16 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import com.alibaba.fastjson.JSON;
+import io.nutz.nutzsite.common.enums.ImageType;
 import io.nutz.nutzsite.common.base.Result;
-import io.nutz.nutzsite.common.utils.Base64Utils;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
-import io.nutz.nutzsite.common.utils.UpLoadUtil;
 import io.nutz.nutzsite.module.sys.models.User;
+import io.nutz.nutzsite.module.sys.services.ImageService;
 import io.nutz.nutzsite.module.sys.services.UserService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.mvc.annotation.*;
 import org.nutz.mvc.upload.TempFile;
@@ -29,12 +30,13 @@ import javax.servlet.http.HttpServletRequest;
 public class ProfileController {
     @Inject
     private UserService userService;
-
+    @Inject
+    private ImageService imageService;
     @At("")
     @Ok("th:/sys/user/profile/profile.html")
     public void index(HttpServletRequest req) {
         User user = ShiroUtils.getSysUser();
-        user = userService.fetchLinks(user, "dept");
+        user = userService.fetchLinks(user, "dept|image");
         req.setAttribute("user", user);
         req.setAttribute("roleGroup", userService.getUserRoleGroup(user.getId()));
     }
@@ -106,7 +108,11 @@ public class ProfileController {
     @Ok("th:/sys/user/profile/headPortrait.html")
     public void headPortrait(HttpServletRequest req) {
         User user = userService.fetch(ShiroUtils.getUserId());
+        user = userService.fetchLinks(user, "image");
         req.setAttribute("user", user);
+        if(Lang.isNotEmpty(user.getImage())){
+            req.setAttribute("image", user.getImage().getBase64());
+        }
     }
 
     @At
@@ -116,8 +122,8 @@ public class ProfileController {
     @AdaptBy(type = UploadAdaptor.class)
     public Object updateAvatar(@Param("avatarfile") TempFile avatarfile){
         User user = userService.fetch(ShiroUtils.getUserId());
-        String base64Str = UpLoadUtil.upLoadFileSysConfigPath(avatarfile,ShiroUtils.getUserId());
-        user.setAvatar(base64Str);
+        String id = imageService.save(avatarfile, ImageType.Base64 ,ShiroUtils.getUserId(),user.getAvatar());
+        user.setAvatar(id);
         userService.updateIgnoreNull(user);
         ShiroUtils.setSysUser(userService.fetch(user.getId()));
         return Result.success("system.success");

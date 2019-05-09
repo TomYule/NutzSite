@@ -25,7 +25,8 @@
 <script type="text/javascript">
 var cropper;
 $(window).load(function() {
-	var avatar = '[[${user.avatar}]]';
+	var avatar = '[[${image}]]';
+	console.log(avatar);
     var options = {
         thumbBox: '.thumbBox',
         spinner: '.spinner',

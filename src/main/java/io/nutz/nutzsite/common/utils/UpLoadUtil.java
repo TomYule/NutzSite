@@ -25,7 +25,7 @@ import java.io.*;
 import java.util.Date;
 
 /**
- * 七牛云 文件上传工具类
+ * 文件上传工具类
  *
  * @author Hamming_Yu on 2018/11/15.
  */
@@ -56,30 +56,6 @@ public class UpLoadUtil {
         return QiniuConfig.dummyUrl + "/" + name;
     }
 
-    public static String upLoadFileSysConfigPath(TempFile tf,String userId) {
-        String f ="";
-        if (tf == null) {
-            return "";
-        }
-       try {
-           Tika tika = new Tika();
-           String contentType =tika.detect(tf.getFile());
-           MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
-           MimeType mimeType = allTypes.forName(contentType);
-           String extension = mimeType.getExtension();
-           if(Strings.isEmpty(userId)){
-               userId = ShiroUtils.getUserId();
-           }
-           f = Globals.AppUploadPath + "/" + userId +"/" + DateUtils.getYear() + DateUtils.getMonth() + "/" + R.UU32()+ extension;
-           Files.write(new File(f), tf.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (MimeTypeException e) {
-           e.printStackTrace();
-       }
-        return f;
-    }
-
     /**
      * 上传文件存储为base86编码
      *
@@ -92,4 +68,35 @@ public class UpLoadUtil {
         }
         return Base64Utils.fileBase64(tf,null);
     }
+
+    /**
+     * 本地文件存储
+     * @param tf
+     * @param userId
+     * @return
+     */
+    public static String upLoadFileSysConfigPath(TempFile tf,String userId) {
+        String f ="";
+        if (tf == null) {
+            return "";
+        }
+        try {
+            Tika tika = new Tika();
+            String contentType =tika.detect(tf.getFile());
+            MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
+            MimeType mimeType = allTypes.forName(contentType);
+            String extension = mimeType.getExtension();
+            if(Strings.isEmpty(userId)){
+                userId = "temp";
+            }
+            f = Globals.AppUploadPath + "/" + userId +"/" + DateUtils.getYear() + DateUtils.getMonth() + "/" + R.UU32()+ extension;
+            Files.write(new File(f), tf.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (MimeTypeException e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+
 }

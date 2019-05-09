@@ -18,7 +18,7 @@ import java.util.Map;
  * @Date: 2019-05-08 14:31
  * @Version 1.0
  */
-@IocBean
+//@IocBean
 public class FileFilterStarter implements WebFilterFace, Filter {
 
     @Override
@@ -70,7 +70,7 @@ public class FileFilterStarter implements WebFilterFace, Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
-        String url = Mvcs.getReq().getRequestURI();
+        String url = Mvcs.getReq().getPathInfo();
         // path是指欲下载的文件的路径。
         String path =url.substring(url.indexOf("/profile"));
         File file = new File(path);

@@ -2,6 +2,8 @@ package io.nutz.nutzsite.module.open.file;
 
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.utils.UpLoadUtil;
+import io.nutz.nutzsite.module.sys.services.ImageService;
+import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.util.NutMap;
 import org.nutz.log.Log;
@@ -24,16 +26,18 @@ import java.io.*;
 @At("/open/file")
 public class UploadController {
     private static final Log log = Logs.get();
+    @Inject
+    private ImageService imageService;
 
-    @At("/get/**")
+    @At("/get/?")
     @Ok("raw")
-    public void get(String path,HttpServletRequest req, HttpServletResponse resp) {
+    public void get(String id,HttpServletRequest req, HttpServletResponse resp) {
+        String path = imageService.get(id);
         File file = new File(path);
         // 取得文件名。
         String filename = file.getName();
         // 取得文件的后缀名。
         String ext = filename.substring(filename.lastIndexOf(".") + 1).toUpperCase();
-
         // 以流的形式下载文件。
         try (InputStream fis  = new BufferedInputStream(new FileInputStream(path))){
             byte[] buffer = new byte[fis.available()];

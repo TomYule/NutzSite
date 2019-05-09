@@ -93,6 +93,9 @@ public class User extends BaseModel implements Serializable {
     @Comment("用户头像")
     private String avatar;
 
+    @One(field = "avatar")
+    private Image image;
+
     /**
      * 帐号状态（0正常 1停用）
      */
@@ -327,6 +330,14 @@ public class User extends BaseModel implements Serializable {
 
     public void setPostIds(String postIds) {
         this.postIds = postIds;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     @Override
