@@ -74,9 +74,10 @@ public class CategoryController {
 		Category category = null;
 		if(Strings.isNotBlank(id)) {
 			category = categoryService.fetch(id);
-			category.setParentName(category.getName());
 		}
-		if (category ==null)  {
+		if(Lang.isNotEmpty(category)) {
+			category.setParentName(category.getName());
+		}else{
 			category=new Category();
 			category.setParentId("0");
 			category.setName("无");

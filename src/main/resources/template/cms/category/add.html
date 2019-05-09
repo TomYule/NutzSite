@@ -3,6 +3,8 @@
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="white-bg">
+<link th:href="@{/assets/plugins/bootstrap-fileinput/css/fileinput.css}" media="all" rel="stylesheet" type="text/css">
+<link th:href="@{/assets/plugins/bootstrap-fileinput/css/fileinput-rtl.css}">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-category-add">
         <input id="id" name="id"
@@ -19,7 +21,11 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">栏目模块：</label>
             <div class="col-sm-8">
-                <input id="module" name="module" class="form-control" type="text">
+                <select id="module" name="module"  class="form-control">
+                    <option value="">公共模型</option>
+                    <option value="article">文章模型</option>
+                    <option value="link">链接模型</option>
+                </select>
             </div>
         </div>
         <div class="form-group">
@@ -32,6 +38,7 @@
             <label class="col-sm-3 control-label">栏目图片：</label>
             <div class="col-sm-8">
                 <input id="image" name="image" class="form-control" type="text">
+                <input id="input-id" type="file" class="file" style="width: 100px" data-preview-file-type="text" >
             </div>
         </div>
         <div class="form-group">
@@ -152,6 +159,13 @@
     </form>
 </div>
 <div th:include="include::footer"></div>
+<script th:src="@{/assets/plugins/bootstrap-fileinput/js/fileinput.js}"></script>
+<script th:src="@{/assets/plugins/bootstrap-fileinput/js/locales/zh.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.2/js/locales/zh.js"></script>
+<script th:src="@{/assets/plugins/bootstrap-fileinput/js/plugins/sortable.js}"></script>
+<!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
+<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.2/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />-->
+
 <script type="text/javascript">
     var prefix = ctx + "cms/category"
     $("#form-category-add").validate({
@@ -190,6 +204,13 @@
         //     layer.close(index);
         // }
     }
+    $(function () {
+        // initialize with defaults
+        $("#input-id").fileinput();
+
+        /// with plugin options
+        $("#input-id").fileinput({'showUpload':false, 'previewFileType':'any','language':'zh'});
+    });
 </script>
 </body>
 </html>
