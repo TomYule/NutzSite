@@ -20,7 +20,7 @@ import java.util.Date;
  *
  * @author ruoyi
  */
-@IocBean
+@IocBean(name = "onlineSessionDAO")
 public class OnlineSessionDAO extends EnterpriseCacheSessionDAO {
     /**
      * 上次同步数据库的时间戳
