@@ -5,6 +5,8 @@
 <link th:href="@{/assets/css/ui.css}" rel="stylesheet"/>
 <link th:href="@{/assets/plugins/datapicker/datepicker3.css}" rel="stylesheet"/>
 <link rel="stylesheet" href="/assets/plugins/jquery-ztree/3.5/css/default/zTreeStyle.css" type="text/css">
+<link th:href="@{/assets/plugins/bootstrap-fileinput/css/fileinput.css}" media="all" rel="stylesheet" type="text/css">
+<link th:href="@{/assets/plugins/bootstrap-fileinput/css/fileinput-rtl.css}">
 <style>
     .droppable-active {
         background-color: #ffe !important
@@ -141,6 +143,52 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">文件上传：
+                            </label>
+                            <div class="col-sm-8">
+                                <link th:href="@{/assets/plugins/bootstrap-fileinput/css/fileinput.css}" media="all" rel="stylesheet" type="text/css">
+                                <link th:href="@{/assets/plugins/bootstrap-fileinput/css/fileinput-rtl.css}">
+                                <input id="input-b2" name="input-b2" type="file" class="file" data-show-preview="false">
+                                <script th:src="@{/assets/plugins/bootstrap-fileinput/js/fileinput.js}"></script>
+                                <script th:src="@{/assets/plugins/bootstrap-fileinput/js/locales/zh.js}"></script>
+                                <script th:src="@{/assets/plugins/bootstrap-fileinput/js/plugins/sortable.js}"></script>
+                                <script >
+                                    //文件上传 文档地址 http://plugins.krajee.com/file-basic-usage-demo
+                                    // with plugin options
+                                    $("#input-b2").fileinput({'language':'zh','showUpload':false, 'previewFileType':'any'});
+                                </script>
+                            </div>
+
+                        </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">文件上传预览：
+                            </label>
+                            <div class="col-sm-8">
+                                <link th:href="@{/assets/plugins/bootstrap-fileinput/css/fileinput.css}" media="all" rel="stylesheet" type="text/css">
+                                <link th:href="@{/assets/plugins/bootstrap-fileinput/css/fileinput-rtl.css}">
+
+                                <input id="input-id" type="file" class="file" style="width: 100px" multiple>
+
+                                <script th:src="@{/assets/plugins/bootstrap-fileinput/js/fileinput.js}"></script>
+                                <script th:src="@{/assets/plugins/bootstrap-fileinput/js/locales/zh.js}"></script>
+                                <script th:src="@{/assets/plugins/bootstrap-fileinput/js/plugins/sortable.js}"></script>
+                                <script >
+                                    //文件上传 文档地址 http://plugins.krajee.com/file-basic-usage-demo
+                                    // with plugin options
+                                    $("#input-id").fileinput({
+                                        'language':'zh',
+                                        'showUpload':false,
+                                        'previewFileType':'any',
+                                        'dropZoneEnabled':false,
+                                        'maxFileCount': 1, // 最大上传的文件数
+                                        'maxFileSize': 1000, // 最大上传文件的大小(KB)(1M = 1000Kb)
+                                        'allowedFileExtensions': ["jpg", "png", "gif","jpeg"]
+                                    });
+                                </script>
+                            </div>
+
                         </div>
 
                         <div class="form-group draggable">
@@ -279,14 +327,25 @@
 <script th:src="@{/assets/plugins/iCheck/icheck.min.js}"></script>
 <script th:src="@{/assets/plugins/datapicker/bootstrap-datepicker.js}"></script>
 <script th:src="@{/assets/plugins/beautifyhtml/beautifyhtml.js}"></script>
-
+<script th:src="@{/assets/plugins/bootstrap-fileinput/js/fileinput.js}"></script>
+<script th:src="@{/assets/plugins/bootstrap-fileinput/js/locales/zh.js}"></script>
+<script th:src="@{/assets/plugins/bootstrap-fileinput/js/plugins/sortable.js}"></script>
 <script type="text/javascript" src="/assets/plugins/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js"></script>
 <SCRIPT type="text/javascript">
     <!--
-
-
     $(document).ready(function () {
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+    //文件上传
+    // with plugin options
+    $("#input-b2").fileinput({'language':'zh','showUpload':false, 'previewFileType':'any'});
+
+    $("#input-id").fileinput({
+        'language':'zh',
+        'showUpload':false,
+        'previewFileType':'any',
+        'dropZoneEnabled':false,
+        'allowedFileExtensions': ["jpg", "png", "gif","jpeg"]
     });
     //-->
 </SCRIPT>

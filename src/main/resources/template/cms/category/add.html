@@ -37,8 +37,8 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">栏目图片：</label>
             <div class="col-sm-8">
-                <input id="image" name="image" class="form-control" type="text">
-                <input id="input-id" type="file" class="file" style="width: 100px" data-preview-file-type="text" >
+<!--                <input id="image" name="image" class="file" style="width: 100px" data-preview-file-type="text" >-->
+                <input id="input-id" type="file" class="file" style="width: 100px" multiple>
             </div>
         </div>
         <div class="form-group">
@@ -161,12 +161,19 @@
 <div th:include="include::footer"></div>
 <script th:src="@{/assets/plugins/bootstrap-fileinput/js/fileinput.js}"></script>
 <script th:src="@{/assets/plugins/bootstrap-fileinput/js/locales/zh.js}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.2/js/locales/zh.js"></script>
 <script th:src="@{/assets/plugins/bootstrap-fileinput/js/plugins/sortable.js}"></script>
-<!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
-<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.2/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />-->
 
 <script type="text/javascript">
+    // initialize with defaults
+    $("#input-id").fileinput({
+        'language':'zh',
+        'showUpload':false,
+        'previewFileType':'any',
+        'dropZoneEnabled':false,
+        'maxFileCount': 1, // 最大上传的文件数
+        'maxFileSize': 1000, // 最大上传文件的大小(KB)(1M = 1000Kb)
+        'allowedFileExtensions': ["jpg", "png", "jpeg"]
+    });
     var prefix = ctx + "cms/category"
     $("#form-category-add").validate({
         onkeyup: false,
@@ -204,13 +211,6 @@
         //     layer.close(index);
         // }
     }
-    $(function () {
-        // initialize with defaults
-        $("#input-id").fileinput();
-
-        /// with plugin options
-        $("#input-id").fileinput({'showUpload':false, 'previewFileType':'any','language':'zh'});
-    });
 </script>
 </body>
 </html>
