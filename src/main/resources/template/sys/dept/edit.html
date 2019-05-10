@@ -5,7 +5,7 @@
 <body class="white-bg">
 	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
 		<form class="form-horizontal m" id="form-dept-edit" >
-			<input  type="hidden" name="id" th:value="${dept.id}" />
+			<input  type="hidden" id="id" name="id" th:value="${dept.id}" />
 			<input id="treeId" name="parentId" type="hidden"th:value="${dept.parentId}" />
 			<div class="form-group">
 				<label class="col-sm-3 control-label ">上级部门：</label>
@@ -57,6 +57,7 @@
 		var prefix = ctx + "sys/dept";
 		
 		$("#form-dept-edit").validate({
+			onkeyup: false,
 			rules:{
 				deptName:{
 					required:true,
@@ -65,18 +66,18 @@
 		                type: "post",
 		                dataType: "json",
 		                data: {
-		                	"deptId": function() {
-		                        return $("#deptId").val();
+		                	"id": function() {
+		                        return $("#id").val();
 		                    },
 		                    "parentId": function() {
 		                        return $("input[name='parentId']").val();
 		                    },
-		        			"deptName": function() {
+		        			"name": function() {
 		                        return $.common.trim($("#deptName").val());
 		                    }
 		                },
 		                dataFilter: function(data, type) {
-		                	return $.validate.unique(data);
+		                	return data;
 		                }
 		            }
 				},

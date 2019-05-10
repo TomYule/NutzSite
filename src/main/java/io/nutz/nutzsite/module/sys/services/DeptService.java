@@ -6,6 +6,7 @@ import io.nutz.nutzsite.module.sys.models.Dept;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 
 import java.util.*;
@@ -88,6 +89,24 @@ public class DeptService extends Service<Dept> {
         dept.setUpdateBy(ShiroUtils.getSysUserId());
         dept.setUpdateTime(new Date());
         return this.dao().update(dept);
+    }
+
+    public boolean checkDeptNameUnique(String id,String parentId,String menuName) {
+        Cnd cnd =Cnd.NEW();
+        if(Strings.isNotBlank(id)){
+            cnd.and("id","!=",id);
+        }
+        if(Strings.isNotBlank(parentId)){
+            cnd.and("parent_id","=",parentId);
+        }
+        if(Strings.isNotBlank(menuName)){
+            cnd.and("dept_name", "=", menuName);
+        }
+        List<Dept> list = this.query(cnd);
+        if (Lang.isEmpty(list)) {
+            return true;
+        }
+        return false;
     }
 
 }

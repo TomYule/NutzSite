@@ -80,6 +80,7 @@
 	<script th:src="@{/assets/plugins/select/select2.js}"></script>
 	<script>
         $("#form-user-edit").validate({
+			onkeyup: false,
         	rules:{
         		userName:{
         			required:true,

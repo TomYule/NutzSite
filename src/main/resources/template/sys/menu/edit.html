@@ -5,7 +5,7 @@
 <body class="white-bg">
 	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
 		<form class="form-horizontal m" id="form-menu-edit" >
-			<input name="id"   type="hidden"th:value="${menu.id}"   />
+			<input id="id" name="id"   type="hidden"th:value="${menu.id}"   />
 			<input id="treeId" name="parentId" type="hidden"th:value="${menu.parentId}" />
 			<div class="form-group">
 				<label class="col-sm-3 control-label ">上级菜单：</label>
@@ -81,6 +81,7 @@
         });
 
         $("#form-menu-edit").validate({
+            onkeyup: false,
         	rules:{
         		menuType:{
         			required:true,
@@ -92,8 +93,8 @@
                         type: "post",
                         dataType: "json",
                         data: {
-                        	"menuId": function() {
-                                return $("#menuId").val();
+                        	"id": function() {
+                                return $("#id").val();
                             },
                             "parentId": function() {
 		                		return $("input[name='parentId']").val();
@@ -103,7 +104,7 @@
                             }
                         },
                         dataFilter: function(data, type) {
-                        	return $.validate.unique(data);
+                        	return data;
                         }
                     }
         		},

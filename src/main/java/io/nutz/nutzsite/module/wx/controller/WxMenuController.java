@@ -77,17 +77,13 @@ public class WxMenuController {
 	@At({"/add/?","/add"})
 	@Ok("th:/wx/menu/add.html")
 	public void add(@Param("id") String id, HttpServletRequest req) {
-		WxMenu wxMenu = null;
-		if(Strings.isNotBlank(id)) {
-			wxMenu = wxMenuService.fetch(id);
-			wxMenu.setParentName(wxMenu.getName());
+		List<WxMenu> list =this.wxMenuService.query(Cnd.NEW().and("parent_id","=","0"));
+		req.setAttribute("menuList", list);
+		int menuSize =0;
+		if(Lang.isNotEmpty(list)){
+			menuSize =list.size();
 		}
-		if (wxMenu ==null)  {
-			wxMenu =new WxMenu();
-			wxMenu.setParentId("0");
-			wxMenu.setName("无");
-		}
-		req.setAttribute("menu", wxMenu);
+		req.setAttribute("menuSize", menuSize);
 	}
 
 	/**
@@ -115,13 +111,14 @@ public class WxMenuController {
 	@Ok("th://wx/menu/edit.html")
 	public void edit(String id, HttpServletRequest req) {
 		WxMenu wxMenu = wxMenuService.fetch(id);
-		if(wxMenu !=null){
-			WxMenu parentData = wxMenuService.fetch(wxMenu.getParentId());
-			if (parentData != null) {
-				wxMenu.setParentName( parentData.getName());
-			}
-		}
 		req.setAttribute("menu", wxMenu);
+		List<WxMenu> list =this.wxMenuService.query(Cnd.NEW().and("parent_id","=","0"));
+		req.setAttribute("menuList", list);
+		int menuSize =0;
+		if(Lang.isNotEmpty(list)){
+			menuSize =list.size();
+		}
+		req.setAttribute("menuSize", menuSize);
 	}
 
 	/**

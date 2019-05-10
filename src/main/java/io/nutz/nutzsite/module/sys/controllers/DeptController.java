@@ -25,6 +25,7 @@ import java.util.Map;
 
 /**
  * 部门控制类
+ *
  * @author haiming
  */
 @IocBean
@@ -46,10 +47,10 @@ public class DeptController {
     @Ok("json")
     public Object list(@Param("deptName") String deptName, HttpServletRequest req) {
         Cnd cnd = Cnd.NEW();
-        if (Strings.isNotBlank(deptName)){
-            cnd.and("dept_name", "like", "%" + deptName +"%");
+        if (Strings.isNotBlank(deptName)) {
+            cnd.and("dept_name", "like", "%" + deptName + "%");
         }
-        cnd.and("del_flag","=",false);
+        cnd.and("del_flag", "=", false);
         return deptService.query(cnd);
     }
 
@@ -72,13 +73,13 @@ public class DeptController {
     @POST
     @Ok("json")
     @RequiresPermissions("sys:dept:add")
-    @Slog(tag="部门管理", after=" 新增部门id=${args[0].id}")
+    @Slog(tag = "部门管理", after = " 新增部门id=${args[0].id}")
     public Object addDo(@Param("..") Dept data, @Param("parentId") String parentId, HttpServletRequest req) {
         try {
             deptService.insertDept(data);
-            return Result.success("system.success",data);
+            return Result.success("system.success", data);
         } catch (Exception e) {
-            if(Lang.isNotEmpty(e) && Strings.isNotBlank(e.getMessage())){
+            if (Lang.isNotEmpty(e) && Strings.isNotBlank(e.getMessage())) {
                 return Result.error(e.getMessage());
             }
             return Result.error("system.error");
@@ -89,10 +90,10 @@ public class DeptController {
     @Ok("th:/sys/dept/edit.html")
     public void edit(String id, HttpServletRequest req) {
         Dept data = deptService.fetch(id);
-        if (data!=null) {
+        if (data != null) {
             Dept parentData = deptService.fetch(data.getParentId());
             if (parentData != null) {
-                data.setParentName( parentData.getDeptName());
+                data.setParentName(parentData.getDeptName());
             }
 
             req.setAttribute("dept", data);
@@ -103,13 +104,13 @@ public class DeptController {
     @POST
     @Ok("json")
     @RequiresPermissions("sys:dept:edit")
-    @Slog(tag="部门管理", after="修改部门")
+    @Slog(tag = "部门管理", after = "修改部门")
     public Object editDo(@Param("..") Dept data, HttpServletRequest req) {
         try {
             deptService.update(data);
             return Result.success("system.success");
         } catch (Exception e) {
-            if(Lang.isNotEmpty(e) && Strings.isNotBlank(e.getMessage())){
+            if (Lang.isNotEmpty(e) && Strings.isNotBlank(e.getMessage())) {
                 return Result.error(e.getMessage());
             }
             return Result.error("system.error");
@@ -119,7 +120,7 @@ public class DeptController {
     @At("/remove/?")
     @Ok("json")
     @RequiresPermissions("sys:dept:remove")
-    @Slog(tag ="删除单位", after= "删除部门:${args[0]}")
+    @Slog(tag = "删除单位", after = "删除部门:${args[0]}")
     public Object remove(String id, HttpServletRequest req) {
         try {
             deptService.vDelete(id);
@@ -141,9 +142,19 @@ public class DeptController {
 
     @At
     @Ok("json")
-    public List<Map<String, Object>> treeData( @Param("parentId") String parentId,
-                                               @Param("deptName") String deptName) {
-        List<Map<String, Object>> tree = deptService.selectTree(parentId,deptName);
+    public List<Map<String, Object>> treeData(@Param("parentId") String parentId,
+                                              @Param("deptName") String deptName) {
+        List<Map<String, Object>> tree = deptService.selectTree(parentId, deptName);
         return tree;
     }
+
+    @At
+    @POST
+    @Ok("json")
+    public boolean checkDeptNameUnique(@Param("id") String id,
+                                       @Param("parentId") String parentId,
+                                       @Param("name") String menuName) {
+        return deptService.checkDeptNameUnique(id, parentId, menuName);
+    }
+
 }

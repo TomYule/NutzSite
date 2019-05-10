@@ -57,6 +57,7 @@
 		var prefix = ctx + "sys/dept";
 		
 		$("#form-dept-add").validate({
+			onkeyup: false,
 			rules:{
 				deptName:{
 					required:true,
@@ -68,12 +69,12 @@
 		                	"parentId": function() {
 		                		return $("input[name='parentId']").val();
 		                    },
-		                	"deptName" : function() {
+		                	"name" : function() {
 		                        return $.common.trim($("#deptName").val());
 		                    }
 		                },
 		                dataFilter: function(data, type) {
-		                	return $.validate.unique(data);
+		                	return data;
 		                }
 		            }
 				},
