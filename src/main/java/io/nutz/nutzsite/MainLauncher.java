@@ -98,7 +98,7 @@ public class MainLauncher {
             }
         });
         // 创建数据库
-//        Daos.createTablesInPackage(dao, "io.nutz.nutzsite", false);
+        Daos.createTablesInPackage(dao, "io.nutz.nutzsite", false);
     }
 
     public void depose() {

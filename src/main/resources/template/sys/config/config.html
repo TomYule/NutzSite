@@ -91,7 +91,19 @@
 				{
 					field : 'configValue', 
 					title : '参数值',
-					sortable: true
+					sortable: true,
+					formatter: function (value, row, index) {
+						//此处对value值做判断，不然value为空就会报错
+						value = value ? value : '';
+						var length = value.length;
+						// console.log(length);
+						if (length && length > 50) {
+							length = 50;
+							return "<span title ='" + value + "'>" + value.substring(0, length) + "...</span>"
+						} else {
+							return "<span title ='" + value + "'>" + value.substring(0, length) + "</span>"
+						}
+					}
 				},
 				{
 					field : 'note', 

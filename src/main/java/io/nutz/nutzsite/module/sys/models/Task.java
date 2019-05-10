@@ -79,7 +79,7 @@ public class Task extends BaseModel implements Serializable {
      * 状态（0正常 1暂停）
      */
     @Column("status")
-    @Comment("状态（0正常 1暂停） ")
+    @Comment("状态（1正常 0暂停） ")
     private boolean status;
 
     /**

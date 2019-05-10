@@ -47,6 +47,7 @@ public class MenuController {
         if (Strings.isNotBlank(menuName)) {
             cnd.and("menu_name", "like", "%" + menuName + "%");
         }
+        cnd.orderBy("order_num","asc");
         return menuService.query(cnd);
     }
 

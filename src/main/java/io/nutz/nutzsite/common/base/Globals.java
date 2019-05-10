@@ -36,6 +36,7 @@ public class Globals {
             switch (sysConfig.getConfigKey()) {
                 case "AppUploadPath":
                     Globals.AppUploadPath = sysConfig.getConfigValue();
+                    Globals.MyConfig.put(sysConfig.getConfigKey(), sysConfig.getConfigValue());
                     break;
                 default:
                     Globals.MyConfig.put(sysConfig.getConfigKey(), sysConfig.getConfigValue());

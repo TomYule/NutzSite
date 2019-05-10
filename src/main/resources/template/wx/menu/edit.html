@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-menu-edit">
+        <input id="id" name="id"
+               th:value="${menu.id}" type="hidden">
+        <input id="treeId" name="parentId" type="hidden" th:value="${menu.parentId}"/>
+        <div class="form-group">
+            <label class="col-sm-3 control-label ">上级：</label>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" id="treeName" onclick="selectTree()" readonly="true"
+                       th:value="${menu.parentName}"/>
+            </div>
+        </div>
+            <div class="form-group">
+            <label class="col-sm-3 control-label">父节点：</label>
+            <div class="col-sm-8">
+                <input id="parentId" name="parentId"
+                       th:value="${menu.parentId}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">菜单标题：</label>
+            <div class="col-sm-8">
+                <input id="name" name="name"
+                       th:value="${menu.name}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">菜单KEY值：</label>
+            <div class="col-sm-8">
+                <input id="menuKey" name="menuKey"
+                       th:value="${menu.menuKey}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">菜单的响应动作类型，view表示网页类型，click表示点击类型，miniprogram表示小程序类型：</label>
+            <div class="col-sm-8">
+                <input id="menuType" name="menuType"
+                       th:value="${menu.menuType}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">网页 链接，用户点击菜单可打开链接，不超过1024字节。 type为miniprogram时，不支持小程序的老版本客户端将打开本url。：</label>
+            <div class="col-sm-8">
+                <input id="url" name="url"
+                       th:value="${menu.url}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">调用新增永久素材接口返回的合法media_id：</label>
+            <div class="col-sm-8">
+                <input id="mediaId" name="mediaId"
+                       th:value="${menu.mediaId}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">小程序的appid（仅认证公众号可配置）：</label>
+            <div class="col-sm-8">
+                <input id="appid" name="appid"
+                       th:value="${menu.appid}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">小程序的页面路径：</label>
+            <div class="col-sm-8">
+                <input id="pagepath" name="pagepath"
+                       th:value="${menu.pagepath}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">创建者：</label>
+            <div class="col-sm-8">
+                <input id="createBy" name="createBy"
+                       th:value="${menu.createBy}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">创建时间：</label>
+            <div class="col-sm-8">
+                <input id="createTime" name="createTime"
+                       th:value="${menu.createTime}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">更新者：</label>
+            <div class="col-sm-8">
+                <input id="updateBy" name="updateBy"
+                       th:value="${menu.updateBy}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">更新时间：</label>
+            <div class="col-sm-8">
+                <input id="updateTime" name="updateTime"
+                       th:value="${menu.updateTime}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">备注：</label>
+            <div class="col-sm-8">
+                <input id="remark" name="remark"
+                       th:value="${menu.remark}" class="form-control" type="text">
+            </div>
+        </div>
+                <div class="form-group">
+            <label class="col-sm-3 control-label">排序：</label>
+            <div class="col-sm-8">
+                <input id="sortOrder" name="sortOrder"
+                       th:value="${menu.sortOrder}" class="form-control" type="text">
+            </div>
+        </div>
+        </form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    var prefix = ctx + "wx/menu";
+    $("#form-menu-edit").validate({
+        onkeyup: false,
+        rules: {
+            xxxx: {
+                required: true,
+            },
+        }
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/editDo", $('#form-menu-edit').serialize());
+        }
+    }
+
+    function selectTree() {
+        var id = $("#treeId").val();
+        if (id > 0) {
+            var options = {
+                title: '选择上级',
+                width: "380",
+                url: prefix + "/selectTree/" + $("#treeId").val(),
+                callBack: doSubmit
+            };
+            $.modal.openOptions(options);
+        } else {
+            $.modal.alertError("父级不能选择");
+        }
+    }
+
+    function doSubmit(index, layero) {
+        var tree = layero.find("iframe")[0].contentWindow.$._tree;
+        // 不允许最后层级节点选择
+        // if ($.tree.notAllowLastLevel(tree)) {
+        //     var body = layer.getChildFrame('body', index);
+        //     $("#treeId").val(body.find('#treeId').val());
+        //     $("#treeName").val(body.find('#treeName').val());
+        //     layer.close(index);
+        // }
+    }
+</script>
+</body>
+</html>

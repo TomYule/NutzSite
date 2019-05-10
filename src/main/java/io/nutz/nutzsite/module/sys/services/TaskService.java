@@ -42,7 +42,7 @@ public class TaskService extends Service<Task> {
                 qj.setJobGroup(sysTask.getId());
                 quartzManager.delete(qj);
             }
-            if (!(sysTask.isStatus())) {
+            if ((sysTask.isStatus())) {
                 QuartzJob qj = new QuartzJob();
                 qj.setJobName(sysTask.getId());
                 qj.setJobGroup(sysTask.getId());
