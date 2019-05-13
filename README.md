@@ -7,6 +7,8 @@ NutzSite基于Nutz的开源企业级开发框架
 ![项目截图](1556263635342.jpg)
 ![生成代码](1556263681393.jpg)
 ## 目前支持
+* Nutz
+* Nutzboot
 * Druid
 * Shiro
 * Thymeleaf

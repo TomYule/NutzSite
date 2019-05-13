@@ -18,13 +18,16 @@ import java.util.regex.Pattern;
  *
  * @author haiming
  */
-public class GenUtils
-{
-    /** 项目空间路径 */
+public class GenUtils {
+    /**
+     * 项目空间路径
+     */
     private static final String PROJECT_PATH = getProjectPath();
 
 
-    /** html空间路径 */
+    /**
+     * html空间路径
+     */
     private static final String TEMPLATES_PATH = "main/resources/template";
 
     /**
@@ -35,12 +38,10 @@ public class GenUtils
     /**
      * 设置列信息
      */
-    public static List<ColumnInfo> transColums(List<ColumnInfo> columns)
-    {
+    public static List<ColumnInfo> transColums(List<ColumnInfo> columns) {
         // 列信息
         List<ColumnInfo> columsList = new ArrayList<>();
-        for (ColumnInfo column : columns)
-        {
+        for (ColumnInfo column : columns) {
             // 列名转换成Java属性名
             String attrName = StringUtils.convertToCamelCase(column.getColumnName());
             column.setAttrName(attrName);
@@ -57,11 +58,10 @@ public class GenUtils
 
     /**
      * 获取模板信息
-     * 
+     *
      * @return 模板列表
      */
-    public static VelocityContext getVelocityContext(TableInfo table)
-    {
+    public static VelocityContext getVelocityContext(TableInfo table) {
         // java对象数据传递到模板文件vm
         VelocityContext velocityContext = new VelocityContext();
         String packageName = GenConfig.getPackageName();
@@ -89,10 +89,10 @@ public class GenUtils
 
     /**
      * 获取 列表模板
+     *
      * @return
      */
-    public static List<String> getListTemplates()
-    {
+    public static List<String> getListTemplates() {
         List<String> templates = new ArrayList<String>();
         templates.add("template/vm/list/java/Models.java.vm");
         templates.add("template/vm/list/java/Service.java.vm");
@@ -106,10 +106,10 @@ public class GenUtils
 
     /**
      * 获取 树模板
+     *
      * @return
      */
-    public static List<String> getTreeTemplates()
-    {
+    public static List<String> getTreeTemplates() {
         List<String> templates = new ArrayList<String>();
         templates.add("template/vm/tree/java/Models.java.vm");
         templates.add("template/vm/tree/java/Service.java.vm");
@@ -125,53 +125,25 @@ public class GenUtils
     /**
      * 表名转换成Java类名
      */
-    public static String tableToJava(String tableName)
-    {
-        if (Boolean.valueOf(GenConfig.getAutoRemovePre()))
-        {
+    public static String tableToJava(String tableName) {
+        if (Boolean.valueOf(GenConfig.getAutoRemovePre())) {
             tableName = tableName.substring(tableName.indexOf("_") + 1);
         }
-        if (StringUtils.isNotEmpty(GenConfig.getTablePrefix()))
-        {
+        if (StringUtils.isNotEmpty(GenConfig.getTablePrefix())) {
             tableName = tableName.replace(GenConfig.getTablePrefix(), "");
         }
         return StringUtils.convertToCamelCase(tableName);
     }
 
     /**
-     * Java类名转换成表名
-     * @param tableName
-     * @return
-     */
-    public static String javaToTable(String tableName)
-    {
-
-        StringBuilder builder = new StringBuilder(tableName);
-        Matcher mc = p.matcher(tableName);
-        int i = 0;
-        while (mc.find()) {
-//            System.out.println(builder.toString());
-//            System.out.println("mc.start():" + mc.start() + ", i: " + i);
-//            System.out.println("mc.end():" + mc.start() + ", i: " + i);
-            builder.replace(mc.start() + i, mc.end() + i, "_" + mc.group().toLowerCase());
-            i++;
-        }
-        if ('_' == builder.charAt(0)) {
-            builder.deleteCharAt(0);
-        }
-        return builder.toString();
-    }
-
-
-    /**
      * 获取列表 文件名
+     *
      * @param template
      * @param table
      * @param moduleName
      * @return
      */
-    public static String getFileName(String template, TableInfo table, String moduleName)
-    {
+    public static String getFileName(String template, TableInfo table, String moduleName) {
         // 小写类名
         String classname = table.getClassname();
         // 大写类名
@@ -179,44 +151,35 @@ public class GenUtils
         String javaPath = PROJECT_PATH;
         String htmlPath = TEMPLATES_PATH + "/" + moduleName + "/" + classname;
 
-        if (StringUtils.isNotEmpty(classname))
-        {
-            javaPath =javaPath.replace(".", "/") + "/";
+        if (StringUtils.isNotEmpty(classname)) {
+            javaPath = javaPath.replace(".", "/") + "/";
         }
 
-        if (template.contains("Models.java.vm"))
-        {
+        if (template.contains("Models.java.vm")) {
             return javaPath + "models" + "/" + className + ".java";
         }
 
-        if (template.contains("Service.java.vm"))
-        {
+        if (template.contains("Service.java.vm")) {
             return javaPath + "services" + "/" + className + "Service.java";
         }
 
-        if (template.contains("Controller.java.vm"))
-        {
+        if (template.contains("Controller.java.vm")) {
             return javaPath + "controller" + "/" + className + "Controller.java";
         }
 
-        if (template.contains("list.html.vm"))
-        {
+        if (template.contains("list.html.vm")) {
             return htmlPath + "/" + classname + ".html";
         }
-        if (template.contains("add.html.vm"))
-        {
+        if (template.contains("add.html.vm")) {
             return htmlPath + "/" + "add.html";
         }
-        if (template.contains("edit.html.vm"))
-        {
+        if (template.contains("edit.html.vm")) {
             return htmlPath + "/" + "edit.html";
         }
-        if (template.contains("tree.html.vm"))
-        {
+        if (template.contains("tree.html.vm")) {
             return htmlPath + "/" + "tree.html";
         }
-        if (template.contains("sql.vm"))
-        {
+        if (template.contains("sql.vm")) {
             return classname + "Menu.sql";
         }
         return null;
@@ -224,20 +187,18 @@ public class GenUtils
 
     /**
      * 获取模块名
-     * 
+     *
      * @param packageName 包名
      * @return 模块名
      */
-    public static String getModuleName(String packageName)
-    {
+    public static String getModuleName(String packageName) {
         int lastIndex = packageName.lastIndexOf(".");
         int nameLength = packageName.length();
         String moduleName = StringUtils.substring(packageName, lastIndex + 1, nameLength);
         return moduleName;
     }
 
-    public static String getProjectPath()
-    {
+    public static String getProjectPath() {
         String packageName = GenConfig.getPackageName();
         StringBuffer projectPath = new StringBuffer();
         projectPath.append("main/java/");
@@ -246,8 +207,7 @@ public class GenUtils
         return projectPath.toString();
     }
 
-    public static String replaceKeyword(String keyword)
-    {
+    public static String replaceKeyword(String keyword) {
         String keyName = keyword.replaceAll("(?:表|信息)", "");
         return keyName;
     }
