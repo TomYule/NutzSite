@@ -59,7 +59,7 @@ public class WxUser extends BaseModel implements Serializable {
      */
     @Column("subscribeAt")
     @Comment("关注时间")
-    private Integer subscribeAt;
+    private Long subscribeAt;
 
     /**
      * 性别
@@ -96,12 +96,6 @@ public class WxUser extends BaseModel implements Serializable {
     @Comment("头像")
     private String headimgurl;
 
-    /**
-     * 微信ID
-     */
-    @Column("wxid")
-    @Comment("微信ID")
-    private String wxid;
 
     /**
      * 创建者
@@ -178,11 +172,11 @@ public class WxUser extends BaseModel implements Serializable {
         this.subscribe = subscribe;
     }
 
-    public Integer getSubscribeAt() {
+    public Long getSubscribeAt() {
         return subscribeAt;
     }
 
-    public void setSubscribeAt(Integer subscribeAt) {
+    public void setSubscribeAt(Long subscribeAt) {
         this.subscribeAt = subscribeAt;
     }
 
@@ -224,14 +218,6 @@ public class WxUser extends BaseModel implements Serializable {
 
     public void setHeadimgurl(String headimgurl) {
         this.headimgurl = headimgurl;
-    }
-
-    public String getWxid() {
-        return wxid;
-    }
-
-    public void setWxid(String wxid) {
-        this.wxid = wxid;
     }
 
     @Override
@@ -296,7 +282,6 @@ public class WxUser extends BaseModel implements Serializable {
                 .append("province", getProvince())
                 .append("city", getCity())
                 .append("headimgurl", getHeadimgurl())
-                .append("wxid", getWxid())
                 .append("createBy", getCreateBy())
                 .append("createTime", getCreateTime())
                 .append("updateBy", getUpdateBy())

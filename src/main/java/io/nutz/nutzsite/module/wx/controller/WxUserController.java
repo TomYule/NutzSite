@@ -1,6 +1,9 @@
 package io.nutz.nutzsite.module.wx.controller;
 
+import io.nutz.nutzsite.common.weixin.bean.User_info_list;
 import io.nutz.nutzsite.common.weixin.util.UserUtils;
+import io.nutz.nutzsite.module.sys.models.Config;
+import io.nutz.nutzsite.module.sys.services.ConfigService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.wx.models.WxUser;
 import io.nutz.nutzsite.module.wx.services.WxUserService;
@@ -35,6 +38,9 @@ public class WxUserController {
 
 	@Inject
 	private WxUserService wxUserService;
+
+	@Inject
+	private ConfigService configService;
 	
 	@RequiresPermissions("wx:wxUser:view")
 	@At("")
@@ -70,13 +76,24 @@ public class WxUserController {
 		return wxUserService.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
 	}
 
-	@At("/down/?")
+	@At("/down")
 	@Ok("json")
-	@RequiresPermissions("wx.user.list.sync")
+	@RequiresPermissions("wx:wxUser:sync")
 	@Slog(tag="微信会员", after="同步会员信息")
-	public Object down(String wxid, HttpServletRequest req) {
+	public Object down(HttpServletRequest req) {
 		try {
-			UserUtils.getUser("");
+			Config config =configService.fetch("token");
+			if(Lang.isNotEmpty(config)){
+				List<User_info_list>  userInfoLists = UserUtils.getUser(config.getConfigValue());
+				if(Lang.isNotEmpty(userInfoLists)){
+					userInfoLists.forEach( user->{
+						int count =wxUserService.count(Cnd.NEW().and("openid","=",user.getOpenid()));
+						if(count==0){
+							wxUserService.insert(User_info_list.getUser(user));
+						}
+					});
+				}
+			}
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");

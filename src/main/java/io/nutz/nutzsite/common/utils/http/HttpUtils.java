@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.*;
 import java.io.*;
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 import java.security.cert.X509Certificate;
 
 /**
@@ -124,16 +121,20 @@ public class HttpUtils {
         BufferedReader in = null;
         StringBuilder result = new StringBuilder();
         try {
-            String urlNameString = url + "?" + param;
-            log.info("sendPostJson - {}", urlNameString);
-            URL realUrl = new URL(urlNameString);
-            URLConnection conn = realUrl.openConnection();
-//            conn.setRequestMethod("POST"); // 设置请求方式
-            // conn.setRequestProperty("Accept", "application/json"); // 设置接收数据的格式
-            // 设置发送数据的格式
+            log.info("sendPostJson - {}", url);
+            //HTTP URL类 用这个类来创建连接
+            URL httpUrl = new URL(url);
+            //建立连接
+            HttpURLConnection conn = (HttpURLConnection) httpUrl.openConnection();
+            conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("connection", "keep-alive");
+            //设置不要缓存
+            conn.setUseCaches(false);
+            conn.setInstanceFollowRedirects(true);
             conn.setDoOutput(true);
             conn.setDoInput(true);
+            conn.connect();
             out = new PrintWriter(conn.getOutputStream());
             out.print(param);
             out.flush();

@@ -6,14 +6,7 @@ package io.nutz.nutzsite.common.weixin.config;
  */
 public class MpConfig {
     public static String api_url = "https://api.weixin.qq.com/sns/jscode2session";
-    /**
-     * 正式
-     */
-//    public static String appID = "wx76d42b7e090521fa";
-    /**
-     * 正式
-     */
-//    public static String appSecret = "6b1734db165a003cc5ec03991c37b16d";
+
     /**
      * 测试
      */
