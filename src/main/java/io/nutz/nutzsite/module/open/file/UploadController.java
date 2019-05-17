@@ -71,7 +71,7 @@ public class UploadController {
             } else if (tf == null) {
                 return Result.error("空文件");
             } else {
-                String url = UpLoadUtil.upLoadFileSysConfigPath(tf,"112321");
+                String url = UpLoadUtil.upLoadFileSysConfigPath(tf,"tmp");
                 String u = req.getServletContext().getContextPath();
                 return Result.success("上传成功",  u + url );
             }

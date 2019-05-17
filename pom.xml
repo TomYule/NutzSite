@@ -6,7 +6,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
-        <nutzboot.version>2.3.4.v20190410</nutzboot.version>
+        <nutzboot.version>2.3.5.v20190516</nutzboot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencyManagement>
@@ -57,7 +57,6 @@
             <artifactId>nutzboot-starter-caffeine</artifactId>
             <version>${nutzboot.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.nutz</groupId>
@@ -271,6 +270,25 @@
             <groupId>org.apache.tika</groupId>
             <artifactId>tika-core</artifactId>
             <version>1.20</version>
+        </dependency>
+
+        <!-- api token web server -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.10.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.10.5</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.10.5</version>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
