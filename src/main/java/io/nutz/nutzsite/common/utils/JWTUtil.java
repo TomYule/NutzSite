@@ -31,15 +31,6 @@ public class JWTUtil {
     private static Key key;
     private static String issuer="nutzsite";
 
-    /**
-     * 一天
-     */
-    private static long tokenValidityInSeconds = 1800L;
-    /**
-     * 一个月失效
-     */
-    private static long tokenValidityInSecondsForRememberMe = 2592000L;
-
     static {
         //初始化api.key 文件存放位置
         Path fpath= Paths.get("api.key");
@@ -76,8 +67,8 @@ public class JWTUtil {
      * @return
      */
     public static String createJWT(String id) {
-//        long nowMillis = System.currentTimeMillis();
-        Date exp = DateUtils.addMonths(new Date(),1) ;
+        //过期时间不要太长 移动端需要长时间记住用户名 让移动端本地存储 用户名 密码即可
+        Date exp = DateUtils.addDays(new Date(),1) ;
         //Let's set the JWT Claims
         JwtBuilder builder = Jwts.builder().setId(id)
                 .setIssuedAt(new Date())
@@ -85,7 +76,6 @@ public class JWTUtil {
                 .setIssuer(issuer)
                 .signWith(key);
         builder.setExpiration(exp);
-
         //Builds the JWT and serializes it to a compact, URL-safe string
         return builder.compact();
     }

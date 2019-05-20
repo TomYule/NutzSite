@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 14/05/2019 10:48:34
+ Date: 17/05/2019 09:38:58
 */
 
 SET NAMES utf8mb4;
@@ -4154,7 +4154,7 @@ INSERT INTO `sys_config` VALUES ('AppDomain', '127.0.0.1', '系统域名', '', N
 INSERT INTO `sys_config` VALUES ('AppName', 'NutzSite 开发框架', '系统名称', '', NULL, '', NULL);
 INSERT INTO `sys_config` VALUES ('AppShrotName', 'NutzSite', '系统短名称', '', NULL, '', NULL);
 INSERT INTO `sys_config` VALUES ('AppUploadPath', '/mnt/upload', '文件上传文件夹', '', NULL, '', NULL);
-INSERT INTO `sys_config` VALUES ('token', '21_qyMnspDtgIAdlgOhXgp-8fpu_E5bMQxHDPTZgkZCIACt6CkL9C-IJrJzmMRCyJokj3CqGm1XQ08dhnpm2KR7_3tEags_uUevPANmXN94UFjBhQ24dNvVujKghoE-Go8YUeN9U24o4L6vh4GCKYIeAHATHR', NULL, '', '2019-05-10 16:10:01', '', '2019-05-10 16:10:01');
+INSERT INTO `sys_config` VALUES ('token', '21_KDS6peQHoQxYiV4pAMIr7vZu6Qf4082Mesne0ppSrO4D4Z_LXlNBe2kDSTl1KckGH0NJLIkG7ZfCX_3z0ciwmqNJ9mITK8AndO4e-AmhT7oZwDgmSTKQBt_XK-eKsMWg-QGXoubRw-2bbwLBKSUgAHASAC', NULL, '', '2019-05-10 16:10:01', '', '2019-05-10 16:10:01');
 COMMIT;
 
 -- ----------------------------
@@ -4475,6 +4475,7 @@ CREATE TABLE `sys_logininfor` (
 -- Records of sys_logininfor
 -- ----------------------------
 BEGIN;
+INSERT INTO `sys_logininfor` VALUES ('02267d84284945e1bb8524be64126e6d', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:49:36');
 INSERT INTO `sys_logininfor` VALUES ('0341c5df7beb4aa38a1a181601e8e1e5', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 09:52:10');
 INSERT INTO `sys_logininfor` VALUES ('0dd1085670204e548e4f70e442a9f7fa', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-13 13:57:50');
 INSERT INTO `sys_logininfor` VALUES ('13feb81f7e574268a2bfaadfe2f3da4c', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:22:24');
@@ -4492,14 +4493,19 @@ INSERT INTO `sys_logininfor` VALUES ('8b616dd17d8347cab470faf34a7c8449', 'admin'
 INSERT INTO `sys_logininfor` VALUES ('8cf6b4ee0e324c3a8897f8f31582ec53', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 09:50:11');
 INSERT INTO `sys_logininfor` VALUES ('96fa56b40f0e42c2aaaab94fd548e72a', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:09:18');
 INSERT INTO `sys_logininfor` VALUES ('a0519b74905d40639f1bdb7d37b17222', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-13 14:09:56');
+INSERT INTO `sys_logininfor` VALUES ('ac2b744762344178a324a6532054f64f', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 14:19:27');
 INSERT INTO `sys_logininfor` VALUES ('af1f342a16534461ac2af735e8678ba5', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-13 14:04:32');
 INSERT INTO `sys_logininfor` VALUES ('b23a11a8965444e691f14ed986147fbc', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-13 16:07:14');
 INSERT INTO `sys_logininfor` VALUES ('b2a678a522a8481e9d7ebda02a53464f', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-13 14:11:28');
+INSERT INTO `sys_logininfor` VALUES ('c5e1d04975e8448199844e11710c4a6d', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-17 09:31:06');
 INSERT INTO `sys_logininfor` VALUES ('d1b8728863c649d5ab54e94f505a2eca', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:02:00');
 INSERT INTO `sys_logininfor` VALUES ('d4f620b2fd0c4285b4e6937df28a8f95', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 09:28:58');
+INSERT INTO `sys_logininfor` VALUES ('d938ed82b64749ed89d6ac4a84cb39f5', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 16:22:13');
 INSERT INTO `sys_logininfor` VALUES ('dc1ab1ca71074cc08e30085f76acb00a', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:14:56');
 INSERT INTO `sys_logininfor` VALUES ('e3a11e6ea37e4ac9b53d412130f802ea', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:45:38');
+INSERT INTO `sys_logininfor` VALUES ('e3d18283c5d74a8a85af7e28e90f962e', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 13:19:31');
 INSERT INTO `sys_logininfor` VALUES ('eb3b570f52f142de996cd607e1e826b7', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 09:15:38');
+INSERT INTO `sys_logininfor` VALUES ('f3009271a870441d8dd962efce369556', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 14:55:08');
 COMMIT;
 
 -- ----------------------------
@@ -4914,7 +4920,7 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '小明', '00', 'ry@163.com', '15111111111', '1', 0x6239346364656430306262663433363961356364333565666239363762653935, 'vM7xT6KolcQbX7xlYfjisIJkrleH3De2t7wnmZ2zIB8=', '6dXimQAQqHBXkhI79IRKcg==', '0', '0', '127.0.0.1', '2019-05-14 10:45:38', 'admin', '2018-03-16 11:33:00', 'ry', '2019-04-19 07:06:38', '管理员');
+INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '小明', '00', 'ry@163.com', '15111111111', '1', 0x6239346364656430306262663433363961356364333565666239363762653935, 'vM7xT6KolcQbX7xlYfjisIJkrleH3De2t7wnmZ2zIB8=', '6dXimQAQqHBXkhI79IRKcg==', '0', '0', '127.0.0.1', '2019-05-17 09:31:06', 'admin', '2018-03-16 11:33:00', 'ry', '2019-04-19 07:06:38', '管理员');
 INSERT INTO `sys_user` VALUES ('92f5c91df48644a1812c55c164716fa7', '108', 'yuhaiming', 'Tom', '00', 'deal_2018@163.com', '15888888888', '1', NULL, 'I5HArEABibh3QIHygtY/RlYjhZq+/THnvr84VEm41Wg=', '5wQghHKKPJZ8T8fp3xREeQ==', '0', '0', '127.0.0.1', '2019-04-22 07:59:47', '1', '2019-04-19 07:48:19', '1', '2019-04-22 07:57:06', '');
 INSERT INTO `sys_user` VALUES ('a14731cfa4cb4e46b1f4eb1061950c6d', '105', 'haiming', 'Tom', '00', 'brave.yhm@gmail.com', '15111111111', NULL, 0x3961636163663138663531633439646638626531356230373265396133306333, 'DymenKivzL744ODeXSLyvkz6qnnP3qhgdtbpwZ9Txyo=', 'gA208ZKZ684tEg0Jg+UhSQ==', '0', '0', '127.0.0.1', '2019-05-09 15:19:49', '1', '2019-04-26 03:00:24', '1', '2019-04-26 03:00:24', '');
 COMMIT;
