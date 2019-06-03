@@ -26,7 +26,16 @@
             </div>
         </div>
     #else
-    #if(${column.configInfo.type} == "dict")
+    #if(${column.configInfo.type} == "date" || ${column.configInfo.type} == "datetime")
+        <div class="form-group">
+            <label class="col-sm-3 control-label">${column.columnComment}：</label>
+            <div class="col-sm-8">
+                <input id="${column.attrname}" name="${column.attrname}"
+                       th:value="${${classname}.${column.attrname}}" class="form-control time-input"
+                       type="text">
+            </div>
+        </div>
+    #elseif(${column.configInfo.type} == "dict")
         <div class="form-group">
             <label class="col-sm-3 control-label">${column.columnComment}：</label>
             <div class="col-sm-8">
@@ -36,15 +45,6 @@
                             th:value="${dict.dictValue}"
                             th:value="${${classname}.${column.attrname}}"></option>
                 </select>
-            </div>
-        </div>
-    #elseif(${column.configInfo.type} == "date")
-        <div class="form-group">
-            <label class="col-sm-3 control-label">${column.columnComment}：</label>
-            <div class="col-sm-8">
-                <input id="${column.attrname}" name="${column.attrname}"
-                       th:value="${${classname}.${column.attrname}}" class="form-control time-input"
-                       type="text">
             </div>
         </div>
     #elseif(${column.configInfo.type} == "fk")
