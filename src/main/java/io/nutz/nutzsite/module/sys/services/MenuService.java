@@ -91,7 +91,7 @@ public class MenuService extends Service<Menu> {
      */
     public List<Map<String, Object>> menuTreeData() {
         List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
-        List<Menu> menuList = this.query();
+        List<Menu> menuList = this.query(Cnd.NEW().orderBy("order_num","asc"));
         trees = getTrees(menuList, false, null, false);
         return trees;
     }
@@ -114,7 +114,7 @@ public class MenuService extends Service<Menu> {
                 });
             }
         }
-        List<Menu> menuList = this.query();
+        List<Menu> menuList = this.query(Cnd.NEW().orderBy("order_num","asc"));
         if (Strings.isNotBlank(roleId)) {
             trees = getTrees(menuList, true, roleMenuList, true);
         } else {

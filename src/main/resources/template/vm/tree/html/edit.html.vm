@@ -16,17 +16,10 @@
             </div>
         </div>
 #foreach($column in $columns)
-#if($column.columnName != $primaryKey.columnName && 'parentId'!=$column.columnName && 'ancestors'!=$column.columnName)
-    #if(!${column.configInfo})
-        <div class="form-group">
-            <label class="col-sm-3 control-label">${column.columnComment}：</label>
-            <div class="col-sm-8">
-                <input id="${column.attrname}" name="${column.attrname}"
-                       th:value="${${classname}.${column.attrname}}" class="form-control" type="text">
-            </div>
-        </div>
-    #else
-    #if(${column.configInfo.type} == "date" || ${column.configInfo.type} == "datetime")
+#if($column.columnName != $primaryKey.columnName && 'parentId'!=$column.columnName &&
+'ancestors'!=$column.columnName)
+#if(!${column.configInfo})
+    #if(${column.dataType} == "date" || ${column.dataType} == "datetime")
         <div class="form-group">
             <label class="col-sm-3 control-label">${column.columnComment}：</label>
             <div class="col-sm-8">
@@ -35,7 +28,7 @@
                        type="text">
             </div>
         </div>
-    #elseif(${column.configInfo.type} == "dict")
+    #elseif(${column.dataType} == "dict")
         <div class="form-group">
             <label class="col-sm-3 control-label">${column.columnComment}：</label>
             <div class="col-sm-8">
@@ -47,9 +40,16 @@
                 </select>
             </div>
         </div>
-    #elseif(${column.configInfo.type} == "fk")
+    #else
+        <div class="form-group">
+            <label class="col-sm-3 control-label">${column.columnComment}：</label>
+            <div class="col-sm-8">
+                <input id="${column.attrname}" name="${column.attrname}"
+                       th:value="${${classname}.${column.attrname}}" class="form-control" type="text">
+            </div>
+        </div>
     #end
-    #end
+#end
 #end
 #end
     </form>
@@ -73,8 +73,12 @@
     }
 
     function selectTree() {
-        var ${primaryKey.attrname} = $("#treeId").val();
-        if (${primaryKey.attrname} > 0) {
+        var ${primaryKey.attrname} =
+        $("#treeId").val();
+        if (${primaryKey.attrname} >
+        0
+    )
+        {
             var options = {
                 title: '选择上级',
                 width: "380",
@@ -82,7 +86,9 @@
                 callBack: doSubmit
             };
             $.modal.openOptions(options);
-        } else {
+        }
+    else
+        {
             $.modal.alertError("父级不能选择");
         }
     }

@@ -79,6 +79,10 @@ public class Service<T> extends EntityService<T> {
         return this.dao().fetchLinks(t, name);
     }
 
+    public List<T> fetchLinks(List<T> t, String name) {
+        return this.dao().fetchLinks(t, name);
+    }
+
     public T fetchLinks(T t, String name, Condition cnd) {
         return this.dao().fetchLinks(t, name, cnd);
     }

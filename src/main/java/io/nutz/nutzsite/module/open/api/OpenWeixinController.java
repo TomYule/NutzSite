@@ -43,7 +43,7 @@ public class OpenWeixinController {
      * @param response
      * @throws IOException
      */
-    @At
+    @At({"","get"})
     public void get( @Param("signature") String signature,
                      @Param("timestamp") String timestamp,
                      @Param("nonce") String nonce,
