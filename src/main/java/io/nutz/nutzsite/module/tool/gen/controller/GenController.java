@@ -3,6 +3,7 @@ package io.nutz.nutzsite.module.tool.gen.controller;
 import io.nutz.nutzsite.common.utils.GenUtils;
 import io.nutz.nutzsite.module.tool.gen.services.GenService;
 import org.apache.commons.io.IOUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
@@ -25,12 +26,14 @@ public class GenController {
 
     @At("")
     @Ok("th:/tool/gen/gen.html")
+    @RequiresPermissions("tool:gen:view")
     public void index(HttpServletRequest req) {
 
     }
 
     @At
     @Ok("json")
+    @RequiresPermissions("tool:gen:list")
     public Object list(@Param("pageNum") int pageNum,
                        @Param("pageSize") int pageSize,
                        @Param("tableName") String tableName,
@@ -44,6 +47,7 @@ public class GenController {
 
     @At("/genCode/?")
     @Ok("raw")
+    @RequiresPermissions("tool:gen:code")
     public void genCode(String tableName, HttpServletResponse response) throws IOException {
         byte[] data = genService.generatorCode(tableName, GenUtils.getListTemplates());
         response.reset();
@@ -56,6 +60,7 @@ public class GenController {
 
     @At("/genTreeCode/?")
     @Ok("raw")
+    @RequiresPermissions("tool:gen:code")
     public void genTreeCode(String tableName, HttpServletResponse response) throws IOException {
         byte[] data = genService.generatorCode(tableName,GenUtils.getTreeTemplates());
         response.reset();

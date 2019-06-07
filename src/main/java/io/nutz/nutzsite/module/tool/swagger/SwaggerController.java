@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.tool.swagger;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
@@ -16,6 +17,7 @@ public class SwaggerController {
 
     @At("")
     @Ok("forward:/swagger")
+    @RequiresPermissions("tool:swagger:view")
     public void index(HttpServletRequest req) {
 
     }
