@@ -7,7 +7,7 @@
     <form class="form-horizontal m" id="form-${classname}-edit">
         <input id="${primaryKey.attrname}" name="${primaryKey.attrname}"
                th:value="${${classname}.${primaryKey.attrname}}" type="hidden">
-        <input id="treeId" name="parentId" type="hidden" th:value="${${classname}.parentId}"/>
+        <input id="parentId" name="parentId" type="hidden" th:value="${${classname}.parentId}"/>
         <div class="form-group">
             <label class="col-sm-3 control-label ">上级：</label>
             <div class="col-sm-8">
@@ -88,7 +88,7 @@
         // 不允许最后层级节点选择
         // if ($.tree.notAllowLastLevel(tree)) {
             var body = layer.getChildFrame('body', index);
-            $("#treeId").val(body.find('#treeId').val());
+            $("#parentId").val(body.find('#treeId').val());
             $("#treeName").val(body.find('#treeName').val());
             layer.close(index);
         // }

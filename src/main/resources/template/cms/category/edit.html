@@ -5,9 +5,8 @@
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-category-edit">
-        <input id="id" name="id"
-               th:value="${category.id}" type="hidden">
-        <input id="treeId" name="parentId" type="hidden" th:value="${category.parentId}"/>
+        <input id="id" name="id" th:value="${category.id}" type="hidden">
+        <input id="parentId" name="parentId" type="hidden" th:value="${category.parentId}"/>
         <div class="form-group">
             <label class="col-sm-3 control-label ">上级：</label>
             <div class="col-sm-8">
@@ -15,20 +14,20 @@
                        th:value="${category.parentName}"/>
             </div>
         </div>
-        <div class="form-group">
+<!--        <div class="form-group">
             <label class="col-sm-3 control-label">父级编号：</label>
             <div class="col-sm-8">
                 <input id="parentId" name="parentId"
                        th:value="${category.parentId}" class="form-control" type="text">
             </div>
-        </div>
-        <div class="form-group">
+        </div>-->
+<!--        <div class="form-group">
             <label class="col-sm-3 control-label">所有父级编号：</label>
             <div class="col-sm-8">
                 <input id="parentIds" name="parentIds"
                        th:value="${category.parentIds}" class="form-control" type="text">
             </div>
-        </div>
+        </div>-->
         <div class="form-group">
             <label class="col-sm-3 control-label">站点编号：</label>
             <div class="col-sm-8">
@@ -155,36 +154,36 @@
                        th:value="${category.viewConfig}" class="form-control" type="text">
             </div>
         </div>
-       <!-- <div class="form-group">
-            <label class="col-sm-3 control-label">创建者：</label>
-            <div class="col-sm-8">
-                <input id="createBy" name="createBy"
-                       th:value="${category.createBy}" class="form-control" type="text">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">创建时间：</label>
-            <div class="col-sm-8">
-                <input id="createTime" name="createTime"
-                       th:value="${category.createTime}" class="form-control time-input"
-                       type="text">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">更新者：</label>
-            <div class="col-sm-8">
-                <input id="updateBy" name="updateBy"
-                       th:value="${category.updateBy}" class="form-control" type="text">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">更新时间：</label>
-            <div class="col-sm-8">
-                <input id="updateTime" name="updateTime"
-                       th:value="${category.updateTime}" class="form-control time-input"
-                       type="text">
-            </div>
-        </div>-->
+        <!-- <div class="form-group">
+             <label class="col-sm-3 control-label">创建者：</label>
+             <div class="col-sm-8">
+                 <input id="createBy" name="createBy"
+                        th:value="${category.createBy}" class="form-control" type="text">
+             </div>
+         </div>
+         <div class="form-group">
+             <label class="col-sm-3 control-label">创建时间：</label>
+             <div class="col-sm-8">
+                 <input id="createTime" name="createTime"
+                        th:value="${category.createTime}" class="form-control time-input"
+                        type="text">
+             </div>
+         </div>
+         <div class="form-group">
+             <label class="col-sm-3 control-label">更新者：</label>
+             <div class="col-sm-8">
+                 <input id="updateBy" name="updateBy"
+                        th:value="${category.updateBy}" class="form-control" type="text">
+             </div>
+         </div>
+         <div class="form-group">
+             <label class="col-sm-3 control-label">更新时间：</label>
+             <div class="col-sm-8">
+                 <input id="updateTime" name="updateTime"
+                        th:value="${category.updateTime}" class="form-control time-input"
+                        type="text">
+             </div>
+         </div>-->
         <div class="form-group">
             <label class="col-sm-3 control-label">备注信息：</label>
             <div class="col-sm-8">
@@ -231,13 +230,15 @@
     }
 
     function doSubmit(index, layero) {
+
         var tree = layero.find("iframe")[0].contentWindow.$._tree;
         // 不允许最后层级节点选择
         // if ($.tree.notAllowLastLevel(tree)) {
-            var body = layer.getChildFrame('body', index);
-            $("#treeId").val(body.find('#treeId').val());
-            $("#treeName").val(body.find('#treeName').val());
-            layer.close(index);
+        var body = layer.getChildFrame('body', index);
+        console.log(body.find('#treeId').val());
+        $("#parentId").val(body.find('#treeId').val());
+        $("#treeName").val(body.find('#treeName').val());
+        layer.close(index);
         // }
     }
 </script>
