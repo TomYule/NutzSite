@@ -59,7 +59,7 @@ public class ${className} extends BaseModel implements Serializable {
 	public void setParentName(String parentName) {
 		this.parentName = parentName;
 	}
-
+	@Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 #foreach ($column in $columns)

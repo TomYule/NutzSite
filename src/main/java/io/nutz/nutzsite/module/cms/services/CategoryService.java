@@ -5,6 +5,7 @@ import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.IocBean;
 import io.nutz.nutzsite.module.cms.models.Category;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 
 import java.util.ArrayList;
@@ -64,4 +65,24 @@ public class CategoryService extends Service<Category> {
 		return trees;
 	}
 
+	@Override
+	public Category insert(Category category) {
+		if(Lang.isNotEmpty(category) && Strings.isNotBlank(category.getParentId())){
+			Category parent = this.fetch(category.getParentId());
+			if(Lang.isNotEmpty(parent)){
+				category.setParentIds(parent.getParentIds() + "," + category.getParentId());
+			}
+		}
+		return super.insert(category);
+	}
+
+	public int update(Category category) {
+		if(Lang.isNotEmpty(category) && Strings.isNotBlank(category.getParentId())){
+			Category parent = this.fetch(category.getParentId());
+			if(Lang.isNotEmpty(parent)){
+				category.setParentIds(parent.getParentIds() + "," + category.getParentId());
+			}
+		}
+		return super.update(category);
+	}
 }

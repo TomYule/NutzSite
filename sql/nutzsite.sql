@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 11/06/2019 15:46:31
+ Date: 11/06/2019 16:37:02
 */
 
 SET NAMES utf8mb4;
@@ -30,6 +30,9 @@ CREATE TABLE `cms_article` (
   `image` varchar(255) DEFAULT NULL COMMENT '文章图片',
   `keywords` varchar(255) DEFAULT NULL COMMENT '关键字',
   `description` varchar(255) DEFAULT NULL COMMENT '描述、摘要',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT '文章内容',
+  `copyfrom` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '文章来源',
+  `allow_comment` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '是否允许评论',
   `weight` int(11) DEFAULT '0' COMMENT '权重，越大越靠前',
   `weight_date` datetime DEFAULT NULL COMMENT '权重期限',
   `hits` int(11) DEFAULT '0' COMMENT '点击数',
@@ -37,18 +40,19 @@ CREATE TABLE `cms_article` (
   `custom_content_view` varchar(255) DEFAULT NULL COMMENT '自定义内容视图',
   `view_config` text COMMENT '视图配置',
   `create_by` varchar(64) DEFAULT NULL COMMENT '创建者',
-  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
-  `update_date` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remarks` varchar(255) DEFAULT NULL COMMENT '备注信息',
   `del_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除标记',
-  PRIMARY KEY (`id`),
+  `relation` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '相关文章',
+  PRIMARY KEY (`id`) USING BTREE,
   KEY `cms_article_create_by` (`create_by`),
   KEY `cms_article_title` (`title`),
   KEY `cms_article_keywords` (`keywords`),
   KEY `cms_article_del_flag` (`del_flag`),
   KEY `cms_article_weight` (`weight`),
-  KEY `cms_article_update_date` (`update_date`),
+  KEY `cms_article_update_date` (`update_time`),
   KEY `cms_article_category_id` (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章表';
 
@@ -56,131 +60,59 @@ CREATE TABLE `cms_article` (
 -- Records of cms_article
 -- ----------------------------
 BEGIN;
-INSERT INTO `cms_article` VALUES ('1', '3', '文章标题标题标题标题', NULL, 'green', NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('10', '4', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('11', '5', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('12', '5', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('13', '5', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('14', '7', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('15', '7', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('16', '7', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('17', '7', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('18', '8', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('19', '8', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('2', '3', '文章标题标题标题标题', NULL, 'red', NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('20', '8', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('21', '8', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('22', '9', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('23', '9', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('24', '9', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('25', '9', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('26', '9', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('27', '11', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('28', '11', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('29', '11', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('3', '3', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('30', '11', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('31', '11', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('32', '12', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('33', '12', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('34', '12', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('35', '12', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('36', '12', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('37', '13', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('38', '13', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('39', '13', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('4', '3', '文章标题标题标题标题', NULL, 'green', NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('40', '13', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('41', '14', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('42', '14', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('43', '14', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('44', '14', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('45', '14', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('46', '15', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('47', '15', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('48', '15', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('49', '16', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('5', '3', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('50', '17', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('51', '17', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('52', '26', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('53', '26', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('6', '3', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('7', '4', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('8', '4', '文章标题标题标题标题', NULL, 'blue', NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-INSERT INTO `cms_article` VALUES ('9', '4', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0');
-COMMIT;
-
--- ----------------------------
--- Table structure for cms_article_data
--- ----------------------------
-DROP TABLE IF EXISTS `cms_article_data`;
-CREATE TABLE `cms_article_data` (
-  `id` varchar(64) NOT NULL COMMENT '编号',
-  `content` text COMMENT '文章内容',
-  `copyfrom` varchar(255) DEFAULT NULL COMMENT '文章来源',
-  `relation` varchar(255) DEFAULT NULL COMMENT '相关文章',
-  `allow_comment` char(1) DEFAULT NULL COMMENT '是否允许评论',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章详表';
-
--- ----------------------------
--- Records of cms_article_data
--- ----------------------------
-BEGIN;
-INSERT INTO `cms_article_data` VALUES ('1', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('10', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('11', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('12', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('13', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('14', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('15', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('16', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('17', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('18', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('19', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('2', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('20', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('21', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('22', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('23', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('24', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('25', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('26', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('27', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('28', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('29', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('3', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('30', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('31', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('32', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('33', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('34', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('35', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('36', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('37', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('38', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('39', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('4', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('40', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('41', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('42', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('43', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('44', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('45', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('46', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('47', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('48', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('49', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('5', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('50', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('51', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('52', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('53', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('6', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('7', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('8', '文章内容内容内容内容', '来源', '1,2,3', '1');
-INSERT INTO `cms_article_data` VALUES ('9', '文章内容内容内容内容', '来源', '1,2,3', '1');
+INSERT INTO `cms_article` VALUES ('1', '3', '文章标题标题标题标题', NULL, 'green', NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('10', '4', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('11', '5', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('12', '5', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('13', '5', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('14', '7', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('15', '7', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('16', '7', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('17', '7', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('18', '8', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('19', '8', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('2', '3', '文章标题标题标题标题', NULL, 'red', NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('20', '8', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('21', '8', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('22', '9', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('23', '9', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('24', '9', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('25', '9', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('26', '9', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('27', '11', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('28', '11', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('29', '11', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('3', '3', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('30', '11', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('31', '11', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('32', '12', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('33', '12', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('34', '12', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('35', '12', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('36', '12', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('37', '13', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('38', '13', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('39', '13', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('4', '3', '文章标题标题标题标题', NULL, 'green', NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('40', '13', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('41', '14', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('42', '14', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('43', '14', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('44', '14', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('45', '14', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('46', '15', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('47', '15', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('48', '15', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('49', '16', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('5', '3', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('50', '17', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('51', '17', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('52', '26', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('53', '26', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('6', '3', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('7', '4', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('8', '4', '文章标题标题标题标题', NULL, 'blue', NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('9', '4', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
 COMMIT;
 
 -- ----------------------------
@@ -4154,7 +4086,7 @@ INSERT INTO `sys_config` VALUES ('AppDomain', '127.0.0.1', '系统域名', '', N
 INSERT INTO `sys_config` VALUES ('AppName', 'NutzSite 开发框架', '系统名称', '', NULL, '', NULL);
 INSERT INTO `sys_config` VALUES ('AppShrotName', 'NutzSite', '系统短名称', '', NULL, '', NULL);
 INSERT INTO `sys_config` VALUES ('AppUploadPath', '/mnt/upload', '文件上传文件夹', '', NULL, '', NULL);
-INSERT INTO `sys_config` VALUES ('token', '22_2FkB3eIX-8zlsiPR6sWjFItbJvTtwvneyyXkUsIgHmofR-rLbOGx-xLU5R0ChptSlt7U4qjFs-2IVm14Txb7w-ze4XaPPjItJPa5DmS3lqE4sIC5Y6Oow0n0hYNns1DuG3KEPmNyGxQreD0QPKFdAFASNI', NULL, '', '2019-05-10 16:10:01', '', '2019-05-10 16:10:01');
+INSERT INTO `sys_config` VALUES ('token', '22_xvw3OjXKMvxAXz-snTRfz6xmJ2tvNQmvY1OambpqvjpxVNaAI2jSrmlHB3Ph0n_MfscT8Btp8Cg51eD4cQyG8pINpycpOQ-uJgeF5RCVRYtxcYlMQdG1HD-uXQS0p416Plr-Lfn4Uy3DfAv7CCDjABAJJK', NULL, '', '2019-05-10 16:10:01', '', '2019-05-10 16:10:01');
 COMMIT;
 
 -- ----------------------------
@@ -4453,7 +4385,9 @@ INSERT INTO `sys_log` VALUES ('bbbd905540604ab68a9c96092865917f', 'aop.after', '
 INSERT INTO `sys_log` VALUES ('bce84d8737664d2eae315b408f1f2a5e', 'aop.after', '微信会员', '/wx/wxUser/down/1', 'io.nutz.nutzsite.module.wx.controller.WxUserController#down', '同步会员信息', '1', 'admin', '{}', 'Mac OS X', 'Chrome', '127.0.0.1', '内网IP', '2019-05-14 09:40:14');
 INSERT INTO `sys_log` VALUES ('c7ddb93055b546419cd734854368626f', 'aop.after', '作日志记录', '/monitor/operlog/clean', 'io.nutz.nutzsite.module.monitor.controller.OperLogController#clean', '清除作日志记录', '1', 'admin', '{}', 'Mac OS X', 'Chrome', '127.0.0.1', '内网IP', '2019-05-13 11:25:55');
 INSERT INTO `sys_log` VALUES ('dc82e7f58edf4e17a3973bec3db3b6f7', 'aop.after', '微信会员', '/wx/wxUser/down/1', 'io.nutz.nutzsite.module.wx.controller.WxUserController#down', '同步会员信息', '1', 'admin', '{}', 'Mac OS X', 'Chrome', '127.0.0.1', '内网IP', '2019-05-14 09:40:47');
+INSERT INTO `sys_log` VALUES ('e01bd47f60ea4b04904673c1640c5ed4', 'aop.after', '菜单', '/sys/menu/editDo', 'io.nutz.nutzsite.module.sys.controllers.MenuController#editDo', '修改保存菜单', '1', 'admin', '{\"visible\":[\"false\"],\"icon\":[\"#\"],\"orderNum\":[\"20\"],\"menuType\":[\"C\"],\"menuName\":[\"文章\"],\"perms\":[\"cms:article:view\"],\"id\":[\"3n1cgh99rkg1ronbe4kg6fukk4\"],\"parentId\":[\"9ac78f629dc74ac5877b42c73a6d4f26\"],\"url\":[\"/cms/article\"]}', 'Mac OS X', 'Chrome', '127.0.0.1', '内网IP', '2019-06-11 16:16:36');
 INSERT INTO `sys_log` VALUES ('e4f66f10f10145d88f751987128a129a', 'aop.after', '菜单', '/sys/menu/editDo', 'io.nutz.nutzsite.module.sys.controllers.MenuController#editDo', '修改保存菜单', '1', 'admin', '{\"visible\":[\"false\"],\"icon\":[\"#\"],\"orderNum\":[\"20\"],\"menuType\":[\"C\"],\"menuName\":[\"微信用户\"],\"perms\":[\"wx:wxUser:view\"],\"id\":[\"q61dd1i21oji0oe2891gbn37up\"],\"parentId\":[\"7bd0844c03214140a403dda2989d54f7\"],\"url\":[\"/wx/wxUser\"]}', 'Mac OS X', 'Chrome', '127.0.0.1', '内网IP', '2019-06-11 10:34:54');
+INSERT INTO `sys_log` VALUES ('ecd2525eca0a46e1833dfb0a61fc239d', 'aop.after', '角色', '/sys/role/editDo', 'io.nutz.nutzsite.module.sys.controllers.RoleController#editDo', '修改保存角色', '1', 'admin', '{\"roleName\":[\"管理员\"],\"roleKey\":[\"admin\"],\"remark\":[\"管理员\"],\"id\":[\"1\"],\"menuIds\":[\"1,100,1000,1001,1002,1003,1004,1005,1006,101,1007,1008,1009,1010,1011,102,1012,1013,1014,1015,103,1016,1017,1018,1019,104,1020,1021,1022,1023,1024,105,1025,1026,1027,1028,1029', 'Mac OS X', 'Chrome', '127.0.0.1', '内网IP', '2019-06-11 16:16:47');
 INSERT INTO `sys_log` VALUES ('efe5814263a3400382b7d7cf910d0ec0', 'aop.after', '微信会员', '/wx/wxUser/down/1', 'io.nutz.nutzsite.module.wx.controller.WxUserController#down', '同步会员信息', '1', 'admin', '{}', 'Mac OS X', 'Chrome', '127.0.0.1', '内网IP', '2019-05-14 09:29:03');
 INSERT INTO `sys_log` VALUES ('f15823eb8f0d4720869ec24d8274bcfa', 'aop.after', '角色', '/sys/role/editDo', 'io.nutz.nutzsite.module.sys.controllers.RoleController#editDo', '修改保存角色', '1', 'admin', '{\"roleName\":[\"管理员\"],\"roleKey\":[\"admin\"],\"remark\":[\"管理员\"],\"id\":[\"1\"],\"menuIds\":[\"1,100,1000,1001,1002,1003,1004,1005,1006,101,1007,1008,1009,1010,1011,102,1012,1013,1014,1015,103,1016,1017,1018,1019,104,1020,1021,1022,1023,1024,105,1025,1026,1027,1028,1029', 'Mac OS X', 'Chrome', '127.0.0.1', '内网IP', '2019-05-14 09:17:37');
 INSERT INTO `sys_log` VALUES ('f3a83b43f4b0496d9af676d97e68a18a', 'aop.after', '微信会员', '/wx/wxUser/down/', 'io.nutz.nutzsite.module.wx.controller.WxUserController#down', '同步会员信息', '1', 'admin', '{}', 'Mac OS X', 'Chrome', '127.0.0.1', '内网IP', '2019-05-14 10:15:01');
@@ -4482,16 +4416,20 @@ CREATE TABLE `sys_logininfor` (
 BEGIN;
 INSERT INTO `sys_logininfor` VALUES ('02267d84284945e1bb8524be64126e6d', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:49:36');
 INSERT INTO `sys_logininfor` VALUES ('0341c5df7beb4aa38a1a181601e8e1e5', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 09:52:10');
+INSERT INTO `sys_logininfor` VALUES ('0b2d30897d834ac494189316486a9e0c', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 16:31:56');
 INSERT INTO `sys_logininfor` VALUES ('0bbe23cd6eb04bde93d851cbaafdd777', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 10:49:36');
 INSERT INTO `sys_logininfor` VALUES ('0dd1085670204e548e4f70e442a9f7fa', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-13 13:57:50');
+INSERT INTO `sys_logininfor` VALUES ('11e00359875240cfa377be12c38a6371', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 16:36:04');
 INSERT INTO `sys_logininfor` VALUES ('13feb81f7e574268a2bfaadfe2f3da4c', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:22:24');
 INSERT INTO `sys_logininfor` VALUES ('2040466f3deb4ac09221593997b9b303', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 15:26:54');
 INSERT INTO `sys_logininfor` VALUES ('24a64197fcdd4115ae3ba65ccb602978', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:21:25');
+INSERT INTO `sys_logininfor` VALUES ('2a51048ccded43058befad8293a01a30', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 15:54:27');
 INSERT INTO `sys_logininfor` VALUES ('338bbeaf3c57410b8c47e1bd6b4f7536', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-13 13:48:45');
 INSERT INTO `sys_logininfor` VALUES ('36781828b5e5472a9aaf059a3087368d', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 10:36:52');
 INSERT INTO `sys_logininfor` VALUES ('3872425c8cbe496e9b93ce020cb2d5e7', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-13 13:37:35');
 INSERT INTO `sys_logininfor` VALUES ('3e90f21316bb476eaf33f19a3a0d759e', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 09:38:35');
 INSERT INTO `sys_logininfor` VALUES ('43da6ad1192d4758bedc2d1f3dead0a4', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 12:00:13');
+INSERT INTO `sys_logininfor` VALUES ('4a92d34fbf6046a6b335d2b67265bc2e', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 16:16:50');
 INSERT INTO `sys_logininfor` VALUES ('54bb6eaa78d14d249703323c05f4200e', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-13 14:54:04');
 INSERT INTO `sys_logininfor` VALUES ('56a80ab8fd1f41c1887ee4aeffe64585', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 15:24:37');
 INSERT INTO `sys_logininfor` VALUES ('57baecaab9444812954dc0afff092e5a', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 10:48:48');
@@ -4500,15 +4438,19 @@ INSERT INTO `sys_logininfor` VALUES ('621428bfc110494da85cbb56ea021e43', 'admin'
 INSERT INTO `sys_logininfor` VALUES ('693541acf5124ffe99fe577744e6cb9c', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 15:42:42');
 INSERT INTO `sys_logininfor` VALUES ('716c89e67aa74ae3a383b9e3f5d8e051', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 09:45:42');
 INSERT INTO `sys_logininfor` VALUES ('738d338ce5d24f42bed3dd4e33f86d3e', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 09:17:50');
+INSERT INTO `sys_logininfor` VALUES ('777d527c88af4ef6b6d2712cdc327748', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 16:16:19');
 INSERT INTO `sys_logininfor` VALUES ('7be4e48849f34343954e4db26e2a8660', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:20:46');
 INSERT INTO `sys_logininfor` VALUES ('7f2d6744a8134e23906e18654e2d4035', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 10:34:34');
 INSERT INTO `sys_logininfor` VALUES ('81866480b4534afabf1056665b0fa1c8', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 15:29:13');
+INSERT INTO `sys_logininfor` VALUES ('86fb247690724bbb802367a3cbb9160b', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 16:14:51');
 INSERT INTO `sys_logininfor` VALUES ('8b616dd17d8347cab470faf34a7c8449', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-13 14:05:42');
 INSERT INTO `sys_logininfor` VALUES ('8cf6b4ee0e324c3a8897f8f31582ec53', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 09:50:11');
+INSERT INTO `sys_logininfor` VALUES ('8fb5b1366b1a445e8ac903a928ba5601', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 15:48:15');
 INSERT INTO `sys_logininfor` VALUES ('96fa56b40f0e42c2aaaab94fd548e72a', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:09:18');
 INSERT INTO `sys_logininfor` VALUES ('97c31d358328428da2b80ce205c7ca3e', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 10:30:40');
 INSERT INTO `sys_logininfor` VALUES ('9c4b3e9a4cd04af79d9f9f289a01d2d9', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 15:23:21');
 INSERT INTO `sys_logininfor` VALUES ('a0519b74905d40639f1bdb7d37b17222', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-13 14:09:56');
+INSERT INTO `sys_logininfor` VALUES ('a15ff89d74014f93a11e07e183795e91', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 15:51:07');
 INSERT INTO `sys_logininfor` VALUES ('a828c330a14a422ebb11a63382839ff7', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 10:36:17');
 INSERT INTO `sys_logininfor` VALUES ('ac2b744762344178a324a6532054f64f', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 14:19:27');
 INSERT INTO `sys_logininfor` VALUES ('af1f342a16534461ac2af735e8678ba5', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-13 14:04:32');
@@ -4517,14 +4459,18 @@ INSERT INTO `sys_logininfor` VALUES ('b2a678a522a8481e9d7ebda02a53464f', 'admin'
 INSERT INTO `sys_logininfor` VALUES ('c5e1d04975e8448199844e11710c4a6d', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-17 09:31:06');
 INSERT INTO `sys_logininfor` VALUES ('ca27ca9f859646f1a64bd6b002f0e14e', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 15:44:38');
 INSERT INTO `sys_logininfor` VALUES ('cf054b7fb73f4ae9a44597868c5a9078', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 15:28:01');
+INSERT INTO `sys_logininfor` VALUES ('d171e15bc03f4fb19a9accd82c4abd78', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 16:30:52');
 INSERT INTO `sys_logininfor` VALUES ('d1b8728863c649d5ab54e94f505a2eca', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:02:00');
 INSERT INTO `sys_logininfor` VALUES ('d4f620b2fd0c4285b4e6937df28a8f95', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 09:28:58');
 INSERT INTO `sys_logininfor` VALUES ('d938ed82b64749ed89d6ac4a84cb39f5', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 16:22:13');
 INSERT INTO `sys_logininfor` VALUES ('dc1ab1ca71074cc08e30085f76acb00a', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:14:56');
+INSERT INTO `sys_logininfor` VALUES ('e32c296f1cec4ef5adc4876eb5740b0a', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 16:17:28');
 INSERT INTO `sys_logininfor` VALUES ('e3a11e6ea37e4ac9b53d412130f802ea', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 10:45:38');
 INSERT INTO `sys_logininfor` VALUES ('e3d18283c5d74a8a85af7e28e90f962e', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 13:19:31');
 INSERT INTO `sys_logininfor` VALUES ('eb3b570f52f142de996cd607e1e826b7', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 09:15:38');
 INSERT INTO `sys_logininfor` VALUES ('f3009271a870441d8dd962efce369556', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-05-14 14:55:08');
+INSERT INTO `sys_logininfor` VALUES ('f3d6e0bfaa2e423a961dcb9d0ec8bc88', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 16:18:50');
+INSERT INTO `sys_logininfor` VALUES ('f4275254e8504ad3bd1129664b06562b', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Mac OS X', '1', '登录成功', '2019-06-11 15:50:34');
 COMMIT;
 
 -- ----------------------------
@@ -4644,10 +4590,15 @@ INSERT INTO `sys_menu` VALUES ('3', '系统工具', '0', 30, '#', 'M', '0', '', 
 INSERT INTO `sys_menu` VALUES ('3575kpm4gei4ipdh4mn4peg2ct', '微信菜单新增', '7d14fm1jkgijtovnkge18or2r6', 2, '#', 'F', '0', 'wx:menu:add', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('3gl7pjf07ein3prthkop8d750i', '微信素材修改', '7tfveg4u38inkpjdoo8v2iki4s', 3, '#', 'F', '0', 'wx:material:edit', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('3le6nsatrugpkos20g28ai8b69', '微信用户查询', 'q61dd1i21oji0oe2891gbn37up', 1, '#', 'F', '0', 'wx:wxUser:list', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
+INSERT INTO `sys_menu` VALUES ('3n1cgh99rkg1ronbe4kg6fukk4', '文章', '9ac78f629dc74ac5877b42c73a6d4f26', 20, '/cms/article', 'C', '0', 'cms:article:view', '#', NULL, NULL, '1', '2019-06-11 16:16:36', NULL);
+INSERT INTO `sys_menu` VALUES ('4pv1d855iaj9irer5i8no4n61k', '文章删除', '3n1cgh99rkg1ronbe4kg6fukk4', 4, '#', 'F', '0', 'cms:article:remove', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('4sjsbjul38g3nod9jtqlnig8mv', '栏目新增', 'q6s0e7l6dcjfmpt23h9s865rqb', 2, '#', 'F', '0', 'cms:category:add', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('500', '操作日志', '108', 1, '/monitor/operlog', 'C', '0', 'monitor:operlog:view', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '操作日志菜单');
 INSERT INTO `sys_menu` VALUES ('501', '登录日志', '108', 2, '/monitor/logininfor', 'C', '0', 'monitor:logininfor:view', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '登录日志菜单');
 INSERT INTO `sys_menu` VALUES ('5aseet8o8gib9qubvs89rrfj1h', '微信素材删除', '7tfveg4u38inkpjdoo8v2iki4s', 4, '#', 'F', '0', 'wx:material:remove', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
+INSERT INTO `sys_menu` VALUES ('5qnj96g24kj9uq49fq3ah8fn53', '文章修改', '3n1cgh99rkg1ronbe4kg6fukk4', 3, '#', 'F', '0', 'cms:article:edit', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
+INSERT INTO `sys_menu` VALUES ('64ab927r2uhjtrkqpdr7if07q9', '文章新增', '3n1cgh99rkg1ronbe4kg6fukk4', 2, '#', 'F', '0', 'cms:article:add', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
+INSERT INTO `sys_menu` VALUES ('6jjag243ocir0qkn0l3fn6npq6', '文章查询', '3n1cgh99rkg1ronbe4kg6fukk4', 1, '#', 'F', '0', 'cms:article:list', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('7bd0844c03214140a403dda2989d54f7', '微信', '0', 50, '', 'M', '0', '', 'fa fa-comments', NULL, NULL, '1', '2019-06-11 10:31:25', NULL);
 INSERT INTO `sys_menu` VALUES ('7d14fm1jkgijtovnkge18or2r6', '微信菜单', '7bd0844c03214140a403dda2989d54f7', 1, '/wx/menu', 'C', '0', 'wx:menu:view', '#', NULL, NULL, '1', '2019-05-10 17:22:07', NULL);
 INSERT INTO `sys_menu` VALUES ('7jb3d4916sg0frop9kv87mbpl7', '微信用户同步', 'q61dd1i21oji0oe2891gbn37up', 2, '#', 'F', '0', 'wx:wxUser:sync', '#', NULL, NULL, '1', '2019-05-14 09:49:19', NULL);
@@ -4738,7 +4689,7 @@ CREATE TABLE `sys_role` (
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role` VALUES ('1', '管理员', 'admin', 1, NULL, '0', '0', NULL, NULL, '1', '2019-06-11 10:34:25', '管理员');
+INSERT INTO `sys_role` VALUES ('1', '管理员', 'admin', 1, NULL, '0', '0', NULL, NULL, '1', '2019-06-11 16:16:47', '管理员');
 INSERT INTO `sys_role` VALUES ('2', '普通角色', 'common', 2, NULL, '0', '0', NULL, '2019-04-26 14:02:23', NULL, '2019-04-26 14:02:30', '普通角色');
 COMMIT;
 
@@ -4866,10 +4817,15 @@ INSERT INTO `sys_role_menu` VALUES ('1', '3');
 INSERT INTO `sys_role_menu` VALUES ('1', '3575kpm4gei4ipdh4mn4peg2ct');
 INSERT INTO `sys_role_menu` VALUES ('1', '3gl7pjf07ein3prthkop8d750i');
 INSERT INTO `sys_role_menu` VALUES ('1', '3le6nsatrugpkos20g28ai8b69');
+INSERT INTO `sys_role_menu` VALUES ('1', '3n1cgh99rkg1ronbe4kg6fukk4');
+INSERT INTO `sys_role_menu` VALUES ('1', '4pv1d855iaj9irer5i8no4n61k');
 INSERT INTO `sys_role_menu` VALUES ('1', '4sjsbjul38g3nod9jtqlnig8mv');
 INSERT INTO `sys_role_menu` VALUES ('1', '500');
 INSERT INTO `sys_role_menu` VALUES ('1', '501');
 INSERT INTO `sys_role_menu` VALUES ('1', '5aseet8o8gib9qubvs89rrfj1h');
+INSERT INTO `sys_role_menu` VALUES ('1', '5qnj96g24kj9uq49fq3ah8fn53');
+INSERT INTO `sys_role_menu` VALUES ('1', '64ab927r2uhjtrkqpdr7if07q9');
+INSERT INTO `sys_role_menu` VALUES ('1', '6jjag243ocir0qkn0l3fn6npq6');
 INSERT INTO `sys_role_menu` VALUES ('1', '7bd0844c03214140a403dda2989d54f7');
 INSERT INTO `sys_role_menu` VALUES ('1', '7d14fm1jkgijtovnkge18or2r6');
 INSERT INTO `sys_role_menu` VALUES ('1', '7jb3d4916sg0frop9kv87mbpl7');
@@ -4949,7 +4905,7 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '小明', '00', 'ry@163.com', '15111111111', '1', 0x6239346364656430306262663433363961356364333565666239363762653935, 'vM7xT6KolcQbX7xlYfjisIJkrleH3De2t7wnmZ2zIB8=', '6dXimQAQqHBXkhI79IRKcg==', '0', '0', '127.0.0.1', '2019-06-11 15:44:38', 'admin', '2018-03-16 11:33:00', 'ry', '2019-04-19 07:06:38', '管理员');
+INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '小明', '00', 'ry@163.com', '15111111111', '1', 0x6239346364656430306262663433363961356364333565666239363762653935, 'vM7xT6KolcQbX7xlYfjisIJkrleH3De2t7wnmZ2zIB8=', '6dXimQAQqHBXkhI79IRKcg==', '0', '0', '127.0.0.1', '2019-06-11 16:36:04', 'admin', '2018-03-16 11:33:00', 'ry', '2019-04-19 07:06:38', '管理员');
 INSERT INTO `sys_user` VALUES ('92f5c91df48644a1812c55c164716fa7', '108', 'yuhaiming', 'Tom', '00', 'deal_2018@163.com', '15888888888', '1', NULL, 'I5HArEABibh3QIHygtY/RlYjhZq+/THnvr84VEm41Wg=', '5wQghHKKPJZ8T8fp3xREeQ==', '0', '0', '127.0.0.1', '2019-04-22 07:59:47', '1', '2019-04-19 07:48:19', '1', '2019-04-22 07:57:06', '');
 INSERT INTO `sys_user` VALUES ('a14731cfa4cb4e46b1f4eb1061950c6d', '105', 'haiming', 'Tom', '00', 'brave.yhm@gmail.com', '15111111111', NULL, 0x3961636163663138663531633439646638626531356230373265396133306333, 'DymenKivzL744ODeXSLyvkz6qnnP3qhgdtbpwZ9Txyo=', 'gA208ZKZ684tEg0Jg+UhSQ==', '0', '0', '127.0.0.1', '2019-05-09 15:19:49', '1', '2019-04-26 03:00:24', '1', '2019-04-26 03:00:24', '');
 COMMIT;

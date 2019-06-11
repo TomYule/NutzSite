@@ -75,16 +75,26 @@
                     title: '栏目名称',
                     align: "left"
                 },
+                {
+                    field: 'module',
+                    title: '栏目模块',
+                    align: "left",
+                    formatter: function (value, row, index) {
+                        /*console.log(value, row, index);*/
+                        if ("article" == value) {
+                            return "文章模型";
+                        } else if ("link" == value) {
+                            return "链接模型";
+                        }
+                        return "公共模型";
+                    }
+                },
                 // {
                 //     field: 'officeId',
                 //     title: '归属机构',
                 //     align: "left"
                 // },
-                {
-                    field: 'module',
-                    title: '栏目模块',
-                    align: "left"
-                },
+
 
                 // {
                 //     field: 'image',
