@@ -168,34 +168,6 @@ public class Category extends BaseModel implements Serializable {
     private String viewConfig;
 
     /**
-     * 创建者
-     */
-    @Column("create_by")
-    @Comment("创建者 ")
-    private String createBy;
-
-    /**
-     * 创建时间
-     */
-    @Column("create_date")
-    @Comment("创建时间 ")
-    private Date createDate;
-
-    /**
-     * 更新者
-     */
-    @Column("update_by")
-    @Comment("更新者 ")
-    private String updateBy;
-
-    /**
-     * 更新时间
-     */
-    @Column("update_date")
-    @Comment("更新时间 ")
-    private Date updateDate;
-
-    /**
      * 备注信息
      */
     @Column("remarks")
@@ -208,6 +180,34 @@ public class Category extends BaseModel implements Serializable {
     @Column("del_flag")
     @Comment("删除标记 ")
     private String delFlag;
+
+    /**
+     * 创建者
+     */
+    @Column("create_by")
+    @Comment("创建者")
+    private String createBy;
+
+    /**
+     * 更新者
+     */
+    @Column("update_by")
+    @Comment("更新者")
+    private String updateBy;
+
+    /**
+     * 创建时间
+     */
+    @Column("create_time")
+    @Comment("创建时间")
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @Column("update_time")
+    @Comment("更新时间")
+    private Date updateTime;
 
     private String parentName;
 
@@ -379,42 +379,6 @@ public class Category extends BaseModel implements Serializable {
         this.viewConfig = viewConfig;
     }
 
-    @Override
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    @Override
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    @Override
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    @Override
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
     public String getRemarks() {
         return remarks;
     }
@@ -429,6 +393,46 @@ public class Category extends BaseModel implements Serializable {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
+    }
+
+    @Override
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    @Override
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    @Override
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    @Override
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    @Override
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    @Override
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    @Override
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getParentName() {
@@ -464,9 +468,7 @@ public class Category extends BaseModel implements Serializable {
                 .append("customContentView", getCustomContentView())
                 .append("viewConfig", getViewConfig())
                 .append("createBy", getCreateBy())
-                .append("createDate", getCreateDate())
                 .append("updateBy", getUpdateBy())
-                .append("updateDate", getUpdateDate())
                 .append("remarks", getRemarks())
                 .append("delFlag", getDelFlag())
                 .toString();

@@ -32,7 +32,7 @@
 				<!--<input id="${column.attrname}"  name="${column.attrname}"th:value="${${classname}.${column.attrname}}" class="form-control time-input" type="text"> -->
 				<div class="onoffswitch">
 					<input type="checkbox" th:checked="${${classname}.${column.attrname}? true : false}" class="onoffswitch-checkbox" id="${column.attrname}" name="${column.attrname}">
-					<label class="onoffswitch-label" for="status">
+					<label class="onoffswitch-label" for="${column.attrname}">
 						<span class="onoffswitch-switch"></span>
 						<span class="onoffswitch-inner"></span>
 					</label>

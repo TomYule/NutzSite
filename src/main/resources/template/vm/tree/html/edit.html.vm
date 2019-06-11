@@ -73,34 +73,24 @@
     }
 
     function selectTree() {
-        var ${primaryKey.attrname} =
-        $("#treeId").val();
-        if (${primaryKey.attrname} >
-        0
-    )
-        {
-            var options = {
-                title: '选择上级',
-                width: "380",
-                url: prefix + "/selectTree/" + $("#treeId").val(),
-                callBack: doSubmit
-            };
-            $.modal.openOptions(options);
-        }
-    else
-        {
-            $.modal.alertError("父级不能选择");
-        }
+        var ${primaryKey.attrname} = $("#treeId").val();
+        var options = {
+            title: '选择上级',
+            width: "380",
+            url: prefix + "/selectTree/" + $("#treeId").val(),
+            callBack: doSubmit
+        };
+        $.modal.openOptions(options);
     }
 
     function doSubmit(index, layero) {
         var tree = layero.find("iframe")[0].contentWindow.$._tree;
         // 不允许最后层级节点选择
         // if ($.tree.notAllowLastLevel(tree)) {
-        //     var body = layer.getChildFrame('body', index);
-        //     $("#treeId").val(body.find('#treeId').val());
-        //     $("#treeName").val(body.find('#treeName').val());
-        //     layer.close(index);
+            var body = layer.getChildFrame('body', index);
+            $("#treeId").val(body.find('#treeId').val());
+            $("#treeName").val(body.find('#treeName').val());
+            layer.close(index);
         // }
     }
 </script>
