@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-material-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">mediaId：</label>
+            <div class="col-sm-8">
+                <input id="mediaId" name="mediaId" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">图文消息的标题：</label>
+            <div class="col-sm-8">
+                <input id="title" name="title" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">图文消息的封面图片素材id：</label>
+            <div class="col-sm-8">
+                <input id="thumbMediaId" name="thumbMediaId" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">是否显示封面，0为false，即不显示，1为true，即显示：</label>
+            <div class="col-sm-8">
+                <input id="showCoverPic" name="showCoverPic" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">作者：</label>
+            <div class="col-sm-8">
+                <input id="author" name="author" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">图文消息的摘要，仅有单图文消息才有摘要，多图文此处为空：</label>
+            <div class="col-sm-8">
+                <input id="digest" name="digest" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">图文消息的具体内容，支持HTML标签，必须少于2万字符，小于1M，且此处会去除JS：</label>
+            <div class="col-sm-8">
+                <input id="content" name="content" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">图文页的URL，或者，当获取的列表是图片素材列表时，该字段是图片的URL：</label>
+            <div class="col-sm-8">
+                <input id="url" name="url" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">图文消息的原文地址，即点击“阅读原文”后的URL：</label>
+            <div class="col-sm-8">
+                <input id="contentSourceUrl" name="contentSourceUrl" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">这篇图文消息素材的最后更新时间：</label>
+            <div class="col-sm-8">
+                <input id="updateTime" name="updateTime" class="form-control time-input" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">文件名称：</label>
+            <div class="col-sm-8">
+                <input id="name" name="name" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">素材的类型，图片（image）、视频（video）、语音 （voice）、图文（news）：</label>
+            <div class="col-sm-8">
+                <input id="type" name="type" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">创建者：</label>
+            <div class="col-sm-8">
+                <input id="createBy" name="createBy" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">：</label>
+            <div class="col-sm-8">
+                <input id="createTime" name="createTime" class="form-control time-input" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">更新者：</label>
+            <div class="col-sm-8">
+                <input id="updateBy" name="updateBy" class="form-control" type="text">
+            </div>
+        </div>
+
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    var prefix = ctx + "wx/material"
+    $("#form-material-add").validate({
+        onkeyup: false,
+        rules: {
+            xxxx: {
+                required: true,
+            },
+        }
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/addDo", $('#form-material-add').serialize());
+        }
+    }
+</script>
+</body>
+</html>

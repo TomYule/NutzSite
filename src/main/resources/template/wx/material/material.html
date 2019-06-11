@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            素材的类型
+                            <!--                            ，图片（image）、视频（video）、语音 （voice）、图文（news）：<input type="text" name="type"/>-->
+                            <!--                            <label class="col-sm-3 control-label">下拉框：</label>-->
+                            <select name="type">
+                                <option value="">全部</option>
+                                <option value="image">图片</option>
+                                <option value="video">视频</option>
+                                <option value="voice">语音</option>
+                                <option value="news">图文</option>
+                            </select>
+                        </li>
+                        <li>
+                            mediaId：<input type="text" name="mediaId"/>
+                        </li>
+<!--
+
+                        <li>
+                            图文消息的标题：<input type="text" name="title"/>
+                        </li>
+
+                        <li>
+                            图文消息的封面图片素材id：<input type="text" name="thumbMediaId"/>
+                        </li>
+
+                        <li>
+                            是否显示封面，0为false，即不显示，1为true，即显示：<input type="text" name="showCoverPic"/>
+                        </li>
+
+                        <li>
+                            作者：<input type="text" name="author"/>
+                        </li>
+
+                        <li>
+                            图文消息的摘要，仅有单图文消息才有摘要，多图文此处为空：<input type="text" name="digest"/>
+                        </li>
+
+                        <li>
+                            图文消息的具体内容，支持HTML标签，必须少于2万字符，小于1M，且此处会去除JS：<input type="text" name="content"/>
+                        </li>
+
+                        <li>
+                            图文页的URL，或者，当获取的列表是图片素材列表时，该字段是图片的URL：<input type="text" name="url"/>
+                        </li>
+
+                        <li>
+                            图文消息的原文地址，即点击“阅读原文”后的URL：<input type="text" name="contentSourceUrl"/>
+                        </li>
+
+                        <li>
+                            这篇图文消息素材的最后更新时间：<input type="text" name="updateTime"/>
+                        </li>
+
+                        <li>
+                            文件名称：<input type="text" name="name"/>
+                        </li>
+-->
+
+
+<!--
+
+                        <li>
+                            创建者：<input type="text" name="createBy"/>
+                        </li>
+
+                        <li>
+                            ：<input type="text" name="createTime"/>
+                        </li>
+
+                        <li>
+                            更新者：<input type="text" name="updateBy"/>
+                        </li>
+-->
+
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+<!--            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="wx:material:add">
+                <i class="fa fa-plus"></i> 添加
+            </a>
+            <a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()"
+               shiro:hasPermission="wx:material:edit">
+                <i class="fa fa-edit"></i> 修改
+            </a>-->
+
+            <a class="btn btn-primary" onclick="syncMaterial()">
+                <i class="fa fa-refresh"></i> 同步素材
+            </a>
+            <a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()"
+               shiro:hasPermission="wx:material:remove">
+                <i class="fa fa-remove"></i> 删除
+            </a>
+
+            <!--<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="wx:material:export">
+                    <i class="fa fa-download"></i> 导出
+             </a>-->
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:inline="javascript">
+    var prefix = ctx + "wx/material";
+    // 同步会员
+    function syncMaterial() {
+        $.modal.confirm("确定要同步素材吗？", function() {
+            $.ajax({
+                type: "get",
+                url:  prefix + "/getMaterial/",
+                data: {},
+                success: function(r) {
+                    layer.msg('执行成功,请稍后…', { icon: 1 });
+                }
+            });
+            // location.href = prefix + "/pushMenu/";
+        })
+    }
+    $(function () {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "微信素材",
+            search: false,
+            showExport: true,
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'id',
+                    title: 'id',
+                    visible: false
+                },
+                {
+                    field: 'type',
+                    title: '素材的类型',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        /*console.log(value, row, index);*/
+                        if ("image"== value  ) {
+                            return "图片";
+                        } else if ("video"== value) {
+                            return "视频";
+                        } else if ("voice"== value) {
+                            return "语音";
+                        } else if ("news"== value) {
+                            return "图文";
+                        }
+                        return "";
+                    }
+                },
+                {
+                    field: 'mediaId',
+                    title: '素材ID',
+                    sortable: true
+                },
+                {
+                    field: 'name',
+                    title: '文件名称',
+                    sortable: true
+                },
+
+                {
+                    field: 'title',
+                    title: '图文消息的标题',
+                    sortable: true
+                },
+                // {
+                //     field: 'thumbMediaId',
+                //     title: '图文消息的封面图片素材id',
+                //     sortable: true
+                // },
+                // {
+                //     field: 'showCoverPic',
+                //     title: '是否显示封面',//，0为false，即不显示，1为true，即显示
+                //     sortable: true
+                // },
+                {
+                    field: 'author',
+                    title: '作者',
+                    sortable: true
+                },
+                // {
+                //     field: 'digest',
+                //     title: '图文消息的摘要，仅有单图文消息才有摘要，多图文此处为空',
+                //     sortable: true
+                // },
+                // {
+                //     field: 'content',
+                //     title: '图文消息的具体内容，支持HTML标签，必须少于2万字符，小于1M，且此处会去除JS',
+                //     sortable: true
+                // },
+                // {
+                //     field: 'url',
+                //     title: '图文页的URL，或者，当获取的列表是图片素材列表时，该字段是图片的URL',
+                //     sortable: true
+                // },
+                // {
+                //     field: 'contentSourceUrl',
+                //     title: '图文消息的原文地址，即点击“阅读原文”后的URL',
+                //     sortable: true
+                // },
+                {
+                    field: 'updateTime',
+                    title: '素材最后更新时间',
+                    sortable: true
+                },
+
+
+                // {
+                //     field: 'createBy',
+                //     title: '创建者',
+                //     sortable: true
+                // },
+                // {
+                //     field: 'createTime',
+                //     title: '',
+                //     sortable: true
+                // },
+                // {
+                //     field: 'updateBy',
+                //     title: '更新者',
+                //     sortable: true
+                // },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs " href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs " href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>
