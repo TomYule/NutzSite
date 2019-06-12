@@ -62,6 +62,7 @@ public class CategoryController {
 		if(Lang.isNotEmpty(endTime)){
 			cnd.and("create_time","<=", endTime);
 		}
+		cnd.asc("sort");
 		return categoryService.query(cnd);
 	}
 
@@ -119,10 +120,12 @@ public class CategoryController {
 		req.setAttribute("category",category);
 	}
 
-	/**
-	 * 修改保存栏目
-	 */
-
+    /**
+     * 修改保存栏目
+     * @param category
+     * @param req
+     * @return
+     */
 	@At
 	@POST
 	@Ok("json")

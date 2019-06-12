@@ -1,0 +1,48 @@
+<head th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- Bootstrap v3.3.7  -->
+    <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/assets/css/font-awesome.min.css}" rel="stylesheet"/>
+
+</head>
+<div th:fragment="navigation">
+    <nav class="navbar navbar-inverse">
+        <!-- Brand and toggle get grouped for better mobile display -->
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="container">
+            <div class="container collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li th:class="${id==null} ? 'active' : '' "><a th:href="${'/front'}">首页</a></li>
+                    <li th:class="${id == cate.id}? 'active' : '' " th:each="cate : ${nav_categories}">
+                        <a th:if="(${cate.module}!=null)" th:utext="${cate.name}"
+                           th:href="${'/front/category/'+cate.id}"></a>
+                        <a th:if="(${cate.module}==null  and ${cate.href}!=null)" th:utext="${cate.name}"
+                           th:href="${cate.href}" th:target="(${cate.target}!=null) ? ${cate.target} : '#'"></a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div th:fragment="footer">
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?d3f0f80430e686f09e671b88b927fa01";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+</div>

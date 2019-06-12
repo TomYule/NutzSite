@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="common :: header"></head>
+
+<body>
+<div>
+    <div th:include="common :: navigation"></div>
+    <div class="container">
+        <div class="col-lg-3" style="height: 100%">
+            <div class="panel panel-default">
+                <div class="panel-heading categoryh"><font size="5" style="color: #0e9aef"><strong>栏目列表</strong></font></div>
+                <div class="panel-body" id="lmlb">
+                    <li th:each="cate : ${list}">
+                        <a th:utext="${cate.name}" th:href="${'/front/categoryList/'+id+'/'+cate.id}"></a>
+                    </li>
+                    <!--<div class="lm" th:each="cate : ${list}">
+                        <font>.&nbsp;&nbsp;</font><a onclick="${'getXJ('+cate.id},'',2)">${cate.id}</a>
+                    </div>-->
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading categoryh"><font size="5" style="color: #0e9aef"><strong>推荐阅读</strong></font></div>
+                <div class="panel-body">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="span10" >
+                    <h3 style="color:#555555;font-size:20px;text-align:center;border-bottom:1px solid #ddd;padding-bottom:15px;margin:25px 0;" id="article-title"><span th:text="${article.title}"></span></h3>
+                    <div id="article-content" th:border="1px" style="overflow-x: scroll;overflow-y: scroll;" th:utext="${article.content}"></div>
+                    <div  class="row">
+                        <div class="col-md-2">
+                            发布者：<span  th:text="${article.createUser.userName}"></span> &nbsp;
+                        </div>
+                        <div class="col-md-2">
+                            点击数：<span  th:text="${article.hits}"></span>&nbsp;
+                        </div>
+                        <div class="col-md-4">
+                            发布时间：<span th:text="${#dates.format(article.createTime, 'yyyy-MM-dd HH:mm:ss')}"></span> &nbsp;
+                        </div>
+                        <div class="col-md-4">
+                            更新时间：<span th:text="${#dates.format(article.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div th:include="common :: footer"></div>
+</body>
+</html>

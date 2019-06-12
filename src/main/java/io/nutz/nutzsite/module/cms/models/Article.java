@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.module.cms.models;
 
 import io.nutz.nutzsite.common.base.BaseModel;
+import io.nutz.nutzsite.module.sys.models.User;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -148,6 +149,9 @@ public class Article extends BaseModel implements Serializable {
     @Comment("创建者")
     private String createBy;
 
+    @One(field = "createBy")
+    private User createUser;
+
     /**
      * 创建时间
      */
@@ -161,6 +165,9 @@ public class Article extends BaseModel implements Serializable {
     @Column("update_by")
     @Comment("更新者")
     private String updateBy;
+
+    @One(field = "updateBy")
+    private User updateUser;
 
     /**
      * 更新时间
@@ -396,6 +403,22 @@ public class Article extends BaseModel implements Serializable {
 
     public void setRelation(String relation) {
         this.relation = relation;
+    }
+
+    public User getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(User createUser) {
+        this.createUser = createUser;
+    }
+
+    public User getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(User updateUser) {
+        this.updateUser = updateUser;
     }
 
     @Override
