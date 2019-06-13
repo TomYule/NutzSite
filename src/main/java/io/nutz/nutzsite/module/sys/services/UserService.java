@@ -7,6 +7,7 @@ import io.nutz.nutzsite.module.sys.models.Role;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.nutz.boot.starter.caffeine.Cache;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.sql.Criteria;
@@ -122,6 +123,7 @@ public class UserService extends Service<User> {
      * @param user
      * @return
      */
+    @Cache
     public Set<String> getRoleCodeList(User user) {
         this.fetchLinks(user, "roles");
         Set<String> permsSet = new HashSet<>();
@@ -139,6 +141,7 @@ public class UserService extends Service<User> {
      * @param userId
      * @return
      */
+    @Cache
     public Set<String> getPermsByUserId(String userId) {
         Set<String> permsSet = new HashSet<>();
         List<String> menuList = menuService.getPermsByUserId(userId);
