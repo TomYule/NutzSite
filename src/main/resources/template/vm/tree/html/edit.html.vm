@@ -40,6 +40,20 @@
                 </select>
             </div>
         </div>
+    #elseif(${column.dataType} == "char" )
+        <div class="form-group">
+            <label class="col-sm-3 control-label">${column.columnComment}：</label>
+            <div class="col-sm-8">
+                <!--<input id="${column.attrname}"  name="${column.attrname}"th:value="${${classname}.${column.attrname}}" class="form-control time-input" type="text"> -->
+                <div class="onoffswitch">
+                    <input type="checkbox" th:checked="${${classname}.${column.attrname}? true : false}" class="onoffswitch-checkbox" id="${column.attrname}" name="${column.attrname}">
+                    <label class="onoffswitch-label" for="${column.attrname}">
+                        <span class="onoffswitch-switch"></span>
+                        <span class="onoffswitch-inner"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
     #else
         <div class="form-group">
             <label class="col-sm-3 control-label">${column.columnComment}：</label>
