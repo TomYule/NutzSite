@@ -13,7 +13,7 @@
                 <div class="panel-heading categoryh"><font size="5" style="color: #0e9aef"><strong>栏目列表</strong></font></div>
                 <div class="panel-body" id="lmlb">
                     <li th:each="cate : ${list}">
-                        <a th:utext="${cate.name}" th:href="${'/front/categoryList/'+id+'/'+cate.id}"></a>
+                        <a th:utext="${cate.name}" th:href="${'/front/categoryById/'+cate.id +'/' +id}"></a>
                     </li>
                     <!--<div class="lm" th:each="cate : ${list}">
                         <font>.&nbsp;&nbsp;</font><a onclick="${'getXJ('+cate.id},'',2)">${cate.id}</a>
@@ -34,7 +34,7 @@
                     <div id="article-content" th:border="1px" style="overflow-x: scroll;overflow-y: scroll;" th:utext="${article.content}"></div>
                     <div  class="row">
                         <div class="col-md-2">
-                            发布者：<span  th:text="${article.createUser.userName}"></span> &nbsp;
+                            发布者：<span  th:text="${article.createUser ==null ? '':article.createUser.userName}"></span> &nbsp;
                         </div>
                         <div class="col-md-2">
                             点击数：<span  th:text="${article.hits}"></span>&nbsp;

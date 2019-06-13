@@ -15,6 +15,7 @@ import org.nutz.lang.Strings;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -39,7 +40,17 @@ public class MaterialService extends Service<Material> {
 	 * @return
 	 */
 	public Map<String, Material> getIdMaterialMap(List<Material> materials) {
-		return materials.stream().collect(Collectors.toMap(Material::getMediaId, material -> material));
+		if(Lang.isNotEmpty(materials)){
+			Map<String, Material> entityMap= materials
+					.stream()
+					.collect(Collectors.toMap(
+							Material::getMediaId,
+							Function.identity(),
+							(entity1, entity2) -> entity1)
+					);
+			return entityMap;
+		}
+		return null;
 	}
 
 

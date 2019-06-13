@@ -4,7 +4,6 @@ import io.nutz.nutzsite.common.base.BaseModel;
 import io.nutz.nutzsite.module.sys.models.User;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
 import org.nutz.dao.entity.annotation.*;
 
 import java.io.Serializable;
@@ -105,7 +104,7 @@ public class Article extends BaseModel implements Serializable {
      */
     @Column("weight")
     @Comment("权重，越大越靠前")
-    private Integer weight;
+    private int weight;
 
     /**
      * 权重期限
@@ -119,7 +118,7 @@ public class Article extends BaseModel implements Serializable {
      */
     @Column("hits")
     @Comment("点击数")
-    private Integer hits;
+    private int hits;
 
     /**
      * 推荐位，多选
@@ -188,7 +187,7 @@ public class Article extends BaseModel implements Serializable {
      */
     @Column("del_flag")
     @Comment("删除标记")
-    private String delFlag;
+    private boolean delFlag;
 
     /**
      * 相关文章
@@ -293,11 +292,11 @@ public class Article extends BaseModel implements Serializable {
         this.allowComment = allowComment;
     }
 
-    public Integer getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
@@ -309,11 +308,11 @@ public class Article extends BaseModel implements Serializable {
         this.weightDate = weightDate;
     }
 
-    public Integer getHits() {
+    public int getHits() {
         return hits;
     }
 
-    public void setHits(Integer hits) {
+    public void setHits(int hits) {
         this.hits = hits;
     }
 
@@ -351,6 +350,14 @@ public class Article extends BaseModel implements Serializable {
         this.createBy = createBy;
     }
 
+    public User getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(User createUser) {
+        this.createUser = createUser;
+    }
+
     @Override
     public Date getCreateTime() {
         return createTime;
@@ -371,6 +378,14 @@ public class Article extends BaseModel implements Serializable {
         this.updateBy = updateBy;
     }
 
+    public User getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(User updateUser) {
+        this.updateUser = updateUser;
+    }
+
     @Override
     public Date getUpdateTime() {
         return updateTime;
@@ -389,11 +404,11 @@ public class Article extends BaseModel implements Serializable {
         this.remarks = remarks;
     }
 
-    public String getDelFlag() {
+    public boolean isDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(String delFlag) {
+    public void setDelFlag(boolean delFlag) {
         this.delFlag = delFlag;
     }
 
@@ -403,22 +418,6 @@ public class Article extends BaseModel implements Serializable {
 
     public void setRelation(String relation) {
         this.relation = relation;
-    }
-
-    public User getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(User createUser) {
-        this.createUser = createUser;
-    }
-
-    public User getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(User updateUser) {
-        this.updateUser = updateUser;
     }
 
     @Override
@@ -446,7 +445,7 @@ public class Article extends BaseModel implements Serializable {
                 .append("updateBy", getUpdateBy())
                 .append("updateTime", getUpdateTime())
                 .append("remarks", getRemarks())
-                .append("delFlag", getDelFlag())
+                .append("delFlag", isDelFlag())
                 .append("relation", getRelation())
                 .toString();
     }

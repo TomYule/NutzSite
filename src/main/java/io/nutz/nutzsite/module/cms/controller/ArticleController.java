@@ -1,14 +1,15 @@
 package io.nutz.nutzsite.module.cms.controller;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import io.nutz.nutzsite.common.base.Result;
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.cms.models.Article;
 import io.nutz.nutzsite.module.cms.services.ArticleService;
-import io.nutz.nutzsite.common.base.Result;;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.lang.Strings;
 import org.nutz.lang.Lang;
+import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.At;
@@ -16,11 +17,11 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.plugins.slog.annotation.Slog;
-import io.nutz.nutzsite.common.utils.ShiroUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Date;
+
+;
 
 /**
  * 文章 信息操作处理
@@ -109,6 +110,7 @@ public class ArticleController {
     @Ok("th://cms/article/edit.html")
     public void edit(String id, HttpServletRequest req) {
         Article article = articleService.fetch(id);
+        article = articleService.fetchLinks(article,"category");
         req.setAttribute("article", article);
     }
 
@@ -125,7 +127,7 @@ public class ArticleController {
             if (Lang.isNotEmpty(article)) {
                 article.setUpdateBy(ShiroUtils.getSysUserId());
                 article.setUpdateTime(new Date());
-                articleService.update(article);
+                articleService.updateIgnoreNull(article);
             }
             return Result.success("system.success");
         } catch (Exception e) {
