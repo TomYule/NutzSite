@@ -12,6 +12,7 @@ NutzSite基于Nutz的开源企业级开发框架
 * Druid
 * Shiro
 * Thymeleaf
+* Caffeine 缓存
 * Quartz 定时任务
 * SLog日志记录
 * 支付宝

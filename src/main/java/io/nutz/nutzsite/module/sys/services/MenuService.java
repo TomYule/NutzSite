@@ -3,7 +3,6 @@ package io.nutz.nutzsite.module.sys.services;
 import io.nutz.nutzsite.common.base.Service;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.models.Role;
-import io.nutz.nutzsite.module.sys.models.User;
 import org.nutz.aop.interceptor.ioc.TransAop;
 import org.nutz.boot.starter.caffeine.Cache;
 import org.nutz.dao.Cnd;
@@ -11,16 +10,11 @@ import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
 import org.nutz.dao.entity.Entity;
 import org.nutz.dao.sql.Sql;
-import org.nutz.dao.sql.SqlCallback;
 import org.nutz.ioc.aop.Aop;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
 /**

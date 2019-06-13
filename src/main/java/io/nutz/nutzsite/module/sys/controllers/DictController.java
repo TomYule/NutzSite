@@ -1,6 +1,5 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
-import io.nutz.nutzsite.common.utils.GenUtils;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.sys.models.Dict;
@@ -21,7 +20,6 @@ import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 字典 信息操作处理
