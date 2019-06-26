@@ -49,7 +49,7 @@
 				<label class="col-sm-3 control-label">状态：</label>
 				<div class="col-sm-8">
 					<div class="onoffswitch">
-                         <input type="checkbox" th:checked="${user.status == '0' ? false : true}" class="onoffswitch-checkbox" id="status" name="status">
+                         <input type="checkbox" th:checked="${user.status == 1 ? false : true}" class="onoffswitch-checkbox" id="status" name="status">
                          <label class="onoffswitch-label" for="status">
                              <span class="onoffswitch-inner"></span>
                              <span class="onoffswitch-switch"></span>
