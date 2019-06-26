@@ -40,6 +40,10 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">性别：</label>
 				<div class="col-sm-8">
+					<select class="form-control" id="gender" name="gender" th:value="${user.gender}">
+						<option selected value="0">男</option>
+						<option value="1">女</option>
+					</select>
 	<!--				<select id="gender" class="form-control m-b" th:with="type=${@dict.getType('sys_user_gender')}">
 	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"  th:value="${user.gender}"></option>
 	                </select>-->

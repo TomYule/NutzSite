@@ -14,6 +14,7 @@ NutzSite基于Nutz的开源企业级开发框架
 * Thymeleaf
 * Caffeine 缓存
 * Quartz 定时任务
+* JWT
 * SLog日志记录
 * 支付宝
 * 微信公众平台
@@ -27,6 +28,10 @@ NutzSite基于Nutz的开源企业级开发框架
 ## 给自己挖坑 后期支持待完善功能
 * 审批流
 
+## 为什么选择nutz
+因为nutz优秀 好用,没有MyBatis 那么繁琐的XML配置.如果依然坚持MyBatis 可以参考用[若依](https://gitee.com/y_project/RuoYi)
+
+
 本压缩包是一个maven工程, eclipse/idea均可按maven项目导入
 
 MainLauncher是入口,启动即可
@@ -34,6 +39,7 @@ MainLauncher是入口,启动即可
 ## 环境要求
 
 * 必须JDK8+
+* MySQL8.0以上
 * eclipse或idea等IDE开发工具,可选
 
 ## 配置信息位置
