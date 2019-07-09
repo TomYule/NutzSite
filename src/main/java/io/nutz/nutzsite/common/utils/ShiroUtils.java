@@ -7,6 +7,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.nutz.lang.Lang;
 
 /**
  * shiro 工具类
@@ -61,7 +62,10 @@ public class ShiroUtils {
     }
 
     public static String getLoginName() {
-        return getSysUser().getLoginName();
+        if(Lang.isNotEmpty(getSysUser())){
+            return getSysUser().getLoginName();
+        }
+        return null;
     }
 
     public static String getIp() {

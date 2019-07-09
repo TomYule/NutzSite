@@ -249,6 +249,22 @@ public class Service<T> extends EntityService<T> {
         return new QueryResult(list, pager);
     }
 
+    public QueryResult listPage( int pageNumber, int pageSize,Cnd cnd,String orderByColumn,String isAsc,String linkname){
+        Pager pager = this.dao().createPager(pageNumber, pageSize);
+        if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
+            MappingField field =dao().getEntity(this.getEntityClass()).getField(orderByColumn);
+            if(Lang.isNotEmpty(field)){
+                cnd.orderBy(field.getColumnName(),isAsc);
+            }
+        }
+        List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
+        if (!Strings.isBlank(linkname)) {
+            this.dao().fetchLinks(list, linkname);
+        }
+        pager.setRecordCount(this.dao().count(getEntityClass(), cnd));
+        return new QueryResult(list, pager);
+    }
+
     /**
      * 分页查询数据封装
      * @param pageNumber
