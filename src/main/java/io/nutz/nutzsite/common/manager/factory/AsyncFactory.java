@@ -12,6 +12,7 @@ import io.nutz.nutzsite.module.monitor.services.OperLogService;
 import io.nutz.nutzsite.module.monitor.services.UserOnlineService;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.mvc.Mvcs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,8 +54,8 @@ public class AsyncFactory {
                 online.setStartTimestamp(session.getStartTimestamp());
                 online.setLastAccessTime(session.getLastAccessTime());
                 online.setExpireTime(session.getTimeout());
-                online.setIpaddr(session.getHost());
-                online.setLoginLocation(AddressUtils.getRealAddressByIP(session.getHost()));
+                online.setIpaddr(Lang.getIP(Mvcs.getReq()));
+                online.setLoginLocation(AddressUtils.getRealAddressByIP(Lang.getIP(Mvcs.getReq())));
                 online.setBrowser(session.getBrowser());
                 online.setOs(session.getOs());
 //                online.setStatus(session.getStatus());
@@ -82,8 +83,6 @@ public class AsyncFactory {
             @Override
             public void run() {
                 StringBuilder s = new StringBuilder();
-                s.append(LogUtils.getBlock(ip));
-                s.append(AddressUtils.getRealAddressByIP(ip));
                 s.append(LogUtils.getBlock(username));
                 s.append(LogUtils.getBlock(status));
                 s.append(LogUtils.getBlock(message));
@@ -96,8 +95,8 @@ public class AsyncFactory {
                 // 封装对象
                 Logininfor logininfor = new Logininfor();
                 logininfor.setLoginName(username);
-                logininfor.setIpaddr(ip);
-                logininfor.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
+                logininfor.setIpaddr(Lang.getIP(Mvcs.getReq()));
+                logininfor.setLoginLocation(AddressUtils.getRealAddressByIP(Lang.getIP(Mvcs.getReq())));
                 logininfor.setBrowser(browser);
                 logininfor.setOs(os);
                 logininfor.setMsg(message);
