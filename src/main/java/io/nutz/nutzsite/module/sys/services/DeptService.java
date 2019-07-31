@@ -3,6 +3,7 @@ package io.nutz.nutzsite.module.sys.services;
 import io.nutz.nutzsite.common.base.Service;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Dept;
+import org.nutz.boot.starter.caffeine.Cache;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -109,4 +110,9 @@ public class DeptService extends Service<Dept> {
         return false;
     }
 
+    @Cache
+    @Override
+    public Dept fetch(String name) {
+        return super.fetch(name);
+    }
 }

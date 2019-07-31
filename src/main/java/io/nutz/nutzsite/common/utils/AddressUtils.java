@@ -1,7 +1,7 @@
 package io.nutz.nutzsite.common.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import io.nutz.nutzsite.common.utils.http.HttpUtils;
+import org.nutz.http.Http;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +21,7 @@ public class AddressUtils {
         if (IpUtils.internalIp(ip)) {
             return "内网IP";
         }
-        String rspStr = HttpUtils.sendPost(IP_URL, "ip=" + ip);
+        String rspStr = Http.get(IP_URL+"ip=" + ip, 5 * 1000).getContent();
         if (StringUtils.isEmpty(rspStr)) {
             log.error("获取地理位置异常 {}", ip);
             return address;

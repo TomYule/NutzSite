@@ -29,8 +29,8 @@ NutzSite基于Nutz的开源企业级开发框架
 * 审批流
 
 ## 为什么选择nutz
-因为nutz优秀 好用,没有MyBatis 那么繁琐的XML配置.如果依然坚持MyBatis 可以参考用[若依](https://gitee.com/y_project/RuoYi)
-
+你有没有想过 为什么Java开发就一定要用spring,MyBatis 为什么大多数人缓存就选择Ehcache 不选择Caffeine  
+nutz Java小伙伴们的另一种选择
 
 本压缩包是一个maven工程, eclipse/idea均可按maven项目导入
 

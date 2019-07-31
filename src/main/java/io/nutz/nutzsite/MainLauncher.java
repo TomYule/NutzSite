@@ -4,14 +4,10 @@ import com.alibaba.fastjson.JSON;
 import io.nutz.nutzsite.common.base.Globals;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.common.utils.TreeUtils;
-import io.nutz.nutzsite.module.sys.models.Menu;
-import io.nutz.nutzsite.module.sys.models.Task;
-import io.nutz.nutzsite.module.sys.models.User;
-import io.nutz.nutzsite.module.sys.services.ConfigService;
-import io.nutz.nutzsite.module.sys.services.MenuService;
-import io.nutz.nutzsite.module.sys.services.TaskService;
-import io.nutz.nutzsite.module.sys.services.UserService;
+import io.nutz.nutzsite.module.sys.models.*;
+import io.nutz.nutzsite.module.sys.services.*;
 import org.nutz.boot.NbApp;
+import org.nutz.boot.starter.caffeine.Cache;
 import org.nutz.conf.NutConf;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
@@ -55,6 +51,10 @@ public class MainLauncher {
     private UserService userService;
     @Inject
     private MenuService menuService;
+    @Inject
+    private ImageService imageService;
+    @Inject
+    DeptService deptService;
 
     @At({"/", "/index"})
     @Ok("re")
@@ -63,11 +63,9 @@ public class MainLauncher {
         if (Lang.isEmpty(user)) {
             return "th:/login.html";
         }
-        user =userService.fetchLinks(user,"dept|image");
+        Dept dept = deptService.fetch(user.getDeptId());
+        user.setDept(dept);
         req.setAttribute("user", user);
-        if(Lang.isNotEmpty(user.getImage())){
-            req.setAttribute("image", user.getImage().getBase64());
-        }
         List<Menu> menuList = menuService.getMenuList(user.getId());
         req.setAttribute("menus", TreeUtils.getChildPerms(menuList, "0"));
         return "th:/index.html";
@@ -80,6 +78,7 @@ public class MainLauncher {
      */
     @At({"/sys/main"})
     @Ok("th:/main.html")
+    @Cache
     public NutMap main() {
         return NutMap.NEW().setv("version", "1.0");
     }
