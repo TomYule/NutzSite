@@ -111,9 +111,8 @@ public class BankCardUtils {
      * @return
      */
     public static String getNameOfBank(String cardId){
-        cardId = cardId.replaceAll(" ", "");
         // 获取银行卡的信息
-        String name = BankCardBin.getNameOfBank(cardId.substring(0, 6), 0);
+        String name =  BankCardBin.getname(cardId);
         if(Strings.isEmpty(name)){
             CardInfoData cardInfoData = validateAndCacheCardInfo(cardId);
             if(cardInfoData.isValidated()){
