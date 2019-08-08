@@ -119,11 +119,12 @@ public class UserService extends Service<User> {
     /**
      * 获取角色列表
      *
-     * @param user
+     * @param userId
      * @return
      */
     @Cache
-    public Set<String> getRoleCodeList(User user) {
+    public Set<String> getRoleCodeList(String userId) {
+        User user =this.fetch(userId);
         this.fetchLinks(user, "roles");
         Set<String> permsSet = new HashSet<>();
         for (Role role : user.getRoles()) {

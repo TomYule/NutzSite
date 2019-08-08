@@ -39,7 +39,7 @@ public class SimpleAuthorizingRealm extends AuthorizingRealm {
 			return null;
 		}
 		// 角色列表
-		Set<String> roles =userService.getRoleCodeList(user);
+		Set<String> roles =userService.getRoleCodeList(user.getId());
 		// 功能列表
 		Set<String> menus = userService.getPermsByUserId(user.getId());
 

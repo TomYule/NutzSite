@@ -4,6 +4,7 @@ import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.services.MenuService;
+import io.nutz.nutzsite.module.sys.services.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Hamming_Yu on 2019/1/1.
@@ -30,6 +32,8 @@ public class MenuController {
 
     @Inject
     private MenuService menuService;
+    @Inject
+    private UserService userService;
 
     @At("")
     @Ok("th:/sys/menu/menu.html")
@@ -81,6 +85,12 @@ public class MenuController {
     public Object addDo(@Param("..") Menu menu, @Param("parentId") String parentId, HttpServletRequest req) {
         try {
             menuService.save(menu, parentId);
+            //更新缓存
+            List<Menu> menuList = menuService.getMenuList(ShiroUtils.getSysUserId());
+            // 角色列表
+            Set<String> roles =userService.getRoleCodeList(ShiroUtils.getSysUserId());
+            // 功能列表
+            Set<String> menus = userService.getPermsByUserId(ShiroUtils.getSysUserId());
             return Result.success("system.success");
         } catch (Exception e) {
             return Result.error("system.error");
@@ -116,6 +126,12 @@ public class MenuController {
                 menu.setUpdateBy(ShiroUtils.getSysUserId());
                 menu.setUpdateTime(new Date());
                 menuService.update(menu);
+                //更新缓存
+                List<Menu> menuList = menuService.getMenuList(ShiroUtils.getSysUserId());
+                // 角色列表
+                Set<String> roles =userService.getRoleCodeList(ShiroUtils.getSysUserId());
+                // 功能列表
+                Set<String> menus = userService.getPermsByUserId(ShiroUtils.getSysUserId());
             }
             return Result.success("system.success");
         } catch (Exception e) {

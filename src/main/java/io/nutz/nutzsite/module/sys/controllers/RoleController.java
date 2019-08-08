@@ -3,8 +3,11 @@ package io.nutz.nutzsite.module.sys.controllers;
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.utils.GenUtils;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
+import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.models.Role;
+import io.nutz.nutzsite.module.sys.services.MenuService;
 import io.nutz.nutzsite.module.sys.services.RoleService;
+import io.nutz.nutzsite.module.sys.services.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -21,6 +24,8 @@ import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 角色管理
@@ -33,7 +38,10 @@ public class RoleController {
 
     @Inject
     private RoleService roleService;
-
+    @Inject
+    private UserService userService;
+    @Inject
+    private MenuService menuService;
     @At("")
     @Ok("th:/sys/role/role.html")
     @RequiresPermissions("sys:role:view")
@@ -81,6 +89,12 @@ public class RoleController {
     public Object addDo(@Param("..") Role data,HttpServletRequest req) {
         try {
             roleService.insert(data);
+            //更新缓存
+            List<Menu> menuList = menuService.getMenuList(ShiroUtils.getSysUserId());
+            // 角色列表
+            Set<String> roles =userService.getRoleCodeList(ShiroUtils.getSysUserId());
+            // 功能列表
+            Set<String> menus = userService.getPermsByUserId(ShiroUtils.getSysUserId());
             return Result.success("system.success");
         } catch (Exception e) {
             return Result.error("system.error");
@@ -98,6 +112,12 @@ public class RoleController {
                 data.setUpdateBy(ShiroUtils.getSysUserId());
                 data.setUpdateTime(new Date());
                 roleService.update(data);
+                //更新缓存
+                List<Menu> menuList = menuService.getMenuList(ShiroUtils.getSysUserId());
+                // 角色列表
+                Set<String> roles =userService.getRoleCodeList(ShiroUtils.getSysUserId());
+                // 功能列表
+                Set<String> menus = userService.getPermsByUserId(ShiroUtils.getSysUserId());
             }
             return Result.success("system.success");
         } catch (Exception e) {
