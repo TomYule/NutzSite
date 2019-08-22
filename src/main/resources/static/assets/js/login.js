@@ -26,7 +26,8 @@ function login() {
             "username": username,
             "password": password,
             "validateCode" : validateCode,
-            "rememberMe": rememberMe
+            "rememberMe": rememberMe,
+            "update": true
         },
         success: function(r) {
             if (r.code == 0) {

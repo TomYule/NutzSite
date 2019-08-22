@@ -20,6 +20,7 @@ import org.nutz.ioc.Ioc;
 import org.nutz.ioc.impl.PropertiesProxy;
 import org.nutz.ioc.loader.annotation.*;
 import org.nutz.lang.Lang;
+import org.nutz.lang.Strings;
 import org.nutz.lang.util.NutMap;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -66,6 +67,10 @@ public class MainLauncher {
         Dept dept = deptService.fetch(user.getDeptId());
         user.setDept(dept);
         req.setAttribute("user", user);
+        if(Strings.isNotBlank(user.getAvatar())){
+            Image image = imageService.fetch(user.getAvatar());
+            req.setAttribute("image",image);
+        }
         List<Menu> menuList = menuService.getMenuList(user.getId());
         req.setAttribute("menus", TreeUtils.getChildPerms(menuList, "0"));
         return "th:/index.html";
@@ -78,7 +83,6 @@ public class MainLauncher {
      */
     @At({"/sys/main"})
     @Ok("th:/main.html")
-    @Cache
     public NutMap main() {
         return NutMap.NEW().setv("version", "1.0");
     }

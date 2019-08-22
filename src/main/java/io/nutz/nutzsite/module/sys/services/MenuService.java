@@ -97,7 +97,6 @@ public class MenuService extends Service<Menu> {
      * @param roleId 角色对象
      * @return 菜单列表
      */
-    @Cache
     public List<Map<String, Object>> roleMenuTreeData(String roleId) {
         List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
         List<String> roleMenuList = new ArrayList<>();
@@ -125,7 +124,6 @@ public class MenuService extends Service<Menu> {
      * @param userId 用户id
      * @return 菜单
      */
-    @Cache
     public List<Menu> getMenuList(String userId) {
         String sqlstr = "select distinct m.id, m.parent_id, m.menu_name, m.url, m.perms , m.menu_type, m.icon, m.order_num, m.create_time " +
                 "from sys_menu m " +
@@ -149,7 +147,6 @@ public class MenuService extends Service<Menu> {
      * @param userId
      * @return
      */
-    @Cache
     public List<String> getPermsByUserId(String userId) {
         String sqlstr = " select distinct m.perms from sys_menu m " +
                 " left join sys_role_menu rm on m.id = rm.menu_id " +

@@ -1,11 +1,17 @@
 package io.nutz.nutzsite.module.open.api;
 
+import com.alibaba.fastjson.JSON;
+import io.nutz.nutzsite.common.base.Result;
+import io.nutz.nutzsite.common.utils.http.HttpUtils;
+import io.nutz.nutzsite.common.weixin.config.MpConfig;
 import io.nutz.nutzsite.common.wxpay.util.WXPayUtil;
 import io.nutz.nutzsite.common.wxpay.util.WebChatUtil;
 import io.swagger.annotations.Api;
 import org.dom4j.DocumentException;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Strings;
 import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 import org.slf4j.Logger;
@@ -117,5 +123,22 @@ public class OpenWeixinController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 查询微信openID
+     * @param code
+     * @return
+     */
+    @At
+    @Ok("json:full")
+    public Object getOpenId(@Param("code") String code) {
+        if (Strings.isNotBlank(code)) {
+            String openId = HttpUtils.sendGet(MpConfig.api_url,
+                    "appid=" + MpConfig.appID + "&secret=" + MpConfig.appSecret + "&js_code=" + code + "&grant_type=authorization_code");
+            Map maps = (Map) JSON.parse(openId);
+            return Result.success("请求成功", maps.get("openid"));
+        }
+        return Result.error("参数错误");
     }
 }

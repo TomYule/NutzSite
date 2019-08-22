@@ -4,7 +4,6 @@ package io.nutz.nutzsite.common.manager.factory;
 import io.nutz.nutzsite.common.bean.OnlineSession;
 import io.nutz.nutzsite.common.utils.AddressUtils;
 import io.nutz.nutzsite.common.utils.LogUtils;
-import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.monitor.models.Logininfor;
 import io.nutz.nutzsite.module.monitor.models.UserOnline;
 import io.nutz.nutzsite.module.monitor.services.LogininforService;
@@ -18,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.bitwalker.useragentutils.UserAgent;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.TimerTask;
 
@@ -76,13 +76,16 @@ public class AsyncFactory {
      * @param args     列表
      * @return 任务task
      */
-    public TimerTask recordLogininfor( String username,  boolean status,  String message,  Object... args) {
-         UserAgent userAgent = UserAgent.parseUserAgentString(Mvcs.getReq().getHeader("User-Agent"));
-         String ip = ShiroUtils.getIp();
+    public TimerTask recordLogininfor(String username, boolean status, HttpServletRequest req, String message, Object... args) {
+        UserAgent userAgent = UserAgent.parseUserAgentString(Mvcs.getReq().getHeader("User-Agent"));
+        String ip = Lang.getIP(req);
+        sys_user_logger.info("登录IP:" + ip);
         return new TimerTask() {
             @Override
             public void run() {
                 StringBuilder s = new StringBuilder();
+                s.append(LogUtils.getBlock(ip));
+                s.append(AddressUtils.getRealAddressByIP(ip));
                 s.append(LogUtils.getBlock(username));
                 s.append(LogUtils.getBlock(status));
                 s.append(LogUtils.getBlock(message));
@@ -95,8 +98,8 @@ public class AsyncFactory {
                 // 封装对象
                 Logininfor logininfor = new Logininfor();
                 logininfor.setLoginName(username);
-                logininfor.setIpaddr(Lang.getIP(Mvcs.getReq()));
-                logininfor.setLoginLocation(AddressUtils.getRealAddressByIP(Lang.getIP(Mvcs.getReq())));
+                logininfor.setIpaddr(ip);
+                logininfor.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
                 logininfor.setBrowser(browser);
                 logininfor.setOs(os);
                 logininfor.setMsg(message);

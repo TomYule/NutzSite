@@ -64,6 +64,7 @@ mvn compile nutzboot:run
 
 ```
 mvn clean package nutzboot:shade
+mvn clean package nutzboot:shade nutzboot:war
 ```
 
 请注意,当前需要package + nutzboot:shade, 单独执行package或者nutzboot:shade是不行的

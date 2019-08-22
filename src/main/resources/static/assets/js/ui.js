@@ -620,6 +620,23 @@
         	    };
         	    $.ajax(config)
             },
+			//json传参
+			// 服务端接收需要加注解 @AdaptBy(type = JsonAdaptor.class)
+			saveJson: function(url, data) {
+				$.modal.loading("正在处理中，请稍后...");
+				var config = {
+					url: url,
+					type: "post",
+					'content-type': 'application/json',
+					dataType: "json",
+					data: JSON.stringify(data),
+					success: function(result) {
+						$.operate.successCallback(result);
+					}
+				};
+				$.ajax(config)
+			},
+
             // 保存结果弹出msg刷新table表格
             ajaxSuccess: function (result) {
             	if (result.code == web_status.SUCCESS) {

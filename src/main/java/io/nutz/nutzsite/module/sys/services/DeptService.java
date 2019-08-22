@@ -110,9 +110,4 @@ public class DeptService extends Service<Dept> {
         return false;
     }
 
-    @Cache
-    @Override
-    public Dept fetch(String name) {
-        return super.fetch(name);
-    }
 }

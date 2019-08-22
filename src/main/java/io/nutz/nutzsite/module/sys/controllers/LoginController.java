@@ -1,8 +1,10 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.base.Globals;
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.manager.AsyncManager;
 import io.nutz.nutzsite.common.manager.factory.AsyncFactory;
+import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -11,6 +13,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ThreadContext;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.mvc.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,11 +32,17 @@ public class LoginController {
     private AsyncFactory asyncFactory;
 
 
-    @GET
-    @At("")
-    @Ok("th:/login.html")
-    public void loginPage() {
 
+    @GET
+    @At({"","/loginPage"})
+    @Ok("re")
+    public String loginPage(  HttpServletRequest req) {
+        req.setAttribute("base", Globals.AppBase);
+        User user = ShiroUtils.getSysUser();
+        if (Lang.isNotEmpty(user)) {
+            return ">>:/index";
+        }
+        return "th:/login.html";
     }
 
 
@@ -53,34 +62,32 @@ public class LoginController {
             ThreadContext.bind(subject);
             subject.login(new UsernamePasswordToken(username,password,rememberMe));
             User user = (User) subject.getPrincipal();
-            AsyncManager.me().execute(asyncFactory.recordLogininfor(user.getLoginName(), true,"登录成功"));
+            AsyncManager.me().execute(asyncFactory.recordLogininfor(user.getLoginName(), true,req,"登录成功"));
             userService.recordLoginInfo(user);
             return Result.success("login.success");
         } catch (LockedAccountException e) {
-            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,"账号锁定"));
+            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"账号锁定"));
             return Result.error(3, "login.error.locked");
         } catch (UnknownAccountException e) {
-//            e.printStackTrace();
-            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,"用户不存在"));
+            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"用户不存在"));
             return Result.error(4, "login.error.user");
         } catch (AuthenticationException e) {
-//            e.printStackTrace();
-            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,"密码错误"));
+            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"密码错误"));
             return Result.error(5, "login.error.user");
         } catch (Exception e) {
-//            e.printStackTrace();
-            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,"登录系统异常"));
+            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"登录系统异常"));
             return Result.error(6, "login.error.system");
         }
     }
 
     @At
-    @Ok(">>:/login")
-    public void logout() {
+    @Ok("re")
+    public String logout() {
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {
             subject.logout();
         }
+        return ">>:/login";
     }
 
     @At
