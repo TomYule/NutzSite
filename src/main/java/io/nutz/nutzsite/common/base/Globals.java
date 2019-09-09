@@ -35,7 +35,7 @@ public class Globals {
             Globals.MyConfig.clear();
         }
         //部署名
-        Globals.AppBase = Strings.sNull(Mvcs.getServletContext().getContextPath());
+//        Globals.AppBase = Strings.sNull(Mvcs.getServletContext().getContextPath());
         List<Config> configList = configService.query();
         for (Config sysConfig : configList) {
             switch (sysConfig.getConfigKey()) {

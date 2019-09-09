@@ -122,6 +122,7 @@ public class UserService extends Service<User> {
      * @param userId
      * @return
      */
+    @Cache
     public Set<String> getRoleCodeList(String userId) {
         User user =this.fetch(userId);
         this.fetchLinks(user, "roles");
@@ -140,6 +141,7 @@ public class UserService extends Service<User> {
      * @param userId
      * @return
      */
+    @Cache
     public Set<String> getPermsByUserId(String userId) {
         Set<String> permsSet = new HashSet<>();
         List<String> menuList = menuService.getPermsByUserId(userId);

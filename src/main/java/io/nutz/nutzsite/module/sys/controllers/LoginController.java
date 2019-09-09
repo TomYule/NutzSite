@@ -5,8 +5,10 @@ import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.manager.AsyncManager;
 import io.nutz.nutzsite.common.manager.factory.AsyncFactory;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
+import io.nutz.nutzsite.common.utils.Toolkit;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.UserService;
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -14,6 +16,8 @@ import org.apache.shiro.util.ThreadContext;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Lang;
+import org.nutz.lang.Strings;
+import org.nutz.mvc.Mvcs;
 import org.nutz.mvc.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,18 +30,20 @@ import javax.servlet.http.HttpSession;
 @IocBean
 public class LoginController {
 
+    @Inject("java:$conf.get('login.captcha')")
+    private boolean captcha = true;
+
     @Inject
     private UserService userService;
     @Inject
     private AsyncFactory asyncFactory;
-
-
 
     @GET
     @At({"","/loginPage"})
     @Ok("re")
     public String loginPage(  HttpServletRequest req) {
         req.setAttribute("base", Globals.AppBase);
+        req.setAttribute("captchaEnabled", captcha);
         User user = ShiroUtils.getSysUser();
         if (Lang.isNotEmpty(user)) {
             return ">>:/index";
@@ -53,11 +59,21 @@ public class LoginController {
     public Result login(@Param("username")String username,
                         @Param("password")String password,
                         @Param("rememberMe")boolean rememberMe,
-                        HttpServletRequest req, HttpSession session) {
-        int errCount = 0;
+                        @Param("validateCode")String validateCode,
+                        HttpServletRequest req,
+                        HttpSession session) {
+        if(captcha){
+            // session是否有效
+            if (session == null) {
+                return Result.error("当前回话已过期,请刷新后重试");
+            }
+            // 比对验证码
+            String _captcha = (String) session.getAttribute(Toolkit.captcha_attr);
+            if (Strings.isBlank(_captcha) || !Toolkit.checkCaptcha(_captcha,validateCode)) {
+                return Result.error("验证码错误");
+            }
+        }
         try {
-            //输错三次显示验证码窗口
-//            errCount = NumberUtils.toInt(Strings.sNull(SecurityUtils.getSubject().getSession(true).getAttribute("errCount")));
             Subject subject = SecurityUtils.getSubject();
             ThreadContext.bind(subject);
             subject.login(new UsernamePasswordToken(username,password,rememberMe));

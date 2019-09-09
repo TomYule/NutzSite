@@ -3,12 +3,9 @@ package io.nutz.nutzsite.common.xss;
 import io.nutz.nutzsite.common.utils.JsoupUtil;
 import io.nutz.nutzsite.common.utils.StringUtils;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import java.util.Arrays;
 
 /**
  * 这里采用Jsoup 来防止xss注入 防止SQL 注入
@@ -38,10 +35,10 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         name = JsoupUtil.clean(name);
         String value = super.getParameter(name);
         if (StringUtils.isNotBlank(value)) {
-            // SQL injection characters
-            value = StringEscapeUtils.escapeSql(value);
             // HTML transformation characters
             value = JsoupUtil.clean(value);
+            // SQL injection characters
+            value = StringEscapeUtils.escapeSql(value);
         }
         return value;
     }
@@ -52,10 +49,10 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         if(arr != null){
             long length = arr.length;
             for (int i=0;i<length;i++) {
-                // SQL injection characters
-                arr[i] = StringEscapeUtils.escapeSql(arr[i]);
                 // HTML transformation characters
                 arr[i] = JsoupUtil.clean(arr[i]);
+                // SQL injection characters
+                arr[i] = StringEscapeUtils.escapeSql(arr[i]);
             }
         }
         return arr;

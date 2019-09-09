@@ -89,9 +89,17 @@
 		            field: 'msg',
 		            title: '操作类型',
 		            align: 'center',
-		            // formatter: function(value, row, index) {
-		            // 	return $.table.selectDictLabel(datas, value);
-		            // }
+					formatter: function (value, row, index) {
+						//此处对value值做判断，不然value为空就会报错
+						value = value ? value : '';
+						var length = value.length;
+						// console.log(length);
+						if (length && length > 50) {
+							length = 50;
+							return "<span title ='" + value + "'>" + value.substring(0, length) + "...</span>"
+						}
+						return "<span title ='" + value + "'>" + value.substring(0, length) + "</span>"
+					}
 		        },
 		        {
 		            field: 'username',

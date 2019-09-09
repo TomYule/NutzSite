@@ -19,6 +19,7 @@ import org.nutz.integration.quartz.QuartzManager;
 import org.nutz.ioc.Ioc;
 import org.nutz.ioc.impl.PropertiesProxy;
 import org.nutz.ioc.loader.annotation.*;
+import org.nutz.lang.Encoding;
 import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.lang.util.NutMap;
@@ -28,6 +29,7 @@ import org.nutz.mvc.NutConfig;
 import org.nutz.mvc.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.Charset;
 import java.util.List;
 
 /**
@@ -62,7 +64,7 @@ public class MainLauncher {
     public String index(HttpServletRequest req) {
         User user = ShiroUtils.getSysUser();
         if (Lang.isEmpty(user)) {
-            return "th:/login.html";
+            return ">>:/login";
         }
         Dept dept = deptService.fetch(user.getDeptId());
         user.setDept(dept);
@@ -91,6 +93,10 @@ public class MainLauncher {
      * NB自身初始化完成后会调用这个方法
      */
     public void init() {
+        // 环境检查
+        if (!Charset.defaultCharset().name().equalsIgnoreCase(Encoding.UTF8)) {
+            log.warn("This project must run in UTF-8, pls add -Dfile.encoding=UTF-8 to JAVA_OPTS");
+        }
         // 初始化系统变量
         Globals.init(ioc.get(ConfigService.class));
         initSysTask(ioc);

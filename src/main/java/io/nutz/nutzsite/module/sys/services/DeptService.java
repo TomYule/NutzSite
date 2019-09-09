@@ -83,10 +83,14 @@ public class DeptService extends Service<Dept> {
 
     public int update(Dept dept) throws Exception {
         Dept info = this.fetch(dept.getParentId());
-        if(info.isStatus()){
-            throw new Exception("dept.stop");
+        String acestors = "";
+        if(Lang.isNotEmpty(info)){
+            if(info.isStatus()){
+                throw new Exception("dept.stop");
+            }
+            acestors = info.getAncestors();
         }
-        dept.setAncestors(info.getAncestors() + "," + dept.getParentId());
+        dept.setAncestors(Strings.isEmpty(acestors) ? dept.getParentId() : acestors + "," + dept.getParentId());
         dept.setUpdateBy(ShiroUtils.getSysUserId());
         dept.setUpdateTime(new Date());
         return this.dao().update(dept);
