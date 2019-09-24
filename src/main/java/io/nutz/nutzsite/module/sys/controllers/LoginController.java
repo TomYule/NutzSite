@@ -100,7 +100,7 @@ public class LoginController {
     @Ok("re")
     public String logout() {
         Subject subject = SecurityUtils.getSubject();
-        if (subject.isAuthenticated()) {
+        while(Lang.isNotEmpty(subject) &&  subject.isAuthenticated()) {
             subject.logout();
         }
         return ">>:/login";
