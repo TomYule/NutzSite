@@ -44,6 +44,9 @@ public class MainLauncher {
     @Inject("refer:$ioc")
     private Ioc ioc;
 
+    @Inject("java:$conf.get('login.captcha')")
+    private boolean captcha = true;
+
     @Inject
     protected Dao dao;
 
@@ -64,7 +67,9 @@ public class MainLauncher {
     public String index(HttpServletRequest req) {
         User user = ShiroUtils.getSysUser();
         if (Lang.isEmpty(user)) {
-            return ">>:/login";
+            req.setAttribute("base", "/");
+            req.setAttribute("captchaEnabled", captcha);
+            return "th:/login.html";
         }
         Dept dept = deptService.fetch(user.getDeptId());
         user.setDept(dept);
@@ -98,7 +103,8 @@ public class MainLauncher {
             log.warn("This project must run in UTF-8, pls add -Dfile.encoding=UTF-8 to JAVA_OPTS");
         }
         // 初始化系统变量
-        Globals.init(ioc.get(ConfigService.class));
+        Globals.getInstance();
+
         initSysTask(ioc);
         /**
          * 自定义EL表达式

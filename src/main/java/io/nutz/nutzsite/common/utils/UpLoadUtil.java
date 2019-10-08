@@ -89,7 +89,7 @@ public class UpLoadUtil {
             if(Strings.isEmpty(userId)){
                 userId = "temp";
             }
-            f = Globals.AppUploadPath + "/" + userId +"/" + DateUtils.getYear() + DateUtils.getMonth() + "/" + R.UU32()+ extension;
+            f = Globals.getConfig("upload.path") + "/" + userId +"/" + DateUtils.getYear() + DateUtils.getMonth() + "/" + R.UU32()+ extension;
             Files.write(new File(f), tf.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();

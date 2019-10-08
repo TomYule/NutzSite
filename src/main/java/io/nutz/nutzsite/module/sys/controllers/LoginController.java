@@ -42,7 +42,7 @@ public class LoginController {
     @At({"","/loginPage"})
     @Ok("re")
     public String loginPage(  HttpServletRequest req) {
-        req.setAttribute("base", Globals.AppBase);
+        req.setAttribute("base", "/");
         req.setAttribute("captchaEnabled", captcha);
         User user = ShiroUtils.getSysUser();
         if (Lang.isNotEmpty(user)) {
