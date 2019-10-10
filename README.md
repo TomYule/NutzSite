@@ -12,6 +12,7 @@ NutzSite基于Nutz的开源企业级开发框架
 * Druid
 * Shiro
 * Thymeleaf
+* Redis
 * Caffeine 缓存
 * Quartz 定时任务
 * JWT
@@ -23,7 +24,7 @@ NutzSite基于Nutz的开源企业级开发框架
 * 高德地图
 * 七牛云
 * XSS攻击过滤 SQL注入过滤
-* Excel 导出数据
+* Excel 导出数据  案例: 系统管理-参数设置
 * CMS 能用 不完善
 ## 给自己挖坑 后期支持待完善功能
 * 审批流
@@ -44,7 +45,9 @@ MainLauncher是入口,启动即可
 
 ## 配置信息位置
 
-数据库配置信息,jetty端口等配置信息,均位于src/main/resources/application.properties
+数据库配置信息,jetty端口等配置信息,均位于src/main/resources/application.properties  
+代码生成 位于src/main/resources/gen.properties  
+注意: 数据库表名需要有备注
 
 ## 命令下启动
 

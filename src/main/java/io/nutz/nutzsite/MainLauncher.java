@@ -73,13 +73,8 @@ public class MainLauncher {
             req.setAttribute("captchaEnabled", captcha);
             return "th:/login.html";
         }
-        Dept dept = deptService.fetch(user.getDeptId());
-        user.setDept(dept);
+        user =userService.fetchLinks(user,"dept|image");
         req.setAttribute("user", user);
-        if(Strings.isNotBlank(user.getAvatar())){
-            Image image = imageService.fetch(user.getAvatar());
-            req.setAttribute("image",image);
-        }
         List<Menu> menuList = menuService.getMenuList(user.getId());
         req.setAttribute("menus", TreeUtils.getChildPerms(menuList, "0"));
         return "th:/index.html";

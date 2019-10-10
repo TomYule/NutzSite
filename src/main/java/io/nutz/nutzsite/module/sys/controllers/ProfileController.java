@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import io.nutz.nutzsite.common.enums.ImageType;
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
+import io.nutz.nutzsite.common.utils.UpLoadUtil;
+import io.nutz.nutzsite.module.sys.models.Image;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.ImageService;
 import io.nutz.nutzsite.module.sys.services.UserService;
@@ -19,6 +21,8 @@ import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static io.nutz.nutzsite.common.enums.ImageType.*;
+
 /**
  * 个人信息
  * @Author: Haimming
@@ -32,6 +36,7 @@ public class ProfileController {
     private UserService userService;
     @Inject
     private ImageService imageService;
+
     @At("")
     @Ok("th:/sys/user/profile/profile.html")
     public void index(HttpServletRequest req) {
@@ -127,6 +132,24 @@ public class ProfileController {
         userService.updateIgnoreNull(user);
         ShiroUtils.setSysUser(userService.fetch(user.getId()));
         return Result.success("system.success");
+    }
+
+    @At
+    @Ok("json")
+    public String getAvatar(){
+        User user = userService.fetch(ShiroUtils.getUserId());
+        user = userService.fetchLinks(user, "image");
+        if(Lang.isNotEmpty(user.getImage())){
+            switch (ImageType.valueOf(user.getImage().getPhotoType())){
+                case Base64:
+                    return user.getImage().getBase64();
+                case Qiniu:
+                    return user.getImage().getUrl();
+                default:
+                    return user.getImage().getLocalPath();
+            }
+        }
+       return "/assets/img/profile.jpg";
     }
 
 
