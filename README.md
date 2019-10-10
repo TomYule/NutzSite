@@ -1,4 +1,9 @@
-[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)  
+[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![GitHub stars](https://img.shields.io/github/stars/TomYule/NutzSite)](https://github.com/TomYule/NutzSite/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/TomYule/NutzSite)](https://github.com/TomYule/NutzSite/network)
+[![GitHub issues](https://img.shields.io/github/issues/TomYule/NutzSite)](https://github.com/TomYule/NutzSite/issues) 
+[![GitHub license](https://img.shields.io/github/license/TomYule/NutzSite)](https://github.com/TomYule/NutzSite/blob/master/LICENSE)
+[![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2FTony_yule)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2FTomYule%2FNutzSite)  
 NutzSite基于Nutz的开源企业级开发框架  
 
 # 简介
