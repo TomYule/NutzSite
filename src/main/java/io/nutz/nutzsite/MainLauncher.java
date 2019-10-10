@@ -2,6 +2,7 @@ package io.nutz.nutzsite;
 
 import com.alibaba.fastjson.JSON;
 import io.nutz.nutzsite.common.base.Globals;
+import io.nutz.nutzsite.common.mvc.MyActionChainMaker;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.common.utils.TreeUtils;
 import io.nutz.nutzsite.module.sys.models.*;
@@ -38,6 +39,7 @@ import java.util.List;
 @IocBean(create = "init", depose = "depose")
 @IocBy(args="*slog")
 @Localization(value = "locales/", defaultLocalizationKey = "zh-CN")
+@ChainBy(type= MyActionChainMaker.class, args={})
 public class MainLauncher {
     private static final Log log = Logs.get();
 
@@ -66,7 +68,7 @@ public class MainLauncher {
     @Ok("re")
     public String index(HttpServletRequest req) {
         User user = ShiroUtils.getSysUser();
-        if (Lang.isEmpty(user)) {
+        if (!ShiroUtils.isAuthenticated()) {
             req.setAttribute("base", "/");
             req.setAttribute("captchaEnabled", captcha);
             return "th:/login.html";

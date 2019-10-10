@@ -64,7 +64,7 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
     	
     	HttpServletRequest request = Mvcs.getReq();
 		if (request != null){
-			String uri = request.getServletPath();
+			String uri = Mvcs.getReq().getRequestURI();
 			// 如果是静态文件，则不更新SESSION
 			if (isStaticFile(uri)){
 				return;
@@ -89,7 +89,7 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
     protected Serializable doCreate(Session session) {
 		HttpServletRequest request = Mvcs.getReq();
 		if (request != null){
-			String uri = request.getServletPath();
+			String uri = Mvcs.getReq().getRequestURI();
 			// 如果是静态文件，则不创建SESSION
 			if (isStaticFile(uri)){
 		        return null;
@@ -111,7 +111,7 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
     		Session s = null;
     		HttpServletRequest request = Mvcs.getReq();
     		if (request != null){
-    			String uri = request.getServletPath();
+    			String uri = Mvcs.getReq().getRequestURI();
     			// 如果是静态文件，则不获取SESSION
     			if (isStaticFile(uri)){
     				return null;

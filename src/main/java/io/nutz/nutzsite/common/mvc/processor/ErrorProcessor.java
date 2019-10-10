@@ -1,4 +1,4 @@
-package org.nutz.org.nutz.mvc.impl.processor;
+package io.nutz.nutzsite.common.mvc.processor;
 
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.exception.AppException;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date: 2019-08-09 16:27
  * @Version 1.0
  */
-public class FailProcessor extends ViewProcessor {
+public class ErrorProcessor extends ViewProcessor {
 
     private static final Log log = Logs.get();
 

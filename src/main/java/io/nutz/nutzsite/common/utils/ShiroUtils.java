@@ -75,4 +75,17 @@ public class ShiroUtils {
     public static String getSessionId() {
         return String.valueOf(getSubject().getSession().getId());
     }
+
+    /**
+     * 判断是否登录
+     * @return
+     */
+    public static boolean isAuthenticated(){
+        Subject user = getSubject();
+       if( Lang.isNotEmpty(user)){
+           return user.isAuthenticated();
+       }
+        return false;
+
+    }
 }

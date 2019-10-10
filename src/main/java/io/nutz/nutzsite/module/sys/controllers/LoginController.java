@@ -44,8 +44,7 @@ public class LoginController {
     public String loginPage(  HttpServletRequest req) {
         req.setAttribute("base", "/");
         req.setAttribute("captchaEnabled", captcha);
-        User user = ShiroUtils.getSysUser();
-        if (Lang.isNotEmpty(user)) {
+        if (ShiroUtils.isAuthenticated()) {
             return ">>:/index";
         }
         return "th:/login.html";
