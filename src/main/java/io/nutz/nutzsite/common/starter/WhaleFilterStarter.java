@@ -16,9 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 设置编码信息
  * @author Hamming_Yu on 2018/12/18.
  */
-@IocBean
+//@IocBean
 public class WhaleFilterStarter implements WebFilterFace {
 
     @PropDoc(value="在其他Filter之前设置input编码", defaultValue="UTF-8")
