@@ -2,7 +2,7 @@
 #测试配置
 sudo: false
 language: java
-script: mvn -Dmaven.test.skip=true clean package
+script: mvn -Dmaven.test.skip=true clean package nutzboot:shade nutzboot:war
 jdk:
   - oraclejdk8
 # whitelist

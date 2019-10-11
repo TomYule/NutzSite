@@ -26,7 +26,7 @@ import static org.nutz.integration.jedis.RedisInterceptor.jedis;
  * 参考文档
  * https://github.com/nutzam/nutzmore/tree/master/nutz-integration-jedis
  */
-@IocBean(name = "jedisCacheManager")
+//@IocBean(name = "jedisCacheManager")
 public class JedisCacheManager implements CacheManager {
 
 	private String cacheKeyPrefix = "shiro_cache_";

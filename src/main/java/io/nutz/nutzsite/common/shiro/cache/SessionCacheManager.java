@@ -25,7 +25,7 @@ import java.util.Set;
  * @Date: 2019-10-10 11:14
  * @Version 1.0
  */
-@IocBean(name = "sessionCacheManager")
+//@IocBean(name = "sessionCacheManager")
 public class SessionCacheManager implements CacheManager {
 
     @Override
