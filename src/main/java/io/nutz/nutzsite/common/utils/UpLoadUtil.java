@@ -6,21 +6,14 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import io.nutz.nutzsite.common.base.Globals;
 import io.nutz.nutzsite.common.qiniu.QiniuConfig;
-import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.tika.Tika;
-import org.apache.tika.config.TikaConfig;
-import org.apache.tika.mime.MediaType;
 import org.apache.tika.mime.MimeType;
 import org.apache.tika.mime.MimeTypeException;
 import org.apache.tika.mime.MimeTypes;
 import org.nutz.lang.Files;
-import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.lang.random.R;
 import org.nutz.mvc.upload.TempFile;
-import sun.jvm.hotspot.oops.Metadata;
-
-import javax.activation.MimetypesFileTypeMap;
 import java.io.*;
 import java.util.Date;
 

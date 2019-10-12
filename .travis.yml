@@ -4,12 +4,15 @@ sudo: false
 language: java
 script: mvn -Dmaven.test.skip=true clean package nutzboot:shade nutzboot:war
 jdk:
-  - oraclejdk8
+  - openjdk8
 # whitelist
 branches:
   only:
     - master
 notifications:
   email: false
+services:
+    - mysql
 before_install:
   - export TZ=Asia/Shanghai
+  - mysql -u root --password="ikmcy2O1904" < sql/nutzsite.sql
