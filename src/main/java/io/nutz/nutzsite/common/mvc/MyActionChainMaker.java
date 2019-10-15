@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.common.mvc;
 
 import io.nutz.nutzsite.common.mvc.processor.ErrorProcessor;
+import io.nutz.nutzsite.common.mvc.processor.GlobalsSettingProcessor;
 import io.nutz.nutzsite.common.mvc.processor.XssSqlFilterProcessor;
 import org.nutz.mvc.*;
 import org.nutz.mvc.impl.NutActionChain;
@@ -31,6 +32,8 @@ public class MyActionChainMaker implements ActionChainMaker {
         List<Processor> list = new ArrayList<>();
         // 设置base/msg等内置属性
         list.add(new UpdateRequestAttributesProcessor());
+
+        list.add(new GlobalsSettingProcessor());
         // 设置编码信息@Encoding
         list.add(new EncodingProcessor());
         // 获取入口类的对象,从ioc或直接new

@@ -11,8 +11,5 @@ branches:
     - master
 notifications:
   email: false
-services:
-    - mysql
 before_install:
   - export TZ=Asia/Shanghai
-  - mysql -u root --password="ikmcy2O1904"

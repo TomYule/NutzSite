@@ -24,6 +24,10 @@ public class Globals {
      * UTF-8 字符集
      */
     public static final String UTF8 = "UTF-8";
+    /**
+     * 页面请求路径
+     */
+    public static String AppBase = "";
 
     /**
      * 保存全局属性值

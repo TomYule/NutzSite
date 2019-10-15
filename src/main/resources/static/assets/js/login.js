@@ -2,7 +2,7 @@
 $(function() {
     validateRule();
     $('.imgcode').click(function() {
-        var url = ctx + "captcha/next?w=120&h=60&s=" + Math.random();
+        var url = "captcha/next?w=120&h=60&s=" + Math.random();
         $(".imgcode").attr("src", url);
     });
 });
@@ -14,6 +14,7 @@ $.validator.setDefaults({
 });
 
 function login() {
+    console.log(ctx);
 	$.modal.loading($("#btnSubmit").data("loading"));
 	var username = $.common.trim($("input[name='username']").val());
     var password = $.common.trim($("input[name='password']").val());
@@ -21,7 +22,7 @@ function login() {
     var rememberMe = $("input[name='rememberme']").is(':checked');
     $.ajax({
         type: "post",
-        url: ctx + "login/login",
+        url: "login/login",
         data: {
             "username": username,
             "password": password,
@@ -31,7 +32,7 @@ function login() {
         },
         success: function(r) {
             if (r.code == 0) {
-                location.href = ctx + 'index';
+                location.href = 'index';
             } else {
             	$.modal.closeLoading();
             	$('.imgcode').click();

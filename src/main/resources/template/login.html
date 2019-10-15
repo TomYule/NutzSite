@@ -80,9 +80,8 @@
     </div>
 </div>
 <script th:inline="javascript">
-    var ctx = [[${base}]];
-    // console.log(ctx);
-    var captchaType = false;
+    var ctx = [[${AppBase}]];
+    console.log(ctx);
 </script>
 <!-- 全局js -->
 <script src="../static/assets/js/jquery.min.js" th:src="@{/assets/js/jquery.min.js}"></script>

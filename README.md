@@ -6,7 +6,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/TomYule/NutzSite)](https://github.com/TomYule/NutzSite/issues)
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2FTony_yule)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2FTomYule%2FNutzSite)  
-##NutzSite基于Nutz的开源企业级开发框架  
+## NutzSite基于Nutz的开源企业级开发框架  
 
 # 简介
 一直想做一款后台管理系统，看了很多优秀的开源项目但是发现没有合适自己的。于是利用空闲休息时间开始自己写一套后台系统。如此有了NutzSite管理系统。 网站管理后台 系统会陆续更新一些实用功能。
@@ -107,5 +107,5 @@ mvn clean package nutzboot:shade nutzboot:war
 你们用极速的创新，引领着时代的变迁  
 ------至所有正在努力奋斗的程序猿们！加油！！  
   
-#关于  
+# 关于  
 本项目完全开源，商用完全免费。但请勿侵犯作者合法权益，如申请软著等。

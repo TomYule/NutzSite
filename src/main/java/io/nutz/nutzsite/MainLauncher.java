@@ -26,6 +26,7 @@ import org.nutz.lang.Strings;
 import org.nutz.lang.util.NutMap;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
+import org.nutz.mvc.Mvcs;
 import org.nutz.mvc.NutConfig;
 import org.nutz.mvc.annotation.*;
 
@@ -69,7 +70,6 @@ public class MainLauncher {
     public String index(HttpServletRequest req) {
         User user = ShiroUtils.getSysUser();
         if (!ShiroUtils.isAuthenticated()) {
-            req.setAttribute("base", "/");
             req.setAttribute("captchaEnabled", captcha);
             return "th:/login.html";
         }
@@ -101,7 +101,6 @@ public class MainLauncher {
         }
         // 初始化系统变量
         Globals.getInstance();
-
         initSysTask(ioc);
         /**
          * 自定义EL表达式
