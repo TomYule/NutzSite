@@ -8,7 +8,6 @@ import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.common.utils.Toolkit;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.UserService;
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -17,7 +16,6 @@ import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
-import org.nutz.mvc.Mvcs;
 import org.nutz.mvc.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,9 +28,6 @@ import javax.servlet.http.HttpSession;
 @IocBean
 public class LoginController {
 
-    @Inject("java:$conf.get('login.captcha')")
-    private boolean captcha = true;
-
     @Inject
     private UserService userService;
     @Inject
@@ -42,7 +37,6 @@ public class LoginController {
     @At({"","/loginPage"})
     @Ok("re")
     public String loginPage(  HttpServletRequest req) {
-        req.setAttribute("captchaEnabled", captcha);
         if (ShiroUtils.isAuthenticated()) {
             return ">>:/index";
         }
@@ -60,7 +54,7 @@ public class LoginController {
                         @Param("validateCode")String validateCode,
                         HttpServletRequest req,
                         HttpSession session) {
-        if(captcha){
+        if(Boolean.valueOf(Globals.getConfig("login.captcha"))){
             // session是否有效
             if (session == null) {
                 return Result.error("当前回话已过期,请刷新后重试");

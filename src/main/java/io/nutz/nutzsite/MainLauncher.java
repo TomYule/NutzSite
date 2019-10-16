@@ -70,7 +70,6 @@ public class MainLauncher {
     public String index(HttpServletRequest req) {
         User user = ShiroUtils.getSysUser();
         if (!ShiroUtils.isAuthenticated()) {
-            req.setAttribute("captchaEnabled", captcha);
             return "th:/login.html";
         }
         user =userService.fetchLinks(user,"dept|image");

@@ -1,4 +1,5 @@
 package io.nutz.nutzsite.common.mvc.processor;
+import io.nutz.nutzsite.common.base.Globals;
 import org.nutz.lang.Strings;
 import org.nutz.mvc.ActionContext;
 import org.nutz.mvc.ActionInfo;
@@ -24,10 +25,11 @@ public class GlobalsSettingProcessor extends AbstractProcessor {
     @Override
     public void process(ActionContext ac) throws Throwable {
 
+        boolean captcha = Boolean.valueOf(Globals.getConfig("login.captcha"));
         String path = ac.getServletContext().getContextPath();
-        String projectName = path.length() > 0 ? path.substring(1) + "/" : "/";
+        String projectName = path.length() > 0 ? path + "/" : "/";
         ac.getRequest().setAttribute("AppBase", projectName);
-//        System.out.println("AppBase:"+projectName);
+        ac.getRequest().setAttribute("captchaEnabled", captcha);
 
         // 如果url中有语言属性则设置
         String lang = ac.getRequest().getParameter("lang");
