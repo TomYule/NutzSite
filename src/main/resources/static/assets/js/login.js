@@ -19,6 +19,14 @@ function login() {
     var password = $.common.trim($("input[name='password']").val());
     var validateCode = $("input[name='validateCode']").val();
     var rememberMe = $("input[name='rememberme']").is(':checked');
+
+    //加密开始
+    var encrypt = new JSEncrypt();
+    var pubkey = $.common.trim($("input[name='pubkey']").val());
+    encrypt.setPublicKey("-----BEGIN PUBLIC KEY-----" + pubkey + "-----END PUBLIC KEY-----");
+    password = encrypt.encrypt(password);
+    //加密结束
+
     $.ajax({
         type: "post",
         url: "login/login",

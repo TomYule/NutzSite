@@ -30,7 +30,7 @@ public class GlobalsSettingProcessor extends AbstractProcessor {
         String projectName = path.length() > 0 ? path + "/" : "/";
         ac.getRequest().setAttribute("AppBase", projectName);
         ac.getRequest().setAttribute("captchaEnabled", captcha);
-
+        ac.getRequest().setAttribute("pubkey", Globals.getPublicKey());
         // 如果url中有语言属性则设置
         String lang = ac.getRequest().getParameter("lang");
         if (!Strings.isEmpty(lang)) {

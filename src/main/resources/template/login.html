@@ -52,6 +52,7 @@
             <form id="signupForm">
                 <h4 class="no-margins">登录：</h4>
                 <p class="m-t-md">做个开发框架</p>
+                <input type="hidden" name="pubkey" class="form-control uname" placeholder="pubKey" th:value="${pubkey}"/>
                 <input type="text" name="username" class="form-control uname" placeholder="用户名" value="admin"/>
                 <input type="password" name="password" class="form-control pword" placeholder="密码" value="123456"/>
                 <div class="row m-t" th:if="${captchaEnabled==true}">
@@ -81,7 +82,7 @@
 </div>
 <script th:inline="javascript">
     var ctx = [[${AppBase}]];
-    console.log(ctx);
+    // console.log(ctx);
 </script>
 <!-- 全局js -->
 <script src="../static/assets/js/jquery.min.js" th:src="@{/assets/js/jquery.min.js}"></script>
@@ -95,6 +96,8 @@
 <script src="../static/assets/plugins/blockUI/jquery.blockUI.js"
         th:src="@{/assets/plugins/blockUI/jquery.blockUI.js}"></script>
 <script src="../static/assets/js/ui.js" th:src="@{/assets/js/ui.js}"></script>
+
+<script src="../static/assets/plugins/jsencrypt/jsencrypt.min.js" th:src="@{/assets/plugins/jsencrypt/jsencrypt.min.js}"></script>
 <script src="../static/assets/js/login.js" th:src="@{/assets/js/login.js}"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ import io.nutz.nutzsite.common.base.Globals;
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.manager.AsyncManager;
 import io.nutz.nutzsite.common.manager.factory.AsyncFactory;
+import io.nutz.nutzsite.common.utils.RSAUtils;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.common.utils.Toolkit;
 import io.nutz.nutzsite.module.sys.models.User;
@@ -68,6 +69,9 @@ public class LoginController {
         try {
             Subject subject = SecurityUtils.getSubject();
             ThreadContext.bind(subject);
+            //RSA解密
+            password = RSAUtils.decrypt(password, Globals.getPrivateKey());
+
             subject.login(new UsernamePasswordToken(username,password,rememberMe));
             User user = (User) subject.getPrincipal();
             AsyncManager.me().execute(asyncFactory.recordLogininfor(user.getLoginName(), true,req,"登录成功"));

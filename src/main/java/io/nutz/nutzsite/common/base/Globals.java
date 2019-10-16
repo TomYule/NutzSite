@@ -39,6 +39,16 @@ public class Globals {
      */
     private static Properties loader =null;
 
+    /**
+     * 登录页面公钥
+     */
+    private static final String PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnYNNvRKJa5r4W8iTKvHnKEqKNW6h3xU3BaSgyfu7qOMg2DE4v2UJvY4H6M4YDmPU4jr6yyxRl1zssm0LT1ImOJyL+ZK7r5RWNswu/HNH/aiMZVDk3fKjMOLSNh5cXAr0gq2VdGrKeVpZgBbcl/i6hohhX8tl4vunR87WzYmvX4BJ/MUawxLUZL2Ni5R0jvfG4vO5sW4JqwUJNwVHRgC/t5B2hWFU8+VnOLdtlvqXWKZvCg3Ockyv3uqHR/j0f2kpcgOspouy7ptJRwa3Y5CYKz7Ctwh/dDDp/wjy66VDvUhc3aSUaz/oU9unW+EOW8+ZDlHxBRP6nPUgb0VAGZ6c0wIDAQAB";
+
+    /**
+     * 私钥
+     */
+    private static final String PRIVATE_KEY = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCdg029EolrmvhbyJMq8ecoSoo1bqHfFTcFpKDJ+7uo4yDYMTi/ZQm9jgfozhgOY9TiOvrLLFGXXOyybQtPUiY4nIv5kruvlFY2zC78c0f9qIxlUOTd8qMw4tI2HlxcCvSCrZV0asp5WlmAFtyX+LqGiGFfy2Xi+6dHztbNia9fgEn8xRrDEtRkvY2LlHSO98bi87mxbgmrBQk3BUdGAL+3kHaFYVTz5Wc4t22W+pdYpm8KDc5yTK/e6odH+PR/aSlyA6ymi7Lum0lHBrdjkJgrPsK3CH90MOn/CPLrpUO9SFzdpJRrP+hT26db4Q5bz5kOUfEFE/qc9SBvRUAZnpzTAgMBAAECggEAcntpuB9N9ADJvGQW2uLBIN60f0tuqWaQ/DAAkW2+omyahaeY2DtGjhg6FXIdt+/FXbyCZcNLdhkbDEAHNVq+3uyhK/8DHQVSeDeFewUK8QldKZJXFh3xkGl7YcxFUry/pG8nrlqj2PnbDScQpAArCfb71xVNc2F23tEt/GuzJFRCo1JsiijRoMHPuYNkhZ8H0bCc+W54Yrh0gJ9+IrX7N4V7v+YkMjPvOTtB18gIRY/oOuwjYJ7fb3iN7k5bRsLLCzHmwD/8yT6kU6eD9dTDP/+7GOzpTiX4WwRVbiqITRw1DkcXJnZavzQahb4v4RehIm2DNpkS9YpmUTL25V6FcQKBgQDkTftCE2RMcYCai6UDBdcR0ecYjuZLqmN3I60YsQedxBrCRsWV5PAOJI5FEF0oAZtW7hNnkvCt4Y2tiyuAalUMdBhZ7tYQViOinYj+Drw/bhmMy84gTJqjyhwfBiQu/EQd8ZGARGez8GEwpc5D9XSmL/1vmhHx7CTwhS3t9PZR2QKBgQCwnuE8lpuvIGnDkvZ9OvbrNGZlF3C++sYcMUewa+w1H8+nhXBC5uhQDH/oEJUgMsq4bedlcbbjlbCpnDtjujJYbt5SmpvAcEJOiTlSAZTESapJR4XhkfNmSsjZUm2K4sEmi+oeMC1d3YsKN/FMmsIwsK/faSWX8VNub/CMnBoMiwKBgQCAAFjHCyhI07pO68xwjW2vyAfRdQ0Zj0aFHbOHDHpAshpuok9VYy5UP5qkjjAspfn6GzE1+OSIGNXeXxDcxsE4Yj7k7UuHjUQdgEW2a3yP86LPldTTtx9chYyOuFrBHR7zyuTRDYk3EabsJ4omABCOvIlTcQZupP9w+rptl9IiwQKBgA/OWCfc7pfQlcZ723U/lqNb8CHx5BQjSyFww5KlReFHNIUwauiB055+T+ALw9y6zuuMYl3wvEZHuiSjp6j4G9NQMLNBxNiG81gl7axKGe8rDIM8VF3oetjXrnvMZaM9Qb3aXZxQAW9aCTxj30NUwjYrScH7nfKoFShX+jYLLkWbAoGASrDk4GsAIITWi1wOnuykBnyfJVSKVkNhlQmqHH2sAxRoXgdvgXV1M7ICd9LXRvUBOoF6AjlM9DISoxgLCWXeYYK1cD6hpNenlovFoggrNWj0b3QsP1OSF4mYm150P+mC3XeS1DGKfefYh2o6L1BnXJ7i1pGMSdvBrxJvDyUGRYI=";
+
 
     static {
         try {
@@ -86,6 +96,11 @@ public class Globals {
         return value;
     }
 
+    public static String getPublicKey() {
+        return PUBLIC_KEY;
+    }
 
-
+    public static String getPrivateKey() {
+        return PRIVATE_KEY;
+    }
 }
