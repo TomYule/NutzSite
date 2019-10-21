@@ -246,7 +246,7 @@
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutz-plugins-slog</artifactId>
-            <version>1.r.62</version>
+            <version>1.r.68.v20190731</version>
         </dependency>
         <!-- poi office -->
         <dependency>

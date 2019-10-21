@@ -1,7 +1,6 @@
 package io.nutz.nutzsite.common.base;
 
 import io.nutz.nutzsite.common.page.TableDataInfo;
-import io.nutz.nutzsite.common.utils.GenUtils;
 import org.nutz.dao.*;
 import org.nutz.dao.entity.MappingField;
 import org.nutz.dao.pager.Pager;

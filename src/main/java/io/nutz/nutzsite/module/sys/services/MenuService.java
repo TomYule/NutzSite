@@ -28,8 +28,6 @@ public class MenuService extends Service<Menu> {
 
     @Inject
     RoleService roleService;
-    @Inject
-    private MenuService menuService;
 
     /**
      * 新增菜单
@@ -181,7 +179,7 @@ public class MenuService extends Service<Menu> {
     @Override
     public int delete(String name) {
         Menu menu =this.fetch(name);
-        List<Menu> list = this.query(Cnd.NEW().and("parent_id","=",menu.getId()));
+        List<Menu> list = this.query(Cnd.where("parent_id","=",menu.getId()));
         if(Lang.isNotEmpty(list) && list.size()>0){
             List<String> ids =new ArrayList<>();
             list.forEach(m->{
