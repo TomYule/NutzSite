@@ -65,6 +65,17 @@ public class MainLauncher {
     @Inject
     DeptService deptService;
 
+    /**
+     * 启动方法
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+        new NbApp().setArgs(args).setPrintProcDoc(true).run();
+        NutConf.USE_FASTCLASS = true;
+    }
+
+
     @At({"/", "/index"})
     @Ok("re")
     public String index(HttpServletRequest req) {
@@ -121,12 +132,13 @@ public class MainLauncher {
         Daos.createTablesInPackage(dao, "io.nutz.nutzsite", false);
     }
 
+    /**
+     * 清空定时任务 否则会存在僵尸java进程
+     */
     public void depose() {
-    }
-
-    public static void main(String[] args) throws Exception {
-        new NbApp().setArgs(args).setPrintProcDoc(true).run();
-        NutConf.USE_FASTCLASS = true;
+        log.info("depose Sys Task");
+        QuartzManager quartzManager = ioc.get(QuartzManager.class);
+        quartzManager.clear();
     }
 
     /**
