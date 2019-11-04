@@ -8,7 +8,6 @@ import io.nutz.nutzsite.common.utils.TreeUtils;
 import io.nutz.nutzsite.module.sys.models.*;
 import io.nutz.nutzsite.module.sys.services.*;
 import org.nutz.boot.NbApp;
-import org.nutz.boot.starter.caffeine.Cache;
 import org.nutz.conf.NutConf;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
@@ -21,13 +20,9 @@ import org.nutz.ioc.Ioc;
 import org.nutz.ioc.impl.PropertiesProxy;
 import org.nutz.ioc.loader.annotation.*;
 import org.nutz.lang.Encoding;
-import org.nutz.lang.Lang;
-import org.nutz.lang.Strings;
 import org.nutz.lang.util.NutMap;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
-import org.nutz.mvc.Mvcs;
-import org.nutz.mvc.NutConfig;
 import org.nutz.mvc.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,9 +41,6 @@ public class MainLauncher {
 
     @Inject("refer:$ioc")
     private Ioc ioc;
-
-    @Inject("java:$conf.get('login.captcha')")
-    private boolean captcha = true;
 
     @Inject
     protected Dao dao;
@@ -98,7 +90,7 @@ public class MainLauncher {
     @At({"/sys/main"})
     @Ok("th:/main.html")
     public NutMap main() {
-        return NutMap.NEW().setv("version", "1.0");
+        return NutMap.NEW().setv("version", Globals.getConfig("version"));
     }
 
     /**

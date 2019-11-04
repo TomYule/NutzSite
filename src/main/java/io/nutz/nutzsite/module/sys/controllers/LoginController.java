@@ -19,6 +19,7 @@ import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.mvc.annotation.*;
 
+import javax.crypto.BadPaddingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -86,7 +87,11 @@ public class LoginController {
         } catch (AuthenticationException e) {
             AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"密码错误"));
             return Result.error(5, "login.error.user");
+        } catch (BadPaddingException e) {
+            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"密码错误"));
+            return Result.error(5, "login.error.user");
         } catch (Exception e) {
+            e.printStackTrace();
             AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"登录系统异常"));
             return Result.error(6, "login.error.system");
         }

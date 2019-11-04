@@ -39,8 +39,8 @@
 * 审批流
 
 项目截图
-![项目截图](1556263635342.jpg)
-![生成代码](1556263681393.jpg)
+![项目截图](src/main/resources/static/1556263635342.jpg)
+![生成代码](src/main/resources/static/1556263681393.jpg)
 ## 为什么选择nutz
 你有没有想过 为什么Java开发就一定要用spring,MyBatis 为什么大多数人缓存就选择Ehcache 不选择Caffeine  
 nutz Java小伙伴们的另一种选择

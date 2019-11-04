@@ -85,26 +85,26 @@ public class XssSqlFilterProcessor extends AbstractProcessor {
         // 获取所有的表单参数
         Iterator<String[]> values = req.getParameterMap().values().iterator();
         boolean isError = false;
-        String regEx_sql = "select|update|and|or|delete|insert|trancate|char|chr|into|substr|ascii|declare|exec|count|master|drop|execute";
+        String regExSql = "select|update|and|or|delete|insert|trancate|char|chr|into|substr|ascii|declare|exec|count|master|drop|execute";
         //SQL过滤
         while (values.hasNext()) {
             String[] valueArray = (String[]) values.next();
             for (int i = 0; i < valueArray.length; i++) {
                 String value = valueArray[i].toLowerCase();
                 //分拆关键字
-                String[] inj_stra = StringUtils.split(regEx_sql, "|");
-                for (int j = 0; j < inj_stra.length; j++) {
+                String[] injStra = StringUtils.split(regExSql, "|");
+                for (int j = 0; j < injStra.length; j++) {
                     // 判断如果路径参数值中含有关键字则返回true,并且结束循环
-                    if ("and".equals(inj_stra[j]) || "or".equals(inj_stra[j]) || "into".equals(inj_stra[j])) {
-                        if (value.contains(" " + inj_stra[j] + " ")) {
+                    if ("and".equals(injStra[j]) || "or".equals(injStra[j]) || "into".equals(injStra[j])) {
+                        if (value.contains(" " + injStra[j] + " ")) {
                             isError = true;
                             log.debugf("[%-4s]URI=%s %s", req.getMethod(), req.getRequestURI(), "SQL关键字过滤:" + value);
                             break;
                         }
                     } else {
-                        if (value.contains(" " + inj_stra[j] + " ")
+                        if (value.contains(" " + injStra[j] + " ")
                                 || value.contains(
-                                inj_stra[j] + " ")) {
+                                injStra[j] + " ")) {
                             isError = true;
                             log.debugf("[%-4s]URI=%s %s", req.getMethod(), req.getRequestURI(), "SQL关键字过滤:" + value);
                             break;

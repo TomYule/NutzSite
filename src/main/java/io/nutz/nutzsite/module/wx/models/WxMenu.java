@@ -200,42 +200,50 @@ public class WxMenu extends BaseModel implements Serializable {
 		return pagepath;
 	}
 
-	public void setCreateBy(String createBy) 
+	@Override
+    public void setCreateBy(String createBy)
 	{
 		this.createBy = createBy;
 	}
 
-	public String getCreateBy() 
+	@Override
+    public String getCreateBy()
 	{
 		return createBy;
 	}
 
-	public void setCreateTime(Date createTime) 
+	@Override
+    public void setCreateTime(Date createTime)
 	{
 		this.createTime = createTime;
 	}
 
-	public Date getCreateTime() 
+	@Override
+    public Date getCreateTime()
 	{
 		return createTime;
 	}
 
-	public void setUpdateBy(String updateBy) 
+	@Override
+    public void setUpdateBy(String updateBy)
 	{
 		this.updateBy = updateBy;
 	}
 
-	public String getUpdateBy() 
+	@Override
+    public String getUpdateBy()
 	{
 		return updateBy;
 	}
 
-	public void setUpdateTime(Date updateTime) 
+	@Override
+    public void setUpdateTime(Date updateTime)
 	{
 		this.updateTime = updateTime;
 	}
 
-	public Date getUpdateTime() 
+	@Override
+    public Date getUpdateTime()
 	{
 		return updateTime;
 	}
@@ -268,6 +276,7 @@ public class WxMenu extends BaseModel implements Serializable {
 		this.parentName = parentName;
 	}
 
+    @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())

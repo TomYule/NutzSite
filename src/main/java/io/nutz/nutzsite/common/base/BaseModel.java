@@ -4,12 +4,7 @@ import io.nutz.nutzsite.module.sys.models.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.nutz.dao.entity.annotation.*;
-import org.nutz.lang.Lang;
-import org.nutz.lang.Strings;
 import org.nutz.lang.random.R;
-import org.nutz.mvc.Mvcs;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.Date;
 
