@@ -4,11 +4,11 @@
 package io.nutz.nutzsite.common.utils.excel.fieldtype;
 
 import com.google.common.collect.Lists;
-import io.nutz.nutzsite.common.utils.StringUtils;
 import io.nutz.nutzsite.common.utils.excel.Reflections;
 import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.services.RoleService;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.nutz.ioc.Ioc;
 import org.nutz.ioc.impl.NutIoc;
 import org.nutz.ioc.loader.combo.ComboIocLoader;

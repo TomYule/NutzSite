@@ -1,8 +1,8 @@
 package io.nutz.nutzsite.module.tool.gen.models;
 
 import io.nutz.nutzsite.common.base.BaseModel;
-import io.nutz.nutzsite.common.utils.StringUtils;
 import org.nutz.dao.entity.annotation.Column;
+import org.nutz.lang.Lang;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -112,7 +112,7 @@ public class TableInfo extends BaseModel implements Serializable {
     public ColumnInfo getColumnsLast()
     {
         ColumnInfo columnInfo = null;
-        if (StringUtils.isNotNull(columns) && columns.size() > 0)
+        if (Lang.isNotEmpty(columns) && columns.size() > 0)
         {
             columnInfo = columns.get(0);
         }

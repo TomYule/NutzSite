@@ -1,8 +1,8 @@
 package io.nutz.nutzsite.common.xss;
 
 import io.nutz.nutzsite.common.utils.JsoupUtil;
-import io.nutz.nutzsite.common.utils.StringUtils;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.nutz.lang.Strings;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -34,7 +34,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         }
         name = JsoupUtil.clean(name);
         String value = super.getParameter(name);
-        if (StringUtils.isNotBlank(value)) {
+        if (Strings.isNotBlank(value)) {
             // HTML transformation characters
             value = JsoupUtil.clean(value);
             // SQL injection characters
@@ -68,7 +68,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     public String getHeader(String name) {
         name = JsoupUtil.clean(name);
         String value = super.getHeader(name);
-        if (StringUtils.isNotBlank(value)) {
+        if (Strings.isNotBlank(value)) {
             value = JsoupUtil.clean(value);
         }
         return value;

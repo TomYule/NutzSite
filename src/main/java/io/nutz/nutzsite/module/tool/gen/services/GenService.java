@@ -6,9 +6,9 @@ import io.nutz.nutzsite.common.config.VelocityInitializer;
 import io.nutz.nutzsite.common.exception.base.BaseException;
 import io.nutz.nutzsite.common.page.TableDataInfo;
 import io.nutz.nutzsite.common.utils.GenUtils;
-import io.nutz.nutzsite.common.utils.StringUtils;
 import io.nutz.nutzsite.module.tool.gen.models.ColumnInfo;
 import io.nutz.nutzsite.module.tool.gen.models.TableInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -136,7 +136,7 @@ public class GenService {
         TableInfo table = this.selectTableByName(tableName);
         // 查询列信息
         List<ColumnInfo> columns = this.selectTableColumnsByName(tableName);
-        if (StringUtils.isNotNull(table) && StringUtils.isNotNull(columns)) {
+        if (Lang.isNotEmpty(table) && Lang.isNotEmpty(columns)) {
             // 生成代码
             coding(table, columns, zip, templates);
             IOUtils.closeQuietly(zip);

@@ -6,11 +6,11 @@ import io.nutz.nutzsite.common.constant.CommonMap;
 import io.nutz.nutzsite.module.tool.gen.models.ColumnInfo;
 import io.nutz.nutzsite.module.tool.gen.models.TableInfo;
 import org.apache.velocity.VelocityContext;
+import org.nutz.lang.Lang;
 import org.nutz.lang.random.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -129,7 +129,7 @@ public class GenUtils {
         if (Boolean.valueOf(GenConfig.getAutoRemovePre())) {
             tableName = tableName.substring(tableName.indexOf("_") + 1);
         }
-        if (StringUtils.isNotEmpty(GenConfig.getTablePrefix())) {
+        if (Lang.isNotEmpty(GenConfig.getTablePrefix())) {
             tableName = tableName.replace(GenConfig.getTablePrefix(), "");
         }
         return StringUtils.convertToCamelCase(tableName);
@@ -151,7 +151,7 @@ public class GenUtils {
         String javaPath = PROJECT_PATH;
         String htmlPath = TEMPLATES_PATH + "/" + moduleName + "/" + classname;
 
-        if (StringUtils.isNotEmpty(classname)) {
+        if (Lang.isNotEmpty(classname)) {
             javaPath = javaPath.replace(".", "/") + "/";
         }
 

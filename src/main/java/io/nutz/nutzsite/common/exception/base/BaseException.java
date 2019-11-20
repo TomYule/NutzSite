@@ -1,7 +1,6 @@
 package io.nutz.nutzsite.common.exception.base;
 
 
-import io.nutz.nutzsite.common.utils.StringUtils;
 
 /**
  * 基础异常
@@ -64,10 +63,6 @@ public class BaseException extends RuntimeException
     public String getMessage()
     {
         String message = null;
-        if (!StringUtils.isEmpty(code))
-        {
-//            message = MessageUtils.message(code, args);
-        }
         if (message == null)
         {
             message = defaultMessage;

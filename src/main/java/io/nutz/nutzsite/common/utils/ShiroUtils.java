@@ -30,7 +30,7 @@ public class ShiroUtils {
     public static User getSysUser() {
         User user = null;
         Object obj = getSubject().getPrincipal();
-        if (StringUtils.isNotNull(obj)) {
+        if (Lang.isNotEmpty(obj)) {
             user = new User();
             BeanUtils.copyBeanProp(user, obj);
         }
@@ -40,7 +40,7 @@ public class ShiroUtils {
     public static String getSysUserId() {
         User user = null;
         Object obj = getSubject().getPrincipal();
-        if (StringUtils.isNotNull(obj)) {
+        if (Lang.isNotEmpty(obj)) {
             user = new User();
             BeanUtils.copyBeanProp(user, obj);
             return user.getId();
