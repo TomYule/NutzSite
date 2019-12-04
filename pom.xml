@@ -114,6 +114,14 @@
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-email</artifactId>
         </dependency>
+
+        <!--    validation 验证   -->
+        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutz-plugins-validation</artifactId>
+            <version>1.r.67</version>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

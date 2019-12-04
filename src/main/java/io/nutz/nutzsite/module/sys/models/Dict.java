@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
+import org.nutz.plugins.validation.annotation.Validations;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -31,13 +32,17 @@ public class Dict extends BaseModel implements Serializable {
      */
     @Column("value")
     @Comment("数据值 ")
+    @Validations(required=true,errorMsg = "数据值不能为空")
     private String value;
+
     /**
      * 标签名
      */
     @Column("label")
     @Comment("标签名 ")
+    @Validations(required=true,errorMsg = "标签名不能为空")
     private String label;
+
     /**
      * 类型
      */

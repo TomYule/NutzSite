@@ -53,7 +53,7 @@ MainLauncher是入口,启动即可
 
 ## 环境要求
 
-* 必须JDK8+
+* 必须JDK8+ 支持OpenJDK 
 * MySQL8.0以上
 * eclipse或idea等IDE开发工具,可选
 

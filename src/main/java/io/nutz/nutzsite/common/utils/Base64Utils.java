@@ -3,7 +3,6 @@ package io.nutz.nutzsite.common.utils;
 import org.apache.tika.Tika;
 import org.nutz.lang.Lang;
 import org.nutz.mvc.upload.TempFile;
-import sun.misc.BASE64Decoder;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.*;
@@ -91,32 +90,32 @@ public class Base64Utils {
      * @param base64, imgFilePath
      * @return boolean
      */
-    public static boolean Base64ToFile(String base64, String imgFilePath) {
-        // 对字节数组字符串进行Base64解码并生成图片
-        if (base64 == null) {
-            // 图像数据为空
-            return false;
-        }
-        BASE64Decoder decoder = new BASE64Decoder();
-        try (OutputStream out = new FileOutputStream(imgFilePath)){
-            // Base64解码
-            byte[] b = decoder.decodeBuffer(base64);
-            long length = b.length;
-            for (int i = 0; i < length; ++i) {
-                // 调整异常数据
-                if (b[i] < 0) {
-                    b[i] += 256;
-                }
-            }
-            out.write(b);
-            out.flush();
-            out.close();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-
-    }
+//    public static boolean Base64ToFile(String base64, String imgFilePath) {
+//        // 对字节数组字符串进行Base64解码并生成图片
+//        if (base64 == null) {
+//            // 图像数据为空
+//            return false;
+//        }
+//        BASE64Decoder decoder = new BASE64Decoder();
+//        try (OutputStream out = new FileOutputStream(imgFilePath)){
+//            // Base64解码
+//            byte[] b = decoder.decodeBuffer(base64);
+//            long length = b.length;
+//            for (int i = 0; i < length; ++i) {
+//                // 调整异常数据
+//                if (b[i] < 0) {
+//                    b[i] += 256;
+//                }
+//            }
+//            out.write(b);
+//            out.flush();
+//            out.close();
+//            return true;
+//        } catch (Exception e) {
+//            return false;
+//        }
+//
+//    }
 
     /**
      * 用来测试工具类是否成功
@@ -130,8 +129,8 @@ public class Base64Utils {
         System.out.println(s);
         String tmp = s.substring(s.indexOf(",") + 1);
         String newpath = "/Users/apple/Pictures/nier-automata/asd.jpg";
-        boolean b = Base64ToFile(tmp, newpath);
-        System.out.println(b);
+//        boolean b = Base64ToFile(tmp, newpath);
+//        System.out.println(b);
     }
 
 }

@@ -31,6 +31,11 @@ public class GlobalsSettingProcessor extends AbstractProcessor {
         ac.getRequest().setAttribute("AppBase", projectName);
         ac.getRequest().setAttribute("captchaEnabled", captcha);
         ac.getRequest().setAttribute("pubkey", Globals.getPublicKey());
+//      //允许跨越
+//        ac.getResponse().addHeader("Access-Control-Allow-Origin", "*");
+//        ac.getResponse().addHeader("Access-Control-Allow-Credentials", "true");
+//        ac.getResponse().addHeader("Access-Control-Allow-Headers",
+//                "Origin, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie");
         // 如果url中有语言属性则设置
         String lang = ac.getRequest().getParameter("lang");
         if (!Strings.isEmpty(lang)) {

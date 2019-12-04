@@ -20,10 +20,12 @@ import org.nutz.ioc.Ioc;
 import org.nutz.ioc.impl.PropertiesProxy;
 import org.nutz.ioc.loader.annotation.*;
 import org.nutz.lang.Encoding;
+import org.nutz.lang.Mirror;
 import org.nutz.lang.util.NutMap;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.*;
+import org.quartz.Scheduler;
 
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.Charset;
@@ -131,6 +133,19 @@ public class MainLauncher {
         log.info("depose Sys Task");
         QuartzManager quartzManager = ioc.get(QuartzManager.class);
         quartzManager.clear();
+        // 解决quartz有时候无法停止的问题
+        try {
+            ioc.get(Scheduler.class).shutdown(true);
+        } catch (Exception e) {
+
+        }
+        // 非mysql数据库,或多webapp共享mysql驱动的话,以下语句删掉
+        try {
+            Mirror.me(Class.forName("com.mysql.jdbc.AbandonedConnectionCleanupThread")).invoke(null, "shutdown");
+        } catch (Throwable e) {
+
+        }
+
     }
 
     /**

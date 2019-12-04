@@ -17,6 +17,7 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.plugins.slog.annotation.Slog;
+import org.nutz.plugins.validation.Errors;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -79,8 +80,11 @@ public class DictController {
 	@POST
 	@Ok("json")
 	@Slog(tag="字典", after="新增保存字典id=${args[0].id}")
-	public Object addDo(@Param("..") Dict dict,HttpServletRequest req) {
+	public Object addDo(@Param("..") Dict dict, Errors es,HttpServletRequest req) {
 		try {
+		    if(es.hasError()){
+                return Result.error(es.getErrorsList().toString());
+            }
 			dictService.insert(dict);
 			return Result.success("system.success");
 		} catch (Exception e) {
@@ -106,8 +110,11 @@ public class DictController {
 	@POST
 	@Ok("json")
 	@Slog(tag="字典", after="修改保存字典")
-	public Object editDo(@Param("..") Dict dict,HttpServletRequest req) {
+	public Object editDo(@Param("..") Dict dict,Errors es,HttpServletRequest req) {
 		try {
+			if(es.hasError()){
+				return Result.error(es.getErrorsList().toString());
+			}
 			if(Lang.isNotEmpty(dict)){
 				dict.setUpdateBy(ShiroUtils.getSysUserId());
 				dict.setUpdateTime(new Date());
