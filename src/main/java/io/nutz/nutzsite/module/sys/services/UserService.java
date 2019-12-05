@@ -45,16 +45,12 @@ public class UserService extends Service<User> {
     @Override
     public User insert(User user) {
         RandomNumberGenerator rng = new SecureRandomNumberGenerator();
+        //密码设置
         String salt = rng.nextBytes().toBase64();
         user.setSalt(salt);
         String hashedPasswordBase64 = new Sha256Hash(user.getPassword(), salt, 1024).toBase64();
         user.setPassword(hashedPasswordBase64);
-        List<String> ids = new ArrayList<>();
-        if (user != null && user.getRoleIds() != null) {
-            if (Strings.isNotBlank(user.getRoleIds())) {
-                ids = Arrays.asList(user.getRoleIds().split(","));
-            }
-        }
+
         dao().insert(user);
         this.updataRelation(user);
         return user;

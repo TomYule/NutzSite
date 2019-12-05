@@ -3,7 +3,7 @@ package io.nutz.nutzsite.module.tool.gen.services;
 import io.nutz.nutzsite.common.base.Globals;
 import io.nutz.nutzsite.common.config.GenConfig;
 import io.nutz.nutzsite.common.config.VelocityInitializer;
-import io.nutz.nutzsite.common.exception.base.BaseException;
+import io.nutz.nutzsite.common.exception.base.ErrorException;
 import io.nutz.nutzsite.common.page.TableDataInfo;
 import io.nutz.nutzsite.common.utils.GenUtils;
 import io.nutz.nutzsite.module.tool.gen.models.ColumnInfo;
@@ -181,7 +181,7 @@ public class GenService {
                 IOUtils.closeQuietly(sw);
                 zip.closeEntry();
             } catch (IOException e) {
-                throw new BaseException("渲染模板失败，表名：" + table.getTableName(), e.getMessage());
+                throw new ErrorException("渲染模板失败，表名：" + table.getTableName());
             }
         }
     }

@@ -27,8 +27,14 @@ import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.*;
 import org.quartz.Scheduler;
 
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
 import javax.servlet.http.HttpServletRequest;
+import java.lang.management.ManagementFactory;
 import java.nio.charset.Charset;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -145,7 +151,31 @@ public class MainLauncher {
         } catch (Throwable e) {
 
         }
-
+        // 解决com.alibaba.druid.proxy.DruidDriver和com.mysql.jdbc.Driver在reload时报warning的问题
+        // 多webapp共享mysql驱动的话,以下语句删掉
+        Enumeration<Driver> en = DriverManager.getDrivers();
+        while (en.hasMoreElements()) {
+            try {
+                Driver driver = en.nextElement();
+                String className = driver.getClass().getName();
+                log.debug("deregisterDriver: " + className);
+                DriverManager.deregisterDriver(driver);
+            }
+            catch (Exception e) {
+            }
+        }
+        try {
+            MBeanServer mbeanServer = ManagementFactory.getPlatformMBeanServer();
+            ObjectName objectName = new ObjectName("com.alibaba.druid:type=MockDriver");
+            if (mbeanServer.isRegistered(objectName)) {
+                mbeanServer.unregisterMBean(objectName);
+            }
+            objectName = new ObjectName("com.alibaba.druid:type=DruidDriver");
+            if (mbeanServer.isRegistered(objectName)) {
+                mbeanServer.unregisterMBean(objectName);
+            }
+        } catch (Exception ex) {
+        }
     }
 
     /**

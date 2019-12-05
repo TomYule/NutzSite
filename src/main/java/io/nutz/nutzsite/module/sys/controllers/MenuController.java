@@ -15,6 +15,7 @@ import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.*;
 import org.nutz.plugins.slog.annotation.Slog;
+import org.nutz.plugins.validation.Errors;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -82,15 +83,12 @@ public class MenuController {
     @Ok("json")
     @RequiresPermissions("sys:menu:add")
     @Slog(tag="菜单", after="新增保存菜单id=${args[0].id}")
-    public Object addDo(@Param("..") Menu menu, @Param("parentId") String parentId, HttpServletRequest req) {
+    public Object addDo(@Param("..") Menu menu, @Param("parentId") String parentId, Errors es, HttpServletRequest req) {
         try {
+            if(es.hasError()){
+                return Result.error(es.getErrorsList().toString());
+            }
             menuService.save(menu, parentId);
-            //更新缓存
-            List<Menu> menuList = menuService.getMenuList(ShiroUtils.getSysUserId());
-            // 角色列表
-            Set<String> roles =userService.getRoleCodeList(ShiroUtils.getSysUserId());
-            // 功能列表
-            Set<String> menus = userService.getPermsByUserId(ShiroUtils.getSysUserId());
             return Result.success("system.success");
         } catch (Exception e) {
             return Result.error("system.error");
@@ -117,8 +115,11 @@ public class MenuController {
     @Ok("json")
     @RequiresPermissions("sys:menu:edit")
     @Slog(tag="菜单", after="修改保存菜单")
-    public Object editDo(@Param("..") Menu menu, @Param("parentId") String parentId, HttpServletRequest req) {
+    public Object editDo(@Param("..") Menu menu, @Param("parentId") String parentId, Errors es, HttpServletRequest req) {
         try {
+            if(es.hasError()){
+                return Result.error(es.getErrorsList().toString());
+            }
             if (menu != null && Strings.isEmpty(menu.getParentId())) {
                 menu.setParentId("0");
             }
@@ -126,12 +127,6 @@ public class MenuController {
                 menu.setUpdateBy(ShiroUtils.getSysUserId());
                 menu.setUpdateTime(new Date());
                 menuService.update(menu);
-                //更新缓存
-                List<Menu> menuList = menuService.getMenuList(ShiroUtils.getSysUserId());
-                // 角色列表
-                Set<String> roles =userService.getRoleCodeList(ShiroUtils.getSysUserId());
-                // 功能列表
-                Set<String> menus = userService.getPermsByUserId(ShiroUtils.getSysUserId());
             }
             return Result.success("system.success");
         } catch (Exception e) {

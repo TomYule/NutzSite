@@ -2,6 +2,7 @@ package io.nutz.nutzsite.module.sys.models;
 
 import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
+import org.nutz.plugins.validation.annotation.Validations;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,10 +10,11 @@ import java.util.List;
 
 /**
  * 角色表
+ *
  * @author haiming
  */
 @Table("sys_role")
-public class Role  extends BaseModel implements Serializable {
+public class Role extends BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column
@@ -22,48 +24,69 @@ public class Role  extends BaseModel implements Serializable {
     @Prev(els = {@EL("uuid()")})
     private String id;
 
-    /** 角色名称 */
+    /**
+     * 角色名称
+     */
     @Column("role_name")
     @Comment("角色名称 ")
+    @Validations(required = true, errorMsg = "角色名称不能为空")
     private String roleName;
 
-    /** 角色权限 */
+    /**
+     * 角色权限
+     */
     @Column("role_key")
-    @Comment("角色权限 ")
+    @Comment("角色权限")
+    @Validations(required = true, errorMsg = "角色权限不能为空")
     private String roleKey;
 
-    /** 角色排序 */
+    /**
+     * 角色排序
+     */
     @Column("role_sort")
-    @Comment("角色排序 ")
+    @Comment("角色排序")
+    @Validations(required = true, errorMsg = "角色排序不能为空")
     private String roleSort;
 
-    /** 数据范围（1：所有数据权限；2：自定义数据权限） */
+    /**
+     * 数据范围（1：所有数据权限；2：自定义数据权限）
+     */
     @Column("data_scope")
     @Comment("数据范围 ")
     private String dataScope;
 
-    /** 角色状态（0正常 1停用） */
+    /**
+     * 角色状态（0正常 1停用）
+     */
     @Column("status")
     @Comment("角色状态（0正常 1停用） ")
     private boolean status;
 
-    /** 删除标志（0代表存在 1代表删除） */
+    /**
+     * 删除标志（0代表存在 1代表删除）
+     */
     @Column("del_flag")
     @Comment("删除标记")
     @ColDefine(type = ColType.BOOLEAN)
     private boolean delFlag;
 
-    /** 用户是否存在此角色标识 默认不存在 */
+    /**
+     * 用户是否存在此角色标识 默认不存在
+     */
     private boolean flag = false;
 
     @Column
     @Comment("备注")
     private String remark;
 
-    /** 菜单组 */
+    /**
+     * 菜单组
+     */
     private String menuIds;
 
-    /** 部门组（数据权限） */
+    /**
+     * 部门组（数据权限）
+     */
     private String[] deptIds;
 
     @ManyMany(from = "role_id", relation = "sys_role_menu", to = "menu_id")

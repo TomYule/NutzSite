@@ -2,6 +2,7 @@ package io.nutz.nutzsite.module.sys.models;
 
 import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
+import org.nutz.plugins.validation.annotation.Validations;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class Menu extends BaseModel implements Serializable {
     @Column("menu_name")
     @Comment("菜单名称")
     @ColDefine(type = ColType.VARCHAR, width = 100)
+    @Validations(required=true,errorMsg = "菜单名称不能为空")
     private String menuName;
 
     @Column("parent_id")
@@ -39,6 +41,7 @@ public class Menu extends BaseModel implements Serializable {
 
     @Column("order_num")
     @Comment("显示顺序")
+    @Validations(required=true,errorMsg = "排序不能为空")
     private String orderNum;
 
     @Column("url")
@@ -47,6 +50,7 @@ public class Menu extends BaseModel implements Serializable {
 
     @Column("menu_type")
     @Comment("类型:0目录,1菜单,2按钮")
+    @Validations(required=true,errorMsg = "菜单类型不能为空")
     private String menuType;
 
     @Column("visible")

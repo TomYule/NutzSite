@@ -1,14 +1,13 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.base.Result;
-import io.nutz.nutzsite.common.utils.ShiroUtils;
+import io.nutz.nutzsite.common.exception.base.ErrorException;
 import io.nutz.nutzsite.module.sys.models.Dept;
 import io.nutz.nutzsite.module.sys.services.DeptService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -17,9 +16,9 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.plugins.slog.annotation.Slog;
+import org.nutz.plugins.validation.Errors;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -74,15 +73,15 @@ public class DeptController {
     @Ok("json")
     @RequiresPermissions("sys:dept:add")
     @Slog(tag = "部门管理", after = " 新增部门id=${args[0].id}")
-    public Object addDo(@Param("..") Dept data, @Param("parentId") String parentId, HttpServletRequest req) {
+    public Object addDo(@Param("..") Dept data, @Param("parentId") String parentId, Errors es, HttpServletRequest req) {
         try {
+            if(es.hasError()){
+                return Result.error(es.getErrorsList().toString());
+            }
             deptService.insertDept(data);
             return Result.success("system.success", data);
         } catch (Exception e) {
-            if (Lang.isNotEmpty(e) && Strings.isNotBlank(e.getMessage())) {
-                return Result.error(e.getMessage());
-            }
-            return Result.error("system.error");
+            return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
         }
     }
 
@@ -105,15 +104,15 @@ public class DeptController {
     @Ok("json")
     @RequiresPermissions("sys:dept:edit")
     @Slog(tag = "部门管理", after = "修改部门")
-    public Object editDo(@Param("..") Dept data, HttpServletRequest req) {
+    public Object editDo(@Param("..") Dept data, Errors es, HttpServletRequest req) {
         try {
+            if(es.hasError()){
+                return Result.error(es.getErrorsList().toString());
+            }
             deptService.update(data);
             return Result.success("system.success");
         } catch (Exception e) {
-            if (Lang.isNotEmpty(e) && Strings.isNotBlank(e.getMessage())) {
-                return Result.error(e.getMessage());
-            }
-            return Result.error("system.error");
+            return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
         }
     }
 

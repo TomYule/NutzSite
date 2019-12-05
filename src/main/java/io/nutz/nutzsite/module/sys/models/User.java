@@ -5,6 +5,7 @@ import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.nutz.dao.entity.annotation.*;
+import org.nutz.plugins.validation.annotation.Validations;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -30,6 +31,7 @@ public class User extends BaseModel implements Serializable {
      */
     @Column("dept_id")
     @Comment("部门ID")
+    @Validations(required=true,errorMsg = "部门不能为空")
     private String deptId;
 
     /**
@@ -42,6 +44,7 @@ public class User extends BaseModel implements Serializable {
      */
     @Column("login_name")
     @Comment("登录名称")
+    @Validations(required=true,errorMsg = "登录名称不能为空")
     private String loginName;
 
     /**
@@ -49,6 +52,7 @@ public class User extends BaseModel implements Serializable {
      */
     @Column("user_name")
     @Comment("用户名称")
+    @Validations(required=true,errorMsg = "用户名称不能为空")
     private String userName;
 
     /**
@@ -56,6 +60,7 @@ public class User extends BaseModel implements Serializable {
      */
     @Column("password")
     @Comment("密码")
+    @Validations(required=true,errorMsg = "密码不能为空")
     private String password;
 
     /**

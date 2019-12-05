@@ -2,6 +2,7 @@ package io.nutz.nutzsite.module.sys.models;
 
 import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
+import org.nutz.plugins.validation.annotation.Validations;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -40,6 +41,7 @@ public class Dept extends BaseModel implements Serializable {
      */
     @Column("dept_name")
     @Comment("部门名称")
+    @Validations(required=true,errorMsg = "部门名称不能为空")
     private String deptName;
 
     /**
@@ -47,6 +49,7 @@ public class Dept extends BaseModel implements Serializable {
      */
     @Column("order_num")
     @Comment("显示顺序")
+    @Validations(required=true,errorMsg = "显示顺序不能为空")
     private int orderNum;
 
     /**

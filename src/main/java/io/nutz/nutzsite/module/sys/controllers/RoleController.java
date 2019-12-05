@@ -21,6 +21,7 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.plugins.slog.annotation.Slog;
+import org.nutz.plugins.validation.Errors;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -86,15 +87,12 @@ public class RoleController {
     @Ok("json")
     @RequiresPermissions("sys:role:add")
     @Slog(tag="角色", after="新增保存角色id=${args[0].id}")
-    public Object addDo(@Param("..") Role data,HttpServletRequest req) {
+    public Object addDo(@Param("..") Role data, Errors es, HttpServletRequest req) {
         try {
+            if(es.hasError()){
+                return Result.error(es.getErrorsList().toString());
+            }
             roleService.insert(data);
-            //更新缓存
-            List<Menu> menuList = menuService.getMenuList(ShiroUtils.getSysUserId());
-            // 角色列表
-            Set<String> roles =userService.getRoleCodeList(ShiroUtils.getSysUserId());
-            // 功能列表
-            Set<String> menus = userService.getPermsByUserId(ShiroUtils.getSysUserId());
             return Result.success("system.success");
         } catch (Exception e) {
             return Result.error("system.error");
@@ -106,18 +104,15 @@ public class RoleController {
     @Ok("json")
     @RequiresPermissions("sys:role:edit")
     @Slog(tag="角色", after="修改保存角色")
-    public Object editDo(@Param("..") Role data,HttpServletRequest req) {
+    public Object editDo(@Param("..") Role data,Errors es, HttpServletRequest req) {
         try {
+            if(es.hasError()){
+                return Result.error(es.getErrorsList().toString());
+            }
             if(Lang.isNotEmpty(data)){
                 data.setUpdateBy(ShiroUtils.getSysUserId());
                 data.setUpdateTime(new Date());
                 roleService.update(data);
-                //更新缓存
-                List<Menu> menuList = menuService.getMenuList(ShiroUtils.getSysUserId());
-                // 角色列表
-                Set<String> roles =userService.getRoleCodeList(ShiroUtils.getSysUserId());
-                // 功能列表
-                Set<String> menus = userService.getPermsByUserId(ShiroUtils.getSysUserId());
             }
             return Result.success("system.success");
         } catch (Exception e) {

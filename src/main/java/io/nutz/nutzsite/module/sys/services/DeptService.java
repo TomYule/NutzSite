@@ -1,9 +1,9 @@
 package io.nutz.nutzsite.module.sys.services;
 
 import io.nutz.nutzsite.common.base.Service;
+import io.nutz.nutzsite.common.exception.base.ErrorException;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Dept;
-import org.nutz.boot.starter.caffeine.Cache;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -75,7 +75,7 @@ public class DeptService extends Service<Dept> {
     public Dept insertDept(Dept dept) throws Exception {
         Dept info = this.fetch(dept.getParentId());
         if(info.isStatus()){
-            throw new Exception("dept.stop");
+            throw new ErrorException("dept.stop");
         }
         dept.setAncestors(info.getAncestors() + "," + dept.getParentId());
         return this.dao().insert(dept);
@@ -86,7 +86,7 @@ public class DeptService extends Service<Dept> {
         String acestors = "";
         if(Lang.isNotEmpty(info)){
             if(info.isStatus()){
-                throw new Exception("dept.stop");
+                throw new ErrorException("dept.stop");
             }
             acestors = info.getAncestors();
         }
