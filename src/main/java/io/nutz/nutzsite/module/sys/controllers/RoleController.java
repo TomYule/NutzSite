@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.base.Result;
+import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.utils.GenUtils;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Menu;
@@ -90,12 +91,12 @@ public class RoleController {
     public Object addDo(@Param("..") Role data, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                return Result.error(es.getErrorsList().toString());
+                throw new ErrorException(es);
             }
             roleService.insert(data);
             return Result.success("system.success");
         } catch (Exception e) {
-            return Result.error("system.error");
+            return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
         }
     }
 
@@ -107,7 +108,7 @@ public class RoleController {
     public Object editDo(@Param("..") Role data,Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                return Result.error(es.getErrorsList().toString());
+                throw new ErrorException(es);
             }
             if(Lang.isNotEmpty(data)){
                 data.setUpdateBy(ShiroUtils.getSysUserId());
@@ -116,7 +117,7 @@ public class RoleController {
             }
             return Result.success("system.success");
         } catch (Exception e) {
-            return Result.error("system.error");
+            return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
         }
     }
 

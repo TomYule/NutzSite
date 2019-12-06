@@ -1,7 +1,6 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
-import io.nutz.nutzsite.common.utils.DateUtils;
-import io.nutz.nutzsite.common.utils.GenUtils;
+import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.services.RoleService;
@@ -107,12 +106,12 @@ public class UserController {
     public Object addDo(@Param("..") User user, Errors es, HttpServletRequest req) {
         try {
             if (es.hasError()) {
-                return Result.error(es.getErrorsList().toString());
+                throw new ErrorException(es);
             }
             userService.insert(user);
             return Result.success("system.success");
         } catch (Exception e) {
-            return Result.error("system.error");
+            return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
         }
     }
 
@@ -146,7 +145,7 @@ public class UserController {
     public Object editDo(@Param("..") User user, Errors es, HttpServletRequest req) {
         try {
 //            if (es.hasError()) {
-//                return Result.error(es.getErrorsList().toString());
+//                throw new ErrorException(es);
 //            }
             if (Lang.isNotEmpty(user)) {
                 user.setUpdateBy(ShiroUtils.getSysUserId());
@@ -155,7 +154,7 @@ public class UserController {
             }
             return Result.success("system.success");
         } catch (Exception e) {
-            return Result.error("system.error");
+            return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
         }
     }
 

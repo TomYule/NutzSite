@@ -2,6 +2,7 @@ package io.nutz.nutzsite;
 
 import com.alibaba.fastjson.JSON;
 import io.nutz.nutzsite.common.base.Globals;
+import io.nutz.nutzsite.common.manager.AsyncManager;
 import io.nutz.nutzsite.common.mvc.MyActionChainMaker;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.common.utils.TreeUtils;
@@ -68,9 +69,8 @@ public class MainLauncher {
     /**
      * 启动方法
      * @param args
-     * @throws Exception
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         new NbApp().setArgs(args).setPrintProcDoc(true).run();
         NutConf.USE_FASTCLASS = true;
     }
@@ -136,6 +136,9 @@ public class MainLauncher {
      * 清空定时任务 否则会存在僵尸java进程
      */
     public void depose() {
+        log.info("depose AsyncManager Task");
+        AsyncManager.me().shutdown();
+
         log.info("depose Sys Task");
         QuartzManager quartzManager = ioc.get(QuartzManager.class);
         quartzManager.clear();
@@ -175,6 +178,7 @@ public class MainLauncher {
                 mbeanServer.unregisterMBean(objectName);
             }
         } catch (Exception ex) {
+
         }
     }
 

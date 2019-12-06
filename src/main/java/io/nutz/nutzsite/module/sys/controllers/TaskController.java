@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.sys.models.Task;
@@ -17,6 +18,7 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.plugins.slog.annotation.Slog;
+import org.nutz.plugins.validation.Errors;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -77,13 +79,16 @@ public class TaskController {
     @POST
     @Ok("json")
     @Slog(tag="定时任务", after="新增保存定时任务id=${args[0].id}")
-    public Object addDo(@Param("..") Task task, HttpServletRequest req) {
+    public Object addDo(@Param("..") Task task, Errors es, HttpServletRequest req) {
         try {
+            if(es.hasError()){
+                throw new ErrorException(es);
+            }
             Task sysTask =taskService.insert(task);
             taskService.addQuartz(sysTask);
             return Result.success("system.success");
         } catch (Exception e) {
-            return Result.error("system.error");
+            return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
         }
     }
 
@@ -105,22 +110,20 @@ public class TaskController {
     @POST
     @Ok("json")
     @Slog(tag="定时任务", after="修改保存定时任务")
-    public Object editDo(@Param("..") Task sysTask, HttpServletRequest req) {
+    public Object editDo(@Param("..") Task sysTask, Errors es, HttpServletRequest req) {
         try {
-            try {
-                taskService.addQuartz(sysTask);
-            } catch (Exception e) {
-                log.error(e.getMessage());
+            if(es.hasError()){
+                throw new ErrorException(es);
             }
+            taskService.addQuartz(sysTask);
             if(Lang.isNotEmpty(sysTask)){
                 sysTask.setUpdateBy(ShiroUtils.getSysUserId());
                 sysTask.setUpdateTime(new Date());
                 taskService.update(sysTask);
             }
-
             return Result.success("system.success");
         } catch (Exception e) {
-            return Result.error("system.error");
+            return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
         }
     }
 

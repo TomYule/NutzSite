@@ -117,40 +117,40 @@
         			minlength: 5,
         			maxlength: 20
         		},
-        		// email:{
-        		// 	required:true,
-                //     email:true,
-                //     remote: {
-                //         url: ctx + "sys/user/checkEmailUnique",
-                //         type: "post",
-                //         dataType: "json",
-                //         data: {
-                //             name: function () {
-                //                 return $.common.trim($("#email").val());
-                //             }
-                //         },
-                //         dataFilter: function (data, type) {
-                //         	return data;
-                //         }
-                //     }
-        		// },
-        		// phonenumber:{
-        		// 	required:true,
-        		// 	isPhone:true,
-                //     remote: {
-                //         url: ctx + "sys/user/checkPhoneUnique",
-                //         type: "post",
-                //         dataType: "json",
-                //         data: {
-                //             name: function () {
-                //                 return $.common.trim($("#phonenumber").val());
-                //             }
-                //         },
-                //         dataFilter: function (data, type) {
-                //         	return data;
-                //         }
-                //     }
-        		// },
+        		email:{
+        			required:true,
+                    email:true,
+                    // remote: {
+                    //     url: ctx + "sys/user/checkEmailUnique",
+                    //     type: "post",
+                    //     dataType: "json",
+                    //     data: {
+                    //         name: function () {
+                    //             return $.common.trim($("#email").val());
+                    //         }
+                    //     },
+                    //     dataFilter: function (data, type) {
+                    //     	return data;
+                    //     }
+                    // }
+        		},
+        		phonenumber:{
+        			required:true,
+        			isPhone:true,
+                    // remote: {
+                    //     url: ctx + "sys/user/checkPhoneUnique",
+                    //     type: "post",
+                    //     dataType: "json",
+                    //     data: {
+                    //         name: function () {
+                    //             return $.common.trim($("#phonenumber").val());
+                    //         }
+                    //     },
+                    //     dataFilter: function (data, type) {
+                    //     	return data;
+                    //     }
+                    // }
+        		},
         	},
         	messages: {
                 "loginName": {

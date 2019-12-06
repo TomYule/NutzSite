@@ -1,7 +1,7 @@
 package io.nutz.nutzsite.module.sys.services;
 
 import io.nutz.nutzsite.common.base.Service;
-import io.nutz.nutzsite.common.exception.base.ErrorException;
+import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Dept;
 import org.nutz.dao.Cnd;
@@ -72,7 +72,7 @@ public class DeptService extends Service<Dept> {
         return trees;
     }
 
-    public Dept insertDept(Dept dept) throws Exception {
+    public Dept insertDept(Dept dept){
         Dept info = this.fetch(dept.getParentId());
         if(info.isStatus()){
             throw new ErrorException("dept.stop");
@@ -81,7 +81,7 @@ public class DeptService extends Service<Dept> {
         return this.dao().insert(dept);
     }
 
-    public int update(Dept dept) throws Exception {
+    public int update(Dept dept){
         Dept info = this.fetch(dept.getParentId());
         String acestors = "";
         if(Lang.isNotEmpty(info)){

@@ -1,11 +1,8 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
-import com.alibaba.fastjson.JSON;
 import io.nutz.nutzsite.common.enums.ImageType;
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
-import io.nutz.nutzsite.common.utils.UpLoadUtil;
-import io.nutz.nutzsite.module.sys.models.Image;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.ImageService;
 import io.nutz.nutzsite.module.sys.services.UserService;
@@ -21,7 +18,6 @@ import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static io.nutz.nutzsite.common.enums.ImageType.*;
 
 /**
  * 个人信息

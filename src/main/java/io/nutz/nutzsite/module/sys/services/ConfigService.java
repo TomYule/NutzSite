@@ -1,7 +1,6 @@
 package io.nutz.nutzsite.module.sys.services;
 
 import io.nutz.nutzsite.common.base.Service;
-import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.IocBean;
 import io.nutz.nutzsite.module.sys.models.Config;

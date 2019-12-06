@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.services.PostService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -17,10 +18,10 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.plugins.slog.annotation.Slog;
+import org.nutz.plugins.validation.Errors;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 岗位 信息操作处理
@@ -77,12 +78,15 @@ public class PostController {
 	@POST
 	@Ok("json")
 	@Slog(tag="岗位", after="新增保存岗位id=${args[0].id}")
-	public Object addDo(@Param("..") Post post,HttpServletRequest req) {
+	public Object addDo(@Param("..") Post post, Errors es, HttpServletRequest req) {
 		try {
+			if(es.hasError()){
+				throw new ErrorException(es);
+			}
 			postService.insert(post);
 			return Result.success("system.success");
 		} catch (Exception e) {
-			return Result.error("system.error");
+			return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
 		}
 	}
 
@@ -104,8 +108,11 @@ public class PostController {
 	@POST
 	@Ok("json")
 	@Slog(tag="岗位", after="修改保存岗位")
-	public Object editDo(@Param("..") Post post,HttpServletRequest req) {
+	public Object editDo(@Param("..") Post post, Errors es, HttpServletRequest req) {
 		try {
+			if(es.hasError()){
+				throw new ErrorException(es);
+			}
 			if(Lang.isNotEmpty(post)){
 				post.setUpdateBy(ShiroUtils.getSysUserId());
 				post.setUpdateTime(new Date());
@@ -113,7 +120,7 @@ public class PostController {
 			}
 			return Result.success("system.success");
 		} catch (Exception e) {
-			return Result.error("system.error");
+			return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
 		}
 	}
 

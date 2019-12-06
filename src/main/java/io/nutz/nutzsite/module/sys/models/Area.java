@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
+import org.nutz.plugins.validation.annotation.Validations;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -48,18 +49,21 @@ public class Area extends BaseModel implements Serializable {
      */
     @Column("adcode")
     @Comment("区域编码 ")
+    @Validations(required=true,errorMsg = "区域编码不能为空")
     private String adcode;
     /**
      * 行政区名称
      */
     @Column("name")
     @Comment("行政区名称 ")
+    @Validations(required=true,errorMsg = "行政区名称不能为空")
     private String name;
     /**
      * 行政区划级别
      */
     @Column("level")
     @Comment("行政区划级别 ")
+    @Validations(required=true,errorMsg = "行政区划级别不能为空")
     private String level;
 
     /**

@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.utils.DateUtils;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.common.utils.excel.ExportExcel;
@@ -19,6 +20,7 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.plugins.slog.annotation.Slog;
+import org.nutz.plugins.validation.Errors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -81,12 +83,15 @@ public class ConfigController {
 	@POST
 	@Ok("json")
 	@Slog(tag="系统参数", after="新增保存系统参数id=${args[0].configKey}")
-	public Object addDo(@Param("..") Config config,HttpServletRequest req) {
+	public Object addDo(@Param("..") Config config, Errors es, HttpServletRequest req) {
 		try {
+			if(es.hasError()){
+				throw new ErrorException(es);
+			}
 			configService.insert(config);
 			return Result.success("system.success");
 		} catch (Exception e) {
-			return Result.error("system.error");
+			return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
 		}
 	}
 
@@ -108,8 +113,11 @@ public class ConfigController {
 	@POST
 	@Ok("json")
 	@Slog(tag="系统参数", after="修改保存系统参数")
-	public Object editDo(@Param("..") Config config,HttpServletRequest req) {
+	public Object editDo(@Param("..") Config config, Errors es, HttpServletRequest req) {
 		try {
+			if(es.hasError()){
+				throw new ErrorException(es);
+			}
 			if(Lang.isNotEmpty(config)){
 				config.setUpdateBy(ShiroUtils.getSysUserId());
 				config.setUpdateTime(new Date());
@@ -117,7 +125,7 @@ public class ConfigController {
 			}
 			return Result.success("system.success");
 		} catch (Exception e) {
-			return Result.error("system.error");
+			return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
 		}
 	}
 

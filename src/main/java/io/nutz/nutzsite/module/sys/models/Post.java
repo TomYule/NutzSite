@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
+import org.nutz.plugins.validation.annotation.Validations;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -29,19 +30,22 @@ public class Post extends BaseModel implements Serializable {
      * 岗位编码
      */
     @Column("post_code")
-    @Comment("岗位编码 ")
+    @Comment("岗位编码")
+    @Validations(required = true, errorMsg = "岗位编码不能为空")
     private String postCode;
     /**
      * 岗位名称
      */
     @Column("post_name")
-    @Comment("岗位名称 ")
+    @Comment("岗位名称")
+    @Validations(required = true, errorMsg = "岗位名称不能为空")
     private String postName;
     /**
      * 显示顺序
      */
     @Column("post_sort")
-    @Comment("显示顺序 ")
+    @Comment("显示顺序")
+    @Validations(required = true, errorMsg = "显示顺序不能为空")
     private Integer postSort;
     /**
      * 状态（0正常 1停用）

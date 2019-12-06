@@ -4,7 +4,6 @@ import io.nutz.nutzsite.common.base.Service;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.models.Role;
 import org.nutz.dao.Cnd;
-import org.nutz.dao.Condition;
 import org.nutz.dao.Dao;
 import org.nutz.dao.sql.Criteria;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -27,7 +26,7 @@ public class RoleService extends Service<Role> {
     }
 
     @Inject
-    MenuService menuService;
+    private MenuService menuService;
 
 
     /**

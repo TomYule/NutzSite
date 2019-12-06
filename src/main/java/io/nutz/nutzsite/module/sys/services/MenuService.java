@@ -4,7 +4,6 @@ import io.nutz.nutzsite.common.base.Service;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.models.Role;
 import org.nutz.aop.interceptor.ioc.TransAop;
-import org.nutz.boot.starter.caffeine.Cache;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;

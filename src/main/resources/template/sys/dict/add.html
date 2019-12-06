@@ -8,19 +8,19 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">数据值：</label>
 				<div class="col-sm-8">
-					<input id="value" name="value" class="form-control" type="text">
+					<input id="value" name="value" class="form-control" type="text" required>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">标签名：</label>
 				<div class="col-sm-8">
-					<input id="label" name="label" class="form-control" type="text">
+					<input id="label" name="label" class="form-control" type="text" required>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">类型：</label>
 				<div class="col-sm-8">
-					<input id="type" name="type" class="form-control" type="text">
+					<input id="type" name="type" class="form-control" type="text" required>
 				</div>
 			</div>
 			<div class="form-group">	
@@ -85,10 +85,30 @@
 		$("#form-dict-add").validate({
 			onkeyup: false,
 			rules:{
-				xxxx:{
+				value:{
 					required:true,
 				},
-			}
+				label:{
+					required:true,
+				},
+				type:{
+					required:true,
+				},
+				sort:{
+					required:true,
+				},
+			},
+			// messages: {
+			// 	"value": {
+			// 		remote: "数据值不能为空"
+			// 	},
+			// 	"email": {
+			// 		remote: "Email已经存在"
+			// 	},
+			// 	"phonenumber":{
+			// 		remote: "手机号码已经存在"
+			// 	}
+			// }
 		});
 		
 		function submitHandler() {

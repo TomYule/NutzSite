@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import org.nutz.dao.entity.annotation.*;
+import org.nutz.plugins.validation.annotation.Validations;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -31,6 +32,7 @@ public class Task extends BaseModel implements Serializable {
      */
     @Column("name")
     @Comment("任务名 ")
+    @Validations(required=true,errorMsg = "任务名不能为空")
     private String name;
 
     /**
@@ -38,27 +40,29 @@ public class Task extends BaseModel implements Serializable {
      */
     @Column("jobClass")
     @Comment("执行类 ")
+    @Validations(required=true,errorMsg = "执行类不能为空")
     private String jobClass;
 
     /**
      * 任务说明
      */
     @Column("note")
-    @Comment("任务说明 ")
+    @Comment("任务说明")
     private String note;
 
     /**
      * 定时规则
      */
     @Column("cron")
-    @Comment("定时规则 ")
+    @Comment("定时规则")
+    @Validations(required=true,errorMsg = "定时规则不能为空")
     private String cron;
 
     /**
      * 执行参数
      */
     @Column("data")
-    @Comment("执行参数 ")
+    @Comment("执行参数")
     private String data;
 
     /**
@@ -72,7 +76,7 @@ public class Task extends BaseModel implements Serializable {
      * 执行结果
      */
     @Column("exeResult")
-    @Comment("执行结果 ")
+    @Comment("执行结果")
     private String exeResult;
 
     /**

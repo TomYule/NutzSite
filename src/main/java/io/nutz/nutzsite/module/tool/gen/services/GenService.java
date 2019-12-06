@@ -3,7 +3,7 @@ package io.nutz.nutzsite.module.tool.gen.services;
 import io.nutz.nutzsite.common.base.Globals;
 import io.nutz.nutzsite.common.config.GenConfig;
 import io.nutz.nutzsite.common.config.VelocityInitializer;
-import io.nutz.nutzsite.common.exception.base.ErrorException;
+import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.page.TableDataInfo;
 import io.nutz.nutzsite.common.utils.GenUtils;
 import io.nutz.nutzsite.module.tool.gen.models.ColumnInfo;

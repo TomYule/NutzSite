@@ -5,6 +5,7 @@ import io.nutz.nutzsite.common.utils.excel.annotation.ExcelField;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.nutz.dao.entity.annotation.*;
+import org.nutz.plugins.validation.annotation.Validations;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -25,6 +26,7 @@ public class Config extends BaseModel implements Serializable {
     @Comment("配置项 ")
     @ColDefine(type = ColType.VARCHAR, width = 200)
     @ExcelField(title="配置项", type=1, align=2, sort=1)
+    @Validations(required=true,errorMsg = "配置项不能为空")
     private String configKey;
 
     /**
@@ -34,6 +36,7 @@ public class Config extends BaseModel implements Serializable {
     @Comment("参数值")
     @ColDefine(type = ColType.VARCHAR, width = 500)
     @ExcelField(title="参数值", align=2, sort=20)
+    @Validations(required=true,errorMsg = "参数值不能为空")
     private String configValue;
 
     /**

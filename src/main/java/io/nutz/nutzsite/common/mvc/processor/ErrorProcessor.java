@@ -1,7 +1,7 @@
 package io.nutz.nutzsite.common.mvc.processor;
 
 import io.nutz.nutzsite.common.base.Result;
-import io.nutz.nutzsite.common.exception.AppException;
+import io.nutz.nutzsite.common.exception.ErrorException;
 import org.nutz.integration.shiro.NutShiro;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -43,7 +43,7 @@ public class ErrorProcessor extends ViewProcessor {
 
         //非AJAX 处理
         if (isAjax(ac.getRequest())) {
-            if (ac.getError() instanceof AppException) {
+            if (ac.getError() instanceof ErrorException) {
                 NutShiro.rendAjaxResp(ac.getRequest(), ac.getResponse(), Result.error(ac.getError().getMessage()));
             }else {
                 NutShiro.rendAjaxResp(ac.getRequest(), ac.getResponse(), Result.error("系统异常"));

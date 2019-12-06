@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
+import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.sys.models.Dict;
@@ -83,12 +84,12 @@ public class DictController {
 	public Object addDo(@Param("..") Dict dict, Errors es,HttpServletRequest req) {
 		try {
 		    if(es.hasError()){
-                return Result.error(es.getErrorsList().toString());
+				throw new ErrorException(es);
             }
 			dictService.insert(dict);
 			return Result.success("system.success");
 		} catch (Exception e) {
-			return Result.error("system.error");
+			return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
 		}
 	}
 
@@ -113,7 +114,7 @@ public class DictController {
 	public Object editDo(@Param("..") Dict dict,Errors es,HttpServletRequest req) {
 		try {
 			if(es.hasError()){
-				return Result.error(es.getErrorsList().toString());
+				throw new ErrorException(es);
 			}
 			if(Lang.isNotEmpty(dict)){
 				dict.setUpdateBy(ShiroUtils.getSysUserId());
@@ -122,7 +123,7 @@ public class DictController {
 			}
 			return Result.success("system.success");
 		} catch (Exception e) {
-			return Result.error("system.error");
+			return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
 		}
 	}
 

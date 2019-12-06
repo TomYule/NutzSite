@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.base.Result;
+import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.services.MenuService;
@@ -21,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Hamming_Yu on 2019/1/1.
@@ -86,12 +86,12 @@ public class MenuController {
     public Object addDo(@Param("..") Menu menu, @Param("parentId") String parentId, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                return Result.error(es.getErrorsList().toString());
+                throw new ErrorException(es);
             }
             menuService.save(menu, parentId);
             return Result.success("system.success");
         } catch (Exception e) {
-            return Result.error("system.error");
+            return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
         }
     }
 
@@ -118,7 +118,7 @@ public class MenuController {
     public Object editDo(@Param("..") Menu menu, @Param("parentId") String parentId, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                return Result.error(es.getErrorsList().toString());
+                throw new ErrorException(es);
             }
             if (menu != null && Strings.isEmpty(menu.getParentId())) {
                 menu.setParentId("0");
@@ -130,7 +130,7 @@ public class MenuController {
             }
             return Result.success("system.success");
         } catch (Exception e) {
-            return Result.error("system.error");
+            return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
         }
     }
 

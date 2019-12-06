@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.nutz.nutzsite.common.bean.Amap;
 import io.nutz.nutzsite.common.bean.Districts;
+import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Area;
 import io.nutz.nutzsite.module.sys.services.AreaService;
@@ -22,6 +23,7 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.plugins.slog.annotation.Slog;
+import org.nutz.plugins.validation.Errors;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -96,12 +98,15 @@ public class AreaController {
     @POST
     @Ok("json")
     @Slog(tag="区域", after="新增保存区域id=${args[0].id}")
-    public Object addDo(@Param("..") Area area, HttpServletRequest req) {
+    public Object addDo(@Param("..") Area area, Errors es, HttpServletRequest req) {
         try {
+            if(es.hasError()){
+                throw new ErrorException(es);
+            }
             areaService.insert(area);
             return Result.success("system.success");
         } catch (Exception e) {
-            return Result.error("system.error");
+            return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
         }
     }
 
@@ -129,17 +134,19 @@ public class AreaController {
     @POST
     @Ok("json")
     @Slog(tag="区域", after="修改保存区域")
-    public Object editDo(@Param("..") Area area, HttpServletRequest req) {
+    public Object editDo(@Param("..") Area area, Errors es, HttpServletRequest req) {
         try {
+            if(es.hasError()){
+                throw new ErrorException(es);
+            }
             if(Lang.isNotEmpty(area)){
                 area.setUpdateBy(ShiroUtils.getSysUserId());
                 area.setUpdateTime(new Date());
                 areaService.update(area);
             }
-
             return Result.success("system.success");
         } catch (Exception e) {
-            return Result.error("system.error");
+            return Result.error(e instanceof ErrorException ? e.getMessage() : "system.error");
         }
     }
 

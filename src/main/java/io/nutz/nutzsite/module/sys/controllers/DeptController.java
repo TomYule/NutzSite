@@ -1,7 +1,7 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.base.Result;
-import io.nutz.nutzsite.common.exception.base.ErrorException;
+import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.module.sys.models.Dept;
 import io.nutz.nutzsite.module.sys.services.DeptService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -76,7 +76,7 @@ public class DeptController {
     public Object addDo(@Param("..") Dept data, @Param("parentId") String parentId, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                return Result.error(es.getErrorsList().toString());
+                throw new ErrorException(es);
             }
             deptService.insertDept(data);
             return Result.success("system.success", data);
@@ -94,7 +94,6 @@ public class DeptController {
             if (parentData != null) {
                 data.setParentName(parentData.getDeptName());
             }
-
             req.setAttribute("dept", data);
         }
     }
@@ -107,7 +106,7 @@ public class DeptController {
     public Object editDo(@Param("..") Dept data, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                return Result.error(es.getErrorsList().toString());
+               throw new ErrorException(es);
             }
             deptService.update(data);
             return Result.success("system.success");
