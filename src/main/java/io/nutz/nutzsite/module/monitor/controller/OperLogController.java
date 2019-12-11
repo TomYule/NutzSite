@@ -1,6 +1,5 @@
 package io.nutz.nutzsite.module.monitor.controller;
 
-import io.nutz.nutzsite.common.utils.GenUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.monitor.services.OperLogService;
 import io.nutz.nutzsite.common.base.Result;;
@@ -8,19 +7,15 @@ import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
-import org.nutz.lang.util.NutMap;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
-import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.plugins.slog.annotation.Slog;
 import org.nutz.plugins.slog.bean.SlogBean;
-import org.nutz.plugins.slog.service.SlogService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * 操作日志记录 信息操作处理

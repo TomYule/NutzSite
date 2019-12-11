@@ -1,14 +1,13 @@
 package io.nutz.nutzsite.module.sys.controllers;
 
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.core.type.TypeReference;
 import io.nutz.nutzsite.common.bean.Amap;
 import io.nutz.nutzsite.common.bean.Districts;
 import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Area;
 import io.nutz.nutzsite.module.sys.services.AreaService;
-import io.nutz.nutzsite.common.base.Result;;
+import io.nutz.nutzsite.common.base.Result;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;

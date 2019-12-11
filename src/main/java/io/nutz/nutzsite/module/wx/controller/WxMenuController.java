@@ -1,6 +1,5 @@
 package io.nutz.nutzsite.module.wx.controller;
 
-import io.nutz.nutzsite.common.base.Globals;
 import io.nutz.nutzsite.common.weixin.util.MenuUtils;
 import io.nutz.nutzsite.module.sys.models.Config;
 import io.nutz.nutzsite.module.sys.services.ConfigService;

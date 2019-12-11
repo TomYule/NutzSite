@@ -52,7 +52,6 @@ public class MyActionChainMaker implements ActionChainMaker {
         list.add(new ValidationProcessor());
         // 执行入口方法
         list.add(new MethodInvokeProcessor());
-
         // 对入口方法进行渲染@Ok
         list.add(new ViewProcessor());
         for (Processor p : list) {

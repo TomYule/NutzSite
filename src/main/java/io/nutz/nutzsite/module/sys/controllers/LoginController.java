@@ -108,7 +108,7 @@ public class LoginController {
     }
 
     @At
-    @Ok("th:/error/unauth.html")
+    @Ok("http:403")
     public void unauth() {
 
     }

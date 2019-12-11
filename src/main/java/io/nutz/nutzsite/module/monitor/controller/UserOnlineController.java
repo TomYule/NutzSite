@@ -1,6 +1,5 @@
 package io.nutz.nutzsite.module.monitor.controller;
 
-import io.nutz.nutzsite.common.utils.GenUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.monitor.models.UserOnline;
 import io.nutz.nutzsite.module.monitor.services.UserOnlineService;
@@ -17,7 +16,6 @@ import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * 在线用户记录 信息操作处理

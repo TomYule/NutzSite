@@ -5,7 +5,6 @@ import io.nutz.nutzsite.common.weixin.util.UserUtils;
 import io.nutz.nutzsite.module.sys.models.Config;
 import io.nutz.nutzsite.module.sys.services.ConfigService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import io.nutz.nutzsite.module.wx.models.WxUser;
 import io.nutz.nutzsite.module.wx.services.WxUserService;
 import io.nutz.nutzsite.common.base.Result;;
 import org.nutz.dao.Cnd;
@@ -17,10 +16,8 @@ import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
-import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.plugins.slog.annotation.Slog;
-import io.nutz.nutzsite.common.utils.ShiroUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
