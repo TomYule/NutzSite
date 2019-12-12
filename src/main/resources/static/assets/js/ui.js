@@ -627,7 +627,7 @@
 				var config = {
 					url: url,
 					type: "post",
-					'content-type': 'application/json',
+					contentType:"application/json; charset=utf-8",
 					dataType: "json",
 					data: JSON.stringify(data),
 					success: function(result) {

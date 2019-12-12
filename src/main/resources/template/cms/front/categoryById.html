@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="common :: header"></head>
+<body class="gray-bg">
+<div th:include="common :: navigation"></div>
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-4">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h3>栏目列表</h3>
+                        <ul class="sortable-list connectList agile-list">
+                            <li th:each="cate : ${list}">
+                                <a th:utext="${cate.name}" th:href="${'/front/categoryById/'+cate.id +'/' +id}"></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="ibox" th:each="article : ${articleList}">
+                    <div class="ibox-content">
+                        <a th:href="@{/front/articleById(id=${article.id})}" class="btn-link">
+                            <h2>
+                                <span th:text="${article.title}"></span>
+                            </h2>
+                        </a>
+                        <div class="small m-b-xs">
+                            <strong>高 晨</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 3 小时前</span>
+                        </div>
+                        <p>
+                            <span th:text="${article.content}"></span>
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>标签：</h5>
+                                <button class="btn btn-primary btn-xs" type="button">Apple Watch</button>
+                                <button class="btn btn-white btn-xs" type="button">速比涛</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small text-right">
+                                    <h5>状态：</h5>
+                                    <div><i class="fa fa-comments-o"> </i> 56 评论</div>
+                                    <i class="fa fa-eye"> </i><span th:text="${article.hits}"></span> 浏览
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--
+            <div class="container">
+                <div class="col-lg-3" style="height: 100%">
+                    <div class="panel panel-default">
+                        <div class="panel-heading categoryh"><font size="5" style="color: #0e9aef"><strong>栏目列表</strong></font>
+                        </div>
+                        <div class="panel-body">
+                            <li th:each="cate : ${list}">
+                                <a th:utext="${cate.name}" th:href="${'/front/categoryById/'+cate.id +'/' +id}"></a>
+                            </li>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading categoryh"><font size="5" style="color: #0e9aef"><strong>推荐阅读</strong></font>
+                        </div>
+                        <div class="panel-body">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-6" style="height:300px;float: left" th:each="cate : ${list}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading categoryh">
+                                    <span th:text="${cate.name}"></span><a onclick='' style='float: right'>更多>></a>
+                                </div>
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <div th:each="article : ${articleList}">
+                                            <li class="list-group-item"
+                                                th:if="(${cate.id} == ${article.categoryId})">
+                                                <a th:href="@{/front/articleById(id=${article.id})}">
+                                                    <span th:text="${article.title}"></span>
+                                                </a>
+                                                <span th:text="${#dates.format(article.createTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        -->
+    </div>
+</div>
+<div th:include="common :: footer"></div>
+
+</body>
+</html>

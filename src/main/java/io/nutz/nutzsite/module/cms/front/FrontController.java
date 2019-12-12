@@ -1,7 +1,5 @@
 package io.nutz.nutzsite.module.cms.front;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
 import io.nutz.nutzsite.module.cms.models.Article;
 import io.nutz.nutzsite.module.cms.models.Category;
 import io.nutz.nutzsite.module.cms.services.ArticleService;
@@ -9,7 +7,6 @@ import io.nutz.nutzsite.module.cms.services.CategoryService;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.lang.Lang;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.At;
@@ -19,7 +16,6 @@ import org.nutz.mvc.annotation.Param;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author zengcd
@@ -37,40 +33,6 @@ public class FrontController {
     @Inject
     private ArticleService articleService;
 
-    Cache<String, Object> manualCache = Caffeine.newBuilder()
-            .expireAfterWrite(10, TimeUnit.MINUTES)
-            .maximumSize(10_000)
-            .build();
-
-    /**
-     * 获取不到则初始化缓存
-     *
-     * @param key
-     * @return
-     */
-    private Object getCache(String key) {
-        // 根据key查询一个缓存，如果没有返回NULL
-        Object graph = manualCache.getIfPresent(key);
-        if (Lang.isEmpty(graph)) {
-            // 根据Key查询一个缓存，如果没有调用createExpensiveGraph方法，并将返回值保存到缓存。
-            // 如果该方法返回Null则manualCache.get返回null，如果该方法抛出异常则manualCache.get抛出异常
-            graph = manualCache.get(key, k -> createExpensiveGraph(k));
-            // 将一个值放入缓存，如果以前有值就覆盖以前的值
-            manualCache.put(key, graph);
-        }
-        return graph;
-    }
-
-    /**
-     * 查询
-     *
-     * @param key
-     * @return
-     */
-    private List<Category> createExpensiveGraph(String key) {
-        return categoryService.query(Cnd.NEW().and("parent_id", "=", key).asc("sort"));
-    }
-
     /**
      * 首页
      * @param req
@@ -78,7 +40,7 @@ public class FrontController {
     @At("")
     @Ok("th:/cms/front/index.html")
     public void index(HttpServletRequest req) {
-        req.setAttribute("nav_categories", getCache("1"));
+        req.setAttribute("nav_categories", categoryService.getCateById("1"));
     }
 
     /**
@@ -89,15 +51,17 @@ public class FrontController {
     @At("/category/?")
     @Ok("th:/cms/front/category.html")
     public void category(String id, HttpServletRequest req) {
-        List<Category> list = (List<Category>) getCache(id);
         List<String> ids = new ArrayList<>();
-        list.forEach(category -> {
-            ids.add(category.getId());
+
+        List<Category> list = categoryService.query(Cnd.where("parent_id", "=", id).asc("sort"));
+        ids.add(id);
+        list.stream().forEach(cate->{
+            ids.add(cate.getId());
         });
-        List<Article> articleList = articleService.query(Cnd.NEW().and("category_id", "in", ids));
+        List<Article> articleList = articleService.query(Cnd.where("category_id", "in", ids));
         req.setAttribute("id", id);
         req.setAttribute("list", list);
-        req.setAttribute("nav_categories", getCache("1"));
+        req.setAttribute("nav_categories",categoryService.getCateById("1"));
         req.setAttribute("articleList", articleList);
     }
 
@@ -108,17 +72,17 @@ public class FrontController {
      * @param req
      */
     @At("/categoryById/?/?")
-    @Ok("th:/cms/front/category.html")
+    @Ok("th:/cms/front/categoryById.html")
     public void categoryById(String id, String pid, HttpServletRequest req) {
-        List<Category> list = categoryService.query(Cnd.NEW().and("id", "=", id).asc("sort"));
+        List<Category> list = categoryService.query(Cnd.where("id", "=", id).asc("sort"));
         List<String> ids = new ArrayList<>();
         list.forEach(category -> {
             ids.add(category.getId());
         });
-        List<Article> articleList = articleService.query(Cnd.NEW().and("category_id", "in", ids));
+        List<Article> articleList = articleService.query(Cnd.where("category_id", "in", ids));
         req.setAttribute("id", pid);
         req.setAttribute("list", list);
-        req.setAttribute("nav_categories", getCache("1"));
+        req.setAttribute("nav_categories",categoryService.getCateById("1"));
         req.setAttribute("articleList", articleList);
     }
 
@@ -134,12 +98,12 @@ public class FrontController {
         article.setHits(article.getHits() + 1);
         if (article != null) {
             articleService.fetchLinks(article, "category|createUser");
-            List<Category> list = categoryService.query(Cnd.NEW().and("id", "=", article.getCategoryId()).asc("sort"));
+            List<Category> list = categoryService.query(Cnd.where("id", "=", article.getCategoryId()).asc("sort"));
             req.setAttribute("id", article.getCategoryId());
             req.setAttribute("article", article);
             req.setAttribute("list", list);
         }
-        req.setAttribute("nav_categories", getCache("1"));
+        req.setAttribute("nav_categories",categoryService.getCateById("1"));
         articleService.updateIgnoreNull(article);
     }
 

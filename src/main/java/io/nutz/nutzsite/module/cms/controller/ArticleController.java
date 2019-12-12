@@ -21,8 +21,6 @@ import org.nutz.plugins.slog.annotation.Slog;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
-;
-
 /**
  * 文章 信息操作处理
  *

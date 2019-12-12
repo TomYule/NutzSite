@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.module.cms.services;
 
 import io.nutz.nutzsite.common.base.Service;
+import org.nutz.boot.starter.caffeine.Cache;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -22,6 +23,11 @@ import java.util.Map;
 public class CategoryService extends Service<Category> {
 	public CategoryService(Dao dao) {
 		super(dao);
+	}
+
+	@Cache
+	public List<Category> getCateById(String id){
+		return this.query(Cnd.where("parent_id", "=", id).asc("sort"));
 	}
 
 	/**
