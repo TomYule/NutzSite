@@ -107,4 +107,11 @@ public class FrontController {
         articleService.updateIgnoreNull(article);
     }
 
+    @At
+    @Ok("th:/cms/front/search.html")
+    public void search(@Param("name") String name,HttpServletRequest req) {
+        req.setAttribute("nav_categories", categoryService.getCateById("1"));
+    }
+
+
 }

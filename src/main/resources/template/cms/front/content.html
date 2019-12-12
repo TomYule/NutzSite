@@ -22,7 +22,26 @@
                     </div>
                     <p th:utext="${article.content}">
                     </p>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="font-bold">
+                                发布者：<span
+                                    th:text="${article.createUser ==null ? '':article.createUser.userName}"></span>
+                                &nbsp;
+                            </div>
 
+                        </div>
+                        <div class="col-md-2">
+                            <div class="font-bold">
+                                点击数：<span th:text="${article.hits}"></span>&nbsp;
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="font-bold pull-right">
+                                更新时间：<span th:text="${#dates.format(article.updateTime, 'yyyy-MM-dd')}"></span>
+                            </div>
+                        </div>
+                    </div>
                     <hr>
 
                     <div class="row">
