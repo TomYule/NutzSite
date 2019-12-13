@@ -131,7 +131,13 @@
                 {
                     field: 'inMenu',
                     title: '是否在导航中显示',
-                    align: "left"
+                    align: "left",
+                    formatter: function(value, row, index) {
+                        if(value){
+                            return '<span class="badge badge-primary">是</span>';
+                        }
+                        return '<span class="badge badge-danger">否</span>';
+                    }
                 },
                 // {
                 //     field: 'inList',

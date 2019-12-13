@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link th:href="@{/assets/plugins/summernote/summernote.css}" rel="stylesheet"/>
+<link th:href="@{/assets/plugins/summernote/summernote-bs3.css}" rel="stylesheet"/>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-site-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">站点名称：</label>
+            <div class="col-sm-8">
+                <input id="name" name="name" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">站点标题：</label>
+            <div class="col-sm-8">
+                <input id="title" name="title" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">站点Logo：</label>
+            <div class="col-sm-8">
+                <input id="logo" name="logo" class="form-control" type="text">
+            </div>
+        </div>
+<!--
+        <div class="form-group">
+            <label class="col-sm-3 control-label">站点域名：</label>
+            <div class="col-sm-8">
+                <input id="domain" name="domain" class="form-control" type="text">
+            </div>
+        </div>
+	-->
+        <div class="form-group">
+            <label class="col-sm-3 control-label">描述：</label>
+            <div class="col-sm-8">
+                <textarea id="description" name="description" class="form-control" type="text"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">关键字：</label>
+            <div class="col-sm-8">
+                <input id="keywords" name="keywords" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">主题：</label>
+            <div class="col-sm-8">
+                <input id="theme" name="theme" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">版权信息：</label>
+            <div class="col-sm-8">
+                <input id="copyright" name="copyright" class="form-control" type="hidden">
+                <div id="editor" class="summernote"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">自定义站点首页视图：</label>
+            <div class="col-sm-8">
+                <input id="customIndexView" name="customIndexView" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">备注信息：</label>
+            <div class="col-sm-8">
+                <input id="remarks" name="remarks" class="form-control" type="text">
+            </div>
+        </div>
+
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script th:src="@{/assets/plugins/summernote/summernote.min.js}"></script>
+<script th:src="@{/assets/plugins/summernote/summernote-zh-CN.js}"></script>
+
+<script type="text/javascript">
+    var prefix = ctx + "cms/site"
+    $("#form-site-add").validate({
+        onkeyup: false,
+        rules: {
+            xxxx: {
+                required: true,
+            },
+        }
+    });
+    $(function() {
+        $('.summernote').summernote({
+            height : '220px',
+            lang : 'zh-CN'
+        });
+        var copyright = $("#copyright").val();
+        $('#editor').summernote('code', copyright);
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            var sHTML = $('.summernote').summernote('code');
+            $("#copyright").val(sHTML);
+            $.operate.save(prefix + "/addDo", $('#form-site-add').serialize());
+        }
+    }
+</script>
+</body>
+</html>

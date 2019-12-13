@@ -2,6 +2,7 @@ package io.nutz.nutzsite.common.base;
 
 import org.nutz.lang.Strings;
 import org.nutz.mvc.Mvcs;
+import org.nutz.plugins.validation.Errors;
 
 /**
  * 返回消息通用类
@@ -40,6 +41,13 @@ public class Result {
 
     public static Result error(String content) {
         return new Result(1, content, null);
+    }
+    public static Result error(Errors es) {
+        StringBuffer sbf = new StringBuffer();
+        es.getErrorsList().stream().forEach(err->{
+            sbf.append(err + ";");
+        });
+        return new Result(1, sbf.toString(), null);
     }
 
     public int getCode() {

@@ -40,23 +40,21 @@ public class ErrorProcessor extends ViewProcessor {
             String uri = Mvcs.getRequestPath(ac.getRequest());
             log.warn(String.format("Error@%s :", uri), ac.getError());
         }
-
+        String msg = "system.paramserror";
+        if (ac.getError() instanceof ErrorException) {
+            msg = ac.getError().getMessage();
+        }
         //非AJAX 处理
         if (isAjax(ac.getRequest())) {
-            if (ac.getError() instanceof ErrorException) {
-                NutShiro.rendAjaxResp(ac.getRequest(), ac.getResponse(), Result.error(ac.getError().getMessage()));
-            }else {
-                NutShiro.rendAjaxResp(ac.getRequest(), ac.getResponse(), Result.error("系统异常"));
-            }
+            NutShiro.rendAjaxResp(ac.getRequest(), ac.getResponse(), Result.error(msg));
         }else {
             new HttpStatusView(500).render(
                     ac.getRequest(),
                     ac.getResponse(),
                     Mvcs.getMessage(ac.getRequest(),
-                            "system.paramserror")
+                            msg)
             );
         }
-
         super.process(ac);
     }
 }

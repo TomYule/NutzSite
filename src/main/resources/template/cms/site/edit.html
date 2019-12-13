@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link th:href="@{/assets/plugins/summernote/summernote.css}" rel="stylesheet"/>
+<link th:href="@{/assets/plugins/summernote/summernote-bs3.css}" rel="stylesheet"/>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-site-edit">
+        <input id="id" name="id" th:value="${site.id}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">站点名称：</label>
+            <div class="col-sm-8">
+                <input id="name" name="name" th:value="${site.name}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">站点标题：</label>
+            <div class="col-sm-8">
+                <input id="title" name="title" th:value="${site.title}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">站点Logo：</label>
+            <div class="col-sm-8">
+                <input id="logo" name="logo" th:value="${site.logo}" class="form-control" type="text">
+            </div>
+        </div>
+<!--        <div class="form-group">
+            <label class="col-sm-3 control-label">站点域名：</label>
+            <div class="col-sm-8">
+                <input id="domain" name="domain" th:value="${site.domain}" class="form-control" type="text">
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-sm-3 control-label">描述：</label>
+            <div class="col-sm-8">
+                <textarea id="description" name="description" th:value="${site.description}" class="form-control"
+                          type="text"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">关键字：</label>
+            <div class="col-sm-8">
+                <input id="keywords" name="keywords" th:value="${site.keywords}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">主题：</label>
+            <div class="col-sm-8">
+                <input id="theme" name="theme" th:value="${site.theme}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">版权信息：</label>
+            <div class="col-sm-8">
+                <input id="copyright" name="copyright" th:value="${site.copyright}" class="form-control" type="hidden">
+                <div id="editor" class="summernote"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">自定义站点首页视图：</label>
+            <div class="col-sm-8">
+                <input id="customIndexView" name="customIndexView" th:value="${site.customIndexView}"
+                       class="form-control" type="text">
+            </div>
+        </div>
+ <!--       <div class="form-group">
+            <label class="col-sm-3 control-label">创建者：</label>
+            <div class="col-sm-8">
+                <input id="createBy" name="createBy" th:value="${site.createBy}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">创建时间：</label>
+            <div class="col-sm-8">
+                <input id="createDate" name="createDate" th:value="${site.createDate}" class="form-control time-input"
+                       type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">更新者：</label>
+            <div class="col-sm-8">
+                <input id="updateBy" name="updateBy" th:value="${site.updateBy}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">更新时间：</label>
+            <div class="col-sm-8">
+                <input id="updateDate" name="updateDate" th:value="${site.updateDate}" class="form-control time-input"
+                       type="text">
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-sm-3 control-label">备注信息：</label>
+            <div class="col-sm-8">
+                <input id="remarks" name="remarks" th:value="${site.remarks}" class="form-control" type="text">
+            </div>
+        </div>
+<!--        <div class="form-group">
+            <label class="col-sm-3 control-label">删除标记：</label>
+            <div class="col-sm-8">
+                &lt;!&ndash;<input id="delFlag"  name="delFlag"th:value="${site.delFlag}" class="form-control time-input" type="text"> &ndash;&gt;
+                <div class="onoffswitch">
+                    <input type="checkbox" th:checked="${site.delFlag? true : false}" class="onoffswitch-checkbox"
+                           id="delFlag" name="delFlag">
+                    <label class="onoffswitch-label" for="delFlag">
+                        <span class="onoffswitch-switch"></span>
+                        <span class="onoffswitch-inner"></span>
+                    </label>
+                </div>
+            </div>
+        </div>-->
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script th:src="@{/assets/plugins/summernote/summernote.min.js}"></script>
+<script th:src="@{/assets/plugins/summernote/summernote-zh-CN.js}"></script>
+<script type="text/javascript">
+    $(function() {
+        $('.summernote').summernote({
+            height : '220px',
+            lang : 'zh-CN'
+        });
+        var copyright = $("#copyright").val();
+        $('#editor').summernote('code', copyright);
+    });
+
+    var prefix = ctx + "cms/site";
+    $("#form-site-edit").validate({
+        onkeyup: false,
+        rules: {
+            xxxx: {
+                required: true,
+            },
+        }
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            var sHTML = $('.summernote').summernote('code');
+            $("#copyright").val(sHTML);
+            $.operate.save(prefix + "/editDo", $('#form-site-edit').serialize());
+        }
+    }
+</script>
+</body>
+</html>
