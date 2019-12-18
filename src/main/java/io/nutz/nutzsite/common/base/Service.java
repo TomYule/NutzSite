@@ -25,6 +25,27 @@ public class Service<T> extends EntityService<T> {
     }
 
     /**
+     * 默认页码
+     *
+     * @param pageNumber
+     * @return
+     */
+    protected int getPageNumber(Integer pageNumber) {
+        return Lang.isEmpty(pageNumber) ? 1 : pageNumber;
+    }
+
+    /**
+     * 默认页大小
+     *
+     * @param pageSize
+     * @return
+     */
+    protected int getPageSize(int pageSize) {
+        return pageSize == 0 ? DEFAULT_PAGE_NUMBER : pageSize;
+    }
+
+
+    /**
      * 统计符合条件的对象表条数
      *
      * @param cnd
@@ -201,25 +222,27 @@ public class Service<T> extends EntityService<T> {
         return this.dao().update(this.getEntityClass(), Chain.make("delFlag", true), Cnd.where("id", "in", ids));
     }
 
-    /**
-     * 默认页码
-     *
-     * @param pageNumber
-     * @return
-     */
-    protected int getPageNumber(Integer pageNumber) {
-        return Lang.isEmpty(pageNumber) ? 1 : pageNumber;
+    public List<T> query(int pageNumber, int pageSize, Cnd cnd) {
+        Pager pager = this.dao().createPager(pageNumber, pageSize);
+        List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
+        return list;
     }
 
     /**
-     * 默认页大小
+     * 关联查询 分页
      *
+     * @param pageNumber
      * @param pageSize
+     * @param cnd
+     * @param linkname
      * @return
      */
-    protected int getPageSize(int pageSize) {
-        return pageSize == 0 ? DEFAULT_PAGE_NUMBER : pageSize;
+    public List<T> queryByJoin(int pageNumber, int pageSize, Cnd cnd, String linkname) {
+        Pager pager = this.dao().createPager(pageNumber, pageSize);
+        List<T> list = this.dao().queryByJoin(this.getEntityClass(), linkname, cnd, pager);
+        return list;
     }
+
 
     /**
      * 分页查询
@@ -248,20 +271,23 @@ public class Service<T> extends EntityService<T> {
         return new QueryResult(list, pager);
     }
 
-    public QueryResult listPage( int pageNumber, int pageSize,Cnd cnd,String orderByColumn,String isAsc,String linkname){
+    public QueryResult listPage(int pageNumber, int pageSize, Cnd cnd, String orderByColumn, String isAsc, String linkname) {
         Pager pager = this.dao().createPager(pageNumber, pageSize);
         if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
-            MappingField field =dao().getEntity(this.getEntityClass()).getField(orderByColumn);
-            if(Lang.isNotEmpty(field)){
-                cnd.orderBy(field.getColumnName(),isAsc);
+            MappingField field = dao().getEntity(this.getEntityClass()).getField(orderByColumn);
+            if (Lang.isNotEmpty(field)) {
+                cnd.orderBy(field.getColumnName(), isAsc);
             }
         }
-        List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
-        if (!Strings.isBlank(linkname)) {
-            this.dao().fetchLinks(list, linkname);
+        if (Strings.isBlank(linkname)) {
+            List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
+            pager.setRecordCount(this.dao().count(getEntityClass(), cnd));
+            return new QueryResult(list, pager);
+        } else {
+            List<T> list = this.dao().queryByJoin(this.getEntityClass(), linkname, cnd, pager);
+            pager.setRecordCount(this.dao().count(getEntityClass(), cnd));
+            return new QueryResult(list, pager);
         }
-        pager.setRecordCount(this.dao().count(getEntityClass(), cnd));
-        return new QueryResult(list, pager);
     }
 
     /**
@@ -291,13 +317,32 @@ public class Service<T> extends EntityService<T> {
 
     /**
      * 分页查询数据封装 查询关联数据
+     *
      * @param pageNumber
      * @param pageSize
      * @param cnd
      * @param linkname
      * @return
      */
-    public TableDataInfo tableList( int pageNumber, int pageSize,Cnd cnd,String orderByColumn,String isAsc,String linkname){
+    public TableDataInfo tableList(int pageNumber, int pageSize, Cnd cnd, String orderByColumn, String isAsc, String linkname) {
+        Pager pager = this.dao().createPager(pageNumber, pageSize);
+        if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
+            MappingField field = dao().getEntity(this.getEntityClass()).getField(orderByColumn);
+            if (Lang.isNotEmpty(field)) {
+                cnd.orderBy(field.getColumnName(), isAsc);
+            }
+        }
+        if (Strings.isBlank(linkname)) {
+            List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
+            return new TableDataInfo(list, this.dao().count(this.getEntityClass(), cnd));
+        } else {
+            List<T> list = this.dao().queryByJoin(this.getEntityClass(), linkname, cnd, pager);
+            return new TableDataInfo(list, this.dao().count(this.getEntityClass(), cnd));
+        }
+    }
+
+
+    public TableDataInfo tableListFetchLinks( int pageNumber, int pageSize,Cnd cnd,String orderByColumn,String isAsc,String linkname){
         Pager pager = this.dao().createPager(pageNumber, pageSize);
         if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
             MappingField field =dao().getEntity(this.getEntityClass()).getField(orderByColumn);

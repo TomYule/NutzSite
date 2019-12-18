@@ -18,11 +18,12 @@
 * 登录,操作 日志记录
 * 角色管理,部门管理,用户管理,内容管理系统,微信公众平台设置 等等
 ## 目前支持
-* Nutz
-* Nutzboot
+* [Nutz](https://github.com/nutzam/nutz)
+* [Nutzboot](https://github.com/nutzam/nutzboot)
 * Druid
 * Shiro
 * Thymeleaf
+* [nutz-plugins-validation](https://github.com/nutzam/nutzmore/tree/master/nutz-plugins-validation)
 * Redis
 * Caffeine 缓存
 * Quartz 定时任务
@@ -54,7 +55,7 @@ MainLauncher是入口,启动即可
 ## 环境要求
 
 * 必须JDK8+ 支持OpenJDK 
-* MySQL8.0以上
+* MySQL 5.6 ~ 8.0
 * eclipse或idea等IDE开发工具,可选
 
 ## 配置信息位置
@@ -91,8 +92,8 @@ mvn clean package nutzboot:shade nutzboot:war
 * 论坛: https://nutz.cn
 * 官网: https://nutz.io
 * 一键生成NB的项目: https://get.nutz.io
-* 项目80%参考 RuoYi: https://gitee.com/y_project/RuoYi
-* 部分代码 参考 nutzwk : https://github.com/Wizzercn/NutzWk/tree/bak-delete-v3-bootstrap
+* 项目80%参考 [RuoYi](https://gitee.com/y_project/RuoYi-fast)
+* 部分代码 参考 [nutzwk](https://github.com/Wizzercn/NutzWk/tree/bak-delete-v3-bootstrap)
 
 ## 鸣谢
 *   [@wendal](https://github.com/wendal) (代码贡献者,技术大牛,Nutz主要作者,无所不知且乐于助人)
