@@ -31,3 +31,4 @@ target/
 *.iml
 
 dependency-reduced-pom.xml
+velocity.log

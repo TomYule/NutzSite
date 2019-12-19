@@ -181,6 +181,7 @@ public class GenService {
                 IOUtils.closeQuietly(sw);
                 zip.closeEntry();
             } catch (IOException e) {
+                e.printStackTrace();
                 throw new ErrorException("渲染模板失败，表名：" + table.getTableName());
             }
         }

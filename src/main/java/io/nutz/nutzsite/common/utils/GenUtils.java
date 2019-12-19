@@ -12,7 +12,6 @@ import org.nutz.lang.random.R;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
 /**
  * 代码生成器 工具类
  *
@@ -23,6 +22,11 @@ public class GenUtils {
      * 项目空间路径
      */
     private static final String PROJECT_PATH = getProjectPath();
+
+    /**
+     * 项目空间路径open
+     */
+    private static final String PROJECT_PATH_OPEN = getProjectPathOpen();
 
 
     /**
@@ -65,12 +69,14 @@ public class GenUtils {
         // java对象数据传递到模板文件vm
         VelocityContext velocityContext = new VelocityContext();
         String packageName = GenConfig.getPackageName();
+        String packageNameOpen = GenConfig.getPackageNameOpen();
         velocityContext.put("tableName", table.getTableName());
         velocityContext.put("tableComment", replaceKeyword(table.getTableComment()));
         velocityContext.put("primaryKey", table.getPrimaryKey());
         velocityContext.put("className", table.getClassName());
         velocityContext.put("classname", table.getClassname());
         velocityContext.put("moduleName", getModuleName(packageName));
+        velocityContext.put("moduleNameOpen", getModuleName(packageNameOpen));
         velocityContext.put("columns", table.getColumns());
         velocityContext.put("package", packageName);
         velocityContext.put("author", GenConfig.getAuthor());
@@ -97,6 +103,7 @@ public class GenUtils {
         templates.add("template/vm/list/java/Models.java.vm");
         templates.add("template/vm/list/java/Service.java.vm");
         templates.add("template/vm/list/java/Controller.java.vm");
+        templates.add("template/vm/list/java/ApiController.java.vm");
         templates.add("template/vm/list/html/list.html.vm");
         templates.add("template/vm/list/html/add.html.vm");
         templates.add("template/vm/list/html/edit.html.vm");
@@ -114,6 +121,7 @@ public class GenUtils {
         templates.add("template/vm/tree/java/Models.java.vm");
         templates.add("template/vm/tree/java/Service.java.vm");
         templates.add("template/vm/tree/java/Controller.java.vm");
+        templates.add("template/vm/list/java/ApiController.java.vm");
         templates.add("template/vm/tree/html/list.html.vm");
         templates.add("template/vm/tree/html/add.html.vm");
         templates.add("template/vm/tree/html/edit.html.vm");
@@ -149,6 +157,7 @@ public class GenUtils {
         // 大写类名
         String className = table.getClassName();
         String javaPath = PROJECT_PATH;
+        String javaPathOpen = PROJECT_PATH_OPEN;
         String htmlPath = TEMPLATES_PATH + "/" + moduleName + "/" + classname;
 
         if (Lang.isNotEmpty(classname)) {
@@ -162,11 +171,12 @@ public class GenUtils {
         if (template.contains("Service.java.vm")) {
             return javaPath + "services" + "/" + className + "Service.java";
         }
-
+        if (template.contains("ApiController.java.vm")) {
+            return javaPathOpen + "/Api" + className + "Controller.java";
+        }
         if (template.contains("Controller.java.vm")) {
             return javaPath + "controller" + "/" + className + "Controller.java";
         }
-
         if (template.contains("list.html.vm")) {
             return htmlPath + "/" + classname + ".html";
         }
@@ -206,6 +216,16 @@ public class GenUtils {
         projectPath.append("/");
         return projectPath.toString();
     }
+
+    public static String getProjectPathOpen() {
+        String packageNameOpen = GenConfig.getPackageNameOpen();
+        StringBuffer projectPath = new StringBuffer();
+        projectPath.append("main/java/");
+        projectPath.append(packageNameOpen.replace(".", "/"));
+        projectPath.append("/");
+        return projectPath.toString();
+    }
+
 
     public static String replaceKeyword(String keyword) {
         String keyName = keyword.replaceAll("(?:表|信息)", "");

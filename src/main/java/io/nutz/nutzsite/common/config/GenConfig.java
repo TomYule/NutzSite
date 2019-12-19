@@ -20,6 +20,10 @@ public class GenConfig {
      */
     public static String packageName;
     /**
+     * 生成包路径(open)
+     */
+    public static String packageNameOpen;
+    /**
      * 自动去除表前缀，默认是true
      */
     public static String autoRemovePre;
@@ -43,7 +47,7 @@ public class GenConfig {
             packageName = properties.getProperty("packageName");
             autoRemovePre = properties.getProperty("autoRemovePre");
             tablePrefix = properties.getProperty("tablePrefix");
-
+            packageNameOpen = properties.getProperty("packageNameOpen");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,6 +90,14 @@ public class GenConfig {
 
     public void setTablePrefix(String tablePrefix) {
         GenConfig.tablePrefix = tablePrefix;
+    }
+
+    public static String getPackageNameOpen() {
+        return packageNameOpen;
+    }
+
+    public static void setPackageNameOpen(String packageNameOpen) {
+        GenConfig.packageNameOpen = packageNameOpen;
     }
 
     @Override
