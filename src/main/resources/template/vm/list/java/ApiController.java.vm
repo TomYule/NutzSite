@@ -34,8 +34,6 @@ public class Api${className}Controller {
 
 	@Inject
 	private ${className}Service ${classname}Service;
-	
-
 
 	/**
 	 * 查询${tableComment}列表
@@ -62,7 +60,8 @@ public class Api${className}Controller {
 		if(Lang.isNotEmpty(endTime)){
 			cnd.and("create_time","<=", endTime);
 		}
-		return ${classname}Service.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
+		List<${className}> list = ${classname}Service.query(pageNum,pageSize,cnd);
+		return Result.success("system.success", list);
 	}
 
     /**

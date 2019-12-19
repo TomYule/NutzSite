@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Date;
 /**
  * ${tableComment} 信息操作处理
- * 
+ *
  * @author ${author}
  * @date ${datetime}
  */
@@ -34,8 +34,6 @@ public class Api${className}Controller {
 
 	@Inject
 	private ${className}Service ${classname}Service;
-	
-
 
 	/**
 	 * 查询${tableComment}列表
@@ -62,18 +60,19 @@ public class Api${className}Controller {
 		if(Lang.isNotEmpty(endTime)){
 			cnd.and("create_time","<=", endTime);
 		}
-		return ${classname}Service.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
+		List<${className}> list = ${classname}Service.query(pageNum,pageSize,cnd);
+		return Result.success("system.success", list);
 	}
 
-    /**
+	/**
      * 查询一条记录
      */
-    @At
-    @Ok("json")
+	@At
+	@Ok("json")
 	@AccessToken
-    public Object get(@Param("id") String id) {
-        return ${classname}Service.fetch(id);
-    }
+	public Object get(@Param("id") String id) {
+		return ${classname}Service.fetch(id);
+	}
 
 	/**
 	 * 新增保存${tableComment}
@@ -84,7 +83,7 @@ public class Api${className}Controller {
 	@AccessToken
 	public Object addDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
 		try {
-			${classname}Service.insert(${classname});
+				${classname}Service.insert(${classname});
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");
@@ -102,9 +101,9 @@ public class Api${className}Controller {
 	public Object editDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
 		try {
 			if(Lang.isNotEmpty(${classname})){
-				${classname}.setUpdateBy(ShiroUtils.getSysUserId());
+				${classname}.setUpdateBy(JWTUtil.getId());
 				${classname}.setUpdateTime(new Date());
-				${classname}Service.update(${classname});
+					${classname}Service.update(${classname});
 			}
 			return Result.success("system.success");
 		} catch (Exception e) {
@@ -120,7 +119,7 @@ public class Api${className}Controller {
 	@AccessToken
 	public Object remove(@Param("ids")String[] ids, HttpServletRequest req) {
 		try {
-			${classname}Service.delete(ids);
+				${classname}Service.delete(ids);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");

@@ -31,10 +31,10 @@ public class RSAUtils {
     /**
      * 用于封装随机产生的公钥与私钥
      */
-    private static Map<String, String> keyMap = new HashMap<String, String>();
+    public static Map<String, String> keyMap = new HashMap<String, String>();
 
-    private static final String PUBLIC_KEY = "RSAPublicKey";
-    private static final String PRIVATE_KEY = "RSAPrivateKey";
+    public static final String PUBLIC_KEY = "RSAPublicKey";
+    public static final String PRIVATE_KEY = "RSAPrivateKey";
 
 
     /**
