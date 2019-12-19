@@ -2,7 +2,7 @@ package io.nutz.nutzsite.module.monitor.controller;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.monitor.services.OperLogService;
-import io.nutz.nutzsite.common.base.Result;;
+import io.nutz.nutzsite.common.base.Result;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;

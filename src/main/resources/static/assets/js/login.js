@@ -40,6 +40,7 @@ function login() {
         success: function(r) {
             if (r.code == 0) {
                 location.href = 'index';
+                window.location.reload();
             } else {
             	$.modal.closeLoading();
             	$('.imgcode').click();

@@ -6,7 +6,7 @@ import io.nutz.nutzsite.module.sys.services.ConfigService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.wx.models.WxMenu;
 import io.nutz.nutzsite.module.wx.services.WxMenuService;
-import io.nutz.nutzsite.common.base.Result;;
+import io.nutz.nutzsite.common.base.Result;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;

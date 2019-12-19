@@ -3,7 +3,7 @@ package io.nutz.nutzsite.module.cms.controller;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.nutz.nutzsite.module.cms.models.Site;
 import io.nutz.nutzsite.module.cms.services.SiteService;
-import io.nutz.nutzsite.common.base.Result;;
+import io.nutz.nutzsite.common.base.Result;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
