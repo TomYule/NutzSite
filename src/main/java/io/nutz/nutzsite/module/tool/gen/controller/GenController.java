@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.tool.gen.controller;
 
+import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.utils.GenUtils;
 import io.nutz.nutzsite.module.tool.gen.services.GenService;
 import org.apache.commons.io.IOUtils;
@@ -13,9 +14,11 @@ import org.nutz.mvc.annotation.Param;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * 代码生成
+ *
  * @author haiming
  */
 @IocBean
@@ -42,7 +45,7 @@ public class GenController {
                        @Param("isAsc") String isAsc,
                        HttpServletRequest req) {
 
-        return genService.selectTableList(tableName, tableComment, pageNum, pageSize,orderByColumn,isAsc);
+        return genService.selectTableList(tableName, tableComment, pageNum, pageSize, orderByColumn, isAsc);
     }
 
     @At("/genCode/?")
@@ -62,12 +65,23 @@ public class GenController {
     @Ok("raw")
     @RequiresPermissions("tool:gen:code")
     public void genTreeCode(String tableName, HttpServletResponse response) throws IOException {
-        byte[] data = genService.generatorCode(tableName,GenUtils.getTreeTemplates());
+        byte[] data = genService.generatorCode(tableName, GenUtils.getTreeTemplates());
         response.reset();
         response.setHeader("Content-Disposition", "attachment;filename=\"" + tableName + ".zip\"");
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/octet-stream; charset=UTF-8");
 
         IOUtils.write(data, response.getOutputStream());
+    }
+
+    /**
+     * 预览代码
+     */
+    @RequiresPermissions("tool:gen:preview")
+    @At("/preview/?")
+    @Ok("json")
+    public Result preview(String tableName) throws IOException {
+        Map<String, String> dataMap = genService.previewCode(tableName,GenUtils.getListTemplates());
+        return Result.success("system.success", dataMap);
     }
 }

@@ -29,7 +29,9 @@ import org.apache.commons.io.IOUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -185,5 +187,39 @@ public class GenService {
                 throw new ErrorException("渲染模板失败，表名：" + table.getTableName());
             }
         }
+    }
+
+    public Map<String, String> previewCode(String tableName,List<String> templates){
+        Map<String, String> dataMap = new LinkedHashMap<>();
+        // 查询表信息
+        TableInfo table = this.selectTableByName(tableName);
+        // 查询列信息
+        List<ColumnInfo> columns = this.selectTableColumnsByName(tableName);
+        if (Lang.isNotEmpty(table) && Lang.isNotEmpty(columns)) {
+            // 生成代码
+
+            // 表名转换成Java属性名
+            String className = GenUtils.tableToJava(table.getTableName());
+            table.setClassName(className);
+            table.setClassname(StringUtils.uncapitalize(className));
+            // 列信息
+            table.setColumns(GenUtils.transColums(columns));
+            // 设置主键
+            table.setPrimaryKey(table.getColumnsLast());
+
+            VelocityInitializer.initVelocity();
+            String packageName = GenConfig.getPackageName();
+            String moduleName = GenUtils.getModuleName(packageName);
+            VelocityContext context = GenUtils.getVelocityContext(table);
+            for (String template : templates) {
+                // 渲染模板
+                StringWriter sw = new StringWriter();
+                Template tpl = Velocity.getTemplate(template, Globals.UTF8);
+                tpl.merge(context, sw);
+                dataMap.put(template, sw.toString());
+            }
+            return dataMap;
+        }
+        return null;
     }
 }
