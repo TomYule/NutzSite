@@ -86,7 +86,7 @@ public class MenuController {
     public Object addDo(@Param("..") Menu menu, @Param("parentId") String parentId, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                throw new ErrorException(es);
+                 return Result.error(es);
             }
             menuService.save(menu, parentId);
             return Result.success("system.success");
@@ -118,7 +118,7 @@ public class MenuController {
     public Object editDo(@Param("..") Menu menu, @Param("parentId") String parentId, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                throw new ErrorException(es);
+                 return Result.error(es);
             }
             if (menu != null && Strings.isEmpty(menu.getParentId())) {
                 menu.setParentId("0");

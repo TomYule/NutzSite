@@ -100,7 +100,7 @@ public class AreaController {
     public Object addDo(@Param("..") Area area, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                throw new ErrorException(es);
+                return Result.error(es);
             }
             areaService.insert(area);
             return Result.success("system.success");
@@ -136,7 +136,7 @@ public class AreaController {
     public Object editDo(@Param("..") Area area, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                throw new ErrorException(es);
+                return Result.error(es);
             }
             if(Lang.isNotEmpty(area)){
                 area.setUpdateBy(ShiroUtils.getSysUserId());

@@ -106,7 +106,7 @@ public class UserController {
     public Object addDo(@Param("..") User user, Errors es, HttpServletRequest req) {
         try {
             if (es.hasError()) {
-                throw new ErrorException(es);
+                 return Result.error(es);
             }
             userService.insert(user);
             return Result.success("system.success");
@@ -145,7 +145,7 @@ public class UserController {
     public Object editDo(@Param("..") User user, Errors es, HttpServletRequest req) {
         try {
 //            if (es.hasError()) {
-//                throw new ErrorException(es);
+//                 return Result.error(es);
 //            }
             if (Lang.isNotEmpty(user)) {
                 user.setUpdateBy(ShiroUtils.getSysUserId());

@@ -84,7 +84,7 @@ public class DictController {
 	public Object addDo(@Param("..") Dict dict, Errors es,HttpServletRequest req) {
 		try {
 		    if(es.hasError()){
-				throw new ErrorException(es);
+				 return Result.error(es);
             }
 			dictService.insert(dict);
 			return Result.success("system.success");
@@ -114,7 +114,7 @@ public class DictController {
 	public Object editDo(@Param("..") Dict dict,Errors es,HttpServletRequest req) {
 		try {
 			if(es.hasError()){
-				throw new ErrorException(es);
+				 return Result.error(es);
 			}
 			if(Lang.isNotEmpty(dict)){
 				dict.setUpdateBy(ShiroUtils.getSysUserId());

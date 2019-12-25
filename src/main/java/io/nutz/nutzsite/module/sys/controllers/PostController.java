@@ -81,7 +81,7 @@ public class PostController {
 	public Object addDo(@Param("..") Post post, Errors es, HttpServletRequest req) {
 		try {
 			if(es.hasError()){
-				throw new ErrorException(es);
+				 return Result.error(es);
 			}
 			postService.insert(post);
 			return Result.success("system.success");
@@ -111,7 +111,7 @@ public class PostController {
 	public Object editDo(@Param("..") Post post, Errors es, HttpServletRequest req) {
 		try {
 			if(es.hasError()){
-				throw new ErrorException(es);
+				 return Result.error(es);
 			}
 			if(Lang.isNotEmpty(post)){
 				post.setUpdateBy(ShiroUtils.getSysUserId());

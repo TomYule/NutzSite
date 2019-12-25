@@ -82,7 +82,7 @@ public class TaskController {
     public Object addDo(@Param("..") Task task, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                throw new ErrorException(es);
+                 return Result.error(es);
             }
             Task sysTask =taskService.insert(task);
             taskService.addQuartz(sysTask);
@@ -113,7 +113,7 @@ public class TaskController {
     public Object editDo(@Param("..") Task sysTask, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                throw new ErrorException(es);
+                 return Result.error(es);
             }
             taskService.addQuartz(sysTask);
             if(Lang.isNotEmpty(sysTask)){

@@ -91,7 +91,7 @@ public class RoleController {
     public Object addDo(@Param("..") Role data, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                throw new ErrorException(es);
+                 return Result.error(es);
             }
             roleService.insert(data);
             return Result.success("system.success");
@@ -108,7 +108,7 @@ public class RoleController {
     public Object editDo(@Param("..") Role data,Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                throw new ErrorException(es);
+                 return Result.error(es);
             }
             if(Lang.isNotEmpty(data)){
                 data.setUpdateBy(ShiroUtils.getSysUserId());

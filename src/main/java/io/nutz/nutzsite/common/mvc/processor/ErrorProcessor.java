@@ -40,7 +40,7 @@ public class ErrorProcessor extends ViewProcessor {
             String uri = Mvcs.getRequestPath(ac.getRequest());
             log.warn(String.format("Error@%s :", uri), ac.getError());
         }
-        String msg = "system.paramserror";
+        String msg = "system.errorMsg";
         if (ac.getError() instanceof ErrorException) {
             msg = ac.getError().getMessage();
         }

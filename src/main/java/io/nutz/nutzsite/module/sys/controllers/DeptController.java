@@ -76,7 +76,7 @@ public class DeptController {
     public Object addDo(@Param("..") Dept data, @Param("parentId") String parentId, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-                throw new ErrorException(es);
+                return Result.error(es);
             }
             deptService.insertDept(data);
             return Result.success("system.success", data);
@@ -106,7 +106,7 @@ public class DeptController {
     public Object editDo(@Param("..") Dept data, Errors es, HttpServletRequest req) {
         try {
             if(es.hasError()){
-               throw new ErrorException(es);
+               return Result.error(es);
             }
             deptService.update(data);
             return Result.success("system.success");
