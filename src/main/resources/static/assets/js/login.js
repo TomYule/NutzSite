@@ -39,8 +39,13 @@ function login() {
         },
         success: function(r) {
             if (r.code == 0) {
-                location.href = 'index';
-                window.location.reload();
+                var url = window.location.href;
+                var reg = RegExp(/index/);
+                if(url.match(reg)){
+                    window.location.reload();
+                }else {
+                    location.href = 'index';
+                }
             } else {
             	$.modal.closeLoading();
             	$('.imgcode').click();

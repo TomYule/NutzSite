@@ -20,15 +20,15 @@
 ## 目前支持
 * [Nutz](https://github.com/nutzam/nutz)
 * [Nutzboot](https://github.com/nutzam/nutzboot)
-* Druid
-* Shiro
-* Thymeleaf
-* [nutz-plugins-validation](https://github.com/nutzam/nutzmore/tree/master/nutz-plugins-validation)
-* Redis
-* Caffeine 缓存
-* Quartz 定时任务
-* JWT
-* SLog日志记录
+* [nutz-plugins-slog](https://github.com/nutzam/nutzmore/tree/master/nutz-plugins-slog)日志记录
+* [nutz-plugins-validation](https://github.com/nutzam/nutzmore/tree/master/nutz-plugins-validation)数据校验
+* [Druid](https://github.com/alibaba/druid)
+* [Shiro](https://github.com/apache/shiro)
+* [Thymeleaf](https://github.com/thymeleaf/thymeleaf)
+* [Redis](https://github.com/antirez/redis)
+* [Caffeine](https://github.com/ben-manes/caffeine) 缓存
+* [Quartz](https://github.com/quartz-scheduler/quartz) 定时任务
+* [JWT](https://github.com/jwtk/jjwt)
 * 支付宝
 * 微信公众平台
 * 阿里云消息推送
