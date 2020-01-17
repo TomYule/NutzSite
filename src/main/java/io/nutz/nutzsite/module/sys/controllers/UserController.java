@@ -55,8 +55,8 @@ public class UserController {
      */
     @At
     @Ok("json")
-    public Object list(@Param("pageNum") int pageNum,
-                       @Param("pageSize") int pageSize,
+    public Object list(@Param("pageNum")Integer pageNum,
+                       @Param("pageSize")Integer pageSize,
                        @Param("deptId") String deptId,
                        @Param("loginName") String loginName,
                        @Param("phonenumber") String phonenumber,

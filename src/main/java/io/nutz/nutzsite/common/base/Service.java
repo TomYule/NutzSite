@@ -296,8 +296,11 @@ public class Service<T> extends EntityService<T> {
      * @param pageSize
      * @return
      */
-    public TableDataInfo tableList( int pageNumber, int pageSize){
-        Pager pager = this.dao().createPager(pageNumber, pageSize);
+    public TableDataInfo tableList(Integer pageNumber, Integer pageSize){
+        Pager pager=null;
+        if(Lang.isNotEmpty(pageNumber) && Lang.isNotEmpty(pageSize)){
+            pager = this.dao().createPager(pageNumber, pageSize);
+        }
         List<T> list = this.dao().query(this.getEntityClass(), null, pager);
         return new TableDataInfo(list, this.dao().count(this.getEntityClass()));
     }
@@ -309,8 +312,11 @@ public class Service<T> extends EntityService<T> {
      * @param cnd
      * @return
      */
-    public TableDataInfo tableList( int pageNumber, int pageSize,Cnd cnd){
-        Pager pager = this.dao().createPager(pageNumber, pageSize);
+    public TableDataInfo tableList(Integer pageNumber, Integer pageSize,Cnd cnd){
+        Pager pager=null;
+        if(Lang.isNotEmpty(pageNumber) && Lang.isNotEmpty(pageSize)){
+            pager = this.dao().createPager(pageNumber, pageSize);
+        }
         List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
         return new TableDataInfo(list, this.dao().count(this.getEntityClass(),cnd));
     }
@@ -324,8 +330,11 @@ public class Service<T> extends EntityService<T> {
      * @param linkname
      * @return
      */
-    public TableDataInfo tableList(int pageNumber, int pageSize, Cnd cnd, String orderByColumn, String isAsc, String linkname) {
-        Pager pager = this.dao().createPager(pageNumber, pageSize);
+    public TableDataInfo tableList(Integer pageNumber, Integer pageSize, Cnd cnd, String orderByColumn, String isAsc, String linkname) {
+        Pager pager=null;
+        if(Lang.isNotEmpty(pageNumber) && Lang.isNotEmpty(pageSize)){
+            pager = this.dao().createPager(pageNumber, pageSize);
+        }
         if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
             MappingField field = dao().getEntity(this.getEntityClass()).getField(orderByColumn);
             if (Lang.isNotEmpty(field)) {
@@ -342,8 +351,11 @@ public class Service<T> extends EntityService<T> {
     }
 
 
-    public TableDataInfo tableListFetchLinks( int pageNumber, int pageSize,Cnd cnd,String orderByColumn,String isAsc,String linkname){
-        Pager pager = this.dao().createPager(pageNumber, pageSize);
+    public TableDataInfo tableListFetchLinks(Integer pageNumber, Integer pageSize,Cnd cnd,String orderByColumn,String isAsc,String linkname){
+        Pager pager=null;
+        if(Lang.isNotEmpty(pageNumber) && Lang.isNotEmpty(pageSize)){
+            pager = this.dao().createPager(pageNumber, pageSize);
+        }
         if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
             MappingField field =dao().getEntity(this.getEntityClass()).getField(orderByColumn);
             if(Lang.isNotEmpty(field)){

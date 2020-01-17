@@ -50,8 +50,8 @@ public class PostController {
 	@RequiresPermissions("sys:post:list")
 	@At
 	@Ok("json")
-	public Object list(@Param("pageNum")int pageNum,
-					   @Param("pageSize")int pageSize,
+	public Object list(@Param("pageNum")Integer pageNum,
+					   @Param("pageSize")Integer pageSize,
 					   @Param("name") String name,
 					   HttpServletRequest req) {
 		Cnd cnd = Cnd.NEW();

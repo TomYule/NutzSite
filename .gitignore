@@ -30,5 +30,8 @@ target/
 .project
 *.iml
 
+out/
+classes/
+
 dependency-reduced-pom.xml
 velocity.log

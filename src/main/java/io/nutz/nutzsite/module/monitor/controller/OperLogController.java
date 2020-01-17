@@ -44,8 +44,8 @@ public class OperLogController {
 	@RequiresPermissions("monitor:operLog:list")
 	@At
 	@Ok("json")
-	public Object list(@Param("pageNum")int pageNum,
-					   @Param("pageSize")int pageSize,
+	public Object list(@Param("pageNum")Integer pageNum,
+					   @Param("pageSize")Integer pageSize,
 					   @Param("title") String name,
 					   @Param("operName") String uid,
 					   @Param("orderByColumn") String orderByColumn,

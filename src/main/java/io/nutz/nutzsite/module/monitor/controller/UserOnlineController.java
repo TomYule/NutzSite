@@ -44,8 +44,8 @@ public class UserOnlineController {
 	@RequiresPermissions("monitor:online:list")
 	@At
 	@Ok("json")
-	public Object list(@Param("pageNum")int pageNum,
-					   @Param("pageSize")int pageSize,
+	public Object list(@Param("pageNum")Integer pageNum,
+					   @Param("pageSize")Integer pageSize,
 					   @Param("name") String ipaddr,
 					   @Param("loginName") String loginName,
 					   @Param("orderByColumn") String orderByColumn,

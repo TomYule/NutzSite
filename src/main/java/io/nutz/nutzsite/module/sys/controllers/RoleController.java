@@ -53,8 +53,8 @@ public class RoleController {
 
     @At
     @Ok("json")
-    public Object list(@Param("pageNum")int pageNum,
-                       @Param("pageSize")int pageSize,
+    public Object list(@Param("pageNum")Integer pageNum,
+                       @Param("pageSize")Integer pageSize,
                        @Param("roleName") String roleName,
                        @Param("roleKey") String roleKey,
                        @Param("orderByColumn") String orderByColumn,

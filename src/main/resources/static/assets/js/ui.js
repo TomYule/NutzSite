@@ -49,10 +49,15 @@
             },
             // 查询条件
             queryParams: function(params) {
+            	//导出问题处理
+				var pageNum =  params.offset / params.limit + 1;
+				if(isNaN(pageNum)){
+					pageNum = null;
+				}
             	return {
         			// 传递参数查询参数
         			pageSize:       params.limit,
-        			pageNum:        params.offset / params.limit + 1,
+        			pageNum:        pageNum,
         			searchValue:    params.search,
         			orderByColumn:  params.sort,
         			isAsc:          params.order

@@ -50,8 +50,8 @@ public class DictController {
 	@RequiresPermissions("sys:dict:list")
 	@At
 	@Ok("json")
-	public Object list(@Param("pageNum")int pageNum,
-					   @Param("pageSize")int pageSize,
+	public Object list(@Param("pageNum")Integer pageNum,
+					   @Param("pageSize")Integer pageSize,
 					   @Param("name") String name,
 					   @Param("orderByColumn") String orderByColumn,
 					   @Param("isAsc") String isAsc,

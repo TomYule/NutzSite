@@ -53,8 +53,8 @@ public class MaterialController {
 	@RequiresPermissions("wx:material:list")
 	@At
 	@Ok("json")
-	public Object list(@Param("pageNum")int pageNum,
-					   @Param("pageSize")int pageSize,
+	public Object list(@Param("pageNum")Integer pageNum,
+					   @Param("pageSize")Integer pageSize,
 					   @Param("name") String name,
 					   @Param("beginTime") Date beginTime,
 					   @Param("endTime") Date endTime,
