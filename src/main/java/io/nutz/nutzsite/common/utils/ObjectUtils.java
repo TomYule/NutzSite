@@ -2,15 +2,14 @@ package io.nutz.nutzsite.common.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.apache.commons.mail.ByteArrayDataSource.BUFFER_SIZE;
 
 /**
  * 对象操作工具类, 继承org.apache.commons.lang3.ObjectUtils类
@@ -194,4 +193,31 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
     {
         return m1.substring(BEAN_METHOD_PROP_INDEX).equals(m2.substring(BEAN_METHOD_PROP_INDEX));
     }
+
+    public static int copy(InputStream in, OutputStream out) throws IOException {
+        try {
+            int byteCount = 0;
+            byte[] buffer = new byte[4096];
+            int bytesRead = -1;
+            while ((bytesRead = in.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+                byteCount += bytesRead;
+            }
+            out.flush();
+            return byteCount;
+        }
+        finally {
+            try {
+                in.close();
+            }
+            catch (IOException ex) {
+            }
+            try {
+                out.close();
+            }
+            catch (IOException ex) {
+            }
+        }
+    }
+
 }

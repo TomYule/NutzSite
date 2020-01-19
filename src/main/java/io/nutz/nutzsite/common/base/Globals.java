@@ -2,6 +2,7 @@ package io.nutz.nutzsite.common.base;
 
 import io.nutz.nutzsite.common.utils.RSAUtils;
 import org.nutz.lang.Strings;
+import org.nutz.mvc.Mvcs;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,6 +41,11 @@ public class Globals {
      * 属性文件加载对象
      */
     private static Properties loader =null;
+
+    /**
+     * 上传文件基础虚拟路径
+     */
+    public static final String USERFILES_BASE_URL = "/userfiles/";
 
     /**
      * 登录页面公钥
@@ -102,6 +108,28 @@ public class Globals {
             map.put(key, Strings.sNull(value));
         }
         return value;
+    }
+
+
+    /**
+     * 获取上传文件的根目录
+     *
+     * @return
+     */
+    public static String getUserfilesBaseDir() {
+        String dir = getConfig("userfiles.basedir");
+        if (Strings.isBlank(dir)) {
+            try {
+                dir = Mvcs.getServletContext().getRealPath("/");
+            } catch (Exception e) {
+                return "";
+            }
+        }
+        if (!dir.endsWith("/")) {
+            dir += "/";
+        }
+        // System.out.println("userfiles.basedir: " + dir);
+        return dir;
     }
 
     public static String getPublicKey() {
