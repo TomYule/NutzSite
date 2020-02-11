@@ -2,7 +2,9 @@ package io.nutz.nutzsite.common.mvc.processor;
 
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.exception.ErrorException;
+import org.nutz.castor.FailToCastObjectException;
 import org.nutz.integration.shiro.NutShiro;
+import org.nutz.lang.Lang;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.ActionContext;
@@ -40,9 +42,18 @@ public class ErrorProcessor extends ViewProcessor {
             String uri = Mvcs.getRequestPath(ac.getRequest());
             log.warn(String.format("Error@%s :", uri), ac.getError());
         }
-        String msg = "system.errorMsg";
+        String msg = "system.paramserror";
         if (ac.getError() instanceof ErrorException) {
             msg = ac.getError().getMessage();
+        }
+        if (ac.getError() instanceof RuntimeException ){
+            Throwable error = Lang.unwrapThrow(ac.getError());
+            if(error instanceof FailToCastObjectException){
+                msg = Mvcs.getMessage(ac.getRequest(),"system.object.exception") + error.getMessage();
+            }
+            if(error instanceof NumberFormatException ){
+                msg = Mvcs.getMessage(ac.getRequest(),"system.object.exception") + error.getMessage();
+            }
         }
         //非AJAX 处理
         if (isAjax(ac.getRequest())) {
