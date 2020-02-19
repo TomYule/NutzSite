@@ -4,7 +4,7 @@
 package io.nutz.nutzsite.common.utils.excel.fieldtype;
 
 import io.nutz.nutzsite.module.sys.models.Area;
-import io.nutz.nutzsite.module.sys.services.AreaService;
+import io.nutz.nutzsite.module.sys.services.impl.AreaServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.nutz.ioc.Ioc;
 import org.nutz.ioc.impl.NutIoc;
@@ -16,12 +16,12 @@ import org.nutz.ioc.loader.combo.ComboIocLoader;
 public class AreaType {
 	public static Ioc ioc;
 
-	private static AreaService areaService;
+	private static AreaServiceImpl areaService;
 
 	static {
 		try {
 			ioc = new NutIoc(new ComboIocLoader("*anoo"));
-			areaService = ioc.get(AreaService.class);
+			areaService = ioc.get(AreaServiceImpl.class);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

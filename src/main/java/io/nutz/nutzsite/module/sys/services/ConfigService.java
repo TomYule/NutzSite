@@ -1,32 +1,15 @@
 package io.nutz.nutzsite.module.sys.services;
 
-import io.nutz.nutzsite.common.base.Service;
-import org.nutz.dao.Dao;
-import org.nutz.ioc.loader.annotation.IocBean;
+import io.nutz.nutzsite.common.service.BaseService;
 import io.nutz.nutzsite.module.sys.models.Config;
-import org.nutz.lang.Lang;
-
-import java.util.Arrays;
 
 /**
- * 系统参数 服务层实现
- * 
- * @author haiming
- * @date 2019-04-17
+ * @Author: Haimming
+ * @Date: 2019-10-21 09:28
+ * @Version 1.0
  */
-@IocBean(args = {"refer:dao"})
-public class ConfigService extends Service<Config> {
-	public ConfigService(Dao dao) {
-		super(dao);
-	}
+public interface ConfigService extends BaseService<Config> {
 
-	@Override
-	public void delete(String[] ids) {
-		if(Lang.isNotEmpty(ids)){
-			Arrays.stream(ids).forEach(id->{
-				this.dao().delete(this.getEntityClass(), id);
-			});
-		}
-	}
-
+    @Override
+    public void delete(String[] ids);
 }

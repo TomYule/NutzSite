@@ -50,10 +50,8 @@ public class MainLauncher {
 
     @Inject("refer:$ioc")
     private Ioc ioc;
-
     @Inject
     protected Dao dao;
-
     @Inject
     protected PropertiesProxy conf;
 
@@ -64,7 +62,9 @@ public class MainLauncher {
     @Inject
     private ImageService imageService;
     @Inject
-    DeptService deptService;
+    private DeptService deptService;
+    @Inject
+    private TaskService taskService;
 
     /**
      * 启动方法
@@ -188,7 +188,6 @@ public class MainLauncher {
      */
     private void initSysTask(Ioc ioc) {
         QuartzManager quartzManager = ioc.get(QuartzManager.class);
-        TaskService taskService = ioc.get(TaskService.class);
         quartzManager.clear();
         List<Task> taskList = taskService.query( Cnd.where("status", "=", true));
         for (Task sysTask : taskList) {
