@@ -8,7 +8,7 @@ import org.nutz.dao.entity.annotation.*;
 import java.io.Serializable;
 #foreach ($column in $columns)
 	#if($!column.attrType == 'Date')
-	import java.util.Date;
+import java.util.Date;
 		#break
 		#break
 	#end

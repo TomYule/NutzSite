@@ -27,7 +27,7 @@
                     <div class="col-lg-6" th:each="cate : ${list}">
                         <div class="ibox">
                             <div class="ibox-content">
-                                <a href="article.html" class="btn-link">
+                                <a th:utext="${cate.name}" th:href="${'/front/categoryById/'+cate.id +'/' +id}" class="btn-link">
                                     <h2>
                                         <span th:text="${cate.name}"></span>
                                     </h2>

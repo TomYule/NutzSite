@@ -12,21 +12,7 @@ import java.util.List;
  * @author haiming
  * @date 2019-04-18
  */
-public interface OperLogService extends BaseService<SlogBean> {
-
-	@Override
-	public List<SlogBean> query();
-
-	@Override
-	public SlogBean fetch(String name);
-
-	@Override
-	public SlogBean insert(SlogBean t);
-
-	@Override
-	public void delete(String[] ids);
-
-
+public interface OperLogService {
 	/**
 	 * 分页查询数据封装
 	 * @param pageNumber
@@ -35,6 +21,14 @@ public interface OperLogService extends BaseService<SlogBean> {
 	 * @return
 	 */
 	public TableDataInfo tableList(int pageNumber, int pageSize, Cnd cnd,String orderByColumn,String isAsc);
+
+	public List<SlogBean> query();
+
+	public SlogBean fetch(String name);
+
+	public SlogBean insert(SlogBean t);
+
+	public void delete(String[] ids);
 
 	public void cleanInfor();
 }

@@ -3,15 +3,15 @@
 
  Source Server         : localhost_3306
  Source Server Type    : MySQL
- Source Server Version : 80015
+ Source Server Version : 80019
  Source Host           : localhost:3306
  Source Schema         : nutzsite
 
  Target Server Type    : MySQL
- Target Server Version : 80015
+ Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 13/12/2019 17:15:34
+ Date: 20/02/2020 12:17:28
 */
 
 SET NAMES utf8mb4;
@@ -33,9 +33,9 @@ CREATE TABLE `cms_article` (
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT '文章内容',
   `copyfrom` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '文章来源',
   `allow_comment` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '是否允许评论',
-  `weight` int(11) DEFAULT '0' COMMENT '权重，越大越靠前',
+  `weight` int DEFAULT '0' COMMENT '权重，越大越靠前',
   `weight_date` datetime DEFAULT NULL COMMENT '权重期限',
-  `hits` int(11) DEFAULT '0' COMMENT '点击数',
+  `hits` int DEFAULT '0' COMMENT '点击数',
   `posid` varchar(10) DEFAULT NULL COMMENT '推荐位，多选',
   `custom_content_view` varchar(255) DEFAULT NULL COMMENT '自定义内容视图',
   `view_config` text COMMENT '视图配置',
@@ -133,7 +133,7 @@ CREATE TABLE `cms_category` (
   `target` varchar(20) DEFAULT NULL COMMENT '目标',
   `description` varchar(255) DEFAULT NULL COMMENT '描述',
   `keywords` varchar(255) DEFAULT NULL COMMENT '关键字',
-  `sort` int(11) DEFAULT '30' COMMENT '排序（升序）',
+  `sort` int DEFAULT '30' COMMENT '排序（升序）',
   `in_menu` char(1) DEFAULT '1' COMMENT '是否在导航中显示',
   `in_list` char(1) DEFAULT '1' COMMENT '是否在分类页中显示列表',
   `show_modes` char(1) DEFAULT '0' COMMENT '展现方式',
@@ -214,6 +214,12 @@ CREATE TABLE `cms_comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论表';
 
 -- ----------------------------
+-- Records of cms_comment
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
 -- Table structure for cms_guestbook
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_guestbook`;
@@ -236,6 +242,12 @@ CREATE TABLE `cms_guestbook` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='留言板';
 
 -- ----------------------------
+-- Records of cms_guestbook
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
 -- Table structure for cms_link
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_link`;
@@ -246,7 +258,7 @@ CREATE TABLE `cms_link` (
   `color` varchar(50) DEFAULT NULL COMMENT '标题颜色',
   `image` varchar(255) DEFAULT NULL COMMENT '链接图片',
   `href` varchar(255) DEFAULT NULL COMMENT '链接地址',
-  `weight` int(11) DEFAULT '0' COMMENT '权重，越大越靠前',
+  `weight` int DEFAULT '0' COMMENT '权重，越大越靠前',
   `weight_date` datetime DEFAULT NULL COMMENT '权重期限',
   `create_by` varchar(64) DEFAULT NULL COMMENT '创建者',
   `create_date` datetime DEFAULT NULL COMMENT '创建时间',
@@ -4099,7 +4111,7 @@ CREATE TABLE `sys_dept` (
   `parent_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '0' COMMENT '父部门id',
   `ancestors` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '祖级列表',
   `dept_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '部门名称',
-  `order_num` int(4) DEFAULT '0' COMMENT '显示顺序',
+  `order_num` int DEFAULT '0' COMMENT '显示顺序',
   `leader` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '负责人',
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '联系电话',
   `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '邮箱',
@@ -4317,7 +4329,7 @@ CREATE TABLE `sys_log` (
 -- Records of sys_log
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_log` VALUES ('fdd73b14528248ddb2de2b7091be377a', 'aop.after', '作日志记录', '/monitor/operlog/clean', 'io.nutz.nutzsite.module.monitor.controller.OperLogController#clean', '清除作日志记录', '1', 'admin', '{}', 'Mac OS X', 'Chrome', '0:0:0:0:0:0:0:1', '内网IP', '2019-12-13 17:15:07');
+INSERT INTO `sys_log` VALUES ('6cd3454eda0541eeae5cf6a028cef961', 'aop.after', '作日志记录', '/monitor/operlog/clean', 'io.nutz.nutzsite.module.monitor.controller.OperLogController#clean', '清除作日志记录', '1', 'admin', '{}', 'Mac OS X', 'Firefox 7', '0:0:0:0:0:0:0:1', '内网IP', '2020-02-20 12:17:05');
 COMMIT;
 
 -- ----------------------------
@@ -4338,6 +4350,12 @@ CREATE TABLE `sys_logininfor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统访问记录';
 
 -- ----------------------------
+-- Records of sys_logininfor
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
@@ -4345,7 +4363,7 @@ CREATE TABLE `sys_menu` (
   `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单ID',
   `menu_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单名称',
   `parent_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '0' COMMENT '父菜单ID',
-  `order_num` int(4) DEFAULT '0' COMMENT '显示顺序',
+  `order_num` int DEFAULT '0' COMMENT '显示顺序',
   `url` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '#' COMMENT '请求地址',
   `menu_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
   `visible` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
@@ -4470,6 +4488,7 @@ INSERT INTO `sys_menu` VALUES ('7d14fm1jkgijtovnkge18or2r6', '微信菜单', '7b
 INSERT INTO `sys_menu` VALUES ('7jb3d4916sg0frop9kv87mbpl7', '微信用户同步', 'q61dd1i21oji0oe2891gbn37up', 2, '#', 'F', '0', 'wx:wxUser:sync', '#', NULL, NULL, '1', '2019-05-14 09:49:19', NULL);
 INSERT INTO `sys_menu` VALUES ('7tfveg4u38inkpjdoo8v2iki4s', '微信素材', '7bd0844c03214140a403dda2989d54f7', 30, '/wx/material', 'C', '0', 'wx:material:view', '#', NULL, NULL, '1', '2019-08-08 17:26:10', NULL);
 INSERT INTO `sys_menu` VALUES ('9ac78f629dc74ac5877b42c73a6d4f26', '内容管理', '0', 40, '', 'M', '0', '', 'fa fa-book', NULL, NULL, '1', '2019-06-11 10:31:16', NULL);
+INSERT INTO `sys_menu` VALUES ('f0f04abcf24c4dd7ac641e02b799ed26', '代码预览', '114', 30, '', 'F', '0', 'tool:gen:preview', '', '1', '2020-02-20 11:57:48', '1', '2020-02-20 11:57:48', NULL);
 INSERT INTO `sys_menu` VALUES ('o7b4o036ikhk0q379oud2slpnp', '站点新增', '6bma11idlign1rrh3ngann4acf', 2, '#', 'F', '0', 'cms:site:add', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('o9dfvt08mog8nrdkqssa3s4qf4', '站点修改', '6bma11idlign1rrh3ngann4acf', 3, '#', 'F', '0', 'cms:site:edit', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('q61dd1i21oji0oe2891gbn37up', '微信用户', '7bd0844c03214140a403dda2989d54f7', 20, '/wx/wxUser', 'C', '0', 'wx:wxUser:view', '#', NULL, NULL, '1', '2019-06-11 10:34:54', NULL);
@@ -4485,7 +4504,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_notice`;
 CREATE TABLE `sys_notice` (
-  `notice_id` int(4) NOT NULL AUTO_INCREMENT COMMENT '公告ID',
+  `notice_id` int NOT NULL AUTO_INCREMENT COMMENT '公告ID',
   `notice_title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告标题',
   `notice_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告类型（1通知 2公告）',
   `notice_content` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '公告内容',
@@ -4514,7 +4533,7 @@ CREATE TABLE `sys_post` (
   `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '岗位ID',
   `post_code` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '岗位编码',
   `post_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '岗位名称',
-  `post_sort` int(4) NOT NULL COMMENT '显示顺序',
+  `post_sort` int NOT NULL COMMENT '显示顺序',
   `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '状态（0正常 1停用）',
   `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
@@ -4542,7 +4561,7 @@ CREATE TABLE `sys_role` (
   `id` varchar(64) NOT NULL COMMENT '角色ID',
   `role_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色名称',
   `role_key` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色权限字符串',
-  `role_sort` int(4) NOT NULL COMMENT '显示顺序',
+  `role_sort` int NOT NULL COMMENT '显示顺序',
   `data_scope` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '1' COMMENT '数据范围（1：全部数据权限 2：自定数据权限）',
   `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色状态（0正常 1停用）',
   `del_flag` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
@@ -4558,7 +4577,7 @@ CREATE TABLE `sys_role` (
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role` VALUES ('1', '管理员', 'admin', 1, NULL, '0', '0', NULL, NULL, '1', '2019-12-13 16:29:23', '管理员');
+INSERT INTO `sys_role` VALUES ('1', '管理员', 'admin', 1, NULL, '0', '0', NULL, NULL, '1', '2020-02-20 12:07:46', '管理员');
 INSERT INTO `sys_role` VALUES ('2', '普通角色', 'common', 2, NULL, '0', '0', NULL, '2019-04-26 14:02:23', NULL, '2019-04-26 14:02:30', '普通角色');
 INSERT INTO `sys_role` VALUES ('60e47f5f799c414a8b6f2805a6f5b659', 'test', 'app.user', 20, NULL, '0', '0', NULL, NULL, '1', '2019-12-10 15:02:36', '');
 COMMIT;
@@ -4568,8 +4587,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_dept`;
 CREATE TABLE `sys_role_dept` (
-  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
-  `dept_id` bigint(20) NOT NULL COMMENT '部门ID',
+  `role_id` bigint NOT NULL COMMENT '角色ID',
+  `dept_id` bigint NOT NULL COMMENT '部门ID',
   PRIMARY KEY (`role_id`,`dept_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色和部门关联表';
 
@@ -4703,6 +4722,7 @@ INSERT INTO `sys_role_menu` VALUES ('1', '7d14fm1jkgijtovnkge18or2r6');
 INSERT INTO `sys_role_menu` VALUES ('1', '7jb3d4916sg0frop9kv87mbpl7');
 INSERT INTO `sys_role_menu` VALUES ('1', '7tfveg4u38inkpjdoo8v2iki4s');
 INSERT INTO `sys_role_menu` VALUES ('1', '9ac78f629dc74ac5877b42c73a6d4f26');
+INSERT INTO `sys_role_menu` VALUES ('1', 'f0f04abcf24c4dd7ac641e02b799ed26');
 INSERT INTO `sys_role_menu` VALUES ('1', 'o7b4o036ikhk0q379oud2slpnp');
 INSERT INTO `sys_role_menu` VALUES ('1', 'o9dfvt08mog8nrdkqssa3s4qf4');
 INSERT INTO `sys_role_menu` VALUES ('1', 'q61dd1i21oji0oe2891gbn37up');
@@ -4744,7 +4764,7 @@ CREATE TABLE `sys_task` (
   `note` varchar(255) DEFAULT NULL COMMENT '任务说明',
   `cron` varchar(50) DEFAULT NULL COMMENT '定时规则',
   `data` text COMMENT '执行参数',
-  `exeAt` int(32) DEFAULT NULL COMMENT '执行时间',
+  `exeAt` int DEFAULT NULL COMMENT '执行时间',
   `exeResult` text COMMENT '执行结果',
   `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '0' COMMENT '状态（0正常 1暂停）',
   `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '创建者',
@@ -4795,7 +4815,7 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '小明', '00', 'nutzsite@gmail.com', '18888888888', '0', 0x6239346364656430306262663433363961356364333565666239363762653935, 'vM7xT6KolcQbX7xlYfjisIJkrleH3De2t7wnmZ2zIB8=', '6dXimQAQqHBXkhI79IRKcg==', '0', '0', '0:0:0:0:0:0:0:1', '2019-12-13 17:14:10', 'admin', '2018-03-16 11:33:00', 'ry', '2019-04-19 07:06:38', '管理员');
+INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '小明', '00', 'nutzsite@gmail.com', '18888888888', '0', 0x6239346364656430306262663433363961356364333565666239363762653935, 'vM7xT6KolcQbX7xlYfjisIJkrleH3De2t7wnmZ2zIB8=', '6dXimQAQqHBXkhI79IRKcg==', '0', '0', '0:0:0:0:0:0:0:1', '2020-02-20 12:16:48', 'admin', '2018-03-16 11:33:00', 'ry', '2019-04-19 07:06:38', '管理员');
 INSERT INTO `sys_user` VALUES ('92f5c91df48644a1812c55c164716fa7', '108', 'yuhaiming', 'Tom', '00', 'nutzsite@gmail.com', '18888888888', '1', NULL, 'XTzHI41NTIG6ZbIt+PMOsaLilKMMaHouqREW53OCKIQ=', '0EVL8dmNk7XaQiIFATsgmA==', '0', '0', '127.0.0.1', '2019-04-22 07:59:47', '1', '2019-04-19 07:48:19', '1', '2019-11-22 10:48:36', '');
 INSERT INTO `sys_user` VALUES ('a14731cfa4cb4e46b1f4eb1061950c6d', '105', 'haiming', 'Tom', '00', 'nutzsite@gmail.com', '18888888888', '0', 0x3961636163663138663531633439646638626531356230373265396133306333, 'DymenKivzL744ODeXSLyvkz6qnnP3qhgdtbpwZ9Txyo=', 'gA208ZKZ684tEg0Jg+UhSQ==', '0', '0', '0:0:0:0:0:0:0:1', '2019-12-10 15:08:57', '1', '2019-04-26 03:00:24', '1', '2019-12-10 15:02:20', '');
 COMMIT;
@@ -4815,17 +4835,23 @@ CREATE TABLE `sys_user_online` (
   `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '在线状态on_line在线off_line离线',
   `start_timestamp` datetime DEFAULT NULL COMMENT 'session创建时间',
   `last_access_time` datetime DEFAULT NULL COMMENT 'session最后访问时间',
-  `expire_time` int(5) DEFAULT '0' COMMENT '超时时间，单位为分钟',
+  `expire_time` int DEFAULT '0' COMMENT '超时时间，单位为分钟',
   PRIMARY KEY (`sessionId`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='在线用户记录';
+
+-- ----------------------------
+-- Records of sys_user_online
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_user_post
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_post`;
 CREATE TABLE `sys_user_post` (
-  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-  `post_id` bigint(20) NOT NULL COMMENT '岗位ID',
+  `user_id` bigint NOT NULL COMMENT '用户ID',
+  `post_id` bigint NOT NULL COMMENT '岗位ID',
   PRIMARY KEY (`user_id`,`post_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户与岗位关联表';
 
@@ -4896,7 +4922,7 @@ CREATE TABLE `wx_menu` (
   `parent_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '父节点',
   `ancestors` text CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT '祖节点',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '菜单标题',
-  `sort_order` int(10) DEFAULT NULL COMMENT '排序',
+  `sort_order` int DEFAULT NULL COMMENT '排序',
   `menu_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '菜单KEY值',
   `menu_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '菜单的响应动作类型，view表示网页类型，click表示点击类型，miniprogram表示小程序类型',
   `url` text CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT '网页 链接，用户点击菜单可打开链接，不超过1024字节。 type为miniprogram时，不支持小程序的老版本客户端将打开本url。',
@@ -4929,8 +4955,8 @@ CREATE TABLE `wx_user` (
   `unionid` varchar(50) DEFAULT NULL COMMENT 'unionid',
   `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '微信昵称',
   `subscribe` tinyint(1) DEFAULT NULL COMMENT '是否关注',
-  `subscribeAt` int(32) DEFAULT NULL COMMENT '关注时间',
-  `sex` int(32) DEFAULT NULL COMMENT '性别',
+  `subscribeAt` int DEFAULT NULL COMMENT '关注时间',
+  `sex` int DEFAULT NULL COMMENT '性别',
   `country` varchar(50) DEFAULT NULL COMMENT '国家',
   `province` varchar(50) DEFAULT NULL COMMENT '省份',
   `city` varchar(50) DEFAULT NULL COMMENT '城市',

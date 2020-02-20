@@ -5,11 +5,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import org.nutz.dao.entity.annotation.*;
 import java.io.Serializable;
-import java.util.Date;
 #foreach ($column in $columns)
-#if($!column.attrType == 'Date')
-    #break
-#end
+	#if($!column.attrType == 'Date')
+import java.util.Date;
+		#break
+		#break
+	#end
 #end
 
 /**
