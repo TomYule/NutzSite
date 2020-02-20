@@ -1,8 +1,6 @@
 package io.nutz.nutzsite.module.wx.services;
 
-import io.nutz.nutzsite.common.base.Service;
-import org.nutz.dao.Dao;
-import org.nutz.ioc.loader.annotation.IocBean;
+import io.nutz.nutzsite.common.service.BaseService;
 import io.nutz.nutzsite.module.wx.models.WxUser;
 
 /**
@@ -11,9 +9,5 @@ import io.nutz.nutzsite.module.wx.models.WxUser;
  * @author haiming
  * @date 2019-05-13
  */
-@IocBean(args = {"refer:dao"})
-public class WxUserService extends Service<WxUser> {
-	public WxUserService(Dao dao) {
-		super(dao);
-	}
+public interface WxUserService extends BaseService<WxUser> {
 }

@@ -1,8 +1,6 @@
 package io.nutz.nutzsite.module.cms.services;
 
-import io.nutz.nutzsite.common.base.Service;
-import org.nutz.dao.Dao;
-import org.nutz.ioc.loader.annotation.IocBean;
+import io.nutz.nutzsite.common.service.BaseService;
 import io.nutz.nutzsite.module.cms.models.Site;
 
 /**
@@ -11,9 +9,5 @@ import io.nutz.nutzsite.module.cms.models.Site;
  * @author haiming
  * @date 2019-12-13
  */
-@IocBean(args = {"refer:dao"})
-public class SiteService extends Service<Site> {
-	public SiteService(Dao dao) {
-		super(dao);
-	}
+public interface SiteService extends BaseService<Site> {
 }
