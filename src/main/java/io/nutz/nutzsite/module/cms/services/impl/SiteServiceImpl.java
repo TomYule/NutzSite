@@ -1,6 +1,5 @@
 package io.nutz.nutzsite.module.cms.services.impl;
 
-import io.nutz.nutzsite.common.base.Service;
 import io.nutz.nutzsite.common.service.BaseServiceImpl;
 import io.nutz.nutzsite.module.cms.models.Site;
 import io.nutz.nutzsite.module.cms.services.SiteService;

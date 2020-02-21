@@ -1,0 +1,14 @@
+package ${package}.services;
+
+import io.nutz.nutzsite.common.service.BaseService;
+import ${package}.models.${className};
+
+/**
+ * ${tableComment} 服务层实现
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${className}Service extends BaseService<${className}> {
+
+}

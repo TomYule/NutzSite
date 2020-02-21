@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.common.utils;
 
 
+import io.nutz.nutzsite.common.base.Globals;
 import io.nutz.nutzsite.common.config.GenConfig;
 import io.nutz.nutzsite.common.constant.CommonMap;
 import io.nutz.nutzsite.module.tool.gen.models.ColumnInfo;
@@ -98,34 +99,24 @@ public class GenUtils {
      *
      * @return
      */
-    public static List<String> getListTemplates() {
+    public static List<String> getListTemplates(String tplType) {
         List<String> templates = new ArrayList<String>();
-        templates.add("template/vm/list/java/Models.java.vm");
-        templates.add("template/vm/list/java/Service.java.vm");
-        templates.add("template/vm/list/java/Controller.java.vm");
-        templates.add("template/vm/list/java/ApiController.java.vm");
-        templates.add("template/vm/list/html/list.html.vm");
-        templates.add("template/vm/list/html/add.html.vm");
-        templates.add("template/vm/list/html/edit.html.vm");
-        templates.add("template/vm/sql/sql.vm");
-        return templates;
-    }
-
-    /**
-     * 获取 树模板
-     *
-     * @return
-     */
-    public static List<String> getTreeTemplates() {
-        List<String> templates = new ArrayList<String>();
-        templates.add("template/vm/tree/java/Models.java.vm");
-        templates.add("template/vm/tree/java/Service.java.vm");
-        templates.add("template/vm/tree/java/Controller.java.vm");
-        templates.add("template/vm/list/java/ApiController.java.vm");
-        templates.add("template/vm/tree/html/list.html.vm");
-        templates.add("template/vm/tree/html/add.html.vm");
-        templates.add("template/vm/tree/html/edit.html.vm");
-        templates.add("template/vm/tree/html/tree.html.vm");
+        templates.add("template/vm/java/Models.java.vm");
+        templates.add("template/vm/java/Service.java.vm");
+        templates.add("template/vm/java/ServiceImpl.java.vm");
+        templates.add("template/vm/java/ApiController.java.vm");
+        if(Globals.TPL_CRUD.equals(tplType)){
+            templates.add("template/vm/java/list/Controller.java.vm");
+            templates.add("template/vm/html/list/add.html.vm");
+            templates.add("template/vm/html/list/add.html.vm");
+            templates.add("template/vm/html/list/edit.html.vm");
+        }else  if(Globals.TPL_TREE.equals(tplType)){
+            templates.add("template/vm/java/tree/Controller.java.vm");
+            templates.add("template/vm/html/tree/list.html.vm");
+            templates.add("template/vm/html/tree/add.html.vm");
+            templates.add("template/vm/html/tree/edit.html.vm");
+            templates.add("template/vm/html/tree/tree.html.vm");
+        }
         templates.add("template/vm/sql/sql.vm");
         return templates;
     }
@@ -170,6 +161,9 @@ public class GenUtils {
 
         if (template.contains("Service.java.vm")) {
             return javaPath + "services" + "/" + className + "Service.java";
+        }
+        if (template.contains("ServiceImpl.java.vm")) {
+            return javaPath + "services/impl" + "/" + className + "ServiceImpl.java";
         }
         if (template.contains("ApiController.java.vm")) {
             return javaPathOpen + "/Api" + className + "Controller.java";

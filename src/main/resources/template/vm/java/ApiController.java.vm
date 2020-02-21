@@ -81,7 +81,7 @@ public class Api${className}Controller {
 	@POST
 	@Ok("json")
 	@AccessToken
-	public Object addDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
+	public Object addDo(@Param("src/main") ${className} ${classname}, HttpServletRequest req) {
 		try {
 			${classname}Service.insert(${classname});
 			return Result.success("system.success");
@@ -98,7 +98,7 @@ public class Api${className}Controller {
 	@POST
 	@Ok("json")
 	@AccessToken
-	public Object editDo(@Param("..") ${className} ${classname},HttpServletRequest req) {
+	public Object editDo(@Param("src/main") ${className} ${classname}, HttpServletRequest req) {
 		try {
 			if(Lang.isNotEmpty(${classname})){
 				${classname}.setUpdateBy(JWTUtil.getId());

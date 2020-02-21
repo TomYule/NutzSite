@@ -1,7 +1,6 @@
 package io.nutz.nutzsite.module.wx.services.impl;
 
 import com.alibaba.fastjson.JSON;
-import io.nutz.nutzsite.common.base.Service;
 import io.nutz.nutzsite.common.service.BaseServiceImpl;
 import io.nutz.nutzsite.common.utils.http.HttpUtils;
 import io.nutz.nutzsite.module.wx.bean.MaterialCount;

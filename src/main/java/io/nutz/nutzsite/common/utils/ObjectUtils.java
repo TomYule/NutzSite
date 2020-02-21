@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.apache.commons.mail.ByteArrayDataSource.BUFFER_SIZE;
 
 /**
  * 对象操作工具类, 继承org.apache.commons.lang3.ObjectUtils类

@@ -1,5 +1,6 @@
 package io.nutz.nutzsite.module.tool.gen.controller;
 
+import io.nutz.nutzsite.common.base.Globals;
 import io.nutz.nutzsite.common.base.Result;
 import io.nutz.nutzsite.common.utils.GenUtils;
 import io.nutz.nutzsite.module.tool.gen.services.GenService;
@@ -52,12 +53,11 @@ public class GenController {
     @Ok("raw")
     @RequiresPermissions("tool:gen:code")
     public void genCode(String tableName, HttpServletResponse response) throws IOException {
-        byte[] data = genService.generatorCode(tableName, GenUtils.getListTemplates());
+        byte[] data = genService.generatorCode(tableName, GenUtils.getListTemplates(Globals.TPL_CRUD));
         response.reset();
         response.setHeader("Content-Disposition", "attachment; filename=\"" + tableName + ".zip\"");
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/octet-stream; charset=UTF-8");
-
         IOUtils.write(data, response.getOutputStream());
     }
 
@@ -65,12 +65,11 @@ public class GenController {
     @Ok("raw")
     @RequiresPermissions("tool:gen:code")
     public void genTreeCode(String tableName, HttpServletResponse response) throws IOException {
-        byte[] data = genService.generatorCode(tableName, GenUtils.getTreeTemplates());
+        byte[] data = genService.generatorCode(tableName, GenUtils.getListTemplates(Globals.TPL_TREE));
         response.reset();
         response.setHeader("Content-Disposition", "attachment;filename=\"" + tableName + ".zip\"");
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/octet-stream; charset=UTF-8");
-
         IOUtils.write(data, response.getOutputStream());
     }
 
@@ -81,7 +80,7 @@ public class GenController {
     @At("/preview/?")
     @Ok("json")
     public Result preview(String tableName) throws IOException {
-        Map<String, String> dataMap = genService.previewCode(tableName,GenUtils.getListTemplates());
+        Map<String, String> dataMap = genService.previewCode(tableName,GenUtils.getListTemplates(Globals.TPL_CRUD));
         return Result.success("system.success", dataMap);
     }
 }
