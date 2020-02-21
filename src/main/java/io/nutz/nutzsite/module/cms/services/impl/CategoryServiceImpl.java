@@ -27,7 +27,8 @@ public class CategoryServiceImpl extends BaseServiceImpl<Category> implements Ca
 		super(dao);
 	}
 
-	@Cache
+	@Override
+    @Cache
 	public List<Category> getCateById(String id){
 		return this.query(Cnd.where("parent_id", "=", id).asc("sort"));
 	}
@@ -38,7 +39,8 @@ public class CategoryServiceImpl extends BaseServiceImpl<Category> implements Ca
      * @param list 栏目列表
      * @return
      */
-	public List<Map<String, Object>> getTrees(List<Category> list) {
+	@Override
+    public List<Map<String, Object>> getTrees(List<Category> list) {
 		List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
 		for (Category data : list) {
 			Map<String, Object> dataMap = new HashMap<String, Object>();
@@ -58,7 +60,8 @@ public class CategoryServiceImpl extends BaseServiceImpl<Category> implements Ca
 	 * @param name
 	 * @return
 	 */
-	public List<Map<String, Object>> selectTree(String parentId, String name) {
+	@Override
+    public List<Map<String, Object>> selectTree(String parentId, String name) {
 		Cnd cnd = Cnd.NEW();
 		if (Strings.isNotBlank(name)) {
 			//cnd.and("name", "like", "%" + name + "%");
@@ -85,7 +88,8 @@ public class CategoryServiceImpl extends BaseServiceImpl<Category> implements Ca
 		return super.insert(category);
 	}
 
-	public int update(Category category) {
+	@Override
+    public int update(Category category) {
 		if(Lang.isNotEmpty(category) && Strings.isNotBlank(category.getParentId())){
 			Category parent = this.fetch(category.getParentId());
 			if(Lang.isNotEmpty(parent)){

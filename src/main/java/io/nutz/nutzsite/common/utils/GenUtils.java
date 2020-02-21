@@ -102,15 +102,17 @@ public class GenUtils {
     public static List<String> getListTemplates(String tplType) {
         List<String> templates = new ArrayList<String>();
         templates.add("template/vm/java/Models.java.vm");
-        templates.add("template/vm/java/Service.java.vm");
-        templates.add("template/vm/java/ServiceImpl.java.vm");
         templates.add("template/vm/java/ApiController.java.vm");
         if(Globals.TPL_CRUD.equals(tplType)){
+            templates.add("template/vm/java/list/Service.java.vm");
+            templates.add("template/vm/java/list/ServiceImpl.java.vm");
             templates.add("template/vm/java/list/Controller.java.vm");
-            templates.add("template/vm/html/list/add.html.vm");
+            templates.add("template/vm/html/list/list.html.vm");
             templates.add("template/vm/html/list/add.html.vm");
             templates.add("template/vm/html/list/edit.html.vm");
         }else  if(Globals.TPL_TREE.equals(tplType)){
+            templates.add("template/vm/java/tree/Service.java.vm");
+            templates.add("template/vm/java/tree/ServiceImpl.java.vm");
             templates.add("template/vm/java/tree/Controller.java.vm");
             templates.add("template/vm/html/tree/list.html.vm");
             templates.add("template/vm/html/tree/add.html.vm");

@@ -424,6 +424,7 @@ public class BaseServiceImpl<T> extends EntityService<T> implements BaseService<
      * @param pageSize
      * @return
      */
+    @Override
     public TableDataInfo tableList(Integer pageNumber, Integer pageSize){
         Pager pager=null;
         if(Lang.isNotEmpty(pageNumber) && Lang.isNotEmpty(pageSize)){
@@ -440,7 +441,8 @@ public class BaseServiceImpl<T> extends EntityService<T> implements BaseService<
      * @param cnd
      * @return
      */
-    public TableDataInfo tableList(Integer pageNumber, Integer pageSize,Cnd cnd){
+    @Override
+    public TableDataInfo tableList(Integer pageNumber, Integer pageSize, Cnd cnd){
         Pager pager=null;
         if(Lang.isNotEmpty(pageNumber) && Lang.isNotEmpty(pageSize)){
             pager = this.dao().createPager(pageNumber, pageSize);
@@ -459,6 +461,7 @@ public class BaseServiceImpl<T> extends EntityService<T> implements BaseService<
      * @param linkname
      * @return
      */
+    @Override
     public TableDataInfo tableList(Integer pageNumber, Integer pageSize, Cnd cnd, String orderByColumn, String isAsc, String linkname) {
         Pager pager=null;
         if(Lang.isNotEmpty(pageNumber) && Lang.isNotEmpty(pageSize)){

@@ -35,6 +35,7 @@ public class TaskServiceImpl extends BaseServiceImpl<Task> implements TaskServic
      * 添加定时任务执行
      * @param sysTask
      */
+    @Override
     public void addQuartz(Task sysTask){
         try {
             boolean isExist = quartzManager.exist(new JobKey(sysTask.getId(), sysTask.getId()));

@@ -31,7 +31,8 @@ public class AreaServiceImpl extends BaseServiceImpl<Area> implements AreaServic
      * @param list 区域列表
      * @return
      */
-	public List<Map<String, Object>> getTrees(List<Area> list) {
+	@Override
+    public List<Map<String, Object>> getTrees(List<Area> list) {
 		List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
 		for (Area data : list) {
 			Map<String, Object> dataMap = new HashMap<String, Object>();
@@ -51,7 +52,8 @@ public class AreaServiceImpl extends BaseServiceImpl<Area> implements AreaServic
 	 * @param name
 	 * @return
 	 */
-	public List<Map<String, Object>> selectTree(String parentId, String name) {
+	@Override
+    public List<Map<String, Object>> selectTree(String parentId, String name) {
 		Cnd cnd = Cnd.NEW();
 		if (Strings.isNotBlank(name)) {
 			//cnd.and("name", "like", "%" + name + "%");

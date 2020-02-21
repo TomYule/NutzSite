@@ -62,6 +62,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
      * @param data
      * @return
      */
+    @Override
     public int update(Role data) {
         List<String> ids = new ArrayList<>();
         if (data != null && data.getMenuIds() != null) {
@@ -99,7 +100,8 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
      * @param roleName
      * @return
      */
-    public boolean checkRoleNameUnique(String id,String roleName,String roleKey) {
+    @Override
+    public boolean checkRoleNameUnique(String id, String roleName, String roleKey) {
         Cnd cnd =Cnd.NEW();
         if(Strings.isNotBlank(id)){
             cnd.and("id","!=",id);

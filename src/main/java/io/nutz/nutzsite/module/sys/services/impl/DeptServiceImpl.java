@@ -31,6 +31,7 @@ public class DeptServiceImpl extends BaseServiceImpl<Dept> implements DeptServic
      * @param deptList     部门列表
      * @return
      */
+    @Override
     public List<Map<String, Object>> getTrees(List<Dept> deptList) {
 
         List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
@@ -59,6 +60,7 @@ public class DeptServiceImpl extends BaseServiceImpl<Dept> implements DeptServic
      * @param name
      * @return
      */
+    @Override
     public List<Map<String, Object>> selectTree(String parentId, String name) {
         Cnd cnd = Cnd.NEW();
         if (Strings.isNotBlank(name)) {
@@ -74,6 +76,7 @@ public class DeptServiceImpl extends BaseServiceImpl<Dept> implements DeptServic
         return trees;
     }
 
+    @Override
     public Dept insertDept(Dept dept){
         Dept info = this.fetch(dept.getParentId());
         if(info.isStatus()){
@@ -83,6 +86,7 @@ public class DeptServiceImpl extends BaseServiceImpl<Dept> implements DeptServic
         return this.dao().insert(dept);
     }
 
+    @Override
     public int update(Dept dept){
         Dept info = this.fetch(dept.getParentId());
         String acestors = "";
@@ -98,7 +102,8 @@ public class DeptServiceImpl extends BaseServiceImpl<Dept> implements DeptServic
         return this.dao().update(dept);
     }
 
-    public boolean checkDeptNameUnique(String id,String parentId,String menuName) {
+    @Override
+    public boolean checkDeptNameUnique(String id, String parentId, String menuName) {
         Cnd cnd =Cnd.NEW();
         if(Strings.isNotBlank(id)){
             cnd.and("id","!=",id);

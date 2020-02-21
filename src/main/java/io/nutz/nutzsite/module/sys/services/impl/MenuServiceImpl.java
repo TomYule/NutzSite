@@ -40,11 +40,13 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
      * @param menu
      * @param pid
      */
+    @Override
     @Aop(TransAop.READ_COMMITTED)
     public void save(Menu menu, String pid) {
         dao().insert(menu);
     }
 
+    @Override
     public String transMenuName(Menu menu, List<String> roleMenuList, boolean permsFlag) {
         StringBuffer sb = new StringBuffer();
         sb.append(menu.getMenuName());
@@ -63,6 +65,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
      * @param permsFlag    是否需要显示权限标识
      * @return
      */
+    @Override
     public List<Map<String, Object>> getTrees(List<Menu> menuList, boolean isCheck, List<String> roleMenuList,
                                               boolean permsFlag) {
         List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
@@ -87,6 +90,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
      *
      * @return 菜单列表
      */
+    @Override
     public List<Map<String, Object>> menuTreeData() {
         List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
         List<Menu> menuList = this.query(Cnd.NEW().orderBy("order_num","asc"));
@@ -100,6 +104,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
      * @param roleId 角色对象
      * @return 菜单列表
      */
+    @Override
     public List<Map<String, Object>> roleMenuTreeData(String roleId) {
         List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
         List<String> roleMenuList = new ArrayList<>();
@@ -127,6 +132,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
      * @param userId 用户id
      * @return 菜单
      */
+    @Override
     public List<Menu> getMenuList(String userId) {
         String sqlstr = "select distinct m.id, m.parent_id, m.menu_name, m.url, m.perms , m.menu_type, m.icon, m.order_num, m.create_time " +
                 "from sys_menu m " +
@@ -150,6 +156,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
      * @param userId
      * @return
      */
+    @Override
     public List<String> getPermsByUserId(String userId) {
         String sqlstr = " select distinct m.perms from sys_menu m " +
                 " left join sys_role_menu rm on m.id = rm.menu_id " +
@@ -163,7 +170,8 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
     }
 
 
-    public boolean checkMenuUnique(String id,String parentId,String menuName) {
+    @Override
+    public boolean checkMenuUnique(String id, String parentId, String menuName) {
         Cnd cnd =Cnd.NEW();
         if(Strings.isNotBlank(id)){
             cnd.and("id","!=",id);

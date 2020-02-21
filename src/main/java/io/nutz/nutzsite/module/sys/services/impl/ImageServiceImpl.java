@@ -32,7 +32,8 @@ public class ImageServiceImpl extends BaseServiceImpl<Image> implements ImageSer
 	 * @param id
 	 * @return
 	 */
-	public String get(String id){
+	@Override
+    public String get(String id){
 		Image img =this.fetch(id);
 		if(Lang.isNotEmpty(img)){
 			if("Base64".equals(img.getPhotoType())){
@@ -52,7 +53,8 @@ public class ImageServiceImpl extends BaseServiceImpl<Image> implements ImageSer
 	 * @param userId
 	 * @return
 	 */
-	public String save(TempFile tempFile, ImageType type , String userId,String id){
+	@Override
+    public String save(TempFile tempFile, ImageType type , String userId, String id){
 		if(Strings.isNotBlank(id)){
 			this.delete(id);
 		}

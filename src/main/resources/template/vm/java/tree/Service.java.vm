@@ -1,0 +1,29 @@
+package ${package}.services;
+
+import io.nutz.nutzsite.common.service.BaseService;
+import ${package}.models.${className};
+import java.util.List;
+import java.util.Map;
+/**
+ * ${tableComment} 服务层实现
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${className}Service extends BaseService<${className}> {
+    /**
+     * 对象转 ${tableComment} 树
+     *
+     * @param list ${tableComment}列表
+     * @return
+     */
+    public List<Map<String, Object>> getTrees(List<${className}> list);
+
+    /**
+     * 查询数据树
+     * @param parentId
+     * @param name
+     * @return
+     */
+    public List<Map<String, Object>> selectTree(String parentId, String name);
+}

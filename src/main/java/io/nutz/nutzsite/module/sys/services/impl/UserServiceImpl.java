@@ -62,6 +62,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
      * @param data
      * @return
      */
+    @Override
     public int update(User data) {
         //忽略空字段
         int count = dao().updateIgnoreNull(data);
@@ -74,6 +75,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
      *
      * @param data
      */
+    @Override
     public void updataRelation(User data) {
         List<String> ids = new ArrayList<>();
         if (data != null && Strings.isNotBlank(data.getRoleIds())) {
@@ -102,6 +104,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
      * @param user
      * @return
      */
+    @Override
     public int resetUserPwd(User user) {
         RandomNumberGenerator rng = new SecureRandomNumberGenerator();
         String salt = rng.nextBytes().toBase64();
@@ -118,6 +121,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
      * @param userId
      * @return
      */
+    @Override
     public Set<String> getRoleCodeList(String userId) {
         User user =this.fetch(userId);
         this.fetchLinks(user, "roles");
@@ -136,6 +140,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
      * @param userId
      * @return
      */
+    @Override
     public Set<String> getPermsByUserId(String userId) {
         Set<String> permsSet = new HashSet<>();
         List<String> menuList = menuService.getPermsByUserId(userId);
@@ -151,6 +156,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     /**
      * 记录登录信息
      */
+    @Override
     public void recordLoginInfo(User user) {
         user.setLoginIp(ShiroUtils.getIp());
         user.setLoginDate(new Date());
@@ -163,6 +169,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
      * @param userId
      * @return
      */
+    @Override
     public String getUserRoleGroup(String userId) {
         User user = this.fetch(userId);
         user = this.fetchLinks(user, "roles");
@@ -176,6 +183,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         return idsStr.toString();
     }
 
+    @Override
     public boolean checkLoginNameUnique(String name) {
         List<User> list = this.query(Cnd.where("login_name", "=", name));
         if (Lang.isEmpty(list)) {
