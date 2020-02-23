@@ -240,6 +240,20 @@ public class BaseServiceImpl<T> extends EntityService<T> implements BaseService<
     }
 
     /**
+     * 分页查询
+     * @param cnd
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public List<T> query(Condition cnd, int pageNumber, int pageSize){
+        Pager pager = this.dao().createPager(pageNumber, pageSize);
+        List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
+        return list;
+    }
+
+    /**
      * 更新
      * @param obj
      * @return

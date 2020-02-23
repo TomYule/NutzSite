@@ -122,6 +122,15 @@ public interface BaseService<T> {
 
 
     /**
+     * 分页查询
+     * @param cnd
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    public List<T> query( Condition cnd,int pageNumber, int pageSize);
+
+    /**
      * 更新
      * @param obj
      * @return

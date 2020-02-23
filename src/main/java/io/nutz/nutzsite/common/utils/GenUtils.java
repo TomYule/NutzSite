@@ -80,6 +80,7 @@ public class GenUtils {
         velocityContext.put("moduleNameOpen", getModuleName(packageNameOpen));
         velocityContext.put("columns", table.getColumns());
         velocityContext.put("package", packageName);
+        velocityContext.put("packageOpen", packageNameOpen);
         velocityContext.put("author", GenConfig.getAuthor());
         velocityContext.put("datetime", DateUtils.getDate());
         velocityContext.put("uuid1", R.UU32().toLowerCase());

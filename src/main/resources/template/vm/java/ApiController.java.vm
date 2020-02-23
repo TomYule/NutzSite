@@ -15,7 +15,6 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
-import org.nutz.plugins.slog.annotation.Slog;
 import io.nutz.nutzsite.common.utils.JWTUtil;
 import io.nutz.nutzsite.common.annotation.AccessToken;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +59,7 @@ public class Api${className}Controller {
 		if(Lang.isNotEmpty(endTime)){
 			cnd.and("create_time","<=", endTime);
 		}
-		List<${className}> list = ${classname}Service.query(pageNum,pageSize,cnd);
+		List<${className}> list = ${classname}Service.query(cnd,pageNum,pageSize);
 		return Result.success("system.success", list);
 	}
 
