@@ -111,6 +111,7 @@ public class GenUtils {
             templates.add("template/vm/html/list/list.html.vm");
             templates.add("template/vm/html/list/add.html.vm");
             templates.add("template/vm/html/list/edit.html.vm");
+            templates.add("template/vm/html/list/detail.html.vm");
         }else  if(Globals.TPL_TREE.equals(tplType)){
             templates.add("template/vm/java/tree/Service.java.vm");
             templates.add("template/vm/java/tree/ServiceImpl.java.vm");
@@ -182,6 +183,9 @@ public class GenUtils {
         }
         if (template.contains("edit.html.vm")) {
             return htmlPath + "/" + "edit.html";
+        }
+        if (template.contains("detail.html.vm")) {
+            return htmlPath + "/" + "detail.html";
         }
         if (template.contains("tree.html.vm")) {
             return htmlPath + "/" + "tree.html";

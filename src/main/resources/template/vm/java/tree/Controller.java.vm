@@ -105,7 +105,7 @@ public class ${className}Controller {
 	 * 修改${tableComment}
 	 */
 	@At("/edit/?")
-	@Ok("th://${moduleName}/${classname}/edit.html")
+	@Ok("th:/${moduleName}/${classname}/edit.html")
 	public void edit(String id, HttpServletRequest req) {
 		${className} ${classname} = ${classname}Service.fetch(id);
 		if(${classname}!=null){
@@ -120,7 +120,6 @@ public class ${className}Controller {
 	/**
 	 * 修改保存${tableComment}
 	 */
-
 	@At
 	@POST
 	@Ok("json")
