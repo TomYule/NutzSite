@@ -27,7 +27,7 @@ import java.util.Date;
  * @date ${datetime}
  */
 @IocBean
-@At("/${moduleNameOpen}/Api${classname}")
+@At("/${moduleNameOpen}/api/${classname}")
 public class Api${className}Controller {
 	private static final Log log = Logs.get();
 
@@ -68,9 +68,13 @@ public class Api${className}Controller {
      */
     @At
     @Ok("json")
-	@AccessToken
+    @AccessToken
     public Object get(@Param("id") String id) {
-        return ${classname}Service.fetch(id);
+        try {
+            return Result.success("system.success",${classname}Service.fetch(id));
+        } catch (Exception e) {
+            return Result.error("system.error");
+        }
     }
 
 	/**
