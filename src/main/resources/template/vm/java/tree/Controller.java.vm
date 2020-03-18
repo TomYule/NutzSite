@@ -3,7 +3,7 @@ package ${package}.controller;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import ${package}.models.${className};
 import ${package}.services.${className}Service;
-import io.nutz.nutzsite.common.base.Result;;
+import io.nutz.nutzsite.common.base.Result;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
