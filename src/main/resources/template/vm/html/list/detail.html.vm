@@ -5,7 +5,7 @@
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
 	<form class="form-horizontal m" id="form-${classname}-edit" >
-		<input id="${primaryKey.attrname}" name="${primaryKey.attrname}"th:text="${${classname}.${primaryKey.attrname}}"  type="hidden">
+		<input id="${primaryKey.attrname}" name="${primaryKey.attrname}"th:value="${${classname}.${primaryKey.attrname}}"  type="hidden">
 #foreach($column in $columns)
 #if($column.columnName != $primaryKey.columnName)
 #if(!${column.configInfo})

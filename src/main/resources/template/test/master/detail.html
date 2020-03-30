@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-master-edit">
+        <input id="id" name="id" th:value="${master.id}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">主人：</label>
+            <div class="col-sm-8">
+                <div class="form-control-static" id="name" name="name" th:text="${master.name}"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">宠物：</label>
+            <div class="col-sm-8">
+                <div class="form-control-static"th:each="p:${master.pets}" th:text="${p.name}"></div>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    $(function () {
+
+    });
+</script>
+</body>
+</html>

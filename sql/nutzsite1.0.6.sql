@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 20/02/2020 12:17:28
+ Date: 30/03/2020 18:16:20
 */
 
 SET NAMES utf8mb4;
@@ -61,7 +61,7 @@ CREATE TABLE `cms_article` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `cms_article` VALUES ('0c320165ec1341cf94da15a9a06039fb', '7', '产品质量太差', '', NULL, '', '产品质量太差', '产品质量太差', '<ol><li><b>产品质量太差</b></li><li><b><br></b></li><li><b><br></b></li></ol>\r\n', '', '', 0, NULL, 2, '', '', '', '1', '2019-06-13 10:54:00', '1', '2019-10-10 10:39:20', '', '0', '');
-INSERT INTO `cms_article` VALUES ('1', '3', '文章标题标题标题标题', NULL, 'green', NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 26, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
+INSERT INTO `cms_article` VALUES ('1', '3', '文章标题标题标题标题', NULL, 'green', NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 27, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
 INSERT INTO `cms_article` VALUES ('10', '4', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
 INSERT INTO `cms_article` VALUES ('11', '5', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
 INSERT INTO `cms_article` VALUES ('12', '5', '文章标题标题标题标题', NULL, NULL, NULL, '关键字1,关键字2', NULL, '文章内容内容内容内容', '来源', '1', 0, NULL, 0, NULL, NULL, NULL, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', NULL, '0', '1,2,3');
@@ -4329,7 +4329,8 @@ CREATE TABLE `sys_log` (
 -- Records of sys_log
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_log` VALUES ('6cd3454eda0541eeae5cf6a028cef961', 'aop.after', '作日志记录', '/monitor/operlog/clean', 'io.nutz.nutzsite.module.monitor.controller.OperLogController#clean', '清除作日志记录', '1', 'admin', '{}', 'Mac OS X', 'Firefox 7', '0:0:0:0:0:0:0:1', '内网IP', '2020-02-20 12:17:05');
+INSERT INTO `sys_log` VALUES ('a80cc086f703464db20641ae5ce20138', 'aop.after', '系统访问记录', '/monitor/logininfor/clean', 'io.nutz.nutzsite.module.monitor.controller.LogininforController#clean', '清除系统访问记录', '1', 'admin', '{}', 'Mac OS X', 'Chrome 8', '0:0:0:0:0:0:0:1', '内网IP', '2020-03-30 18:15:57');
+INSERT INTO `sys_log` VALUES ('ce5a1fcd2d2145a6b96bdce3e27aa757', 'aop.after', '作日志记录', '/monitor/operlog/clean', 'io.nutz.nutzsite.module.monitor.controller.OperLogController#clean', '清除作日志记录', '1', 'admin', '{}', 'Mac OS X', 'Chrome 8', '0:0:0:0:0:0:0:1', '内网IP', '2020-03-30 18:15:52');
 COMMIT;
 
 -- ----------------------------
@@ -4382,6 +4383,7 @@ CREATE TABLE `sys_menu` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_menu` VALUES ('0a87d161daac4a9888f8099fd76f1b3f', '推送菜单', '7d14fm1jkgijtovnkge18or2r6', 5, '', 'F', '0', 'wx:weixinMenu:push', '', '1', '2019-05-10 15:40:05', '1', '2019-05-10 15:40:05', NULL);
+INSERT INTO `sys_menu` VALUES ('0qr0v7vugsjthp0n1pakqq675c', '宠物', '45844c9885a04c85b3d8d12837f78648', 30, '/test/pet', 'C', '0', 'test:pet:view', '#', NULL, NULL, '1', '2020-03-30 17:26:25', NULL);
 INSERT INTO `sys_menu` VALUES ('1', '系统管理', '0', 1, '#', 'M', '0', '', 'fa fa-gear', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '系统管理目录');
 INSERT INTO `sys_menu` VALUES ('100', '用户管理', '1', 1, '/sys/user', 'C', '0', 'sys:user:view', '#', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES ('1000', '用户查询', '100', 1, '#', 'F', '0', 'sys:user:list', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '');
@@ -4465,6 +4467,7 @@ INSERT INTO `sys_menu` VALUES ('115', '系统接口', '3', 3, '/tool/swagger', '
 INSERT INTO `sys_menu` VALUES ('12n0a34518g8urdjo6kp83h5uj', '微信菜单修改', '7d14fm1jkgijtovnkge18or2r6', 3, '#', 'F', '0', 'wx:menu:edit', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('1c46vji8nqgrlqa7ul078eufjt', '栏目删除', 'q6s0e7l6dcjfmpt23h9s865rqb', 4, '#', 'F', '0', 'cms:category:remove', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('1j89195vskigvq3rn8mbgkjh90', '微信素材新增', '7tfveg4u38inkpjdoo8v2iki4s', 2, '#', 'F', '0', 'wx:material:add', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
+INSERT INTO `sys_menu` VALUES ('1k3s40clkah99phi7lnpnr7rdr', '宠物删除', '0qr0v7vugsjthp0n1pakqq675c', 4, '#', 'F', '0', 'test:pet:remove', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('1r820fevh4j08rmv45a7jn5qki', '栏目查询', 'q6s0e7l6dcjfmpt23h9s865rqb', 1, '#', 'F', '0', 'cms:category:list', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('2', '系统监控', '0', 20, '#', 'M', '0', '', 'fa fa-video-camera', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES ('2epqeqpe5qhp0qahik42q9djah', '微信菜单删除', '7d14fm1jkgijtovnkge18or2r6', 4, '#', 'F', '0', 'wx:menu:remove', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
@@ -4473,6 +4476,9 @@ INSERT INTO `sys_menu` VALUES ('3575kpm4gei4ipdh4mn4peg2ct', '微信菜单新增
 INSERT INTO `sys_menu` VALUES ('3gl7pjf07ein3prthkop8d750i', '微信素材修改', '7tfveg4u38inkpjdoo8v2iki4s', 3, '#', 'F', '0', 'wx:material:edit', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('3le6nsatrugpkos20g28ai8b69', '微信用户查询', 'q61dd1i21oji0oe2891gbn37up', 1, '#', 'F', '0', 'wx:wxUser:list', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('3n1cgh99rkg1ronbe4kg6fukk4', '文章', '9ac78f629dc74ac5877b42c73a6d4f26', 20, '/cms/article', 'C', '0', 'cms:article:view', '#', NULL, NULL, '1', '2019-06-11 16:16:36', NULL);
+INSERT INTO `sys_menu` VALUES ('42pvr8o88oj8qpib71krf12g43', '宠物查询', '0qr0v7vugsjthp0n1pakqq675c', 1, '#', 'F', '0', 'test:pet:list', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
+INSERT INTO `sys_menu` VALUES ('45844c9885a04c85b3d8d12837f78648', 'DEMO', '0', 100, '', 'M', '0', '', 'fa fa-coffee', '1', '2020-03-30 17:25:34', '1', '2020-03-30 17:25:34', NULL);
+INSERT INTO `sys_menu` VALUES ('4kvp92hg5mj30r94i9teh6ue5r', '主人', '45844c9885a04c85b3d8d12837f78648', 20, '/test/master', 'C', '0', 'test:master:view', '#', NULL, NULL, '1', '2020-03-30 17:26:11', NULL);
 INSERT INTO `sys_menu` VALUES ('4pv1d855iaj9irer5i8no4n61k', '文章删除', '3n1cgh99rkg1ronbe4kg6fukk4', 4, '#', 'F', '0', 'cms:article:remove', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('4sjsbjul38g3nod9jtqlnig8mv', '栏目新增', 'q6s0e7l6dcjfmpt23h9s865rqb', 2, '#', 'F', '0', 'cms:category:add', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('500', '操作日志', '108', 1, '/monitor/operlog', 'C', '0', 'monitor:operlog:view', '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '操作日志菜单');
@@ -4480,11 +4486,15 @@ INSERT INTO `sys_menu` VALUES ('501', '登录日志', '108', 2, '/monitor/logini
 INSERT INTO `sys_menu` VALUES ('5aseet8o8gib9qubvs89rrfj1h', '微信素材删除', '7tfveg4u38inkpjdoo8v2iki4s', 4, '#', 'F', '0', 'wx:material:remove', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('5b7v0dvpjaj72rhd4qs2dbtdnk', '站点查询', '6bma11idlign1rrh3ngann4acf', 1, '#', 'F', '0', 'cms:site:list', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('5qnj96g24kj9uq49fq3ah8fn53', '文章修改', '3n1cgh99rkg1ronbe4kg6fukk4', 3, '#', 'F', '0', 'cms:article:edit', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
+INSERT INTO `sys_menu` VALUES ('5vrtmm99m0h01qfsoa9m1daiks', '主人修改', '4kvp92hg5mj30r94i9teh6ue5r', 3, '#', 'F', '0', 'test:master:edit', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('64ab927r2uhjtrkqpdr7if07q9', '文章新增', '3n1cgh99rkg1ronbe4kg6fukk4', 2, '#', 'F', '0', 'cms:article:add', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
+INSERT INTO `sys_menu` VALUES ('68okl0igqkjidoi7gs3fi6qm8q', '宠物新增', '0qr0v7vugsjthp0n1pakqq675c', 2, '#', 'F', '0', 'test:pet:add', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('6bma11idlign1rrh3ngann4acf', '站点', '9ac78f629dc74ac5877b42c73a6d4f26', 1, '/cms/site', 'C', '0', 'cms:site:view', '#', NULL, NULL, '1', '2019-12-13 16:29:01', NULL);
 INSERT INTO `sys_menu` VALUES ('6jjag243ocir0qkn0l3fn6npq6', '文章查询', '3n1cgh99rkg1ronbe4kg6fukk4', 1, '#', 'F', '0', 'cms:article:list', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
+INSERT INTO `sys_menu` VALUES ('6turp2utoqhsjrt8cuiv4d5gsi', '主人删除', '4kvp92hg5mj30r94i9teh6ue5r', 4, '#', 'F', '0', 'test:master:remove', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('7bd0844c03214140a403dda2989d54f7', '微信', '0', 50, '', 'M', '0', '', 'fa fa-comments', NULL, NULL, '1', '2019-12-05 17:25:08', NULL);
 INSERT INTO `sys_menu` VALUES ('7d14fm1jkgijtovnkge18or2r6', '微信菜单', '7bd0844c03214140a403dda2989d54f7', 1, '/wx/menu', 'C', '0', 'wx:menu:view', '#', NULL, NULL, '1', '2019-05-10 17:22:07', NULL);
+INSERT INTO `sys_menu` VALUES ('7hhabctmo6jdiqccdq49tqtskd', '宠物修改', '0qr0v7vugsjthp0n1pakqq675c', 3, '#', 'F', '0', 'test:pet:edit', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('7jb3d4916sg0frop9kv87mbpl7', '微信用户同步', 'q61dd1i21oji0oe2891gbn37up', 2, '#', 'F', '0', 'wx:wxUser:sync', '#', NULL, NULL, '1', '2019-05-14 09:49:19', NULL);
 INSERT INTO `sys_menu` VALUES ('7tfveg4u38inkpjdoo8v2iki4s', '微信素材', '7bd0844c03214140a403dda2989d54f7', 30, '/wx/material', 'C', '0', 'wx:material:view', '#', NULL, NULL, '1', '2019-08-08 17:26:10', NULL);
 INSERT INTO `sys_menu` VALUES ('9ac78f629dc74ac5877b42c73a6d4f26', '内容管理', '0', 40, '', 'M', '0', '', 'fa fa-book', NULL, NULL, '1', '2019-06-11 10:31:16', NULL);
@@ -4493,6 +4503,8 @@ INSERT INTO `sys_menu` VALUES ('o7b4o036ikhk0q379oud2slpnp', '站点新增', '6b
 INSERT INTO `sys_menu` VALUES ('o9dfvt08mog8nrdkqssa3s4qf4', '站点修改', '6bma11idlign1rrh3ngann4acf', 3, '#', 'F', '0', 'cms:site:edit', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('q61dd1i21oji0oe2891gbn37up', '微信用户', '7bd0844c03214140a403dda2989d54f7', 20, '/wx/wxUser', 'C', '0', 'wx:wxUser:view', '#', NULL, NULL, '1', '2019-06-11 10:34:54', NULL);
 INSERT INTO `sys_menu` VALUES ('q6s0e7l6dcjfmpt23h9s865rqb', '栏目', '9ac78f629dc74ac5877b42c73a6d4f26', 10, '/cms/category', 'C', '0', 'cms:category:view', '#', NULL, NULL, '1', '2019-12-13 16:29:12', NULL);
+INSERT INTO `sys_menu` VALUES ('r3n9o4g8m6hm5qlqkirj393s9j', '主人新增', '4kvp92hg5mj30r94i9teh6ue5r', 2, '#', 'F', '0', 'test:master:add', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
+INSERT INTO `sys_menu` VALUES ('s1u0dfo164jjnp601okajsd9pn', '主人查询', '4kvp92hg5mj30r94i9teh6ue5r', 1, '#', 'F', '0', 'test:master:list', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('tleoggeth8jear08rs25amdtp1', '微信菜单查询', '7d14fm1jkgijtovnkge18or2r6', 1, '#', 'F', '0', 'wx:menu:list', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('tos8ndvbpch8ar2v3dsc9i9vg9', '微信素材查询', '7tfveg4u38inkpjdoo8v2iki4s', 1, '#', 'F', '0', 'wx:material:list', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
 INSERT INTO `sys_menu` VALUES ('umkbsmd5dmgh9rb1008krur527', '栏目修改', 'q6s0e7l6dcjfmpt23h9s865rqb', 3, '#', 'F', '0', 'cms:category:edit', '#', 'admin', '2018-03-01 00:00:00', 'haiming', '2018-03-01 00:00:00', '');
@@ -4577,7 +4589,7 @@ CREATE TABLE `sys_role` (
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role` VALUES ('1', '管理员', 'admin', 1, NULL, '0', '0', NULL, NULL, '1', '2020-02-20 12:07:46', '管理员');
+INSERT INTO `sys_role` VALUES ('1', '管理员', 'admin', 1, NULL, '0', '0', NULL, NULL, '1', '2020-03-30 17:26:37', '管理员');
 INSERT INTO `sys_role` VALUES ('2', '普通角色', 'common', 2, NULL, '0', '0', NULL, '2019-04-26 14:02:23', NULL, '2019-04-26 14:02:30', '普通角色');
 INSERT INTO `sys_role` VALUES ('60e47f5f799c414a8b6f2805a6f5b659', 'test', 'app.user', 20, NULL, '0', '0', NULL, NULL, '1', '2019-12-10 15:02:36', '');
 COMMIT;
@@ -4616,6 +4628,7 @@ CREATE TABLE `sys_role_menu` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_role_menu` VALUES ('1', '0a87d161daac4a9888f8099fd76f1b3f');
+INSERT INTO `sys_role_menu` VALUES ('1', '0qr0v7vugsjthp0n1pakqq675c');
 INSERT INTO `sys_role_menu` VALUES ('1', '1');
 INSERT INTO `sys_role_menu` VALUES ('1', '100');
 INSERT INTO `sys_role_menu` VALUES ('1', '1000');
@@ -4699,6 +4712,7 @@ INSERT INTO `sys_role_menu` VALUES ('1', '115');
 INSERT INTO `sys_role_menu` VALUES ('1', '12n0a34518g8urdjo6kp83h5uj');
 INSERT INTO `sys_role_menu` VALUES ('1', '1c46vji8nqgrlqa7ul078eufjt');
 INSERT INTO `sys_role_menu` VALUES ('1', '1j89195vskigvq3rn8mbgkjh90');
+INSERT INTO `sys_role_menu` VALUES ('1', '1k3s40clkah99phi7lnpnr7rdr');
 INSERT INTO `sys_role_menu` VALUES ('1', '1r820fevh4j08rmv45a7jn5qki');
 INSERT INTO `sys_role_menu` VALUES ('1', '2');
 INSERT INTO `sys_role_menu` VALUES ('1', '2epqeqpe5qhp0qahik42q9djah');
@@ -4707,6 +4721,9 @@ INSERT INTO `sys_role_menu` VALUES ('1', '3575kpm4gei4ipdh4mn4peg2ct');
 INSERT INTO `sys_role_menu` VALUES ('1', '3gl7pjf07ein3prthkop8d750i');
 INSERT INTO `sys_role_menu` VALUES ('1', '3le6nsatrugpkos20g28ai8b69');
 INSERT INTO `sys_role_menu` VALUES ('1', '3n1cgh99rkg1ronbe4kg6fukk4');
+INSERT INTO `sys_role_menu` VALUES ('1', '42pvr8o88oj8qpib71krf12g43');
+INSERT INTO `sys_role_menu` VALUES ('1', '45844c9885a04c85b3d8d12837f78648');
+INSERT INTO `sys_role_menu` VALUES ('1', '4kvp92hg5mj30r94i9teh6ue5r');
 INSERT INTO `sys_role_menu` VALUES ('1', '4pv1d855iaj9irer5i8no4n61k');
 INSERT INTO `sys_role_menu` VALUES ('1', '4sjsbjul38g3nod9jtqlnig8mv');
 INSERT INTO `sys_role_menu` VALUES ('1', '500');
@@ -4714,11 +4731,15 @@ INSERT INTO `sys_role_menu` VALUES ('1', '501');
 INSERT INTO `sys_role_menu` VALUES ('1', '5aseet8o8gib9qubvs89rrfj1h');
 INSERT INTO `sys_role_menu` VALUES ('1', '5b7v0dvpjaj72rhd4qs2dbtdnk');
 INSERT INTO `sys_role_menu` VALUES ('1', '5qnj96g24kj9uq49fq3ah8fn53');
+INSERT INTO `sys_role_menu` VALUES ('1', '5vrtmm99m0h01qfsoa9m1daiks');
 INSERT INTO `sys_role_menu` VALUES ('1', '64ab927r2uhjtrkqpdr7if07q9');
+INSERT INTO `sys_role_menu` VALUES ('1', '68okl0igqkjidoi7gs3fi6qm8q');
 INSERT INTO `sys_role_menu` VALUES ('1', '6bma11idlign1rrh3ngann4acf');
 INSERT INTO `sys_role_menu` VALUES ('1', '6jjag243ocir0qkn0l3fn6npq6');
+INSERT INTO `sys_role_menu` VALUES ('1', '6turp2utoqhsjrt8cuiv4d5gsi');
 INSERT INTO `sys_role_menu` VALUES ('1', '7bd0844c03214140a403dda2989d54f7');
 INSERT INTO `sys_role_menu` VALUES ('1', '7d14fm1jkgijtovnkge18or2r6');
+INSERT INTO `sys_role_menu` VALUES ('1', '7hhabctmo6jdiqccdq49tqtskd');
 INSERT INTO `sys_role_menu` VALUES ('1', '7jb3d4916sg0frop9kv87mbpl7');
 INSERT INTO `sys_role_menu` VALUES ('1', '7tfveg4u38inkpjdoo8v2iki4s');
 INSERT INTO `sys_role_menu` VALUES ('1', '9ac78f629dc74ac5877b42c73a6d4f26');
@@ -4727,6 +4748,8 @@ INSERT INTO `sys_role_menu` VALUES ('1', 'o7b4o036ikhk0q379oud2slpnp');
 INSERT INTO `sys_role_menu` VALUES ('1', 'o9dfvt08mog8nrdkqssa3s4qf4');
 INSERT INTO `sys_role_menu` VALUES ('1', 'q61dd1i21oji0oe2891gbn37up');
 INSERT INTO `sys_role_menu` VALUES ('1', 'q6s0e7l6dcjfmpt23h9s865rqb');
+INSERT INTO `sys_role_menu` VALUES ('1', 'r3n9o4g8m6hm5qlqkirj393s9j');
+INSERT INTO `sys_role_menu` VALUES ('1', 's1u0dfo164jjnp601okajsd9pn');
 INSERT INTO `sys_role_menu` VALUES ('1', 'tleoggeth8jear08rs25amdtp1');
 INSERT INTO `sys_role_menu` VALUES ('1', 'tos8ndvbpch8ar2v3dsc9i9vg9');
 INSERT INTO `sys_role_menu` VALUES ('1', 'umkbsmd5dmgh9rb1008krur527');
@@ -4815,7 +4838,7 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '小明', '00', 'nutzsite@gmail.com', '18888888888', '0', 0x6239346364656430306262663433363961356364333565666239363762653935, 'vM7xT6KolcQbX7xlYfjisIJkrleH3De2t7wnmZ2zIB8=', '6dXimQAQqHBXkhI79IRKcg==', '0', '0', '0:0:0:0:0:0:0:1', '2020-02-20 12:16:48', 'admin', '2018-03-16 11:33:00', 'ry', '2019-04-19 07:06:38', '管理员');
+INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '小明', '00', 'nutzsite@gmail.com', '18888888888', '0', 0x6239346364656430306262663433363961356364333565666239363762653935, 'vM7xT6KolcQbX7xlYfjisIJkrleH3De2t7wnmZ2zIB8=', '6dXimQAQqHBXkhI79IRKcg==', '0', '0', '0:0:0:0:0:0:0:1', '2020-03-30 17:58:07', 'admin', '2018-03-16 11:33:00', 'ry', '2019-04-19 07:06:38', '管理员');
 INSERT INTO `sys_user` VALUES ('92f5c91df48644a1812c55c164716fa7', '108', 'yuhaiming', 'Tom', '00', 'nutzsite@gmail.com', '18888888888', '1', NULL, 'XTzHI41NTIG6ZbIt+PMOsaLilKMMaHouqREW53OCKIQ=', '0EVL8dmNk7XaQiIFATsgmA==', '0', '0', '127.0.0.1', '2019-04-22 07:59:47', '1', '2019-04-19 07:48:19', '1', '2019-11-22 10:48:36', '');
 INSERT INTO `sys_user` VALUES ('a14731cfa4cb4e46b1f4eb1061950c6d', '105', 'haiming', 'Tom', '00', 'nutzsite@gmail.com', '18888888888', '0', 0x3961636163663138663531633439646638626531356230373265396133306333, 'DymenKivzL744ODeXSLyvkz6qnnP3qhgdtbpwZ9Txyo=', 'gA208ZKZ684tEg0Jg+UhSQ==', '0', '0', '0:0:0:0:0:0:0:1', '2019-12-10 15:08:57', '1', '2019-04-26 03:00:24', '1', '2019-12-10 15:02:20', '');
 COMMIT;
@@ -4883,6 +4906,61 @@ INSERT INTO `sys_user_role` VALUES ('2', '2');
 INSERT INTO `sys_user_role` VALUES ('92f5c91df48644a1812c55c164716fa7', '2');
 INSERT INTO `sys_user_role` VALUES ('9da95d29a0224479b862ab52a9e8b206', '60e47f5f799c414a8b6f2805a6f5b659');
 INSERT INTO `sys_user_role` VALUES ('a14731cfa4cb4e46b1f4eb1061950c6d', '60e47f5f799c414a8b6f2805a6f5b659');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for test_food
+-- ----------------------------
+DROP TABLE IF EXISTS `test_food`;
+CREATE TABLE `test_food` (
+  `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='食物';
+
+-- ----------------------------
+-- Records of test_food
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for test_master
+-- ----------------------------
+DROP TABLE IF EXISTS `test_master`;
+CREATE TABLE `test_master` (
+  `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='主人';
+
+-- ----------------------------
+-- Records of test_master
+-- ----------------------------
+BEGIN;
+INSERT INTO `test_master` VALUES ('620e583527a14eadbd03cbd6bd45b9b4', '小小');
+INSERT INTO `test_master` VALUES ('cfa15a1050074f02a3982581186a1edd', '小小明');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for test_pet
+-- ----------------------------
+DROP TABLE IF EXISTS `test_pet`;
+CREATE TABLE `test_pet` (
+  `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `master_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '主人',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='宠物';
+
+-- ----------------------------
+-- Records of test_pet
+-- ----------------------------
+BEGIN;
+INSERT INTO `test_pet` VALUES ('61e092b65b4448a9bdc88eb4e6a354cd', 'cfa15a1050074f02a3982581186a1edd', '豆豆');
+INSERT INTO `test_pet` VALUES ('72d0b26138c0410fa74e6a824cbd77b8', 'cfa15a1050074f02a3982581186a1edd', '毛毛');
+INSERT INTO `test_pet` VALUES ('b6612eb4b4bf4e0492afe9680c342d35', 'cfa15a1050074f02a3982581186a1edd', 'Tom');
+INSERT INTO `test_pet` VALUES ('e35dfcf3f90e432790d520d12b32fa00', '620e583527a14eadbd03cbd6bd45b9b4', 'Jerry');
 COMMIT;
 
 -- ----------------------------

@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+	<form class="form-horizontal m" id="form-master-edit" >
+		<input id="id" name="id"th:value="${master.id}"  type="hidden">
+			<div class="form-group">
+			<label class="col-sm-3 control-label">：</label>
+			<div class="col-sm-8">
+				<input id="name" name="name"th:value="${master.name}" class="form-control" type="text">
+			</div>
+		</div>
+		</form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+	var prefix = ctx + "test/master";
+	$("#form-master-edit").validate({
+		onkeyup: false,
+		rules:{
+			xxxx:{
+				required:true,
+			},
+		}
+	});
+
+	function submitHandler() {
+		if ($.validate.form()) {
+			$.operate.save(prefix + "/editDo", $('#form-master-edit').serialize());
+		}
+	}
+</script>
+</body>
+</html>
