@@ -1,0 +1,37 @@
+[
+  {
+    "configKey": "AppDomain",
+    "configValue": "127.0.0.1",
+    "note": "系统域名",
+    "createBy": "",
+    "updateBy": ""
+  },
+  {
+    "configKey": "AppName",
+    "configValue": "NutzSite 开发框架",
+    "note": "系统名称",
+    "createBy": "",
+    "updateBy": ""
+  },
+  {
+    "configKey": "AppShrotName",
+    "configValue": "NutzSite",
+    "note": "系统短名称",
+    "createBy": "",
+    "updateBy": ""
+  },
+  {
+    "configKey": "AppUploadPath",
+    "configValue": "/mnt/upload",
+    "note": "文件上传文件夹",
+    "createBy": "",
+    "updateBy": ""
+  },
+  {
+    "configKey": "token",
+    "configValue": "",
+    "note": "",
+    "updateBy": "1",
+    "updateTime": "2019-11-22 10:49:38"
+  }
+]

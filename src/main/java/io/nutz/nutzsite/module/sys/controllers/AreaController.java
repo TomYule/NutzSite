@@ -3,6 +3,7 @@ package io.nutz.nutzsite.module.sys.controllers;
 import com.alibaba.fastjson.JSON;
 import io.nutz.nutzsite.common.bean.Amap;
 import io.nutz.nutzsite.common.bean.Districts;
+import io.nutz.nutzsite.common.config.GenConfig;
 import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.module.sys.models.Area;
@@ -198,62 +199,20 @@ public class AreaController {
         return tree;
     }
 
-    public static void getAreaList(List<Districts> list,String pid){
-        list.forEach(districts -> {
-            Area area =new Area();
-            area.setId(R.UU32().toLowerCase());
-            area.setParentId(pid);
-            area.setAdcode(districts.getAdcode());
-            area.setName(districts.getName());
-            area.setLevel(districts.getLevel());
-            if(districts.getCitycode()!=null && districts.getCitycode().size()>0){
-                area.setCitycode(districts.getCitycode().get(0));
-            }
-
-            areaList.add(area);
-            if(districts.getDistricts()!=null && districts.getDistricts().size()>0){
-                getAreaList(districts.getDistricts(),area.getId());
-            }
-        });
-    }
-
+    /**
+     * 初始化行政区域的数据
+     * @return
+     */
     @At
     @Ok("json")
-    public String  initData(){
-        //读取文件
-        String fileName = "/Users/apple/Desktop/area.txt";
-        //读取文件
-        BufferedReader br = null;
-        StringBuffer sb = null;
-        try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName),"UTF-8")); //这里可以控制编码
-            sb = new StringBuffer();
-            String line = null;
-            while((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+    public String initData(){
+        if(0==areaService.count()){
+            String areaJson = GenConfig.getFileData("data/area.json");
+            List<Area> areaList = JSON.parseArray(areaJson,Area.class);
+            for(Area a:areaList){
+                areaService.fastInsert(a);
             }
         }
-
-        String data = new String(sb); //StringBuffer ==> String
-        Amap amap = JSON.parseObject(data,Amap.class);
-        if(amap!=null && amap.getDistricts()!=null && amap.getDistricts().size()>0){
-            getAreaList(amap.getDistricts(),"0");
-        }
-//        if(areaList!=null && areaList.size()>0){
-//            areaList.forEach(area -> {
-//                areaService.insert(area);
-//            });
-//        }
         return "successs";
-
     }
-
 }

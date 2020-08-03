@@ -2,6 +2,7 @@ package io.nutz.nutzsite;
 
 import com.alibaba.fastjson.JSON;
 import io.nutz.nutzsite.common.base.Globals;
+import io.nutz.nutzsite.common.config.GenConfig;
 import io.nutz.nutzsite.common.manager.AsyncManager;
 import io.nutz.nutzsite.common.mvc.MyActionChainMaker;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
@@ -22,6 +23,7 @@ import org.nutz.ioc.impl.PropertiesProxy;
 import org.nutz.ioc.loader.annotation.*;
 import org.nutz.lang.Encoding;
 import org.nutz.lang.Mirror;
+import org.nutz.lang.random.R;
 import org.nutz.lang.util.NutMap;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -59,10 +61,6 @@ public class MainLauncher {
     private UserService userService;
     @Inject
     private MenuService menuService;
-    @Inject
-    private ImageService imageService;
-    @Inject
-    private DeptService deptService;
     @Inject
     private TaskService taskService;
 
@@ -111,6 +109,7 @@ public class MainLauncher {
         }
         // 初始化系统变量
         Globals.getInstance();
+        initSysData();
         initSysTask(ioc);
         /**
          * 自定义EL表达式
@@ -128,8 +127,7 @@ public class MainLauncher {
                 return "array2str";
             }
         });
-        // 创建数据库
-        Daos.createTablesInPackage(dao, "io.nutz.nutzsite", false);
+
     }
 
     /**
@@ -180,6 +178,56 @@ public class MainLauncher {
         } catch (Exception ex) {
 
         }
+    }
+
+    /**
+     * 初始化数据库
+     */
+    private void initSysData() {
+        // 创建数据库
+        Daos.createTablesInPackage(dao, "io.nutz.nutzsite", false);
+        Daos.createTablesInPackage(dao, "org.nutz.plugins.slog.bean", false);
+        // 若必要的数据不存在，则初始化数据库
+        if (0 == dao.count(User.class)) {
+            String data = GenConfig.getFileData("data/menu.json");
+            List<Menu> menuList = JSON.parseArray(data,Menu.class);
+            menuList = Menu.getMenuList(menuList,"0");
+            for(Menu menu:menuList){
+                dao.fastInsert(menu);
+            }
+            String roleJson = GenConfig.getFileData("data/role.json");
+            List<Role> roleList = JSON.parseArray(roleJson,Role.class);
+            for(Role role:roleList){
+                role.setId(R.UU32().toLowerCase());
+                dao.fastInsert(role);
+                if("admin".equals(role.getRoleKey())){
+                    role.setMenus(menuList);
+                    dao.insertRelation(role, "menus");
+                }
+            }
+            String userJson = GenConfig.getFileData("data/user.json");
+            List<User> userList = JSON.parseArray(userJson,User.class);
+            for(User user:userList){
+                user.setId(R.UU32().toLowerCase());
+                dao.fastInsert(user);
+                if("admin".equals(user.getLoginName())){
+                    user.setRoles(roleList);
+                    dao.insertRelation(user, "roles");
+                }
+            }
+
+            String deptJson = GenConfig.getFileData("data/dept.json");
+            List<Dept> deptList = JSON.parseArray(deptJson,Dept.class);
+            for(Dept d:deptList){
+                dao.fastInsert(d);
+            }
+            String taskJson = GenConfig.getFileData("data/task.json");
+            List<Task> taskList = JSON.parseArray(taskJson,Task.class);
+            for(Task t:taskList){
+                dao.fastInsert(t);
+            }
+        }
+        //其他表懒得写了 有需要 自行添加
     }
 
     /**

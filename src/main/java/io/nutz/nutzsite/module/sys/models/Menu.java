@@ -2,6 +2,9 @@ package io.nutz.nutzsite.module.sys.models;
 
 import io.nutz.nutzsite.common.base.BaseModel;
 import org.nutz.dao.entity.annotation.*;
+import org.nutz.lang.Lang;
+import org.nutz.lang.Strings;
+import org.nutz.lang.random.R;
 import org.nutz.plugins.validation.annotation.Validations;
 
 import java.io.Serializable;
@@ -239,5 +242,44 @@ public class Menu extends BaseModel implements Serializable {
     @Override
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+
+    public static List<Menu>  getMenuList(List<Menu> list,String pid){
+        List<Menu> allMenu =new ArrayList<>();
+        list.forEach(menu -> {
+            menu.setId(R.UU32().toLowerCase());
+            menu.setParentId(pid);
+            allMenu.add(menu);
+            if(Lang.isNotEmpty(menu.getChildren()) && menu.getChildren().size()>0){
+                List<Menu> tmp = getMenuList(menu.getChildren(),menu.getId());
+                allMenu.addAll(tmp);
+            }
+        });
+        return allMenu;
+    }
+
+    /**
+     * 子方法
+     **/
+    public static List<Menu> getChild(String id, List<Menu> allMenu) {
+        // 子菜单
+        List<Menu> childList = new ArrayList<>();
+        for (Menu menu : allMenu) {
+            // 遍历所有节点，将父菜单id与传过来的id比较
+            if (Strings.isNotBlank(menu.getParentId())) {
+                if (menu.getParentId().equals(id)) {
+                    childList.add(menu);
+                }
+            }
+        }
+        // 把子菜单的子菜单再循环一遍
+        for (Menu menu : childList) {
+            menu.setChildren(getChild(menu.getId(), allMenu));
+        } // 递归退出条件
+        if (childList.size() == 0) {
+            return null;
+        }
+        return childList;
     }
 }

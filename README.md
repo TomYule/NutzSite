@@ -55,8 +55,8 @@ MainLauncher是入口,启动即可
 
 ## 环境要求
 
-* 必须JDK8+ 支持OpenJDK 
-* MySQL 5.6 ~ 8.0
+* 建议 JDK8+ 支持OpenJDK 
+* 数据库 任意SQL数据库,例如MySQL,Oracle,SqlServer等等
 * eclipse或idea等IDE开发工具,可选
 
 ## 配置信息位置
@@ -97,6 +97,7 @@ mvn clean package nutzboot:shade nutzboot:war
 * 部分代码 参考 [nutzwk](https://github.com/Wizzercn/NutzWk/tree/bak-delete-v3-bootstrap)
 
 ## 鸣谢
+*   nutz 项目的所有贡献者
 *   [@wendal](https://github.com/wendal) (代码贡献者,技术大牛,Nutz主要作者,无所不知且乐于助人)
 
 ## 我想改变行业的未来,因为我有一颗改变世界的心

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "bf1c60009c104e93b2a2d4d573087ae3",
+    "name": "测试任务",
+    "jobClass": "io.nutz.nutzsite.common.quartz.job.TestJob",
+    "note": "",
+    "cron": "*/5 * * * * ?",
+    "data": "{\"hi\":\"send red packets of support,thank u\"}",
+    "exeResult": "",
+    "status": false,
+    "updateBy": "1",
+    "updateTime": "2019-05-10 15:23:35",
+    "remark": ""
+  },
+  {
+    "id": "f360145693b64ce7be07535233fa3494",
+    "name": "微信获取TOKEN",
+    "jobClass": "io.nutz.nutzsite.common.quartz.job.WeixinToken",
+    "note": "0 */5 * * * ?",
+    "cron": "0 */30 * * * ?",
+    "data": "",
+    "exeResult": "",
+    "status": false,
+    "updateBy": "1",
+    "updateTime": "2019-11-22 10:50:21",
+    "remark": ""
+  }
+]

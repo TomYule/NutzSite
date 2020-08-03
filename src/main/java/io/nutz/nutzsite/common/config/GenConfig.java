@@ -1,7 +1,11 @@
 package io.nutz.nutzsite.common.config;
 
+import io.nutz.nutzsite.common.base.Globals;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 /**
@@ -42,7 +46,6 @@ public class GenConfig {
             Properties properties = new Properties();
             //加载输入流
             properties.load(is);
-
             author = properties.getProperty("author");
             packageName = properties.getProperty("packageName");
             autoRemovePre = properties.getProperty("autoRemovePre");
@@ -98,6 +101,30 @@ public class GenConfig {
 
     public static void setPackageNameOpen(String packageNameOpen) {
         GenConfig.packageNameOpen = packageNameOpen;
+    }
+
+
+    /**
+     * 读取文件
+     * @param path
+     * @return
+     */
+    public static String getFileData(String path){
+        ClassLoader cl = GenConfig.class.getClassLoader();
+        InputStream is = cl.getResourceAsStream(path);
+        //读取文件
+        StringBuffer sb = new StringBuffer();
+        //这里可以控制编码
+        try ( BufferedReader br  = new BufferedReader(new InputStreamReader(is,Globals.UTF8))) {
+            String line = null;
+            while((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String data = new String(sb);
+        return data;
     }
 
     @Override
