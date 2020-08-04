@@ -98,6 +98,7 @@ mvn clean package nutzboot:shade nutzboot:war
 
 ## 鸣谢
 *   nutz 项目的所有贡献者
+*   感谢各开源项目作者
 *   [@wendal](https://github.com/wendal) (代码贡献者,技术大牛,Nutz主要作者,无所不知且乐于助人)
 
 ## 我想改变行业的未来,因为我有一颗改变世界的心

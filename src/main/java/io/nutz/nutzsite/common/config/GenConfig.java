@@ -1,6 +1,7 @@
 package io.nutz.nutzsite.common.config;
 
 import io.nutz.nutzsite.common.base.Globals;
+import io.nutz.nutzsite.common.enums.DateType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,6 +36,11 @@ public class GenConfig {
      * 表前缀(类名不会包含表前缀)
      */
     public static String tablePrefix;
+
+    /**
+     * 时间类型对应策略
+     */
+    private static DateType dateType = DateType.ONLY_DATE;
 
     static {
         try {
@@ -103,6 +109,13 @@ public class GenConfig {
         GenConfig.packageNameOpen = packageNameOpen;
     }
 
+    public static DateType getDateType() {
+        return dateType;
+    }
+
+    public static void setDateType(DateType dateType) {
+        GenConfig.dateType = dateType;
+    }
 
     /**
      * 读取文件

@@ -6,15 +6,20 @@ import io.nutz.nutzsite.common.config.VelocityInitializer;
 import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.page.TableDataInfo;
 import io.nutz.nutzsite.common.utils.GenUtils;
+import io.nutz.nutzsite.common.utils.StringUtils;
+import io.nutz.nutzsite.module.tool.gen.converts.ITypeConvert;
+import io.nutz.nutzsite.module.tool.gen.converts.TypeConvertRegistry;
 import io.nutz.nutzsite.module.tool.gen.models.ColumnInfo;
 import io.nutz.nutzsite.module.tool.gen.models.TableInfo;
+import io.nutz.nutzsite.module.tool.gen.querys.DbQueryRegistry;
+import io.nutz.nutzsite.module.tool.gen.querys.IDbQuery;
 import io.nutz.nutzsite.module.tool.gen.services.GenService;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.nutz.dao.Cnd;
+import org.nutz.dao.DB;
 import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
 import org.nutz.dao.entity.Entity;
@@ -30,9 +35,7 @@ import org.nutz.lang.Strings;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -48,6 +51,73 @@ public class GenServiceImpl implements GenService {
     @Inject
     protected Dao dao;
 
+    /**
+     * 数据库信息查询
+     */
+    private static IDbQuery dbQuery;
+
+    /**
+     * 类型转换
+     */
+    private static ITypeConvert typeConvert;
+
+
+    /**
+     * sql 查询抽象类 接口实现
+     * @return
+     */
+    private synchronized IDbQuery getDbQuery() {
+        if (null == dbQuery) {
+            DbQueryRegistry dbQueryRegistry = new DbQueryRegistry();
+            // 默认 MYSQL
+            dbQuery = Optional.ofNullable(dbQueryRegistry.getDbQuery(dao.meta().getType()))
+                    .orElseGet(() -> dbQueryRegistry.getDbQuery(DB.MYSQL));
+        }
+        return dbQuery;
+    }
+
+    /**
+     * 数据库类型抽象类 封装 实现
+     * @return
+     */
+    private synchronized  ITypeConvert getTypeConvert() {
+        if (null == typeConvert) {
+            TypeConvertRegistry typeConvertRegistry = new TypeConvertRegistry();
+            // 默认 MYSQL
+            typeConvert = Optional.ofNullable(typeConvertRegistry.getTypeConvert(dao.meta().getType()))
+                    .orElseGet(() -> typeConvertRegistry.getTypeConvert(DB.MYSQL));
+        }
+        return typeConvert;
+    }
+
+
+    /**
+     * 查询数据库表信息
+     *
+     * @param tableName
+     * @param tableComment
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public TableDataInfo selectTableList(String tableName, String tableComment, int pageNumber, int pageSize,
+                                         String orderByColumn, String isAsc) {
+        if(Strings.isNotBlank(orderByColumn)){
+            MappingField field =dao.getEntity(TableInfo.class).getField(orderByColumn);
+            orderByColumn = field.getColumnName();
+        }
+        Sql sql = getDbQuery().tableList(tableName,tableComment,orderByColumn,isAsc);
+        Entity<TableInfo> entity = dao.getEntity(TableInfo.class);
+        Pager pager = dao.createPager(pageNumber, pageSize);
+        //记录数需手动设置
+        pager.setRecordCount((int) Daos.queryCount(dao, sql));
+        sql.setPager(pager);
+        sql.setEntity(entity).setCondition(Cnd.wrap(sql.getSourceSql()));
+        dao.execute(sql);
+        return new TableDataInfo(sql.getList(TableInfo.class), pager.getRecordCount());
+    }
+
 
     /**
      * 根据表名称查询信息
@@ -56,11 +126,7 @@ public class GenServiceImpl implements GenService {
      * @return
      */
     private TableInfo selectTableByName(String tableName) {
-        String sqlstr = "select table_name, table_comment, create_time, update_time from information_schema.tables " +
-                "where table_comment <> '' and table_schema = (select database()) and table_name = @tableName";
-        Sql sql = Sqls.create(sqlstr);
-        sql.params().set("tableName", tableName);
-        sql.setCallback(Sqls.callback.entities());
+        Sql sql = getDbQuery().tableByName(tableName);
         Entity<TableInfo> entity = dao.getEntity(TableInfo.class);
         sql.setEntity(entity);
         dao.execute(sql);
@@ -74,15 +140,84 @@ public class GenServiceImpl implements GenService {
      * @return 列信息
      */
     private List<ColumnInfo> selectTableColumnsByName(String tableName) {
-        String sqlstr = "select column_name, data_type, column_comment from information_schema.columns " +
-                "where table_name = @tableName and table_schema = (select database()) order by ordinal_position";
-        Sql sql = Sqls.create(sqlstr);
-        sql.params().set("tableName", tableName);
-        sql.setCallback(Sqls.callback.entities());
+        Sql sql = getDbQuery().tableColumnsByName(tableName);
         Entity<ColumnInfo> entity = dao.getEntity(ColumnInfo.class);
         sql.setEntity(entity);
         dao.execute(sql);
         return sql.getList(ColumnInfo.class);
+    }
+
+    /**
+     * 查询主键
+     * @param tableName
+     * @return
+     */
+    private String getPrimaryKey(String tableName) {
+        Sql sql = getDbQuery().getPrimaryKey(tableName);
+        Entity<String> entity = dao.getEntity(String.class);
+        sql.setEntity(entity);
+        dao.execute(sql);
+        List<String> list = sql.getList(String.class);
+        if(Lang.isNotEmpty(list) && list.size() >0){
+            return list.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * 初始化列信息
+     * @param columns
+     * @return
+     */
+    private List<ColumnInfo> initColumns(List<ColumnInfo> columns){
+        // 列信息
+        List<ColumnInfo> columsList = new ArrayList<>();
+        for (ColumnInfo column : columns) {
+            // 列名转换成Java属性名
+            String attrName = StringUtils.convertToCamelCase(column.getColumnName());
+            column.setAttrName(attrName);
+            column.setAttrname(StringUtils.uncapitalize(attrName));
+            String attrType = getTypeConvert().processTypeConvert(column.getDataType()).getType();
+            column.setAttrType(attrType);
+            //为空设置默认值
+            if (Strings.isBlank(column.getColumnComment())) {
+                column.setColumnComment(column.getColumnName());
+            }
+            columsList.add(column);
+        }
+        return columsList;
+    }
+
+
+    /**
+     * 初始化 TableInfo 数据
+     * @param table
+     * @param columns
+     * @return
+     */
+    private TableInfo initTable(TableInfo table, List<ColumnInfo> columns){
+        // 表名转换成Java属性名
+        String className = GenUtils.tableToJava(table.getTableName());
+        table.setClassName(className);
+        table.setClassname(StringUtils.uncapitalize(className));
+        //设置表备注
+        if (Strings.isBlank(table.getTableComment())) {
+            table.setTableComment(table.getTableComment());
+        }
+        // 列信息
+        table.setColumns(initColumns(columns));
+        // 设置主键
+        String key = this.getPrimaryKey(table.getTableName());
+        if(Strings.isNotBlank(key)){
+            for(ColumnInfo c:columns){
+                if(key.equals(c.getColumnName())){
+                    table.setPrimaryKey(c);
+                }
+            }
+        }else {
+            table.setPrimaryKey(table.getColumnsLast());
+        }
+        return table;
     }
 
     /**
@@ -93,16 +228,8 @@ public class GenServiceImpl implements GenService {
      * @param zip
      * @param templates 模板列表
      */
-    private static void coding(TableInfo table, List<ColumnInfo> columns, ZipOutputStream zip, List<String> templates) {
-        // 表名转换成Java属性名
-        String className = GenUtils.tableToJava(table.getTableName());
-        table.setClassName(className);
-        table.setClassname(StringUtils.uncapitalize(className));
-        // 列信息
-        table.setColumns(GenUtils.transColums(columns));
-        // 设置主键
-        table.setPrimaryKey(table.getColumnsLast());
-
+    private void coding(TableInfo table, List<ColumnInfo> columns, ZipOutputStream zip, List<String> templates) {
+        table = initTable(table,columns);
         VelocityInitializer.initVelocity();
         String packageName = GenConfig.getPackageName();
         String moduleName = GenUtils.getModuleName(packageName);
@@ -128,49 +255,6 @@ public class GenServiceImpl implements GenService {
         }
     }
 
-
-    /**
-     * 查询数据库表信息
-     *
-     * @param tableName
-     * @param tableComment
-     * @param pageNumber
-     * @param pageSize
-     * @return
-     */
-    @Override
-    public TableDataInfo selectTableList(String tableName, String tableComment,
-                                         int pageNumber, int pageSize, String orderByColumn, String isAsc) {
-        String sqlstr = "select table_name, table_comment, create_time, update_time from information_schema.tables " +
-                "where table_comment <> '' and table_schema = (select database()) ";
-        if (Strings.isNotBlank(tableName)) {
-            sqlstr += "and table_name like @tableName";
-        }
-        if (Strings.isNotBlank(tableComment)) {
-            sqlstr += "and table_comment like @tableComment";
-        }
-        if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
-            MappingField field =dao.getEntity(TableInfo.class).getField(orderByColumn);
-            if(Lang.isNotEmpty(field)){
-                sqlstr += " order by " + field.getColumnName() + " " + isAsc;
-            }
-
-        }
-        Sql sql = Sqls.create(sqlstr);
-        sql.params().set("tableName", "%" + tableName + "%");
-        sql.params().set("tableComment", "%" + tableComment + "%");
-        sql.setCallback(Sqls.callback.entities());
-        Entity<TableInfo> entity = dao.getEntity(TableInfo.class);
-
-        Pager pager = dao.createPager(pageNumber, pageSize);
-        //记录数需手动设置
-        pager.setRecordCount((int) Daos.queryCount(dao, sql));
-        sql.setPager(pager);
-        sql.setEntity(entity).setCondition(Cnd.wrap(sqlstr));
-        dao.execute(sql);
-//        return sql.getList(TableInfo.class);
-        return new TableDataInfo(sql.getList(TableInfo.class), pager.getRecordCount());
-    }
 
     /**
      * 生成代码
@@ -209,20 +293,11 @@ public class GenServiceImpl implements GenService {
         List<ColumnInfo> columns = this.selectTableColumnsByName(tableName);
         if (Lang.isNotEmpty(table) && Lang.isNotEmpty(columns)) {
             // 生成代码
-
-            // 表名转换成Java属性名
-            String className = GenUtils.tableToJava(table.getTableName());
-            table.setClassName(className);
-            table.setClassname(StringUtils.uncapitalize(className));
-            // 列信息
-            table.setColumns(GenUtils.transColums(columns));
-            // 设置主键
-            table.setPrimaryKey(table.getColumnsLast());
+            table = initTable(table,columns);
 
             VelocityInitializer.initVelocity();
-            String packageName = GenConfig.getPackageName();
-            String moduleName = GenUtils.getModuleName(packageName);
             VelocityContext context = GenUtils.getVelocityContext(table);
+
             for (String template : templates) {
                 // 渲染模板
                 StringWriter sw = new StringWriter();
