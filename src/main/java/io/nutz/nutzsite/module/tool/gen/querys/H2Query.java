@@ -43,7 +43,7 @@ public class H2Query extends AbstractDbQuery {
     @Override
     public Sql tableColumnsByName(String tableName) {
         String sqlstr = "SELECT TABLE_NAME  as table_name, TYPE_NAME as data_type, REMARKS as column_comment  " +
-                "FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME =  @tableName";
+                "FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME =  @tableName order by ORDINAL_POSITION";
         Sql sql = Sqls.create(sqlstr);
         sql.params().set("tableName", tableName);
         sql.setCallback(Sqls.callback.entities());

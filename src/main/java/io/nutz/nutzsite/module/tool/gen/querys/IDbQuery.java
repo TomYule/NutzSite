@@ -1,5 +1,4 @@
 package io.nutz.nutzsite.module.tool.gen.querys;
-import org.nutz.dao.entity.MappingField;
 import org.nutz.dao.sql.Sql;
 
 /**
