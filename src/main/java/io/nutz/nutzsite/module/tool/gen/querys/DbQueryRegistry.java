@@ -18,7 +18,7 @@ public class DbQueryRegistry {
         db_query_enum_map.put(DB.MYSQL, new MySqlQuery());
 
 //        db_query_enum_map.put(DbType.ORACLE, new OracleQuery());
-//        db_query_enum_map.put(DbType.SQL_SERVER, new SqlServerQuery());
+        db_query_enum_map.put(DB.SQLSERVER, new SqlServerQuery());
         db_query_enum_map.put(DB.PSQL, new PostgreSqlQuery());
         db_query_enum_map.put(DB.DB2, new DB2Query());
 //        db_query_enum_map.put(DbType.MARIADB, new MariadbQuery());

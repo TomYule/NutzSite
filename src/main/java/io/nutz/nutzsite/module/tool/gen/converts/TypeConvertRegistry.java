@@ -17,7 +17,7 @@ public class TypeConvertRegistry  {
     public TypeConvertRegistry() {
         type_convert_enum_map.put(DB.MYSQL, new MySqlTypeConvert());
 //        type_convert_enum_map.put(DB.ORACLE, new OracleTypeConvert());
-//        type_convert_enum_map.put(DB.SQLSERVER, new SqlServerTypeConvert());
+        type_convert_enum_map.put(DB.SQLSERVER, new SqlServerTypeConvert());
         type_convert_enum_map.put(DB.PSQL, new PostgreSqlTypeConvert());
         type_convert_enum_map.put(DB.DB2, new DB2TypeConvert());
 //        type_convert_enum_map.put(DB.SQLITE, new SqliteTypeConvert());

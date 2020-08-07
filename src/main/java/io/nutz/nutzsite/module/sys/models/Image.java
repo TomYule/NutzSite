@@ -36,6 +36,7 @@ public class Image implements Serializable {
      */
     @Column("base64" )
     @Comment("数据 " )
+    @ColDefine(type = ColType.VARCHAR, width = 2000)
     private String base64;
 
     /**
