@@ -1,13 +1,9 @@
 
-<p align="center"><a href="https://tomyule.github.io/NutzSite/" target="_blank"><img width="100" src="https://raw.githubusercontent.com/TomYule/NutzSite/master/src/main/resources/static/nutzsite.png"></a></p>
+<p align="center"><a href="https://tomyule.github.io/NutzSite/" target="_blank"><img width="100" src="https://gitee.com/TomYule/NutzSite/raw/master/src/main/resources/static/nutzsite.png"></a></p>
 
 [![GitHub license](https://img.shields.io/github/license/TomYule/NutzSite)](https://github.com/TomYule/NutzSite/blob/master/LICENSE)
 [![PowerByNutz](https://img.shields.io/badge/PowerBy-Nutz-green.svg)](https://github.com/nutzam/nutz)
-[![Build Status](https://travis-ci.org/TomYule/NutzSite.svg?branch=master)](https://travis-ci.org/TomYule/NutzSite)
-[![GitHub stars](https://img.shields.io/github/stars/TomYule/NutzSite)](https://github.com/TomYule/NutzSite/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/TomYule/NutzSite)](https://github.com/TomYule/NutzSite/network)
-[![GitHub issues](https://img.shields.io/github/issues/TomYule/NutzSite)](https://github.com/TomYule/NutzSite/issues)
-[![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2FTony_yule)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2FTomYule%2FNutzSite)  
+[![Build Status](https://travis-ci.org/TomYule/NutzSite.svg?branch=master)](https://travis-ci.org/TomYule/NutzSite)   
 ## NutzSite基于Nutz的Java开源企业级快速开发框架  
 
 # 简介
@@ -101,6 +97,7 @@ mvn clean package nutzboot:shade nutzboot:war
 * 一键生成NB的项目: https://get.nutz.io
 * 项目80%参考 [RuoYi](https://gitee.com/y_project/RuoYi-fast)
 * 部分代码 参考 [nutzwk](https://github.com/Wizzercn/NutzWk/tree/bak-delete-v3-bootstrap)
+* 代码生成部分 参考 [mybatis-plus-generator](https://gitee.com/baomidou/mybatis-plus/tree/3.0/mybatis-plus-generator)  
 
 ## 鸣谢
 *   nutz 项目的所有贡献者

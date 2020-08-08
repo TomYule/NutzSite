@@ -153,13 +153,17 @@ public class GenServiceImpl implements GenService {
      * @return
      */
     private String getPrimaryKey(String tableName) {
-        Sql sql = getDbQuery().getPrimaryKey(tableName);
-        Entity<String> entity = dao.getEntity(String.class);
-        sql.setEntity(entity);
-        dao.execute(sql);
-        List<String> list = sql.getList(String.class);
-        if(Lang.isNotEmpty(list) && list.size() >0){
-            return list.get(0);
+        try{
+            Sql sql = getDbQuery().getPrimaryKey(tableName);
+            Entity<String> entity = dao.getEntity(String.class);
+            sql.setEntity(entity);
+            dao.execute(sql);
+            List<String> list = sql.getList(String.class);
+            if(Lang.isNotEmpty(list) && list.size() >0){
+                return list.get(0);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return null;
     }

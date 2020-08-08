@@ -35,17 +35,17 @@ public class H2Query extends AbstractDbQuery {
         String sqlstr = "select TABLE_NAME as table_name,  REMARKS as table_comment  from INFORMATION_SCHEMA.INDEXES " +
                 "WHERE TABLE_NAME = @tableName order by ORDINAL_POSITION";
         Sql sql = Sqls.create(sqlstr);
-        sql.params().set("tableName", tableName);
+        sql.params().set("tableName", tableName.toUpperCase());
         sql.setCallback(Sqls.callback.entities());
         return sql;
     }
 
     @Override
     public Sql tableColumnsByName(String tableName) {
-        String sqlstr = "SELECT TABLE_NAME  as table_name, TYPE_NAME as data_type, REMARKS as column_comment  " +
+        String sqlstr = "SELECT COLUMN_NAME  as column_name, TYPE_NAME as data_type, REMARKS as column_comment  " +
                 "FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME =  @tableName order by ORDINAL_POSITION";
         Sql sql = Sqls.create(sqlstr);
-        sql.params().set("tableName", tableName);
+        sql.params().set("tableName", tableName.toUpperCase());
         sql.setCallback(Sqls.callback.entities());
         return sql;
     }
@@ -54,7 +54,7 @@ public class H2Query extends AbstractDbQuery {
     public Sql getPrimaryKey(String tableName) {
         String sqlstr = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_NAME =  @tableName";
         Sql sql = Sqls.create(sqlstr);
-        sql.params().set("tableName", tableName);
+        sql.params().set("tableName", tableName.toUpperCase());
         sql.setCallback(Sqls.callback.entities());
         return sql;
     }
