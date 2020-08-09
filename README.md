@@ -47,7 +47,7 @@ Java快速开发框架 基于nutz框架；支持 任意SQL数据库,例如MySQL,
 ![服务监控](src/main/resources/static/1577241788123.jpg)
 ![项目截图](src/main/resources/static/1556263635342.jpg)
 ## 为什么选择nutz
-你有没有想过 为什么Java开发就一定要用spring,MyBatis 为什么大多数人缓存就选择Ehcache 不选择Caffeine  
+追求卓越 成功会找上你   
 nutz Java小伙伴们的另一种选择
 
 本压缩包是一个maven工程, eclipse/idea均可按maven项目导入
@@ -95,24 +95,17 @@ mvn clean package nutzboot:shade nutzboot:war
 * 论坛: https://nutz.cn
 * 官网: https://nutz.io
 * 一键生成NB的项目: https://get.nutz.io
-* 项目80%参考 [RuoYi](https://gitee.com/y_project/RuoYi-fast)
-* 部分代码 参考 [nutzwk](https://github.com/Wizzercn/NutzWk/tree/bak-delete-v3-bootstrap)
-* 代码生成部分 参考 [mybatis-plus-generator](https://gitee.com/baomidou/mybatis-plus/tree/3.0/mybatis-plus-generator)  
+* 项目 参考 [RuoYi](https://gitee.com/y_project/RuoYi-fast)
+,[nutzwk](https://github.com/Wizzercn/NutzWk/tree/bak-delete-v3-bootstrap) 
+,[mybatis-plus-generator](https://gitee.com/baomidou/mybatis-plus/tree/3.0/mybatis-plus-generator)  
 
 ## 鸣谢
 *   nutz 项目的所有贡献者
 *   感谢各开源项目作者
 *   [@wendal](https://github.com/wendal) (代码贡献者,技术大牛,Nutz主要作者,无所不知且乐于助人)
 
-## 我想改变行业的未来,因为我有一颗改变世界的心
-有码走遍天下 无码寸步难行（引自网络）  
+## 我想改变行业的未来,因为我有一颗改变世界的心 
 1024 - 梦想，永不止步!  
-爱编程 不爱Bug  
-爱加班 不爱黑眼圈  
-固执 但不偏执  
-疯狂 但不疯癫  
-生活里的菜鸟  
-工作中的大神  
 身怀宝藏，一心憧憬星辰大海  
 追求极致，目标始于高山之巅  
 一群怀揣好奇，梦想改变世界的孩子  

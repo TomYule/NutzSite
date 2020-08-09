@@ -24,6 +24,7 @@ import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
 import org.nutz.dao.entity.Entity;
 import org.nutz.dao.entity.MappingField;
+import org.nutz.dao.entity.Record;
 import org.nutz.dao.pager.Pager;
 import org.nutz.dao.sql.Sql;
 import org.nutz.dao.util.Daos;
@@ -155,15 +156,15 @@ public class GenServiceImpl implements GenService {
     private String getPrimaryKey(String tableName) {
         try{
             Sql sql = getDbQuery().getPrimaryKey(tableName);
-            Entity<String> entity = dao.getEntity(String.class);
+            Entity<Record> entity = dao.getEntity(Record.class);
             sql.setEntity(entity);
             dao.execute(sql);
-            List<String> list = sql.getList(String.class);
+            List<Record> list = sql.getList(Record.class);
             if(Lang.isNotEmpty(list) && list.size() >0){
-                return list.get(0);
+                return list.get(0).getString("column_name");
             }
         }catch (Exception e){
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return null;
     }
@@ -214,7 +215,7 @@ public class GenServiceImpl implements GenService {
         String key = this.getPrimaryKey(table.getTableName());
         if(Strings.isNotBlank(key)){
             for(ColumnInfo c:columns){
-                if(key.equals(c.getColumnName())){
+                if(key.equalsIgnoreCase(c.getColumnName())){
                     table.setPrimaryKey(c);
                 }
             }
