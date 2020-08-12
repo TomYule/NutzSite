@@ -3,8 +3,6 @@ package io.nutz.nutzsite.common.utils;
 
 import io.nutz.nutzsite.common.base.Globals;
 import io.nutz.nutzsite.common.config.GenConfig;
-import io.nutz.nutzsite.common.constant.CommonMap;
-import io.nutz.nutzsite.module.tool.gen.models.ColumnInfo;
 import io.nutz.nutzsite.module.tool.gen.models.TableInfo;
 import org.apache.velocity.VelocityContext;
 import org.nutz.lang.Lang;
@@ -41,26 +39,7 @@ public class GenUtils {
      */
     private static Pattern p = Pattern.compile("[A-Z]");
 
-    /**
-     * 设置列信息
-     */
-    public static List<ColumnInfo> transColums(List<ColumnInfo> columns) {
-        // 列信息
-        List<ColumnInfo> columsList = new ArrayList<>();
-        for (ColumnInfo column : columns) {
-            // 列名转换成Java属性名
-            String attrName = StringUtils.convertToCamelCase(column.getColumnName());
-            column.setAttrName(attrName);
-            column.setAttrname(StringUtils.uncapitalize(attrName));
 
-            // 列的数据类型，转换成Java类型
-            String attrType = CommonMap.javaTypeMap.get(column.getDataType());
-            column.setAttrType(attrType);
-
-            columsList.add(column);
-        }
-        return columsList;
-    }
 
     /**
      * 获取模板信息

@@ -15,6 +15,8 @@ import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
+import org.nutz.trans.Atom;
+import org.nutz.trans.Trans;
 
 import java.util.*;
 
@@ -50,9 +52,15 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         user.setSalt(salt);
         String hashedPasswordBase64 = new Sha256Hash(user.getPassword(), salt, 1024).toBase64();
         user.setPassword(hashedPasswordBase64);
-
-        dao().insert(user);
-        this.updataRelation(user);
+        // Begin transaction
+        Trans.exec(new Atom() {
+            @Override
+            public void run() {
+                dao().insert(user);
+                updataRelation(user);
+            }
+        });
+        // End transaction
         return user;
     }
 
@@ -64,10 +72,18 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
      */
     @Override
     public int update(User data) {
-        //忽略空字段
-        int count = dao().updateIgnoreNull(data);
-        this.updataRelation(data);
-        return count;
+
+        final int[] count = {0};
+        // Begin transaction
+        Trans.exec(new Atom() {
+            @Override
+            public void run() {
+                //忽略空字段
+                count[0] = updateIgnoreNull(data);
+                updataRelation(data);
+            }
+        });
+        return count[0];
     }
 
     /**

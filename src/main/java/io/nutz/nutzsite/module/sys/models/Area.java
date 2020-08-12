@@ -61,7 +61,7 @@ public class Area extends BaseModel implements Serializable {
     /**
      * 行政区划级别
      */
-    @Column("level")
+    @Column("level_c")
     @Comment("行政区划级别 ")
     @Validations(required=true,errorMsg = "行政区划级别不能为空")
     private String level;

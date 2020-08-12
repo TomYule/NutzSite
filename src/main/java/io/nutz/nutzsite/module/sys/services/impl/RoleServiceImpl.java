@@ -12,6 +12,8 @@ import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
+import org.nutz.trans.Atom;
+import org.nutz.trans.Trans;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,8 +53,15 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
             List<Menu> menuList = menuService.query(cri);
             data.setMenus(menuList);
         }
-        dao().insert(data);
-        dao().insertRelation(data, "menus");
+        // Begin transaction
+        Trans.exec(new Atom() {
+            @Override
+            public void run() {
+                dao().insert(data);
+                dao().insertRelation(data, "menus");
+            }
+        });
+        // End transaction
         return data;
     }
 
@@ -64,25 +73,33 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
      */
     @Override
     public int update(Role data) {
-        List<String> ids = new ArrayList<>();
-        if (data != null && data.getMenuIds() != null) {
-            if (Strings.isNotBlank(data.getMenuIds())) {
-                ids = Arrays.asList(data.getMenuIds().split(","));
+        final int[] count = {0};
+        // Begin transaction
+        Trans.exec(new Atom() {
+            @Override
+            public void run() {
+                List<String> ids = new ArrayList<>();
+                if (data != null && data.getMenuIds() != null) {
+                    if (Strings.isNotBlank(data.getMenuIds())) {
+                        ids = Arrays.asList(data.getMenuIds().split(","));
+                    }
+                    //清除已有关系
+                    Role tmpData = fetch(data.getId());
+                    fetchLinks(tmpData, "menus");
+                    dao().clearLinks(tmpData, "menus");
+                }
+                if (ids != null && ids.size() > 0) {
+                    Criteria cri = Cnd.cri();
+                    cri.where().andInStrList("id", ids);
+                    List<Menu> menuList = menuService.query(cri);
+                    data.setMenus(menuList);
+                }
+                count[0] = dao().update(data);
+                dao().insertRelation(data, "menus");
             }
-            //清除已有关系
-            Role tmpData = this.fetch(data.getId());
-            this.fetchLinks(tmpData, "menus");
-            dao().clearLinks(tmpData, "menus");
-        }
-        if (ids != null && ids.size() > 0) {
-            Criteria cri = Cnd.cri();
-            cri.where().andInStrList("id", ids);
-            List<Menu> menuList = menuService.query(cri);
-            data.setMenus(menuList);
-        }
-        int count = dao().update(data);
-        dao().insertRelation(data, "menus");
-        return count;
+        });
+        // End transaction
+        return count[0];
     }
 
     @Override

@@ -110,7 +110,7 @@ public class MainLauncher {
         // 初始化系统变量
         Globals.getInstance();
         initSysData();
-        initSysTask(ioc);
+        initSysTask();
         /**
          * 自定义EL表达式
          * 文档
@@ -211,6 +211,8 @@ public class MainLauncher {
                 user.setId(R.UU32().toLowerCase());
                 dao.fastInsert(user);
                 if("admin".equals(user.getLoginName())){
+                    user.setPassword("123456");
+                    userService.resetUserPwd(user);
                     user.setRoles(roleList);
                     dao.insertRelation(user, "roles");
                 }
@@ -232,9 +234,8 @@ public class MainLauncher {
 
     /**
      * 初始化 定时任务
-     * @param ioc
      */
-    private void initSysTask(Ioc ioc) {
+    private void initSysTask() {
         QuartzManager quartzManager = ioc.get(QuartzManager.class);
         quartzManager.clear();
         List<Task> taskList = taskService.query( Cnd.where("status", "=", true));

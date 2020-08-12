@@ -10,8 +10,8 @@
 Java快速开发框架 基于nutz框架；支持 任意SQL数据库,例如MySQL,Oracle,SqlServer等等;去繁从简，简约而不简单: 一对多 多对多复杂关系数据保存用nutz 就是那么简单;
 优势:支持各类数据库 代码生成；别人还在加班熬夜 重复增删改查时 你已经通过工具 写完所有;最大限度的提高 Java 开发人员的生产力;有更多的时间陪伴家人,陪伴对象
 
-*Talk is cheap. Show me the code!!*
-
+*Talk is cheap. Show me the code!!*  
+文档地址:[NutzSite](https://www.showdoc.com.cn/NutzSite)
 ## 主要功能
 * 支持 任意SQL数据库,例如MySQL,Oracle,SqlServer等等
 * 可以通过数据库快速生成代码 列表,树
@@ -38,7 +38,7 @@ Java快速开发框架 基于nutz框架；支持 任意SQL数据库,例如MySQL,
 * 七牛云
 * XSS攻击过滤 SQL注入过滤
 * Excel 导出数据  案例: 系统管理-参数设置
-* CMS 能用 不完善
+* CMS
 ## 后期支持待完善功能
 * 审批流
 

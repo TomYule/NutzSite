@@ -16,7 +16,7 @@ public class MySqlQuery extends AbstractDbQuery {
     @Override
     public Sql tableList(String tableName, String tableComment, String orderByColumn, String isAsc) {
         String sqlstr = "select table_name, table_comment, create_time, update_time from information_schema.tables " +
-                "where table_comment <> '' and table_schema = (select database()) ";
+                "where table_schema = (select database()) ";
         if (Strings.isNotBlank(tableName)) {
             sqlstr += "and table_name like @tableName";
         }
@@ -39,7 +39,7 @@ public class MySqlQuery extends AbstractDbQuery {
     @Override
     public Sql tableByName(String tableName) {
         String sqlstr = "select table_name, table_comment, create_time, update_time from information_schema.tables " +
-                "where table_comment <> '' and table_schema = (select database()) and table_name = @tableName";
+                "where table_schema = (select database()) and table_name = @tableName";
         Sql sql = Sqls.create(sqlstr);
         sql.params().set("tableName", tableName);
         sql.setCallback(Sqls.callback.entities());
