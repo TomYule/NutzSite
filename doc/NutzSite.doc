@@ -1,0 +1,2173 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:o="urn:schemas-microsoft-com:office:office"
+    xmlns:w="urn:schemas-microsoft-com:office:word"
+    xmlns="http://www.w3.org/TR/REC-html40">
+    <head><meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <style type="text/css">
+        table  
+        {  
+            border-collapse: collapse;
+            border: none;  
+            width: 100%;  
+        }  
+        td,tr  
+        {  
+            border: solid #CCC 1px;
+            padding:3px;
+            font-size:9pt;
+        } 
+        .codestyle{
+            word-break: break-all;
+            mso-highlight:rgb(252, 252, 252);
+            padding-left: 5px; background-color: rgb(252, 252, 252); border: 1px solid rgb(225, 225, 232);
+        }
+        img {
+            width:100;
+        }
+    </style>
+    <meta name=ProgId content=Word.Document>
+    <meta name=Generator content="Microsoft Word 11">
+    <meta name=Originator content="Microsoft Word 11">
+    <xml><w:WordDocument><w:View>Print</w:View></xml></head>
+    <body><h1>1、介绍</h1><div style="margin-left:20px;"><h1><center>NutzSite</center></h1>
+<h2><center>基于Nutzboot、Shiro、Thymeleaf的权限后台管理系统</center></h2>
+<p>一直想做一款后台管理系统，看了很多优秀的开源项目但是发现没有合适自己的。于是利用空闲休息时间开始自己写一套后台系统。如此有了NutzSite管理系统。您还在为表添加一个字段频繁修改xml文件而感到烦恼吗,您还在为一对多,多对多关系 添加删除修改而烧脑么 那么就试试nutz吧</p>
+<hr />
+<p><strong>NutzSite</strong>是一个后台管理系统，基于经典技术组合（Nutz Boot、Apache Shiro、NutzDao、Thymeleaf）主要目的让开发者注重专注业务，降低技术难度，从而节省人力成本，缩短项目周期，提高软件安全质量。
+1.2版本后支持任意SQL数据库,例如MySQL,Oracle,SqlServer等等 让数据库的选择 随心所欲 针对不同项目可以选择更加合适的数据库
+1.3版本 支持不同数据库代码生成,例如MySQL,Oracle,SqlServer, PostgreSql , DB2 , H2 等等</p>
+<h2>环境要求</h2>
+<ul>
+<li>建议 JDK8+ 支持OpenJDK</li>
+<li>本项目是一个maven工程, eclipse/idea均可按maven项目导入</li>
+<li>项目启动:默认h2数据库,启动自动创建数据库 数据库表</li>
+<li>账号密码：admin/123456</li>
+</ul>
+<h2>相关资源</h2>
+<p>项目源码:<a href="https://github.com/TomYule/NutzSite">github</a>    <a href="https://gitee.com/TomYule/NutzSite">gitee</a></p>
+<ul>
+<li>论坛: <a href="https://nutz.cn">https://nutz.cn</a></li>
+<li>官网: <a href="https://nutz.io">https://nutz.io</a></li>
+<li>一键生成NB的项目: <a href="https://get.nutz.io">https://get.nutz.io</a></li>
+<li>nutz文档:<a href="https://nutzam.com/core/nutz_preface.html">https://nutzam.com/core/nutz_preface.html</a></li>
+</ul></div><h1>2、文档</h1><div style="margin-left:0px;"><h2>2.1、快速了解</h2><div style="margin-left:0px;"><h2>NutzSite 是一款基于Nutz Boot+Bootstrap的极速后台开发框架。</h2>
+<p>NutzSite 在线文档：<a href="https://www.showdoc.com.cn/NutzSite">https://www.showdoc.com.cn/NutzSite</a>
+NutzSite  源码下载：<a href="https://gitee.com/TomYule/NutzSite">https://gitee.com/TomYule/NutzSite</a>
+NutzSite  在线提问：<a href="https://gitee.com/TomYule/NutzSite/issues">https://gitee.com/TomYule/NutzSite/issues</a>
+NutzSite 博客：<a href="https://www.oschina.net/p/nutzsite">https://www.oschina.net/p/nutzsite</a>
+QQ群: 68428921(已满) 24457628(2群) 58444676(老吹水群)
+NutzSite是一个 Java EE 企业级快速开发平台，基于经典技术组合（Nutz Boot、Apache Shiro、Thymeleaf、Bootstrap），内置模块如：部门管理、角色用户、菜单、数据权限、系统参数、日志管理、通知公告等。在线定时任务配置；支持集群，支持多数据源。</p>
+<h2>主要特性</h2>
+<p>完全响应式布局（支持电脑、平板、手机等所有主流设备）
+支持 任意SQL数据库,例如MySQL,Oracle,SqlServer等等
+强大的一键生成功能（包括控制器、模型、视图、菜单等）
+拖拽生成表单, 下拉列表搜索 ,ztree, 文件上传,地图选择位置 等等
+支持多数据源，简单配置即可实现切换。
+对常用js插件进行二次封装，使js代码变得简洁，更加易维护 表单提交有遮罩层 防止重复提交
+完善的XSS防范及脚本过滤，彻底杜绝XSS攻击
+Maven模块方便升级。
+国际化支持，服务端及客户端支持
+完善的日志记录体系简单注解即可实现</p>
+<h2>技术选型</h2>
+<h3>1、系统环境</h3>
+<p>Java EE 8
+Apache Maven 3</p>
+<h3>2、主框架</h3>
+<p>Nutz Boot 2.3.8.v20191031
+Apache Shiro 1.3.2</p>
+<h3>3、持久层</h3>
+<p>nutzboot-starter-nutz-dao
+nutz-plugins-validation
+Alibaba Druid 1.1.20</p>
+<h3>4、视图层</h3>
+<p>Bootstrap 3.3
+Thymeleaf 3.0
+jQuery Validation Plugin - v1.13.0</p></div><h2>2.2、环境部署</h2><div style="margin-left:0px;"><h1><center>环境部署</center></h1>
+<h2>准备工作</h2>
+<table width='100%' class='codestyle'><pre><code>JDK >= 1.8 (推荐1.8版本)
+Maven >= 3.0
+安装git
+开发工具IDEA/eclipse</code></pre></table>
+<h2>运行系统</h2>
+<p>1、前往Gitee下载页面(<a href="https://gitee.com/TomYule/NutzSite)下载解压到工作目录">https://gitee.com/TomYule/NutzSite)下载解压到工作目录</a>
+2、导入到</p>
+<h3>eclipse/idea均可按maven项目导入</h3>
+<ul>
+<li>IDEA, 菜单 open 选择下载好的解压目录, IDEA会自动识别maven 项目查看右下角更新完成即可 若未识别项目选择右侧 Maven Projects 单击刷新按钮即可</li>
+<li>Eclipse，菜单 File -> Import，然后选择 Maven -> Existing Maven Projects，点击 Next> 按钮，选择工作目录，然后点击 Finish 按钮，即可成功导入</li>
+<li>编辑器会自动加载Maven依赖包，初次加载会比较慢（根据自身网络情况而定）</li>
+</ul>
+<p>3、打开运行io.nutz.nutzsite.MainLauncher.java
+4、打开浏览器，输入：<a href="http://localhost:8086">http://localhost:8086</a> （默认账户 admin/123456）
+若能正确展示登录页面，并能成功登录，菜单及页面展示正常，则表明环境搭建成功</p>
+<p>建议使用Git克隆，因为克隆的方式可以和NutzSite随时保持更新同步。使用Git命令克隆
+git clone <a href="https://gitee.com/TomYule/NutzSite.git">https://gitee.com/TomYule/NutzSite.git</a></p>
+<h2>必要配置</h2>
+<p>修改数据库连接
+编辑resources目录下的application.properties</p>
+<table width='100%' class='codestyle'><pre><code>server.port=运行端口
+jdbc.url: 服务器地址
+jdbc.username: 账号
+jdbc.password: 密码</code></pre></table>
+<h2>命令下启动</h2>
+<p>仅供测试用,使用mvn命令即可</p>
+<table width='100%' class='codestyle'><pre><code>// for windows
+set MAVEN_OPTS="-Dfile.encoding=UTF-8"
+mvn compile nutzboot:run
+
+// for *uix
+export MAVEN_OPTS="-Dfile.encoding=UTF-8"
+mvn compile nutzboot:run</code></pre></table>
+<h2>项目打包</h2>
+<table width='100%' class='codestyle'><pre><code>mvn clean package nutzboot:shade
+mvn clean package nutzboot:shade nutzboot:war</code></pre></table>
+<p>请注意,当前需要package + nutzboot:shade, 单独执行package或者nutzboot:shade是不行的</p></div><h2>2.3、项目介绍</h2><div style="margin-left:0px;"><h1><center>项目介绍</center></h1>
+<h2>文件结构</h2>
+<table width='100%' class='codestyle'><pre><code>io.nutz.nutzsite
+├── common                                    // 工具类
+│       └── alipay                          //支付宝
+│       └── aliyun                          //短信集成
+│       └── annotation                    // 自定义注解
+│       └── aop                           // 注解实现
+│       └── base                            //功能类封装
+│       └── config                        // 全局配置
+│       └── enums                         // 通用枚举
+│       └── exception                     // 通用异常
+│       └── manager                     //异步工厂 日志记录
+│       └── mvc                          //动作链 配置
+│       └── page                        //分页数据简单封装
+│       └── quartz                      //定时任务
+│       └── shiro                         // 权限控制
+│       └── starter                       //过滤器
+│       └── utils                           // 通用工具
+│       └── weixin                       //微信集成
+│       └── xss                            // XSS过滤处理
+├──sys                                        // 框架核心
+├──smonitor                               // 系统运行状态
+├──cms                                       // cms
+├──test                                       //示例
+├──tool                                       //代码生成模块,swagger 拖拽生成代码等
+├──wx                                        //微信模块</code></pre></table>
+<h2>配置文件</h2>
+<p>编辑resources目录
+通用配置<code>application.properties</code></p>
+<table width='100%' class='codestyle'><pre><code>version=1.2
+#项目启动端口
+server.port=8086
+server.host=0.0.0.0
+#tomcat.port=8090
+#tomcat.host=0.0.0.0
+
+jetty.threadpool.idleTimeout=60000
+jetty.threadpool.minThreads=4
+jetty.threadpool.maxThreads=8
+jetty.page.404=/error/404.html
+jetty.page.500=/error/500.html
+jetty.page.403=/error/unauth.html
+
+tomcat.page.404=/error/404.html
+tomcat.page.500=/error/500.html
+tomcat.page.403=/error/unauth.html
+
+druid.web.filter.principalSessionName=sid
+#jdbc.type=simple
+jdbc.type=druid
+#jdbc.type=hikari
+
+##h2
+jdbc.url=jdbc:h2:mem:nutzsite
+jdbc.username=root
+jdbc.password=root
+
+#mysql
+#jdbc.url=jdbc:mysql://127.0.0.1:3306/nutzsite?useUnicode=true&allowPublicKeyRetrieval=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+#jdbc.username=root
+#jdbc.password=123456
+
+#jdbc.validationQuery=select 1
+jdbc.maxActive=50
+jdbc.testWhileIdle=true
+jdbc.filters=mergeStat
+jdbc.connectionProperties=druid.stat.slowSqlMillis=2000
+jdbc.defaultAutoCommit=true
+
+#druid 配置
+druid.web.servlet.loginUsername=nutzsite
+druid.web.servlet.loginPassword=nutzsite
+
+thymeleaf.dialects=nz.net.ultraq.thymeleaf.LayoutDialect
+thymeleaf.dialects.shiro=at.pollux.thymeleaf.shiro.dialect.ShiroDialect
+
+#是否允许多账号同时登录
+user.multiAccountLogin=false
+
+#静态文件后缀
+web.staticFile=.css,.js,.png,.jpg,.gif,.jpeg,.bmp,.ico,.swf,.psd,.htc,.htm,.html,.crx,.xpi,.exe,.ipa,.apk
+##shiro
+shiro.realm.cache.enable =true
+
+##redis
+#redis.host=localhost
+#redis.port=6379
+#redis.timeout=2000
+##redis.password=nutzsite.com
+#redis.database=0
+
+#shiro.session.cache.type=redis
+#shiro.session.dao.iocName=jedisSessionDAO
+
+#登录超时时间 单位 毫秒 :5小时
+shiro.session.manager.globalSessionTimeout=18000000
+
+shiro.url.login=/login
+shiro.url.unauth=/login/unauth
+shiro.ini.urls:
+/sys/** = authc
+/monitor/** = authc
+/tool/** = authc
+/cms/** = authc
+/wx/** = authc
+/index = authc
+/druid/** =authc
+/swagger/** =authc
+/login = anon
+/static/** = anon
+/open/** = anon
+
+#HTML thymeleaf热更新
+#thymeleaf.resolver.rootLocal=/Users/tony/IdeaProjects/NutzSite/src/main/resources/template
+#下面这句必须是绝对路径，这样才能保证开发模式下修改静态文件后进行热更新
+#jetty.staticPathLocal=/Users/tony/IdeaProjects/NutzSite/src/main/resources/static
+
+#上传文件路径
+upload.path=/mnt/upload
+
+#验证码
+#login.captcha=true
+
+#swagger
+swagger.info.title=NutSite接口列表
+swagger.info.version=1.0-Beta
+swagger.info.contact.name=haiming
+swagger.info.contact.email=hamming.yu@foxmail.com
+swagger.info.contact.url=https://nutz.io
+swagger.info.license.name=Apache v2
+swagger.resource.package=io.nutz.nutzsite.module.open
+
+# 防止XSS攻击
+# 过滤开关
+xss.enabled=true
+xss.excludes=/favicon.ico,/assets/img/*,/assets/js/*,/assets/css/*
+## activiti 审批流
+#activiti.databaseSchemaUpdate=true
+#activiti.asyncExecutorEnabled=true
+#activiti.asyncExecutorActivate=true
+</code></pre></table>
+<p>代码生成 <code>gen.properties</code></p>
+<table width='100%' class='codestyle'><pre><code># 代码生成
+
+# 作者
+author: haiming
+
+# 自动去除表前缀，默认是true
+autoRemovePre:true
+
+#生成API模板的包路径
+packageNameOpen:io.nutz.nutzsite.module.open.api
+
+# 默认生成包路径 system 需改成自己的模块名称 如 system monitor tool
+packageName: io.nutz.nutzsite.module.test
+
+# 表前缀(类名不会包含表前缀)
+tablePrefix:test_
+</code></pre></table>
+<p>国际化消息 locales <code>zh_CN.properties</code></p>
+<table width='100%' class='codestyle'><pre><code>user.login.success=登录成功
+login.error.user=用户名或密码错误
+login.error.locked=用户已锁定
+login.error.system=系统错误
+profile.resetpwd=修改密码失败，旧密码错误
+
+system.errorMsg=服务器繁忙,请稍后重试
+system.paramserror=表单参数错误
+system.object.exception=参数类型转换错误
+system.success=操作成功
+system.error=失败
+
+user.require.auth=对不起您没有权限操作
+user.require.unauthorized=用户未登录
+
+dept.stop=部门停用，不允许新增</code></pre></table>
+<p>日志<code>log4j.properties</code></p>
+<table width='100%' class='codestyle'><pre><code>log4j.rootLogger=debug,Console
+
+log4j.logger.org.eclipse.jetty=info
+log4j.logger.org.apache.jasper=info
+log4j.logger.org.apache.catalina=info
+log4j.logger.org.apache.tomcat=info
+log4j.logger.org.thymeleaf=info
+log4j.logger.org.quartz=info
+log4j.appender.Console=org.apache.log4j.ConsoleAppender
+log4j.appender.Console.layout=org.apache.log4j.PatternLayout
+log4j.appender.Console.layout.ConversionPattern=[%-5p] %d{HH:mm:ss.SSS} %l - %m%n
+</code></pre></table></div><h2>2.4、核心技术</h2><div style="margin-left:0px;"><h1><center>核心技术</center></h1>
+<h2>NutzBoot</h2>
+<h3>1、介绍</h3>
+<p>NutzBoot 简称NB,是可靠的企业级微服务框架,提供自动配置,嵌入式web服务,分布式会话,流控熔断,分布式事务等一篮子解决方案，提供各种默认配置来简化项目配置。让我们的nutz应用变的更轻量化、更快的入门。 在主程序执行main函数就可以运行。你也可以打包你的应用为jar并通过使用java -jar来运行你的Web应用。它遵循"约定优先于配置"的原则， 使用NutzBoot只需很少的配置，大部分的时候直接使用默认的配置即可。</p>
+<h3>2、优点</h3>
+<ul>
+<li>使编码变得简单： 推荐使用注解。</li>
+<li>使配置变得简单： 自动配置、快速构建项目、快速集成新技术能力 没有冗余代码生成和XML配置的要求</li>
+<li>嵌入式web服务(jetty/tomcat/undertow),可打包成单一jar文件</li>
+<li>基于starter的自动配置体系,只需要添加maven依赖,即可自动发现并加载</li>
+<li>能满足90%以上常见需求的默认配置,无需过多的自定义</li>
+<li>以开放的心态与国内开源团体合作,优先集成国产项目</li>
+<li>活跃的社区及稳健的发布周期,推进项目一直前进</li>
+<li>提供swagger api文件自动生成</li>
+</ul>
+<h2>Shiro安全控制</h2>
+<h3>1、介绍</h3>
+<p>Apache Shiro是Java的一个安全框架。Shiro可以帮助我们完成：认证、授权、加密、会话管理、与Web集成、缓存等。其不仅可以用在 JavaSE环境，也可以用在 JavaEE 环境。</p>
+<h3>2、优点</h3>
+<p>易于理解的 Java Security API
+简单的身份认证，支持多种数据源
+对角色的简单的授权，支持细粒度的授权
+不跟任何的框架或者容器捆绑，可以独立运行</p>
+<h3>3、特性</h3>
+<p>Authentication身份认证/登录，验证用户是不是拥有相应的身份
+Authorization授权，即验证权限，验证某个已认证的用户是否拥有某个权限，即判断用户是否能做事情 SessionManagement会话管理，即用户登录后就是一次会话，在没有退出之前，它的所有信息都在会话中
+Cryptography加密，保护数据的安全性，如密码加密存储到数据库，而不是明文存储
+Caching缓存，比如用户登录后，其用户信息，拥有的角色/权限不必每次去查，提高效率
+ConcurrencyShiro支持多线程应用的并发验证，即如在一个线程中开启另一个线程，能把权限自动传播过去
+Testing提供测试支持
+RunAs允许一个用户假装为另一个用户（如果他们允许）的身份进行访问
+RememberMe记住我，这是非常常见的功能，即一次登录后，下次再来的话不用登录了</p>
+<h3>4、架构</h3>
+<p>Subject主体，代表了当前的“用户”，这个用户不一定是一个具体的人，与当前应用交互的任何东西都是Subject，如网络爬虫， 机器人等；即一个抽象概念；所有Subject都绑定到SercurityManager，与Subject的所有交互都会委托给SecurityManager；可以把Subject认为是一个门面；SecurityManager才是实际的执行者
+SecurityManage安全管理器；即所有与安全有关的操作都会与SecurityManager交互；且它管理着所有Subject； 可以看出它是Shiro的核心，它负责与后边介绍的其他组件进行交互
+Realm域，Shiro从Realm获取安全数据（如用户，角色，权限），就是说SecurityManager要验证用户身份， 那么它需要从Realm获取相应的用户进行比较以确定用户身份是否合法；也需要从Realm得到用户相应的角色/权限进行验证用户是否能进行操作；可以有1个或多个Realm，我们一般在应用中都需要实现自己的Realm
+SessionManager如果写过Servlet就应该知道Session的概念，Session需要有人去管理它的生命周期，这个组件就是SessionManager
+SessionDAODAO大家都用过，数据库访问对象，用于会话的CRUD，比如我们想把Session保存到数据库，那么可以实现自己的SessionDAO，也可以写入缓存，以提高性能
+CacheManager缓存控制器，来管理如用户，角色，权限等的缓存的；因为这些数据基本上很少去改变，放到缓存中后可以提高访问的性能</p>
+<p>应用代码通过Subject来进行认证和授权，而Subject又委托给SecurityManager； 我们需要给Shrio的SecurityManager注入Realm，从而让SecurityManager能得到合法的用户及其权限进行判断，Shiro不提供维护用户/权限，而是通过Realm让开发人员自己注入。</p>
+<p>Shiro不会去维护用户，维护权限；这些需要自己去设计/提供；然后通过响应的接口注入给Shiro即可</p>
+<h1>Thymeleaf模板</h1>
+<h3>1、介绍</h3>
+<p>Thymeleaf是一个用于Web和独立Java环境的模板引擎，能够处理HTML、XML、JavaScript、CSS甚至纯文本。能轻易 MVC等Web框架进行集成作为Web应用的模板引擎。 与其它模板引擎（比如FreeMaker）相比，Thymeleaf最大的特点是能够直接在浏览器中打开并正确显示模板页面，而不需要启动整个Web应用（更加方便前后端分离，比如方便类似VUE前端设计页面），抛弃JSP吧。 Thymeleaf 3.0是一个完全彻底重构的模板引擎，极大的减少内存占用和提升性能和并发性，避免v2.1版因大量的输出标记的集合产生的资源占用。 Thymeleaf 3.0放弃了大多数面向DOM的处理机制，变成了一个基于事件的模板处理器，它通过处理模板标记或文本并立即生成其输出，甚至在新事件之前响应模板解析器/缓存事件。</p>
+<h3>2、优点</h3>
+<p>国际化支持非常简单
+语法简单，功能强大。内置大量常用功能，使用非常方便
+可以很好的和nutz集成
+静态html嵌入标签属性，浏览器可以直接打开模板文件，便于前后端联调</p></div><h2>2.1、后端手册</h2><div style="margin-left:0px;"><h3>2.1.1、分页实现</h3><div style="margin-left:30px;"><h1><center>分页实现</center></h1>
+<p>前端基于Bootstrap的轻量级表格插件 <code>BootstrapTable</code>
+后端分页 封装在server类 io.nutz.nutzsite.common.service BaseServiceImpl.Java</p>
+<table width='100%' class='codestyle'><pre><code>javascript
+var options = {
+    url: prefix + "/list",
+    columns: [{
+        field: 'id',
+        title: '主键'
+    },
+    {
+        field: 'name',
+        title: '名称'
+    }]
+};
+$.table.init(options);
+</code></pre></table>
+<p>自定义查询条件参数（特殊情况提前设置查询条件下使用）</p>
+<table width='100%' class='codestyle'><pre><code>javascript
+var options = {
+    url: prefix + "/list",
+    queryParams: queryParams,
+    columns: [{
+        field: 'id',
+        title: '主键'
+    },
+    {
+        field: 'name',
+        title: '名称'
+    }]
+};
+$.table.init(options);
+
+function queryParams(params) {
+    var search = $.table.queryParams(params);
+    search.userName = $("#userName").val();
+    return search;
+}</code></pre></table>
+<p>后台逻辑实现</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">    @At
+    @Ok("json")
+    public Object list(@Param("pageNum")int pageNum,
+                       @Param("pageSize")int pageSize,
+                       @Param("name") String name,
+                       @Param("beginTime") Date beginTime,
+                       @Param("endTime") Date endTime,
+                       @Param("orderByColumn") String orderByColumn,
+                       @Param("isAsc") String isAsc,
+                       HttpServletRequest req) {
+        Cnd cnd = Cnd.NEW();
+        if (!Strings.isBlank(name)){
+            //cnd.and("name", "like", "%" + name +"%");
+        }
+        if(Lang.isNotEmpty(beginTime)){
+            cnd.and("create_time",">=", beginTime);
+        }
+        if(Lang.isNotEmpty(endTime)){
+            cnd.and("create_time","<=", endTime);
+        }
+        return petService.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,"master");
+    }
+
+        @Override
+    public TableDataInfo tableList(Integer pageNumber, Integer pageSize, Cnd cnd, String orderByColumn, String isAsc, String linkname) {
+        Pager pager=null;
+        if(Lang.isNotEmpty(pageNumber) && Lang.isNotEmpty(pageSize)){
+            pager = this.dao().createPager(pageNumber, pageSize);
+        }
+        if (Strings.isNotBlank(orderByColumn) && Strings.isNotBlank(isAsc)) {
+            MappingField field = dao().getEntity(this.getEntityClass()).getField(orderByColumn);
+            if (Lang.isNotEmpty(field)) {
+                cnd.orderBy(field.getColumnName(), isAsc);
+            }
+        }
+        if (Strings.isBlank(linkname)) {
+            List<T> list = this.dao().query(this.getEntityClass(), cnd, pager);
+            return new TableDataInfo(list, this.dao().count(this.getEntityClass(), cnd));
+        } else {
+            List<T> list = this.dao().queryByJoin(this.getEntityClass(), linkname, cnd, pager);
+            return new TableDataInfo(list, this.dao().count(this.getEntityClass(), cnd));
+        }
+    }</code></pre></table>
+<p>分页实现</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">        Pager pager=null;
+        if(Lang.isNotEmpty(pageNumber) && Lang.isNotEmpty(pageSize)){
+            pager = this.dao().createPager(pageNumber, pageSize);
+        }</code></pre></table>
+<p>详情参考 nutz文档 <a href="https://nutzam.com/core/dao/pager.html">https://nutzam.com/core/dao/pager.html</a></p></div><h3>2.1.2、一对多映射</h3><div style="margin-left:30px;"><h1><center>一对多映射</center></h1>
+<p>在 POJO 中配置一对多映射</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">@Table("t_master")
+public class Master extends Pojo {
+
+    @Many(field = "masterId")
+    // 1.r.59之前需要写target参数
+    // @Many(target = Pet.class, field = "masterId")
+    private List<Pet> pets;
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
+    }
+
+}</code></pre></table>
+<h2>插入操作</h2>
+<p>如果你已经实现准备好了这样的对象：</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">Master master = new Master();
+master.setName("Peter");
+
+List<Pet> pets = new ArrayList<Pet>();
+pets.add(new Pet("XiaoBai"));
+pets.add(new Pet("XiaoHei"));
+
+master.setPets(pets);
+dao.insertWith(master, "pets");</code></pre></table>
+<p>Nutz.Dao 会根据正则表达式 "pets" 寻找可以被匹配上的映射字段（只要声明了 @One, @Many, @ManyMany 任何一个注解，都是映射字段） 并根据注解具体的配置信息，执行相应的 SQL。比如上面的操作，会实际上：</p>
+<table width='100%' class='codestyle'><pre><code class="language-sql">执行 SQL : INSERT INTO t_master (name) VALUES("Peter");
+执行 SQL 获取 最大值： SELECT MAX(id) FROM t_master  // 假设返回的值是 29
+将该最大值 29 赋给 master 对象的主键 id
+循环 master.pets，将该最大值 29 赋给每一个 pet 对象的 pet.masterId 字段
+执行 SQL : INSERT INTO t_pet (name,masterId) VALUES("XiaoBai",29)
+执行 SQL : INSERT INTO t_pet (name,masterId) VALUES("XiaoHei",29)</code></pre></table>
+<p>当然，你要想选择仅仅只插入映射字段的话，你可以：</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">dao.insertLinks(master,"pets");</code></pre></table>
+<p>那么上述操作实际上会执行：</p>
+<p>循环 master.pets，将该master.id (主键) 赋给每一个 pet 对象的 pet.masterId 字段，我们假设该值为 29</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">执行 SQL : INSERT INTO t_pet (name,masterId) VALUES("XiaoBai",29)
+执行 SQL : INSERT INTO t_pet (name,masterId) VALUES("XiaoHei",29)</code></pre></table>
+<p>看，并不会插入 master 对象。</p>
+<h2>获取操作</h2>
+<p>仅仅获取映射对象：</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">Master master = dao.fetch(Master.class, "Peter");
+dao.fetchLinks(master, "pets");</code></pre></table>
+<p>这会执行操作：</p>
+<table width='100%' class='codestyle'><pre><code class="language-sql">执行 SQL: SELECT * FROM t_master WHERE name='Peter'; // 如果 master.id 是 12
+执行 SQL: SELECT * FROM t_pet WHERE masterId=12;</code></pre></table>
+<p>但是 Nutz.Dao 没有提供一次获取 master 对象以及 pets 对象的方法，因为，你完全可以把上面的两句话写在一行上：</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">Master master = dao.fetchLinks(dao.fetch(Master.class, "Peter"), "pets");</code></pre></table>
+<p>然后，你可以通过 master.getPets() 得到 Nutz.Dao 为 master.pets 字段设置的值。</p>
+<h2>更新操作</h2>
+<p>同时更新 pet 和 master</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">dao.updateWith(master, "pets");</code></pre></table>
+<p>这会执行</p>
+<p>执行SQL: UPDATE t_master ....
+循环 master.pets 并依次执行SQL: UPDATE t_pet ...
+仅仅更新 pets</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">dao.updateLinks(master, "pets");</code></pre></table>
+<p>这会执行</p>
+<p>循环 master.pets 并依次执行SQL: UPDATE t_pet ...</p>
+<h2>删除操作</h2>
+<p>同时删除 master 和 pets</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">dao.deleteWith(master, "pets");</code></pre></table>
+<p>仅仅删除 pets</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">dao.deleteLinks(master, "pets");</code></pre></table>
+<p>清除 pets</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">dao.clearLinks(master, "pets");</code></pre></table>
+<p>清除同删除的区别在于，清除只会执行一条 SQL 删除一批映射对象，而且删除会逐个调用 dao.delete 来删除对象</p>
+<p>详细文档 :<a href="https://nutzam.com/core/dao/links_many.html">https://nutzam.com/core/dao/links_many.html</a></p></div><h3>2.1.3、多对多映射</h3><div style="margin-left:30px;"><h2><center>多对多映射</center></h2>
+<p>在 POJO 中配置多对多映射
+在 POJO 类中字段中增加注解 @ManyMany：</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">@Table("t_food")
+public class Food extends Pojo {
+
+    @ManyMany(relation = "t_pet_food", from = "foodid", to = "petid")
+    // 1.r.59之前需要写target参数
+    // @ManyMany(target = Pet.class, relation = "t_pet_food", from = "foodid", to = "petid")
+    private List<Pet> pets;
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
+    }
+
+}
+@Table("t_pet")
+public class Pet {
+    @Id
+    public int id;
+    @Name
+    public String name;
+    @ManyMany(relation="t_pet_food", 
+            from="pid",
+            to="fid")
+    public List<Food> foods;
+}</code></pre></table>
+<h1>插入操作</h1>
+<p>如果你已经实现准备好了这样的对象：</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">Food food = new Food("Fish");
+
+List<Pet> pets = new ArrayList<Pet>();
+pets.add(new Pet("XiaoBai"));
+pets.add(new Pet("XiaoHei"));
+
+food.setPets(pets);</code></pre></table>
+<p>那么你可以一次将 food 以及它对应的 pets 一起插入到数据表中，并在关联表中插入对应的记录</p>
+<p>dao.insertWith(food, "pets");
+Nutz.Dao 会根据正则表达式 "pets" 寻找可以被匹配上的映射字段（只要声明了 @One, @Many, @ManyMany 任何一个注解，都是映射字段） 并根据注解具体的配置信息，执行相应的 SQL。比如上面的操作，会实际上：</p>
+<table width='100%' class='codestyle'><pre><code class="language-sql">执行 SQL : INSERT INTO t_food (name) VALUES("Fish");
+执行 SQL 获取 最大值： SELECT MAX(id) FROM t_food  // 假设返回的值是 6
+循环 food.pets
+    执行 SQL: INSERT INTO t_pet (name) VALUES("XiaoBai");
+    执行 SQL 获取 最大值： SELECT MAX(id) FROM t_pet  // 假设返回的值是 97
+    执行 SQL 插入关联: INSERT INTO t_pet_food (foodid, petid) VALUES(6, 97);
+    ...</code></pre></table>
+<p>这里通过 SELECT MAX 来获取插入的最大值，是默认的做法，如果你想修改这个默认做法，请参看 关于主键一章。</p>
+<p>这里因为是多对多映射，所以会首先插入主对象并循环插入映射对象，以便获得双发的主键
+如果你的对象中包括多个 @ManyMany 字段，被你的正则式匹配上，那么这些字段对应的字段（如果不为null）都会被匹配，一次被执行
+当然，你要想选择仅仅只插入映射字段的话，你可以：</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">dao.insertLinks(food,"pets");</code></pre></table>
+<p>如果 food.id 的值为 6，那么上述操作实际上会执行：</p>
+<table width='100%' class='codestyle'><pre><code class="language-sql">循环 food.pets
+    执行 SQL: INSERT INTO t_pet (name) VALUES("XiaoBai");
+    执行 SQL 获取 最大值： SELECT MAX(id) FROM t_pet  // 假设返回的值是 97
+    执行 SQL 插入关联: INSERT INTO t_pet_food (foodid, petid) VALUES(6, 97);
+    ...</code></pre></table>
+<p>看，并不会插入 food 对象。</p>
+<p>如果你已经存在了 food 和 pets 对象，你仅仅打算将它们关联起来，那么你可以</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">dao.insertRelation(food,"pets");</code></pre></table>
+<p>如果 food.id 的值为 6，那么上述操作实际上会执行：</p>
+<table width='100%' class='codestyle'><pre><code class="language-sql">循环 food.pets
+    执行 SQL 插入关联: INSERT INTO t_pet_food (foodid, petid) VALUES(6, 97);
+    ...</code></pre></table>
+<p>看，仅仅只会插入 food 和 pets 的关联</p>
+<h1>获取操作</h1>
+<p>仅仅获取映射对象：</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">
+Food food = dao.fetch(Food.class, "Fish");
+dao.fetchLinks(food, "pets");</code></pre></table>
+<p>这会执行操作：</p>
+<p>执行 SQL: SELECT <em> FROM t_food WHERE name='Fish'; // 如果 food.id 是6
+执行 SQL: SELECT </em> FROM t_pet WHERE id IN (SELECT petid FROM t_pet_food WHERE foodid=6)
+但是 Nutz.Dao 没有提供一次获取 food 对象以及 pets 对象的方法，因为，你完全可以把上面的两句话写在一行上：</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">Food food = dao.fetchLinks(dao.fetch(Food.class, "Fish"), "pets");</code></pre></table>
+<p>然后，你可以通过 food.getPets() 得到 Nutz.Dao 为 food.pets 字段设置的值。</p>
+<h1>更新操作</h1>
+<p>同时更新 food 和 pet</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">dao.updateWith(food, "pets");</code></pre></table>
+<p>这会执行</p>
+<p>执行SQL: UPDATE t_food ....
+循环 food.pets 并依次执行SQL: UPDATE t_pet ...
+仅仅更新 pets</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">dao.updateLinks(food, "pets");</code></pre></table>
+<p>这会执行</p>
+<p>循环 food.pets 并依次执行SQL: UPDATE t_pet ...</p>
+<h1>删除操作</h1>
+<p>同时删除 food 和 pets</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">dao.deleteWith(food, "pets");</code></pre></table>
+<p>仅仅删除 pets</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">dao.deleteLinks(food, "pets");</code></pre></table>
+<p>清除 pets</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">dao.clearLinks(food, "pets");</code></pre></table>
+<p>删除与清除的区别在于</p>
+<ul>
+<li>删除不仅会删掉 t_pet_food 里的记录，还会逐个调用 dao.delete 来删除 pet 对象。</li>
+<li>而清除只会执行一条 SQL 来删除 t_pet_food 中的记录（即中间表中的记录），但是 t_pet 和 t_food 表中的数据不会被删除。</li>
+</ul>
+<p>详细文档:<a href="https://nutzam.com/core/dao/links_many_many.html">https://nutzam.com/core/dao/links_many_many.html</a></p></div><h3>2.1.4、权限注解</h3><div style="margin-left:30px;"><h1><center>权限注解</center></h1>
+<h2>Shiro注解权限控制</h2>
+<p>RequiresAuthentication使用该注解标注的类，实例，方法在访问或调用时，当前Subject必须在当前session中已经过认证
+RequiresGuest使用该注解标注的类，实例，方法在访问或调用时，当前Subject可以是gust身份，不需要经过认证或者在原先的session中存在记录。
+当前Subject需要拥有某些特定的权限时，才能执行被该注解标注的方法。如果当前Subject不具有这样的权限，则方法不会被执行。
+当前Subject必须拥有所有指定的角色时，才能访问被该注解标注的方法。如果当天Subject不同时拥有所有指定角色，则方法不会执行还会抛出AuthorizationException异常。
+当前Subject必须是应用的用户，才能访问或调用被该注解标注的类，实例，方法。</p>
+<h3>提示</h3>
+<hr />
+<p>Shiro的认证注解处理是有内定的处理顺序的，如果有个多个注解的话，前面的通过了会继续检查后面的，若不通过则直接返回，处理顺序依次为（与实际声明顺序无关） RequiresRoles
+RequiresPermissions
+RequiresAuthentication
+RequiresUser
+RequiresGuest
+例如：你同时声明了RequiresRoles和RequiresPermissions，那就要求拥有此角色的同时还得拥有相应的权限。</p>
+<hr />
+<p>1、 RequiresRoles可以用在Controller或者方法上。可以多个roles，多个roles时默认逻辑为 AND也就是所有具备所有role才能访问。</p>
+<table width='100%' class='codestyle'><pre><code>
+// 属于user角色
+@RequiresRoles("user")
+
+// 必须同时属于user和admin角色
+@RequiresRoles({"user", "admin"})
+
+// 属于user或者admin之一;修改logical为OR 即可
+@RequiresRoles(value={"user", "admin"}, logical=Logical.OR)</code></pre></table>
+<p>2、   RequiresPermissions与RequiresRoles类似</p>
+<table width='100%' class='codestyle'><pre><code>
+// 符合system:user:view权限要求
+@RequiresPermissions("system:user:view")
+
+// 必须同时复核system:user:view和system:user:list权限要求
+@RequiresPermissions({"system:user:view", "system:user:list"})
+
+// 符合system:user:view或system:user:list权限要求即可
+@RequiresPermissions(value={"system:user:view", "system:user:list"}, logical=Logical.OR)</code></pre></table>
+<p>3、  RequiresAuthentication，RequiresUser，RequiresGuest这三个的使用方法一样</p>
+<table width='100%' class='codestyle'><pre><code>
+@RequiresAuthentication
+@RequiresUser
+@RequiresGusst</code></pre></table></div><h3>2.1.5、事务管理</h3><div style="margin-left:30px;"><h2><center>事务管理</center></h2>
+<p>事务最核心的是原子的界定，在 Nutz.Dao中，界定原子的方法出奇的简单，借助匿名类，你可以随时将一段 代码用你的原子实现包裹住。而 Trans.exec() 方法接受数目可变的原子，每个原子都是事务性的。</p>
+<table width='100%' class='codestyle'><pre><code>final Pet pet1 = dao.fetch(Pet.class,"XiaoBai");
+final Pet pet2 = dao.fetch(Pet.class,"XiaoHei");
+
+pet1.setNickname("BaiBai");
+pet2.setNickname("HeiHei");
+// Begin transaction        
+Trans.exec(new Atom(){
+    public void run() {
+        dao.update(pet1);
+        dao.update(pet2);
+    }
+});
+// End transaction</code></pre></table>
+<p>具体参考nutz 文档 <a href="https://nutzam.com/core/dao/transaction.html">https://nutzam.com/core/dao/transaction.html</a></p></div><h3>2.1.6、异常处理</h3><div style="margin-left:30px;"><h1><center>异常处理</center></h1>
+<p>通常一个web框架中，有大量需要处理的异常。比如业务异常，权限不足等等。前端通过弹出提示信息的方式告诉用户出了什么错误。 通常情况下我们用try.....catch.... 对异常进行捕捉处理，但是在实际项目中对业务模块进行异常捕捉，会造成代码重复和繁杂， 我们希望代码中只有业务相关的操作，所有的异常我们单独设立一个类来处理它。全局异常就是对框架所有异常进行统一管理。 我们在可能发生异常的方法里throw抛给控制器。然后由全局异常处理器对异常进行统一处理。 如此，我们的Controller中的方法就可以很简洁了。
+动作链 配置 在如下配置自定义 mvc的环节
+io.nutz.nutzsite.common.mvc.MyActionChainMaker.java
+异常处理定义统一处理类</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">package io.nutz.nutzsite.common.mvc.processor;
+/**
+ * 重写 Error信息处理类
+ * @Author: Haimming
+ * @Date: 2019-08-09 16:27
+ * @Version 1.0
+ */
+public class ErrorProcessor extends ViewProcessor {
+
+    private static final Log log = Logs.get();
+
+    public static boolean isAjax(ServletRequest req) {
+        String value = ((HttpServletRequest)req).getHeader("X-Requested-With");
+        return value != null && "XMLHttpRequest".equalsIgnoreCase(value.trim());
+    }
+    @Override
+    public void init(NutConfig config, ActionInfo ai) throws Throwable {
+        view = evalView(config, ai, ai.getFailView());
+    }
+
+    @Override
+    public void process(ActionContext ac) throws Throwable {
+        if (log.isWarnEnabled()) {
+            String uri = Mvcs.getRequestPath(ac.getRequest());
+            log.warn(String.format("Error@%s :", uri), ac.getError());
+        }
+        String msg = "system.paramserror";
+        if (ac.getError() instanceof ErrorException) {
+            msg = ac.getError().getMessage();
+        }
+        if (ac.getError() instanceof RuntimeException ){
+            Throwable error = Lang.unwrapThrow(ac.getError());
+            if(error instanceof FailToCastObjectException){
+                msg = Mvcs.getMessage(ac.getRequest(),"system.object.exception") + error.getMessage();
+            }
+            if(error instanceof NumberFormatException ){
+                msg = Mvcs.getMessage(ac.getRequest(),"system.object.exception") + error.getMessage();
+            }
+        }
+        //非AJAX 处理
+        if (isAjax(ac.getRequest())) {
+            NutShiro.rendAjaxResp(ac.getRequest(), ac.getResponse(), Result.error(msg));
+        }else {
+            new HttpStatusView(500).render(
+                    ac.getRequest(),
+                    ac.getResponse(),
+                    Mvcs.getMessage(ac.getRequest(),
+                            msg)
+            );
+        }
+        super.process(ac);
+    }
+}</code></pre></table></div><h3>2.1.7、系统日志</h3><div style="margin-left:30px;"><h1><center>系统日志</center></h1>
+<p>在实际开发中，对于某些关键业务，我们通常需要记录该操作的内容，一个操作调一次记录方法，每次还得去收集参数等等，会造成大量代码重复。 我们希望代码中只有业务相关的操作，在项目中使用注解来完成此项功能。</p>
+<p>在需要被记录日志的controller方法上添加@Slog注解，使用方法如下：</p>
+<table width='100%' class='codestyle'><pre><code>@Slog(tag="岗位", after="新增保存岗位id=${args[0].id}")</code></pre></table>
+<p>用的是nutz扩展插件
+<a href="https://github.com/nutzam/nutzmore/tree/master/nutz-plugins-slog">https://github.com/nutzam/nutzmore/tree/master/nutz-plugins-slog</a></p>
+<p>本项目重写了记录日志方法
+org.nutz.plugins.slog.service.Java
+默认记录255长度json</p></div><h3>2.1.8、代码生成</h3><div style="margin-left:30px;"><h1><center>代码生成</center></h1>
+<p>大部分项目里其实有很多代码都是重复的，几乎每个基础模块的代码都有增删改查的功能，而这些功能都是大同小异， 如果这些功能都要自己去写，将会大大浪费我们的精力降低效率。所以这种重复性的代码可以使用代码生成。</p>
+<h3>1、修改代码生成配置</h3>
+<p>应用编辑resources目录下的<code>gen.properties</code>
+author: # 开发者姓名，生成到类注释上
+packageName: # 默认生成包路径
+autoRemovePre: # 是否自动去除表前缀
+tablePrefix: # 表前缀</p>
+<h3>2、登录系统（系统工具 -> 代码生成 )</h3>
+<h3>3、代码生成列表中找到需要表（可预览生成配置）</h3></div><h3>2.1.9、定时任务</h3><div style="margin-left:30px;"><h1><center>定时任务</center></h1>
+<p>在实际项目开发中Web应用有一类不可缺少的，那就是定时任务。 定时任务的场景可以说非常广泛，比如某些视频网站，购买会员后，每天会给会员送成长值，每月会给会员送一些电影券； 比如在保证最终一致性的场景中，往往利用定时任务调度进行一些比对工作；比如一些定时需要生成的报表、邮件；比如一些需要定时清理数据的任务等。 所以我们提供方便友好的web界面，实现动态管理任务，可以达到动态控制定时任务启动、暂停、重启、删除、添加、修改等操作，极大地方便了开发过程。</p>
+<p>定时任务初始化
+在io.nutz.nutzsite.MainLauncher.Java 类方法初始化</p>
+<table width='100%' class='codestyle'><pre><code class="language-java"> initSysTask();</code></pre></table>
+<table width='100%' class='codestyle'><pre><code class="language-java">package io.nutz.nutzsite.common.quartz.job;
+
+@IocBean
+public class TestJob implements Job {
+
+    private static final Log log = Logs.get();
+
+    @Override
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        JobDataMap data = context.getJobDetail().getJobDataMap();
+        String taskId = context.getJobDetail().getKey().getName();
+        String hi = data.getString("hi");
+        log.info("Test Job hi::" + hi);
+    }
+}
+</code></pre></table>
+<p>前端新建定时任务信息（系统监控 -> 定时任务）
+任务名称：自定义，如：定时查询任务状态
+调用目标字符串：设置后台任务方法名称参数
+执行表达式：可查询官方cron表达式介绍
+执行策略：定时任务自定义执行策略
+并发执行：是否需要多个任务间同时执行
+状态：是否启动定时任务
+备注：定时任务描述信息</p>
+<p>点击执行一次，测试定时任务是否正常及调度日志是否正确记录，如正常执行表示任务配置成功。</p>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th>说明</th>
+<th>必填</th>
+<th>允许填写的值</th>
+<th>允许的通配符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>秒</td>
+<td>是</td>
+<td>0-59</td>
+<td>, - * /</td>
+</tr>
+<tr>
+<td>分</td>
+<td>是</td>
+<td>0-59</td>
+<td>, - * /</td>
+</tr>
+<tr>
+<td>时</td>
+<td>是</td>
+<td>0-23</td>
+<td>, - * /</td>
+</tr>
+<tr>
+<td>日</td>
+<td>是</td>
+<td>1-31</td>
+<td>, - * /</td>
+</tr>
+<tr>
+<td>月</td>
+<td>是</td>
+<td>1-12 / JAN-DEC</td>
+<td>, - * ? / L W</td>
+</tr>
+<tr>
+<td>周</td>
+<td>是</td>
+<td>1-7 or SUN-SAT</td>
+<td>, - * ? / L #</td>
+</tr>
+<tr>
+<td>年</td>
+<td>是</td>
+<td>1970-2099</td>
+<td>, - * /</td>
+</tr>
+</tbody>
+</table>
+<p>通配符说明:</p>
+<ul>
+<li><code>*</code> 表示所有值。 例如:在分的字段上设置 *,表示每一分钟都会触发</li>
+<li><code>?</code> 表示不指定值。使用的场景为不需要关心当前设置这个字段的值。例如:要在每月的10号触发一个操作，但不关心是周几，所以需要周位置的那个字段设置为”?” 具体设置为 0 0 0 10 * ?</li>
+<li><code>-</code> 表示区间。例如 在小时上设置 “10-12”,表示 10,11,12点都会触发</li>
+<li><code>,</code> 表示指定多个值，例如在周字段上设置 “MON,WED,FRI” 表示周一，周三和周五触发</li>
+<li><code>/</code> 用于递增触发。如在秒上面设置”5/15” 表示从5秒开始，每增15秒触发(5,20,35,50)。 在月字段上设置’1/3’所示每月1号开始，每隔三天触发一次</li>
+<li><code>L</code> 表示最后的意思。在日字段设置上，表示当月的最后一天(依据当前月份，如果是二月还会依据是否是润年[leap]), 在周字段上表示星期六，相当于”7”或”SAT”。如果在”L”前加上数字，则表示该数据的最后一个。例如在周字段上设置”6L”这样的格式,则表示“本月最后一个星期五”</li>
+<li><code>W</code> 表示离指定日期的最近那个工作日(周一至周五). 例如在日字段上置”15W”，表示离每月15号最近的那个工作日触发。如果15号正好是周六，则找最近的周五(14号)触发, 如果15号是周未，则找最近的下周一(16号)触发.如果15号正好在工作日(周一至周五)，则就在该天触发。如果指定格式为 “1W”,它则表示每月1号往后最近的工作日触发。如果1号正是周六，则将在3号下周一触发。(注，”W”前只能设置具体的数字,不允许区间”-“)</li>
+<li><code>#</code> 序号(表示每月的第几个周几)，例如在周字段上设置”6#3”表示在每月的第三个周六.注意如果指定”#5”,正好第五周没有周六，则不会触发该配置(用在母亲节和父亲节再合适不过了) ；小提示：’L’和 ‘W’可以一组合使用。如果在日字段上设置”LW”,则表示在本月的最后一个工作日触发；周字段的设置，若使用英文字母是不区分大小写的，即MON与mon相同</li>
+</ul>
+<h3>常用表达式例子:</h3>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th>表达式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0 0 2 1 * ? *</code></td>
+<td>表示在每月的1日的凌晨2点调整任务</td>
+</tr>
+<tr>
+<td><code>0 15 10 ? * MON-FRI</code></td>
+<td>表示周一到周五每天上午10:15执行作业</td>
+</tr>
+<tr>
+<td><code>0 15 10 ? 6L 2002-2006</code></td>
+<td>表示2002-2006年的每个月的最后一个星期五上午10:15执行作</td>
+</tr>
+<tr>
+<td><code>0 0 10,14,16 * * ?</code></td>
+<td>每天上午10点，下午2点，4点</td>
+</tr>
+<tr>
+<td><code>0 0/30 9-17 * * ?</code></td>
+<td>朝九晚五工作时间内每半小时</td>
+</tr>
+<tr>
+<td><code>0 0 12 ? * WED</code></td>
+<td>表示每个星期三中午12点</td>
+</tr>
+<tr>
+<td><code>0 0 12 * * ?</code></td>
+<td>每天中午12点触发</td>
+</tr>
+<tr>
+<td><code>0 15 10 ? * *</code></td>
+<td>每天上午10:15触发</td>
+</tr>
+<tr>
+<td><code>0 15 10 * * ?</code></td>
+<td>每天上午10:15触发</td>
+</tr>
+<tr>
+<td><code>0 15 10 * * ? *</code></td>
+<td>每天上午10:15触发</td>
+</tr>
+<tr>
+<td><code>0 15 10 * * ? 2005</code></td>
+<td>2005年的每天上午10:15触发</td>
+</tr>
+<tr>
+<td><code>0 * 14 * * ?</code></td>
+<td>在每天下午2点到下午2:59期间的每1分钟触发</td>
+</tr>
+<tr>
+<td><code>0 0/5 14 * * ?</code></td>
+<td>在每天下午2点到下午2:55期间的每5分钟触发</td>
+</tr>
+<tr>
+<td><code>0 0/5 14,18 * * ?</code></td>
+<td>在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发</td>
+</tr>
+<tr>
+<td><code>0 0-5 14 * * ?</code></td>
+<td>在每天下午2点到下午2:05期间的每1分钟触发</td>
+</tr>
+<tr>
+<td><code>0 10,44 14 ? 3 WED</code></td>
+<td>每年三月的星期三的下午2:10和2:44触发</td>
+</tr>
+<tr>
+<td><code>0 15 10 ? * MON-FRI</code></td>
+<td>周一至周五的上午10:15触发</td>
+</tr>
+<tr>
+<td><code>0 15 10 15 * ?</code></td>
+<td>每月15日上午10:15触发</td>
+</tr>
+<tr>
+<td><code>0 15 10 L * ?</code></td>
+<td>每月最后一日的上午10:15触发</td>
+</tr>
+<tr>
+<td><code>0 15 10 ? * 6L</code></td>
+<td>每月的最后一个星期五上午10:15触发</td>
+</tr>
+<tr>
+<td><code>0 15 10 ? * 6L</code></td>
+<td>2002-2005    2002年至2005年的每月的最后一个星期五上午10:15触发</td>
+</tr>
+<tr>
+<td><code>0 15 10 ? * 6#3</code></td>
+<td>每月的第三个星期五上午10:15触发</td>
+</tr>
+</tbody>
+</table></div><h3>2.1.10、系统接口</h3><div style="margin-left:30px;"><h1><center>系统接口</center></h1>
+<p>在现在的开发过程中还有很大一部分公司都是以口口相传的方式来进行前后端的联调，而接口文档很大一部分都只停留在了说说而已的地步，或者写了代码再写文档。 还有一点就是文档的修改，定义好的接口并不是一成不变的，可能在开发过程中文档修改不止一次的变化，这个时候就会很难受了。 只要不是强制性要求，没人会愿意写这东西，而且在写的过程中，一个字母的错误就会导致联调时候的很大麻烦，但是通过Swagger，我们可以省略了这一步，而且文档出错率近乎于零， 只要你在写代码的时候，稍加几个注解，文档自动生成。</p>
+<h3>1、在控制层Controller中添加注解来描述接口信息如:</h3>
+<table width='100%' class='codestyle'><pre><code>@Api("参数配置")
+@Controller
+@RequestMapping("/system/config")
+public class ConfigController</code></pre></table>
+<h3>2、在方法中配置接口的标题信息</h3>
+<p>ApiOperation标记，用在方法上，说明方法的作用，每一个url资源的定义,使用方式：</p>
+<table width='100%' class='codestyle'><pre><code>@ApiOperation("查询参数列表")</code></pre></table>
+<h3>3、在系统工具-系统接口测试相关接口</h3>
+<hr />
+<p>注意：SwaggerConfig可以指定根据注解或者包名扫描具体的API</p>
+<h4>API详细说明</h4>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th>作用范围</th>
+<th>API</th>
+<th>使用位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>协议集描述</td>
+<td><code>@Api</code></td>
+<td>用于controller类上</td>
+</tr>
+<tr>
+<td>对象属性</td>
+<td><code>@ApiModelProperty</code></td>
+<td>用在出入参数对象的字段上</td>
+</tr>
+<tr>
+<td>协议描述</td>
+<td><code>@ApiOperation</code></td>
+<td>用在controller的方法上</td>
+</tr>
+<tr>
+<td>Response集</td>
+<td><code>@ApiResponses</code></td>
+<td>用在controller的方法上</td>
+</tr>
+<tr>
+<td>Response</td>
+<td><code>@ApiResponse</code></td>
+<td>用在 @ApiResponses里边</td>
+</tr>
+<tr>
+<td>非对象参数集</td>
+<td><code>@ApiImplicitParams</code></td>
+<td>用在controller的方法上</td>
+</tr>
+<tr>
+<td>非对象参数描述</td>
+<td><code>@ApiImplicitParam</code></td>
+<td>用在<code>@ApiImplicitParams</code>的方法里边</td>
+</tr>
+<tr>
+<td>描述返回对象的意义</td>
+<td><code>@ApiModel</code></td>
+<td>用在返回对象类上</td>
+</tr>
+</tbody>
+</table>
+<p>api标记，用在类上，说明该类的作用。可以标记一个Controller类做为swagger 文档资源，使用方式：</p>
+<table width='100%' class='codestyle'><pre><code>@Api(value = "/user", description = "用户管理")</code></pre></table>
+<h3>与Controller注解并列使用。 属性配置：</h3>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th>属性名称</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>url的路径值</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>如果设置这个值、value的值会被覆盖</td>
+</tr>
+<tr>
+<td>description</td>
+<td>对api资源的描述</td>
+</tr>
+<tr>
+<td>basePath</td>
+<td>基本路径可以不配置</td>
+</tr>
+<tr>
+<td>position</td>
+<td>如果配置多个Api 想改变显示的顺序位置</td>
+</tr>
+<tr>
+<td>produces</td>
+<td>For example, "application/json, application/xml"</td>
+</tr>
+<tr>
+<td>consumes</td>
+<td>For example, "application/json, application/xml"</td>
+</tr>
+<tr>
+<td>protocols</td>
+<td>Possible values: http, https, ws, wss.</td>
+</tr>
+<tr>
+<td>authorizations</td>
+<td>高级特性认证时配置</td>
+</tr>
+<tr>
+<td>hidden</td>
+<td>配置为true 将在文档中隐藏</td>
+</tr>
+</tbody>
+</table></div></div><h2>2.2、前端手册</h2><div style="margin-left:0px;"><h3>2.2.1、前端组件</h3><div style="margin-left:30px;"><h1><center>前端组件</center></h1>
+<h2>封装了一些常用的JS组件方法。</h2>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th>名称</th>
+<th>代码</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>表格</td>
+<td>$.table</td>
+<td>表格封装处理</td>
+</tr>
+<tr>
+<td>表格树</td>
+<td>$.treeTable</td>
+<td>表格树封装处理</td>
+</tr>
+<tr>
+<td>表单</td>
+<td>$.form</td>
+<td>表单封装处理</td>
+</tr>
+<tr>
+<td>弹出层</td>
+<td>$.modal</td>
+<td>弹出层封装处理</td>
+</tr>
+<tr>
+<td>操作</td>
+<td>$.operate</td>
+<td>操作封装处理</td>
+</tr>
+<tr>
+<td>校验</td>
+<td>$.validate</td>
+<td>校验封装处理</td>
+</tr>
+<tr>
+<td>树插件</td>
+<td>$.tree</td>
+<td>树插件封装处理</td>
+</tr>
+<tr>
+<td>通用方法</td>
+<td>$.common</td>
+<td>通用方法封装处理</td>
+</tr>
+</tbody>
+</table>
+<h2>通用方法</h2>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th>方法</th>
+<th>参数</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$.table.init();</td>
+<td>options（选项参数）</td>
+<td>初始化表格参数</td>
+</tr>
+<tr>
+<td>$.table.search();</td>
+<td>formId（表单ID, 表格ID, 追加数据）</td>
+<td>搜索-默认第一个form</td>
+</tr>
+<tr>
+<td>$.table.exportExcel();</td>
+<td>formId（表单ID）</td>
+<td>导出-默认第一个form</td>
+</tr>
+<tr>
+<td>$.table.importExcel();</td>
+<td>formId（表单ID）</td>
+<td>导入-默认importForm</td>
+</tr>
+<tr>
+<td>$.table.importTemplate();</td>
+<td>formId（表单ID）</td>
+<td>模板下载</td>
+</tr>
+<tr>
+<td>$.table.refresh();</td>
+<td>无</td>
+<td>刷新表格</td>
+</tr>
+<tr>
+<td>$.table.selectColumns();</td>
+<td>column（查询列值）</td>
+<td>查询表格指定列值</td>
+</tr>
+<tr>
+<td>$.table.selectFirstColumns();</td>
+<td>无</td>
+<td>查询表格首列值</td>
+</tr>
+<tr>
+<td>$.table.destroy();</td>
+<td>tableId（表格ID）</td>
+<td>销毁表格-默认options.id</td>
+</tr>
+<tr>
+<td>$.table.serialNumber();</td>
+<td>index（序号）</td>
+<td>序列号生成</td>
+</tr>
+<tr>
+<td>$.table.dropdownToggle();</td>
+<td>value（内容）</td>
+<td>下拉按钮切换</td>
+</tr>
+<tr>
+<td>$.table.imageView();</td>
+<td>value（内容）, height, width, target（打开方式）</td>
+<td>图片预览</td>
+</tr>
+<tr>
+<td>$.table.showColumn();</td>
+<td>column（列值）, tablbeId（表格ID）</td>
+<td>显示表格指定列</td>
+</tr>
+<tr>
+<td>$.table.hideColumn();</td>
+<td>column（列值）, tablbeId（表格ID）</td>
+<td>隐藏表格指定列</td>
+</tr>
+<tr>
+<td>$.table.showAllColumns();</td>
+<td>tableId（表格ID）</td>
+<td>显示所有表格列</td>
+</tr>
+<tr>
+<td>$.table.hideAllColumns();</td>
+<td>tableId（表格ID）</td>
+<td>隐藏所有表格列</td>
+</tr>
+<tr>
+<td>$.table.tooltip();</td>
+<td>value（内容）, length（截取长度）</td>
+<td>超出指定长度浮动提示</td>
+</tr>
+<tr>
+<td>$.table.selectDictLabel();</td>
+<td>datas（字典列表）, value（当前值）</td>
+<td>回显数据字典</td>
+</tr>
+<tr>
+<td>$.treeTable.init();</td>
+<td>options（选项参数）</td>
+<td>初始化表格树参数</td>
+</tr>
+<tr>
+<td>$.treeTable.search();</td>
+<td>formId（表单ID）</td>
+<td>搜索-默认第一个form</td>
+</tr>
+<tr>
+<td>$.treeTable.refresh();</td>
+<td>无</td>
+<td>刷新表格树</td>
+</tr>
+<tr>
+<td>$.form.reset();</td>
+<td>formId（表单ID, 表格ID）</td>
+<td>表单重置</td>
+</tr>
+<tr>
+<td>$.form.selectCheckeds();</td>
+<td>name（name名称）</td>
+<td>获取选中复选框项</td>
+</tr>
+<tr>
+<td>$.form.selectSelects();</td>
+<td>name（id名称）</td>
+<td>获取选中下拉框项</td>
+</tr>
+<tr>
+<td>$.modal.icon</td>
+<td>type（图标类型）</td>
+<td>显示图标</td>
+</tr>
+<tr>
+<td>$.modal.msg</td>
+<td>content（内容）, type（图标类型）</td>
+<td>消息提示</td>
+</tr>
+<tr>
+<td>$.modal.msgError();</td>
+<td>content（内容）</td>
+<td>错误消息</td>
+</tr>
+<tr>
+<td>$.modal.msgSuccess();</td>
+<td>content（内容）</td>
+<td>成功消息</td>
+</tr>
+<tr>
+<td>$.modal.msgWarning();</td>
+<td>content（内容）</td>
+<td>警告消息</td>
+</tr>
+<tr>
+<td>$.modal.alert</td>
+<td>content（内容）, type（图标类型）</td>
+<td>消息提示</td>
+</tr>
+<tr>
+<td>$.modal.msgReload</td>
+<td>msg（消息）, type（图标类型）</td>
+<td>消息提示并刷新父窗体</td>
+</tr>
+<tr>
+<td>$.modal.alertError();</td>
+<td>content（内容）</td>
+<td>错误提示</td>
+</tr>
+<tr>
+<td>$.modal.alertSuccess();</td>
+<td>content（内容）</td>
+<td>成功提示</td>
+</tr>
+<tr>
+<td>$.modal.alertWarning();</td>
+<td>content（内容）</td>
+<td>警告提示</td>
+</tr>
+<tr>
+<td>$.modal.close();</td>
+<td>无</td>
+<td>关闭窗体</td>
+</tr>
+<tr>
+<td>$.modal.closeAll;</td>
+<td>无</td>
+<td>关闭全部窗体</td>
+</tr>
+<tr>
+<td>$.modal.confirm();</td>
+<td>content（内容）, callBack（回调函数）</td>
+<td>确认窗体</td>
+</tr>
+<tr>
+<td>$.modal.open();</td>
+<td>title, url, width, height, callBack（回调函数）</td>
+<td>弹出层指定宽度</td>
+</tr>
+<tr>
+<td>$.modal.openOptions();</td>
+<td>options（选项参数）</td>
+<td>弹出层指定参数选项</td>
+</tr>
+<tr>
+<td>$.modal.openFull();</td>
+<td>title, url, width, height</td>
+<td>弹出层全屏</td>
+</tr>
+<tr>
+<td>$.modal.openTab();</td>
+<td>title（标题）, url（地址）</td>
+<td>选卡页方式打开</td>
+</tr>
+<tr>
+<td>$.modal.parentTab();</td>
+<td>title（标题）, url（地址）</td>
+<td>选卡页同一页签打开</td>
+</tr>
+<tr>
+<td>$.modal.closeTab();</td>
+<td>dataId（地址）</td>
+<td>关闭选项卡</td>
+</tr>
+<tr>
+<td>$.modal.disable</td>
+<td>无</td>
+<td>禁用按钮</td>
+</tr>
+<tr>
+<td>$.modal.enable</td>
+<td>无</td>
+<td>启用按钮</td>
+</tr>
+<tr>
+<td>$.modal.loading();</td>
+<td>message（提示消息）</td>
+<td>打开遮罩层</td>
+</tr>
+<tr>
+<td>$.modal.closeLoading();</td>
+<td>无</td>
+<td>关闭遮罩层</td>
+</tr>
+<tr>
+<td>$.modal.reload();</td>
+<td>无</td>
+<td>重新加载</td>
+</tr>
+<tr>
+<td>$.operate.submit();</td>
+<td>url, type, dataType, data, callback（回调函数）</td>
+<td>提交数据</td>
+</tr>
+<tr>
+<td>$.operate.post();</td>
+<td>url（地址）, data（数据）, callback（回调函数）</td>
+<td>post方式请求提交数据</td>
+</tr>
+<tr>
+<td>$.operate.get();</td>
+<td>url（地址）, callback（回调函数）</td>
+<td>get请求传输数据</td>
+</tr>
+<tr>
+<td>$.operate.detail();</td>
+<td>id（数据ID）</td>
+<td>详细信息</td>
+</tr>
+<tr>
+<td>$.operate.remove();</td>
+<td>id（数据ID）</td>
+<td>删除信息</td>
+</tr>
+<tr>
+<td>$.operate.removeAll();</td>
+<td>无</td>
+<td>批量删除信息</td>
+</tr>
+<tr>
+<td>$.operate.clean();</td>
+<td>无</td>
+<td>清空信息</td>
+</tr>
+<tr>
+<td>$.operate.add();</td>
+<td>id（数据ID）</td>
+<td>添加信息</td>
+</tr>
+<tr>
+<td>$.operate.addTab();</td>
+<td>id（数据ID）</td>
+<td>添加信息（选项卡方式）</td>
+</tr>
+<tr>
+<td>$.operate.addFull();</td>
+<td>id（数据ID）</td>
+<td>添加信息 全屏</td>
+</tr>
+<tr>
+<td>$.operate.addUrl();</td>
+<td>id（数据ID）</td>
+<td>添加访问地址</td>
+</tr>
+<tr>
+<td>$.operate.edit();</td>
+<td>id（数据ID）</td>
+<td>修改信息</td>
+</tr>
+<tr>
+<td>$.operate.editTab();</td>
+<td>id（数据ID）</td>
+<td>修改信息（选项卡方式）</td>
+</tr>
+<tr>
+<td>$.operate.editFull();</td>
+<td>id（数据ID）</td>
+<td>修改信息 全屏</td>
+</tr>
+<tr>
+<td>$.operate.editUrl();</td>
+<td>id（数据ID）</td>
+<td>修改访问地址</td>
+</tr>
+<tr>
+<td>$.operate.save();</td>
+<td>url（地址）, data（数据）, callback（回调函数）</td>
+<td>保存信息</td>
+</tr>
+<tr>
+<td>$.operate.saveModal();</td>
+<td>url（地址）, data（数据）, callback（回调函数）</td>
+<td>保存信息 弹出提示框</td>
+</tr>
+<tr>
+<td>$.operate.saveTab();</td>
+<td>url（地址）, data（数据）, callback（回调函数）</td>
+<td>保存选项卡信息</td>
+</tr>
+<tr>
+<td>$.operate.ajaxSuccess();</td>
+<td>result（返回结果）</td>
+<td>保存结果弹出msg刷新table表格</td>
+</tr>
+<tr>
+<td>$.operate.saveSuccess();</td>
+<td>result（返回结果）</td>
+<td>保存结果提示msg</td>
+</tr>
+<tr>
+<td>$.operate.successCallback();</td>
+<td>result（返回结果）</td>
+<td>成功回调执行事件（静默更新）</td>
+</tr>
+<tr>
+<td>$.operate.successTabCallback();</td>
+<td>result（返回结果）</td>
+<td>选项卡成功回调执行事件（静默更新）</td>
+</tr>
+<tr>
+<td>$.validate.unique();</td>
+<td>value（返回标识）</td>
+<td>判断返回标识是否唯一</td>
+</tr>
+<tr>
+<td>$.validate.form();</td>
+<td>formId（表单ID）</td>
+<td>表单验证-默认第一个form</td>
+</tr>
+<tr>
+<td>$.validate.reset();</td>
+<td>formId（表单ID）</td>
+<td>重置表单验证（清除提示信息）</td>
+</tr>
+<tr>
+<td>$.tree.init();</td>
+<td>options（选项参数）</td>
+<td>初始化树结构</td>
+</tr>
+<tr>
+<td>$.tree.searchNode();</td>
+<td>无</td>
+<td>搜索节点</td>
+</tr>
+<tr>
+<td>$.tree.selectByIdName();</td>
+<td>treeId, treeName, node</td>
+<td>根据Id和Name选中指定节点</td>
+</tr>
+<tr>
+<td>$.tree.showAllNode();</td>
+<td>nodes（全部节点数据）</td>
+<td>显示所有节点</td>
+</tr>
+<tr>
+<td>$.tree.hideAllNode();</td>
+<td>nodes（全部节点数据）</td>
+<td>隐藏所有节点</td>
+</tr>
+<tr>
+<td>$.tree.showParent();</td>
+<td>treeNode（节点数据）</td>
+<td>显示所有父节点</td>
+</tr>
+<tr>
+<td>$.tree.showChildren();</td>
+<td>treeNode（节点数据）</td>
+<td>显示所有孩子节点</td>
+</tr>
+<tr>
+<td>$.tree.updateNodes();</td>
+<td>nodeList（全部节点数据）</td>
+<td>更新节点状态</td>
+</tr>
+<tr>
+<td>$.tree.getCheckedNodes();</td>
+<td>column（列值）</td>
+<td>获取当前被勾选集合</td>
+</tr>
+<tr>
+<td>$.tree.notAllowParents();</td>
+<td>_tree（树对象）</td>
+<td>不允许根父节点选择</td>
+</tr>
+<tr>
+<td>$.tree.toggleSearch();</td>
+<td>无</td>
+<td>隐藏/显示搜索栏</td>
+</tr>
+<tr>
+<td>$.tree.collapse();</td>
+<td>无</td>
+<td>树折叠</td>
+</tr>
+<tr>
+<td>$.tree.expand();</td>
+<td>无</td>
+<td>树展开</td>
+</tr>
+<tr>
+<td>$.common.isEmpty();</td>
+<td>value（值）</td>
+<td>判断字符串是否为空</td>
+</tr>
+<tr>
+<td>$.common.isNotEmpty();</td>
+<td>value（值）</td>
+<td>判断一个字符串是否为非空串</td>
+</tr>
+<tr>
+<td>$.common.nullToStr();</td>
+<td>value（值）</td>
+<td>空对象转字符串</td>
+</tr>
+<tr>
+<td>$.common.visible();</td>
+<td>value（值）</td>
+<td>是否显示数据 为空默认为显示</td>
+</tr>
+<tr>
+<td>$.common.trim();</td>
+<td>value（值）</td>
+<td>空格截取</td>
+</tr>
+<tr>
+<td>$.common.random();</td>
+<td>min（最小）, max（最大）</td>
+<td>指定随机数返回</td>
+</tr>
+<tr>
+<td>$.common.startWith();</td>
+<td>value（值）, start（开始值）</td>
+<td>判断字符串是否是以start开头</td>
+</tr>
+<tr>
+<td>$.common.endWith();</td>
+<td>value（值）, end（结束值）</td>
+<td>判断字符串是否是以end结尾</td>
+</tr>
+</tbody>
+</table></div><h3>2.2.2、表格使用</h3><div style="margin-left:30px;"><h1><center>表格使用</center></h1>
+<h2>表格组件基于bootstrap table组件进行封装，轻松实现数据表格。</h2>
+<p>表格初始化<code>$.table.init</code>
+表的各项(Table options )</p>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td>String</td>
+<td>Null</td>
+<td>请求后台的URL</td>
+</tr>
+<tr>
+<td>uniqueId</td>
+<td>String</td>
+<td>Null</td>
+<td>指定唯一列属性 配合删除/修改使用 未指定则使用表格行首列</td>
+</tr>
+<tr>
+<td>createUrl</td>
+<td>String</td>
+<td>Null</td>
+<td>新增URL 配合使用 $.operate.add()，$.operate.addTab()</td>
+</tr>
+<tr>
+<td>updateUrl</td>
+<td>String</td>
+<td>Null</td>
+<td>修改URL 配合使用 $.operate.edit()，$.operate.editTab()</td>
+</tr>
+<tr>
+<td>removeUrl</td>
+<td>String</td>
+<td>Null</td>
+<td>删除URL 配合使用 $.operate.remove()</td>
+</tr>
+<tr>
+<td>exportUrl</td>
+<td>String</td>
+<td>Null</td>
+<td>导出URL 配合使用 $.table.exportExcel()</td>
+</tr>
+<tr>
+<td>importUrl</td>
+<td>String</td>
+<td>Null</td>
+<td>导入URL 配合使用 $.table.importExcel()</td>
+</tr>
+<tr>
+<td>detailUrl</td>
+<td>String</td>
+<td>Null</td>
+<td>详细URL 配合使用 $.operate.detail()</td>
+</tr>
+<tr>
+<td>cleanUrl</td>
+<td>String</td>
+<td>Null</td>
+<td>清空URL 配合使用 $.operate.clean()</td>
+</tr>
+<tr>
+<td>importTemplateUrl</td>
+<td>String</td>
+<td>Null</td>
+<td>模板URL 配合使用 $.table.importTemplate()</td>
+</tr>
+<tr>
+<td>height</td>
+<td>String</td>
+<td>undefined</td>
+<td>表格的高度</td>
+</tr>
+<tr>
+<td>striped</td>
+<td>String</td>
+<td>FALSE</td>
+<td>是否显示行间隔色</td>
+</tr>
+<tr>
+<td>sortName</td>
+<td>String</td>
+<td>Null</td>
+<td>排序列名称</td>
+</tr>
+<tr>
+<td>sortOrder</td>
+<td>String</td>
+<td>Null</td>
+<td>排序方式 asc 或者 desc</td>
+</tr>
+<tr>
+<td>pagination</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认为true表格的底部工具栏会显示分页条，设为false不显示</td>
+</tr>
+<tr>
+<td>paginationLoop</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>默认为true不启用分页条无限循环的功能</td>
+</tr>
+<tr>
+<td>pageSize</td>
+<td>int</td>
+<td>10</td>
+<td>每页的记录行数（*）</td>
+</tr>
+<tr>
+<td>pageList</td>
+<td>Array</td>
+<td>[10, 25, 50]</td>
+<td>可供选择的每页的行数</td>
+</tr>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>bootstrap-table</td>
+<td>表格ID属性</td>
+</tr>
+<tr>
+<td>toolbar</td>
+<td>String</td>
+<td>toolbar</td>
+<td>表格工具栏ID属性</td>
+</tr>
+<tr>
+<td>escape</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>是否转义HTML字符串</td>
+</tr>
+<tr>
+<td>firstLoad</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>是否首次请求加载数据，对于数据较大可以配置false</td>
+</tr>
+<tr>
+<td>showFooter</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>默认为false隐藏表尾，设为true显示</td>
+</tr>
+<tr>
+<td>sidePagination</td>
+<td>String</td>
+<td>server</td>
+<td>server启用服务端分页client客户端分页</td>
+</tr>
+<tr>
+<td>search</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认为true显示搜索框功能，设为false隐藏</td>
+</tr>
+<tr>
+<td>searchText</td>
+<td>String</td>
+<td>''</td>
+<td>搜索框初始显示的内容，需要启用search设为true</td>
+</tr>
+<tr>
+<td>showSearch</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认为true显示检索信息，设为false隐藏</td>
+</tr>
+<tr>
+<td>showPageGo</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>默认为false不显示跳转页，设为true显示</td>
+</tr>
+<tr>
+<td>showRefresh</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认为true显示刷新按钮，设为false隐藏</td>
+</tr>
+<tr>
+<td>showColumns</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认为true显示某列下拉菜单，设为false隐藏</td>
+</tr>
+<tr>
+<td>showToggle</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认为true显示视图切换按钮，设为false隐藏</td>
+</tr>
+<tr>
+<td>showExport</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认为true显示导出文件按钮，设为false隐藏</td>
+</tr>
+<tr>
+<td>showHeader</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认为true显示表头，设为false隐藏</td>
+</tr>
+<tr>
+<td>showFullscreen</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>默认为false不全屏显示，设为true全屏显示</td>
+</tr>
+<tr>
+<td>clickToSelect</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>默认为false不启用点击选中行，设为true启用</td>
+</tr>
+<tr>
+<td>singleSelect</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>是否单选checkbox</td>
+</tr>
+<tr>
+<td>mobileResponsive</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>是否支持移动端适配</td>
+</tr>
+<tr>
+<td>cardView</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>是否启用显示卡片视图</td>
+</tr>
+<tr>
+<td>detailView</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>是否启用显示细节视图</td>
+</tr>
+<tr>
+<td>onClickRow</td>
+<td>Function</td>
+<td>onClickRow(row, $element)</td>
+<td>点击某行触发的事件</td>
+</tr>
+<tr>
+<td>onDblClickRow</td>
+<td>Function</td>
+<td>onDblClickRow(row, $element)</td>
+<td>双击某行触发的事件</td>
+</tr>
+<tr>
+<td>onClickCell</td>
+<td>Function</td>
+<td>onClickCell(field, value, row, $element)</td>
+<td>单击某格触发的事件</td>
+</tr>
+<tr>
+<td>onDblClickCell</td>
+<td>Boolean</td>
+<td>onDblClickCell(field, value, row, $element)</td>
+<td>双击某格触发的事件</td>
+</tr>
+<tr>
+<td>onEditableSave</td>
+<td>Boolean</td>
+<td>onEditableSave(field, row, oldValue, $el)</td>
+<td>行内编辑保存的事件</td>
+</tr>
+<tr>
+<td>onExpandRow</td>
+<td>Boolean</td>
+<td>onExpandRow(index, row, $detail)</td>
+<td>点击详细视图的事件</td>
+</tr>
+<tr>
+<td>rememberSelected</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>默认为false不启用翻页记住前面的选择，设为true启用</td>
+</tr>
+<tr>
+<td>fixedColumns</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>默认为false禁用冻结列，设为true启用冻结列（左侧）</td>
+</tr>
+<tr>
+<td>fixedNumber</td>
+<td>int</td>
+<td>0</td>
+<td>冻结列的个数，当fixedColumns设为true有效（左侧）</td>
+</tr>
+<tr>
+<td>rightFixedColumns</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>默认为false禁用冻结列，设为true启用冻结列（右侧）</td>
+</tr>
+<tr>
+<td>rightFixedNumber</td>
+<td>int</td>
+<td>0</td>
+<td>冻结列的个数，当fixedColumns设为true有效（右侧）</td>
+</tr>
+<tr>
+<td>onReorderRow</td>
+<td>Function</td>
+<td>onReorderRow: function (data)</td>
+<td>当拖拽结束后处理函数</td>
+</tr>
+<tr>
+<td>rowStyle</td>
+<td>Function</td>
+<td>rowStyle(row, index)</td>
+<td>改变某行的格式，需要两个参数：row行的数据index行的索引</td>
+</tr>
+<tr>
+<td>params</td>
+<td>Array</td>
+<td>Null</td>
+<td>当请求数据时，你可以通过修改queryParams向服务器发送参数</td>
+</tr>
+<tr>
+<td>columns</td>
+<td>Array</td>
+<td>Null</td>
+<td>默认空数组，在JS里面定义 参考列的各项(Column options )</td>
+</tr>
+<tr>
+<td>data</td>
+<td>Array</td>
+<td>[]</td>
+<td>默认空数组，被加载的数据</td>
+</tr>
+<tr>
+<td>responseHandler</td>
+<td>object</td>
+<td>responseHandler(res)</td>
+<td>在加载服务器发送来的数据之前，处理数据的格式</td>
+</tr>
+<tr>
+<td>onLoadSuccess</td>
+<td>object</td>
+<td>onLoadSuccess(data)</td>
+<td>当所有数据被加载时触发处理函数</td>
+</tr>
+<tr>
+<td>exportOptions</td>
+<td>Array</td>
+<td>[0]</td>
+<td>前端导出忽略列索引如[0,5,10]</td>
+</tr>
+<tr>
+<td>detailFormatter</td>
+<td>Function</td>
+<td>(index, row, element)</td>
+<td>detailView设为true，启用了显示detail view。用于格式化细节视图</td>
+</tr>
+</tbody>
+</table>
+<h3>列的各项(Column options )</h3>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>radio</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>默认false不显示radio（单选按钮），设为true则显示，radio宽度是固定的</td>
+</tr>
+<tr>
+<td>checkbox</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>默认false不显示checkbox（复选框），设为true则显示，checkbox的每列宽度已固定</td>
+</tr>
+<tr>
+<td>field</td>
+<td>String</td>
+<td>Null</td>
+<td>是每列的字段名，不是表头所显示的名字，通过这个字段名可以给其赋值，相当于key，表内唯一</td>
+</tr>
+<tr>
+<td>title</td>
+<td>String</td>
+<td>Null</td>
+<td>这个是表头所显示的名字，不唯一，如果你喜欢，可以把所有表头都设为相同的名字</td>
+</tr>
+<tr>
+<td>titleTooltip</td>
+<td>String</td>
+<td>TRUE</td>
+<td>当悬浮在某控件上，出现提示 - 参考 Bootstrap 提示工具（Tooltip）插件</td>
+</tr>
+<tr>
+<td>class</td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>表格列样式</td>
+</tr>
+<tr>
+<td>rowspan</td>
+<td>Number</td>
+<td>TRUE</td>
+<td>每格所占的行数</td>
+</tr>
+<tr>
+<td>colspan</td>
+<td>Number</td>
+<td>TRUE</td>
+<td>每格所占的列数</td>
+</tr>
+<tr>
+<td>align</td>
+<td>String</td>
+<td>TRUE</td>
+<td>每格内数据的对齐方式，有：left（靠左）、right（靠右）、center（居中）</td>
+</tr>
+<tr>
+<td>halign</td>
+<td>String</td>
+<td>TRUE</td>
+<td>table header（表头）的对齐方式，有：left（靠左）、right（靠右）、center（居中）</td>
+</tr>
+<tr>
+<td>falign</td>
+<td>String</td>
+<td>TRUE</td>
+<td>table footer（表脚，的对齐方式，有：left（靠左）、right（靠右）、center（居中）</td>
+</tr>
+<tr>
+<td>valign</td>
+<td>String</td>
+<td>TRUE</td>
+<td>每格数据的对齐方式，有：top（靠上）、middle（居中）、bottom（靠下）</td>
+</tr>
+<tr>
+<td>width</td>
+<td>Number</td>
+<td>Null</td>
+<td>每列的宽度。如果没有自定义宽度自适应</td>
+</tr>
+<tr>
+<td>sortable</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>默认false就默认显示，设为true则会被排序</td>
+</tr>
+<tr>
+<td>order</td>
+<td>String</td>
+<td>asc</td>
+<td>默认的排序方式为"asc（升序）"，也可以设为"desc（降序）"。</td>
+</tr>
+<tr>
+<td>visible</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认为true显示该列，设为false则隐藏该列</td>
+</tr>
+<tr>
+<td>ignore</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>默认为false该列可见，设为true则不可见，列选项也消失了</td>
+</tr>
+<tr>
+<td>cardVisible</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认为true显示该列，设为false则隐藏。</td>
+</tr>
+<tr>
+<td>switchable</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认为true显示该列，设为false则禁用列项目的选项卡。</td>
+</tr>
+<tr>
+<td>clickToSelect</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认true不响应，设为false则当点击此行的某处时，不会自动选中此行的checkbox（复选框）或radiobox（单选按钮）</td>
+</tr>
+<tr>
+<td>formatter</td>
+<td>Function</td>
+<td>Null</td>
+<td>某格的数据转换函数，需要三个参数： -value： field（字段名） -row：行的数据 -index：行的（索引）index</td>
+</tr>
+<tr>
+<td>footerFormatter</td>
+<td>Function</td>
+<td>Null</td>
+<td>某格的数据转换函数，需要一个参数： -data： 所有行数据的数组 函数需要返回（return）footer某格内所要显示的字符串的格式</td>
+</tr>
+<tr>
+<td>events</td>
+<td>Object</td>
+<td>Null</td>
+<td>当某格使用formatter函数时，事件监听会响应，需要四个参数： -event：-value：字段名 -row：行数据 -index：此行的index</td>
+</tr>
+<tr>
+<td>sorter</td>
+<td>Function</td>
+<td>Null</td>
+<td>自定义的排序函数，实现本地排序，需要两个参数： - a：第一个字段名 - b：第二个字段名</td>
+</tr>
+<tr>
+<td>sortName</td>
+<td>String</td>
+<td>Null</td>
+<td>排序列名称</td>
+</tr>
+<tr>
+<td>cellStyle</td>
+<td>Function</td>
+<td>Null</td>
+<td>对某列中显示样式改变</td>
+</tr>
+<tr>
+<td>searchable</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认true，表示此列数据可被查询</td>
+</tr>
+<tr>
+<td>searchFormatter</td>
+<td>Boolean</td>
+<td>TRUE</td>
+<td>默认true，可使用格式化的数据查询</td>
+</tr>
+<tr>
+<td>escape</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>是否转义HTML字符串</td>
+</tr>
+</tbody>
+</table></div><h3>2.2.3、弹层使用</h3><div style="margin-left:30px;"><h1><center>弹层使用</center></h1>
+<h2>弹层组件目前基于layer组件进行封装,提供了弹出、消息、提示、确认、遮罩处理等功能。</h2>
+<h3>提供成功、警告和错误等反馈信息</h3>
+<table width='100%' class='codestyle'><pre><code class="language-javascript">$.modal.msg("默认反馈");
+$.modal.msgError("错误反馈");
+$.modal.msgSuccess("成功反馈");
+$.modal.msgWarning("警告反馈");</code></pre></table>
+<h3>提供成功、警告和错误等提示信息</h3>
+<table width='100%' class='codestyle'><pre><code class="language-javascript">$.modal.alert("默认提示");
+$.modal.alertError("错误提示");
+$.modal.alertSuccess("成功提示");
+$.modal.alertWarning("警告提示");
+$.modal.confirm("确认信息", function() {});</code></pre></table>
+<h3>提供弹出层信息</h3>
+<table width='100%' class='codestyle'><pre><code class="language-javascript">// title 标题 url 请求链接 width 宽度 height 高度 options 选项
+$.modal.open(title, url, width, height);
+$.modal.openTab(title, url);
+$.modal.parentTab(title, url);
+$.modal.openOptions(title, url);
+$.modal.openFull(title, url, width, height);
+$.modal.close(dataId);
+$.modal.closeAll();
+$.modal.closeTab();
+$.modal.reload();</code></pre></table>
+<h3>提供遮罩层信息</h3>
+<table width='100%' class='codestyle'><pre><code class="language-javascript">$.modal.loading("正在导出数据，请稍后...");
+$.modal.closeLoading();</code></pre></table></div></div></div><h1>3、其他</h1><div style="margin-left:0px;"><h2>3.1、常见问题</h2><div style="margin-left:0px;"><h1><center>常见问题</center></h1>
+<h3>js css如何引入</h3>
+<p>查看 resources目录下<code>include.html</code> 文件如何引入即可</p>
+<table width='100%' class='codestyle'><pre><code><link th:href="@{/assets/css/ui.css}" rel="stylesheet"/>
+<script th:src="@{/assets/js/ui.js?v=3.1.1}"></script></code></pre></table></div></div></body></html>
