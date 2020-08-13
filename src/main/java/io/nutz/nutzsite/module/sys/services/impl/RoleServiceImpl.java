@@ -1,13 +1,16 @@
 package io.nutz.nutzsite.module.sys.services.impl;
 
 
+import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.service.BaseServiceImpl;
 import io.nutz.nutzsite.module.sys.models.Menu;
 import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.services.RoleService;
+import org.nutz.aop.interceptor.ioc.TransAop;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.sql.Criteria;
+import org.nutz.ioc.aop.Aop;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Lang;
@@ -40,6 +43,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
      * @return
      */
     @Override
+    @Aop(TransAop.READ_COMMITTED)
     public Role insert(Role data) {
         List<String> ids = new ArrayList<>();
         if (data != null && data.getMenuIds() != null) {
@@ -53,15 +57,8 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
             List<Menu> menuList = menuService.query(cri);
             data.setMenus(menuList);
         }
-        // Begin transaction
-        Trans.exec(new Atom() {
-            @Override
-            public void run() {
-                dao().insert(data);
-                dao().insertRelation(data, "menus");
-            }
-        });
-        // End transaction
+        dao().insert(data);
+        dao().insertRelation(data, "menus");
         return data;
     }
 
@@ -72,34 +69,27 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
      * @return
      */
     @Override
+    @Aop(TransAop.READ_COMMITTED)
     public int update(Role data) {
-        final int[] count = {0};
-        // Begin transaction
-        Trans.exec(new Atom() {
-            @Override
-            public void run() {
-                List<String> ids = new ArrayList<>();
-                if (data != null && data.getMenuIds() != null) {
-                    if (Strings.isNotBlank(data.getMenuIds())) {
-                        ids = Arrays.asList(data.getMenuIds().split(","));
-                    }
-                    //清除已有关系
-                    Role tmpData = fetch(data.getId());
-                    fetchLinks(tmpData, "menus");
-                    dao().clearLinks(tmpData, "menus");
-                }
-                if (ids != null && ids.size() > 0) {
-                    Criteria cri = Cnd.cri();
-                    cri.where().andInStrList("id", ids);
-                    List<Menu> menuList = menuService.query(cri);
-                    data.setMenus(menuList);
-                }
-                count[0] = dao().update(data);
-                dao().insertRelation(data, "menus");
+        List<String> ids = new ArrayList<>();
+        if (data != null && data.getMenuIds() != null) {
+            if (Strings.isNotBlank(data.getMenuIds())) {
+                ids = Arrays.asList(data.getMenuIds().split(","));
             }
-        });
-        // End transaction
-        return count[0];
+            //清除已有关系
+            Role tmpData = this.fetch(data.getId());
+            this.fetchLinks(tmpData, "menus");
+            dao().clearLinks(tmpData, "menus");
+        }
+        if (ids != null && ids.size() > 0) {
+            Criteria cri = Cnd.cri();
+            cri.where().andInStrList("id", ids);
+            List<Menu> menuList = menuService.query(cri);
+            data.setMenus(menuList);
+        }
+        int count = dao().update(data);
+        dao().insertRelation(data, "menus");
+        return count;
     }
 
     @Override

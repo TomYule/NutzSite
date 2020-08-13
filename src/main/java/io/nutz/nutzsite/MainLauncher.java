@@ -44,7 +44,7 @@ import java.util.List;
  * @author haiming
  */
 @IocBean(create = "init", depose = "depose")
-@IocBy(args="*slog")
+@IocBy(args={"*slog","*tx"})
 @Localization(value = "locales/", defaultLocalizationKey = "zh-CN")
 @ChainBy(type= MyActionChainMaker.class, args={})
 public class MainLauncher {

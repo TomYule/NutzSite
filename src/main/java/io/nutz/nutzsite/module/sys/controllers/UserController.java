@@ -2,7 +2,9 @@ package io.nutz.nutzsite.module.sys.controllers;
 
 import io.nutz.nutzsite.common.exception.ErrorException;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
+import io.nutz.nutzsite.module.sys.models.Dept;
 import io.nutz.nutzsite.module.sys.models.Role;
+import io.nutz.nutzsite.module.sys.services.DeptService;
 import io.nutz.nutzsite.module.sys.services.RoleService;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.UserService;
@@ -23,6 +25,8 @@ import org.nutz.plugins.slog.annotation.Slog;
 import org.nutz.plugins.validation.Errors;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +46,8 @@ public class UserController {
 
     @Inject
     private RoleService roleService;
+    @Inject
+    private DeptService deptService;
 
     @RequiresPermissions("sys:user:view")
     @At("")
@@ -79,8 +85,13 @@ public class UserController {
             cnd.and("create_time", "<=", endTime);
         }
         if (!Strings.isBlank(deptId)) {
-            cnd.where().andInBySql("dept_id", "SELECT id FROM sys_dept  WHERE FIND_IN_SET ('%s',ancestors)", deptId)
-                    .or("dept_id", "=", deptId);
+            List<Dept> dept = deptService.query(Cnd.NEW().and("ancestors","LIKE","%"+deptId+"%"));
+            List<String> deptIds = new ArrayList<>();
+            for(Dept d:dept){
+                deptIds.add(d.getId());
+            }
+            deptIds.add(deptId);
+            cnd.and("dept_id", "in", deptIds);
         }
         return userService.tableList(pageNum, pageSize, cnd, orderByColumn, isAsc, "dept");
     }

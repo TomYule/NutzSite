@@ -53,7 +53,7 @@ public class SlogBean implements Serializable {
 
     @Column("param")
     @Comment("请求参数")
-    @ColDefine(width = 255)
+    @ColDefine(width = 1024)
     protected String param;
 
     @Column("os")

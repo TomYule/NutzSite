@@ -8,9 +8,11 @@ import io.nutz.nutzsite.module.sys.services.UserService;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.nutz.aop.interceptor.ioc.TransAop;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.sql.Criteria;
+import org.nutz.ioc.aop.Aop;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Lang;
@@ -45,6 +47,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
      * @return
      */
     @Override
+    @Aop(TransAop.READ_COMMITTED)
     public User insert(User user) {
         RandomNumberGenerator rng = new SecureRandomNumberGenerator();
         //密码设置
@@ -52,15 +55,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         user.setSalt(salt);
         String hashedPasswordBase64 = new Sha256Hash(user.getPassword(), salt, 1024).toBase64();
         user.setPassword(hashedPasswordBase64);
-        // Begin transaction
-        Trans.exec(new Atom() {
-            @Override
-            public void run() {
-                dao().insert(user);
-                updataRelation(user);
-            }
-        });
-        // End transaction
+        dao().insert(user);
+        updataRelation(user);
         return user;
     }
 
@@ -71,19 +67,12 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
      * @return
      */
     @Override
+    @Aop(TransAop.READ_COMMITTED)
     public int update(User data) {
-
-        final int[] count = {0};
-        // Begin transaction
-        Trans.exec(new Atom() {
-            @Override
-            public void run() {
-                //忽略空字段
-                count[0] = updateIgnoreNull(data);
-                updataRelation(data);
-            }
-        });
-        return count[0];
+        //忽略空字段
+        int count = dao().updateIgnoreNull(data);
+        this.updataRelation(data);
+        return count;
     }
 
     /**

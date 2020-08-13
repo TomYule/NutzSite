@@ -27,7 +27,7 @@ Java快速开发框架 基于nutz框架；支持 任意SQL数据库,例如MySQL,
 * [Shiro](https://github.com/apache/shiro)
 * [Thymeleaf](https://github.com/thymeleaf/thymeleaf)
 * [Redis](https://github.com/antirez/redis)
-* [Caffeine](https://github.com/ben-manes/caffeine) 缓存
+* [Caffeine](https://github.com/ben-manes/caffeine) 缓存 [各缓存性能对比](https://github.com/ben-manes/caffeine/wiki/Benchmarks)
 * [Quartz](https://github.com/quartz-scheduler/quartz) 定时任务
 * [JWT](https://github.com/jwtk/jjwt)
 * 支付宝

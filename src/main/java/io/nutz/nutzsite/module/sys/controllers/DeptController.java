@@ -33,7 +33,7 @@ public class DeptController {
     private static final Log log = Logs.get();
 
     @Inject
-    DeptService deptService;
+    private DeptService deptService;
 
     @At("")
     @Ok("th:/sys/dept/dept.html")
