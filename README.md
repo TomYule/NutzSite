@@ -1,9 +1,9 @@
 
 <p align="center"><a href="https://tomyule.github.io/NutzSite/" target="_blank"><img width="100" src="https://gitee.com/TomYule/NutzSite/raw/master/src/main/resources/static/nutzsite.png"></a></p>
 
-[![GitHub license](https://img.shields.io/github/license/TomYule/NutzSite)](https://github.com/TomYule/NutzSite/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/TomYule/NutzSite.svg?branch=master)](https://travis-ci.org/TomYule/NutzSite)
 [![PowerByNutz](https://img.shields.io/badge/PowerBy-Nutz-green.svg)](https://github.com/nutzam/nutz)
-[![Build Status](https://travis-ci.org/TomYule/NutzSite.svg?branch=master)](https://travis-ci.org/TomYule/NutzSite)   
+[![GitHub license](https://img.shields.io/github/license/TomYule/NutzSite)](https://github.com/TomYule/NutzSite/blob/master/LICENSE)  
 ## NutzSite基于Nutz的Java开源企业级快速开发框架  
 
 # 简介
@@ -11,34 +11,36 @@ Java快速开发框架 基于nutz框架；支持 任意SQL数据库,例如MySQL,
 优势:支持各类数据库 代码生成；别人还在加班熬夜 重复增删改查时 你已经通过工具 写完所有;最大限度的提高 Java 开发人员的生产力;有更多的时间陪伴家人,陪伴对象
 
 *Talk is cheap. Show me the code!!*  
-文档地址:[NutzSite](https://www.showdoc.com.cn/NutzSite)
 ## 主要功能
-* 支持 任意SQL数据库,例如MySQL,Oracle,SqlServer等等
-* 可以通过数据库快速生成代码 列表,树
-* 拖拽生成表单,ztree,文件上传,地图选择位置 等等
-* 登录,操作 日志记录
-* 角色管理,部门管理,用户管理,内容管理系统,微信公众平台设置 等等
-## 目前支持
-* [Nutz](https://github.com/nutzam/nutz)
-* [Nutzboot](https://github.com/nutzam/nutzboot)
-* [nutz-plugins-slog](https://github.com/nutzam/nutzmore/tree/master/nutz-plugins-slog)日志记录
-* [nutz-plugins-validation](https://github.com/nutzam/nutzmore/tree/master/nutz-plugins-validation)数据校验
-* [Druid](https://github.com/alibaba/druid)
-* [Shiro](https://github.com/apache/shiro)
-* [Thymeleaf](https://github.com/thymeleaf/thymeleaf)
-* [Redis](https://github.com/antirez/redis)
-* [Caffeine](https://github.com/ben-manes/caffeine) 缓存 [各缓存性能对比](https://github.com/ben-manes/caffeine/wiki/Benchmarks)
-* [Quartz](https://github.com/quartz-scheduler/quartz) 定时任务
-* [JWT](https://github.com/jwtk/jjwt)
-* 支付宝
-* 微信公众平台
-* 阿里云消息推送
-* 阿里云短信
-* 高德地图
-* 七牛云
-* XSS攻击过滤 SQL注入过滤
-* Excel 导出数据  案例: 系统管理-参数设置
-* CMS
+1. 支持 任意SQL数据库,例如MySQL,Oracle,SqlServer 等等 让数据库选择更加适合 项目
+2. 完全响应式布局（支持电脑、平板、手机等所有主流设备）
+3. 用户管理：用户是系统操作者，该功能主要完成系统用户配置。
+4. 部门管理：配置系统组织机构（公司、部门、小组），树结构展现。
+5. 岗位管理：配置系统用户所属担任职务。
+6. 菜单管理：配置系统菜单，操作权限，按钮权限标识等。
+7. 角色管理：角色菜单权限分配、设置角色按机构进行数据范围权限划分。
+8. 字典管理：对系统中经常使用的一些较为固定的数据进行维护。
+9. 参数管理：对系统动态配置常用参数。
+10. 通知公告：系统通知公告信息发布维护。
+11. 操作日志：系统正常操作日志记录和查询；系统异常信息日志记录和查询。
+12. 登录日志：系统登录日志记录查询包含登录异常。
+13. 定时任务：在线（添加、修改、删除)任务调度包含执行结果日志。
+14. 代码生成：前后端代码的生成（java、html、xml、sql)支持CRUD下载 。
+15. 系统接口：根据业务代码自动生成相关的api接口文档。
+16. 服务监控：监视当前系统CPU、内存、磁盘、堆栈等相关信息。
+17. 在线构建器：拖动表单元素生成相应的HTML代码:表单,下拉列表搜索,ztree,文件上传,地图选择位置 等等。
+18. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。   
+其它功能: XSS攻击过滤 SQL注入过滤,微信公众平台集成, CMS 内容发布系统 ,支付宝,阿里云消息推送,高德地图,七牛云,Excel 导出数据  案例: 系统管理-参数设置   
+文档地址: [NutzSite](https://www.showdoc.com.cn/NutzSite)
+## 技术选型
+* 核心框架：[Nutz](https://github.com/nutzam/nutz)、[Nutzboot](https://github.com/nutzam/nutzboot)
+* 扩展功能：[nutz-plugins-slog](https://github.com/nutzam/nutzmore/tree/master/nutz-plugins-slog)日志记录 、 [nutz-plugins-validation](https://github.com/nutzam/nutzmore/tree/master/nutz-plugins-validation)数据校验
+* 数据库连接池：[Druid](https://github.com/alibaba/druid)
+* 安全框架：[Shiro](https://github.com/apache/shiro)、 [JWT](https://github.com/jwtk/jjwt)
+* 模板引擎： [Thymeleaf](https://github.com/thymeleaf/thymeleaf)
+* 订阅发布：[Redis](https://github.com/antirez/redis)
+* 缓存：[Caffeine](https://github.com/ben-manes/caffeine)  [各缓存性能对比](https://github.com/ben-manes/caffeine/wiki/Benchmarks)
+* 任务调度：[Quartz](https://github.com/quartz-scheduler/quartz) 
 ## 后期支持待完善功能
 * 审批流
 
