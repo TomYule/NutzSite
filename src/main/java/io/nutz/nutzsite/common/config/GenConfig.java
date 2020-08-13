@@ -15,27 +15,29 @@ import java.util.Properties;
  * @author haiming
  */
 public class GenConfig {
+
+    private static String schema;
     /**
      * application
      * 作者
      */
-    public static String author;
+    private static String author;
     /**
      * 生成包路径
      */
-    public static String packageName;
+    private static String packageName;
     /**
      * 生成包路径(open)
      */
-    public static String packageNameOpen;
+    private static String packageNameOpen;
     /**
      * 自动去除表前缀，默认是true
      */
-    public static String autoRemovePre;
+    private static String autoRemovePre;
     /**
      * 表前缀(类名不会包含表前缀)
      */
-    public static String tablePrefix;
+    private static String tablePrefix;
 
     /**
      * 时间类型对应策略
@@ -52,6 +54,7 @@ public class GenConfig {
             Properties properties = new Properties();
             //加载输入流
             properties.load(is);
+            schema = properties.getProperty("schema");
             author = properties.getProperty("author");
             packageName = properties.getProperty("packageName");
             autoRemovePre = properties.getProperty("autoRemovePre");
@@ -67,6 +70,14 @@ public class GenConfig {
         System.out.println(packageName);
         System.out.println(autoRemovePre);
         System.out.println(tablePrefix);
+    }
+
+    public static String getSchema() {
+        return schema;
+    }
+
+    public static void setSchema(String schema) {
+        GenConfig.schema = schema;
     }
 
     public static String getAuthor() {

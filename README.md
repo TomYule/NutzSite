@@ -30,7 +30,8 @@ Java快速开发框架 基于nutz框架；支持 任意SQL数据库,例如MySQL,
 16. 服务监控：监视当前系统CPU、内存、磁盘、堆栈等相关信息。
 17. 在线构建器：拖动表单元素生成相应的HTML代码:表单,下拉列表搜索,ztree,文件上传,地图选择位置 等等。
 18. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。   
-其它功能: XSS攻击过滤 SQL注入过滤,微信公众平台集成, CMS 内容发布系统 ,支付宝,阿里云消息推送,高德地图,七牛云,Excel 导出数据  案例: 系统管理-参数设置   
+其它功能: XSS攻击过滤 SQL注入过滤,微信公众平台集成, CMS 内容发布系统 ,支付宝,阿里云消息推送,高德地图,七牛云,Excel 导出数据  案例: 系统管理-参数设置  
+ 
 文档地址: [NutzSite](https://www.showdoc.com.cn/NutzSite)
 ## 技术选型
 * 核心框架：[Nutz](https://github.com/nutzam/nutz)、[Nutzboot](https://github.com/nutzam/nutzboot)
@@ -39,7 +40,7 @@ Java快速开发框架 基于nutz框架；支持 任意SQL数据库,例如MySQL,
 * 安全框架：[Shiro](https://github.com/apache/shiro)、 [JWT](https://github.com/jwtk/jjwt)
 * 模板引擎： [Thymeleaf](https://github.com/thymeleaf/thymeleaf)
 * 订阅发布：[Redis](https://github.com/antirez/redis)
-* 缓存：[Caffeine](https://github.com/ben-manes/caffeine)  [各缓存性能对比](https://github.com/ben-manes/caffeine/wiki/Benchmarks)
+* 缓存：[Caffeine](https://github.com/ben-manes/caffeine)  为什么选择Caffeine [各缓存性能对比](https://github.com/ben-manes/caffeine/wiki/Benchmarks)
 * 任务调度：[Quartz](https://github.com/quartz-scheduler/quartz) 
 ## 后期支持待完善功能
 * 审批流
@@ -118,3 +119,5 @@ mvn clean package nutzboot:shade nutzboot:war
   
 # 关于  
 本项目完全开源，商用完全免费。但请勿侵犯作者合法权益，如申请软著等。
+
+QQ群: 68428921(已满) 24457628(2群) 58444676(老吹水群)
