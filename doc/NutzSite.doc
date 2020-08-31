@@ -58,16 +58,28 @@ NutzSite 博客：<a href="https://www.oschina.net/p/nutzsite">https://www.oschi
 QQ群: 68428921(已满) 24457628(2群) 58444676(老吹水群)
 NutzSite是一个 Java EE 企业级快速开发平台，基于经典技术组合（Nutz Boot、Apache Shiro、Thymeleaf、Bootstrap），内置模块如：部门管理、角色用户、菜单、数据权限、系统参数、日志管理、通知公告等。在线定时任务配置；支持集群，支持多数据源。</p>
 <h2>主要特性</h2>
-<p>完全响应式布局（支持电脑、平板、手机等所有主流设备）
-支持 任意SQL数据库,例如MySQL,Oracle,SqlServer等等
-强大的一键生成功能（包括控制器、模型、视图、菜单等）
-拖拽生成表单, 下拉列表搜索 ,ztree, 文件上传,地图选择位置 等等
-支持多数据源，简单配置即可实现切换。
-对常用js插件进行二次封装，使js代码变得简洁，更加易维护 表单提交有遮罩层 防止重复提交
-完善的XSS防范及脚本过滤，彻底杜绝XSS攻击
-Maven模块方便升级。
-国际化支持，服务端及客户端支持
-完善的日志记录体系简单注解即可实现</p>
+<ol>
+<li>支持 任意SQL数据库,例如MySQL,Oracle,SqlServer 等等 让数据库选择更加适合 项目</li>
+<li>完全响应式布局（支持电脑、平板、手机等所有主流设备）</li>
+<li>用户管理：用户是系统操作者，该功能主要完成系统用户配置。</li>
+<li>部门管理：配置系统组织机构（公司、部门、小组），树结构展现。</li>
+<li>岗位管理：配置系统用户所属担任职务。</li>
+<li>菜单管理：配置系统菜单，操作权限，按钮权限标识等。</li>
+<li>角色管理：角色菜单权限分配、设置角色按机构进行数据范围权限划分。</li>
+<li>字典管理：对系统中经常使用的一些较为固定的数据进行维护。</li>
+<li>参数管理：对系统动态配置常用参数。</li>
+<li>通知公告：系统通知公告信息发布维护。</li>
+<li>操作日志：系统正常操作日志记录和查询；系统异常信息日志记录和查询。</li>
+<li>登录日志：系统登录日志记录查询包含登录异常。</li>
+<li>定时任务：在线（添加、修改、删除)任务调度包含执行结果日志。</li>
+<li>代码生成：前后端代码的生成（java、html、xml、sql)支持CRUD下载 。</li>
+<li>系统接口：根据业务代码自动生成相关的api接口文档。</li>
+<li>服务监控：监视当前系统CPU、内存、磁盘、堆栈等相关信息。</li>
+<li>在线构建器：拖动表单元素生成相应的HTML代码:表单,下拉列表搜索,ztree,文件上传,地图选择位置 等等。</li>
+<li>连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。<br />
+其它功能: XSS攻击过滤 SQL注入过滤,微信公众平台集成, CMS 内容发布系统 ,支付宝,阿里云消息推送,高德地图,七牛云,Excel 导出数据  案例: 系统管理-参数设置</li>
+</ol>
+<p>文档地址: <a href="https://www.showdoc.com.cn/NutzSite">NutzSite</a></p>
 <h2>技术选型</h2>
 <h3>1、系统环境</h3>
 <p>Java EE 8
@@ -89,7 +101,8 @@ Maven >= 3.0
 安装git
 开发工具IDEA/eclipse</code></pre></table>
 <h2>运行系统</h2>
-<p>1、前往Gitee下载页面(<a href="https://gitee.com/TomYule/NutzSite)下载解压到工作目录">https://gitee.com/TomYule/NutzSite)下载解压到工作目录</a>
+<p>1、前往Gitee下载页面(<a href="https://gitee.com/TomYule/NutzSite">https://gitee.com/TomYule/NutzSite</a>)
+下载解压到工作目录
 2、导入到</p>
 <h3>eclipse/idea均可按maven项目导入</h3>
 <ul>
@@ -170,19 +183,12 @@ tomcat.page.500=/error/500.html
 tomcat.page.403=/error/unauth.html
 
 druid.web.filter.principalSessionName=sid
-#jdbc.type=simple
 jdbc.type=druid
-#jdbc.type=hikari
-
-##h2
-jdbc.url=jdbc:h2:mem:nutzsite
-jdbc.username=root
-jdbc.password=root
 
 #mysql
-#jdbc.url=jdbc:mysql://127.0.0.1:3306/nutzsite?useUnicode=true&allowPublicKeyRetrieval=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
-#jdbc.username=root
-#jdbc.password=123456
+jdbc.url=jdbc:mysql://127.0.0.1:3306/nutzsite?useUnicode=true&allowPublicKeyRetrieval=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+jdbc.username=root
+jdbc.password=123456
 
 #jdbc.validationQuery=select 1
 jdbc.maxActive=50
@@ -206,16 +212,6 @@ web.staticFile=.css,.js,.png,.jpg,.gif,.jpeg,.bmp,.ico,.swf,.psd,.htc,.htm,.html
 ##shiro
 shiro.realm.cache.enable =true
 
-##redis
-#redis.host=localhost
-#redis.port=6379
-#redis.timeout=2000
-##redis.password=nutzsite.com
-#redis.database=0
-
-#shiro.session.cache.type=redis
-#shiro.session.dao.iocName=jedisSessionDAO
-
 #登录超时时间 单位 毫秒 :5小时
 shiro.session.manager.globalSessionTimeout=18000000
 
@@ -233,11 +229,6 @@ shiro.ini.urls:
 /login = anon
 /static/** = anon
 /open/** = anon
-
-#HTML thymeleaf热更新
-#thymeleaf.resolver.rootLocal=/Users/tony/IdeaProjects/NutzSite/src/main/resources/template
-#下面这句必须是绝对路径，这样才能保证开发模式下修改静态文件后进行热更新
-#jetty.staticPathLocal=/Users/tony/IdeaProjects/NutzSite/src/main/resources/static
 
 #上传文件路径
 upload.path=/mnt/upload
@@ -258,10 +249,6 @@ swagger.resource.package=io.nutz.nutzsite.module.open
 # 过滤开关
 xss.enabled=true
 xss.excludes=/favicon.ico,/assets/img/*,/assets/js/*,/assets/css/*
-## activiti 审批流
-#activiti.databaseSchemaUpdate=true
-#activiti.asyncExecutorEnabled=true
-#activiti.asyncExecutorActivate=true
 </code></pre></table>
 <p>代码生成 <code>gen.properties</code></p>
 <table width='100%' class='codestyle'><pre><code># 代码生成
@@ -445,7 +432,39 @@ function queryParams(params) {
         if(Lang.isNotEmpty(pageNumber) && Lang.isNotEmpty(pageSize)){
             pager = this.dao().createPager(pageNumber, pageSize);
         }</code></pre></table>
-<p>详情参考 nutz文档 <a href="https://nutzam.com/core/dao/pager.html">https://nutzam.com/core/dao/pager.html</a></p></div><h3>2.1.2、一对多映射</h3><div style="margin-left:30px;"><h1><center>一对多映射</center></h1>
+<p>详情参考 nutz文档 <a href="https://nutzam.com/core/dao/pager.html">https://nutzam.com/core/dao/pager.html</a></p></div><h3>2.1.2、数据校验</h3><div style="margin-left:30px;"><h1><center>数据校验</center></h1>
+<h2>validation 数据校验</h2>
+<p>实际开发过程中 出于安全性 数据校验必不可少</p>
+<p>本项目已经集成<a href="https://github.com/nutzam/nutzmore/tree/master/nutz-plugins-validation">nutz-plugins-validation</a>
+用法示例:
+sys_dict实体类必填项 字段添加如下</p>
+<table width='100%' class='codestyle'><pre><code> /**
+     * 数据值
+     */
+    @Column("value")
+    @Comment("数据值 ")
+    @Validations(required=true,errorMsg = "数据值不能为空")
+    private String value;
+
+    /**
+     * 标签名
+     */
+    @Column("label")
+    @Comment("标签名 ")
+    @Validations(required=true,errorMsg = "标签名不能为空")
+    private String label;</code></pre></table>
+<p>controller 具体方法上添加参数即可 Errors es</p>
+<table width='100%' class='codestyle'><pre><code>public Object addDo(@Param("..") Dict dict, Errors es,HttpServletRequest req) {
+    try {
+        if(es.hasError()){
+               return Result.error(es.getErrorsList().toString());
+           }
+        dictService.insert(dict);
+        return Result.success("system.success");
+    } catch (Exception e) {
+        return Result.error("system.error");
+    }
+}</code></pre></table></div><h3>2.1.3、一对多映射</h3><div style="margin-left:30px;"><h1><center>一对多映射</center></h1>
 <p>在 POJO 中配置一对多映射</p>
 <table width='100%' class='codestyle'><pre><code class="language-java">@Table("t_master")
 public class Master extends Pojo {
@@ -517,7 +536,7 @@ dao.fetchLinks(master, "pets");</code></pre></table>
 <p>清除 pets</p>
 <table width='100%' class='codestyle'><pre><code class="language-java">dao.clearLinks(master, "pets");</code></pre></table>
 <p>清除同删除的区别在于，清除只会执行一条 SQL 删除一批映射对象，而且删除会逐个调用 dao.delete 来删除对象</p>
-<p>详细文档 :<a href="https://nutzam.com/core/dao/links_many.html">https://nutzam.com/core/dao/links_many.html</a></p></div><h3>2.1.3、多对多映射</h3><div style="margin-left:30px;"><h2><center>多对多映射</center></h2>
+<p>详细文档 :<a href="https://nutzam.com/core/dao/links_many.html">https://nutzam.com/core/dao/links_many.html</a></p></div><h3>2.1.4、多对多映射</h3><div style="margin-left:30px;"><h2><center>多对多映射</center></h2>
 <p>在 POJO 中配置多对多映射
 在 POJO 类中字段中增加注解 @ManyMany：</p>
 <table width='100%' class='codestyle'><pre><code class="language-java">@Table("t_food")
@@ -619,7 +638,72 @@ dao.fetchLinks(food, "pets");</code></pre></table>
 <li>删除不仅会删掉 t_pet_food 里的记录，还会逐个调用 dao.delete 来删除 pet 对象。</li>
 <li>而清除只会执行一条 SQL 来删除 t_pet_food 中的记录（即中间表中的记录），但是 t_pet 和 t_food 表中的数据不会被删除。</li>
 </ul>
-<p>详细文档:<a href="https://nutzam.com/core/dao/links_many_many.html">https://nutzam.com/core/dao/links_many_many.html</a></p></div><h3>2.1.4、权限注解</h3><div style="margin-left:30px;"><h1><center>权限注解</center></h1>
+<p>详细文档:<a href="https://nutzam.com/core/dao/links_many_many.html">https://nutzam.com/core/dao/links_many_many.html</a></p></div><h3>2.1.5、缓存</h3><div style="margin-left:30px;"><h1><center>缓存</center></h1>
+<p>互联网软件神速发展，用户的体验度是判断一个软件好坏的重要原因，所以缓存就是必不可少的一个神器。在多线程高并发场景中往往是离不开cache的，需要根据不同的应用场景来需要选择不同的cache，比如分布式缓存如redis、memcached，还有本地（进程内）缓存如ehcache、GuavaCache、Caffeine。</p>
+<p>说起Guava Cache，很多人都不会陌生，它是Google Guava工具包中的一个非常方便易用的本地化缓存实现，基于LRU算法实现，支持多种缓存过期策略。由于Guava的大量使用，Guava Cache也得到了大量的应用。但是，Guava Cache的性能一定是最好的吗？也许，曾经，它的性能是非常不错的。但所谓长江后浪推前浪，总会有更加优秀的技术出现。接下来介绍一个比Guava Cache性能更高的缓存框架：Caffeine。
+下面是读取性能:
+<img width=500 src="https://www.showdoc.com.cn/server/api/attachment/visitfile/sign/21f099698505a9dbfc43183be9f458f5?showdoc=.jpg" alt="" />
+详细信息可以查看:<a href="https://github.com/ben-manes/caffeine/wiki/Benchmarks">Benchmarks</a></p>
+<p>nutz集成了 后 使用注解就可以轻松使用 省去 很多麻烦的配置
+配置 resources下面的<code>application.properties</code>加入以下语句</p>
+<table width='100%' class='codestyle'><pre><code># cache.缓存名称=缓存最大数量,最大空闲时间,最大存活时间
+caffeine.cache.live3s=100,0,3000
+
+# 也可以这样配置,配置项分别为:maxSize, maxIdle, maxLive
+
+caffeine.cache.idel3s.maxSize=100
+caffeine.cache.idel3s.maxIdle=3000</code></pre></table>
+<p>使用方法</p>
+<table width='100%' class='codestyle'><pre><code>    @Ok("raw")
+    @At("/time/now")
+    @Cache
+    public String now() {
+        return "刷新试试，我动算我输，╭(╯^╰)╮ "+System.currentTimeMillis();
+    }
+
+    @Ok("raw")
+    @At("/time/live3s")
+    @Cache("live3s")
+    public String live10s() {
+        return "刷新试试，我每3秒变一下，俗称 “活不过3秒”，╭(╯^╰)╮ "+System.currentTimeMillis();
+    }
+
+    @Ok("raw")
+    @At("/time/idel3s")
+    @Cache("idel3s")
+    public String idel10s() {
+        return "3秒不续命，我就玩完 ╭(╯^╰)╮ "+System.currentTimeMillis();
+    }
+
+    public static void main(String[] args) throws Exception {
+        new NbApp().setPrintProcDoc(true).run();
+    }</code></pre></table>
+<p>本项目中 实现 UpdateStrategy 接口 实现更新缓存 代码如下</p>
+<table width='100%' class='codestyle'><pre><code>package org.nutz.boot.starter.caffeine;
+import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
+import org.nutz.mvc.Mvcs;
+
+/**
+ * caffeine 更新缓存方法 实现
+ * @Author: Haimming
+ * @Date: 2019-08-08 09:40
+ * @Version 1.0
+ */
+@IocBean
+public class MvcUpdateStrategy implements UpdateStrategy {
+
+    /**
+     * 凡是request中携带update=true，都强制更新缓存
+     * @param key
+     * @return
+     */
+    @Override
+    public boolean shouldUpdate(String key) {
+        return Lang.parseBoolean(Mvcs.getReq().getParameter("update"));
+    }
+}
+</code></pre></table></div><h3>2.1.6、权限注解</h3><div style="margin-left:30px;"><h1><center>权限注解</center></h1>
 <h2>Shiro注解权限控制</h2>
 <p>RequiresAuthentication使用该注解标注的类，实例，方法在访问或调用时，当前Subject必须在当前session中已经过认证
 RequiresGuest使用该注解标注的类，实例，方法在访问或调用时，当前Subject可以是gust身份，不需要经过认证或者在原先的session中存在记录。
@@ -628,16 +712,14 @@ RequiresGuest使用该注解标注的类，实例，方法在访问或调用时�
 当前Subject必须是应用的用户，才能访问或调用被该注解标注的类，实例，方法。</p>
 <h3>提示</h3>
 <hr />
-<p>Shiro的认证注解处理是有内定的处理顺序的，如果有个多个注解的话，前面的通过了会继续检查后面的，若不通过则直接返回，处理顺序依次为（与实际声明顺序无关） RequiresRoles
+<h2>Shiro的认证注解处理是有内定的处理顺序的，如果有个多个注解的话，前面的通过了会继续检查后面的，若不通过则直接返回，处理顺序依次为（与实际声明顺序无关） RequiresRoles
 RequiresPermissions
 RequiresAuthentication
 RequiresUser
 RequiresGuest
-例如：你同时声明了RequiresRoles和RequiresPermissions，那就要求拥有此角色的同时还得拥有相应的权限。</p>
-<hr />
+例如：你同时声明了RequiresRoles和RequiresPermissions，那就要求拥有此角色的同时还得拥有相应的权限。</h2>
 <p>1、 RequiresRoles可以用在Controller或者方法上。可以多个roles，多个roles时默认逻辑为 AND也就是所有具备所有role才能访问。</p>
-<table width='100%' class='codestyle'><pre><code>
-// 属于user角色
+<table width='100%' class='codestyle'><pre><code>// 属于user角色
 @RequiresRoles("user")
 
 // 必须同时属于user和admin角色
@@ -656,10 +738,31 @@ RequiresGuest
 // 符合system:user:view或system:user:list权限要求即可
 @RequiresPermissions(value={"system:user:view", "system:user:list"}, logical=Logical.OR)</code></pre></table>
 <p>3、  RequiresAuthentication，RequiresUser，RequiresGuest这三个的使用方法一样</p>
-<table width='100%' class='codestyle'><pre><code>
-@RequiresAuthentication
+<table width='100%' class='codestyle'><pre><code>@RequiresAuthentication
 @RequiresUser
-@RequiresGusst</code></pre></table></div><h3>2.1.5、事务管理</h3><div style="margin-left:30px;"><h2><center>事务管理</center></h2>
+@RequiresGusst</code></pre></table>
+<p>项目shrio的实现 如下目录io.nutz.nutzsite.common.shiro
+配置resources目录下面的<code>application.properties</code>
+authc代表需要登录;anon不需要登录能访问</p>
+<table width='100%' class='codestyle'><pre><code>##shiro
+shiro.realm.cache.enable =true
+#登录超时时间 单位 毫秒 :5小时
+shiro.session.manager.globalSessionTimeout=18000000
+
+shiro.url.login=/login
+shiro.url.unauth=/login/unauth
+shiro.ini.urls:
+/sys/** = authc
+/monitor/** = authc
+/tool/** = authc
+/cms/** = authc
+/wx/** = authc
+/index = authc
+/druid/** =authc
+/swagger/** =authc
+/login = anon
+/static/** = anon
+/open/** = anon</code></pre></table></div><h3>2.1.7、事务管理</h3><div style="margin-left:30px;"><h2><center>事务管理</center></h2>
 <p>事务最核心的是原子的界定，在 Nutz.Dao中，界定原子的方法出奇的简单，借助匿名类，你可以随时将一段 代码用你的原子实现包裹住。而 Trans.exec() 方法接受数目可变的原子，每个原子都是事务性的。</p>
 <table width='100%' class='codestyle'><pre><code>final Pet pet1 = dao.fetch(Pet.class,"XiaoBai");
 final Pet pet2 = dao.fetch(Pet.class,"XiaoHei");
@@ -674,7 +777,31 @@ Trans.exec(new Atom(){
     }
 });
 // End transaction</code></pre></table>
-<p>具体参考nutz 文档 <a href="https://nutzam.com/core/dao/transaction.html">https://nutzam.com/core/dao/transaction.html</a></p></div><h3>2.1.6、异常处理</h3><div style="margin-left:30px;"><h1><center>异常处理</center></h1>
+<p>或者通过注解</p>
+<table width='100%' class='codestyle'><pre><code>    @Aop(TransAop.READ_COMMITTED)
+    public int update(Role data) {
+        List<String> ids = new ArrayList<>();
+        if (data != null && data.getMenuIds() != null) {
+            if (Strings.isNotBlank(data.getMenuIds())) {
+                ids = Arrays.asList(data.getMenuIds().split(","));
+            }
+            //清除已有关系
+            Role tmpData = this.fetch(data.getId());
+            this.fetchLinks(tmpData, "menus");
+            dao().clearLinks(tmpData, "menus");
+        }
+        if (ids != null && ids.size() > 0) {
+            Criteria cri = Cnd.cri();
+            cri.where().andInStrList("id", ids);
+            List<Menu> menuList = menuService.query(cri);
+            data.setMenus(menuList);
+        }
+        int count = dao().update(data);
+        dao().insertRelation(data, "menus");
+        return count;
+    }</code></pre></table>
+<p>具体参考nutz 文档 <a href="https://nutzam.com/core/dao/transaction.html">https://nutzam.com/core/dao/transaction.html</a>
+注释申明的事务:<a href="http://nutzam.com/core/aop/aop_trans.html">http://nutzam.com/core/aop/aop_trans.html</a></p></div><h3>2.1.8、异常处理</h3><div style="margin-left:30px;"><h1><center>异常处理</center></h1>
 <p>通常一个web框架中，有大量需要处理的异常。比如业务异常，权限不足等等。前端通过弹出提示信息的方式告诉用户出了什么错误。 通常情况下我们用try.....catch.... 对异常进行捕捉处理，但是在实际项目中对业务模块进行异常捕捉，会造成代码重复和繁杂， 我们希望代码中只有业务相关的操作，所有的异常我们单独设立一个类来处理它。全局异常就是对框架所有异常进行统一管理。 我们在可能发生异常的方法里throw抛给控制器。然后由全局异常处理器对异常进行统一处理。 如此，我们的Controller中的方法就可以很简洁了。
 动作链 配置 在如下配置自定义 mvc的环节
 io.nutz.nutzsite.common.mvc.MyActionChainMaker.java
@@ -731,7 +858,7 @@ public class ErrorProcessor extends ViewProcessor {
         }
         super.process(ac);
     }
-}</code></pre></table></div><h3>2.1.7、系统日志</h3><div style="margin-left:30px;"><h1><center>系统日志</center></h1>
+}</code></pre></table></div><h3>2.1.9、系统日志</h3><div style="margin-left:30px;"><h1><center>系统日志</center></h1>
 <p>在实际开发中，对于某些关键业务，我们通常需要记录该操作的内容，一个操作调一次记录方法，每次还得去收集参数等等，会造成大量代码重复。 我们希望代码中只有业务相关的操作，在项目中使用注解来完成此项功能。</p>
 <p>在需要被记录日志的controller方法上添加@Slog注解，使用方法如下：</p>
 <table width='100%' class='codestyle'><pre><code>@Slog(tag="岗位", after="新增保存岗位id=${args[0].id}")</code></pre></table>
@@ -739,7 +866,7 @@ public class ErrorProcessor extends ViewProcessor {
 <a href="https://github.com/nutzam/nutzmore/tree/master/nutz-plugins-slog">https://github.com/nutzam/nutzmore/tree/master/nutz-plugins-slog</a></p>
 <p>本项目重写了记录日志方法
 org.nutz.plugins.slog.service.Java
-默认记录255长度json</p></div><h3>2.1.8、代码生成</h3><div style="margin-left:30px;"><h1><center>代码生成</center></h1>
+默认记录255长度json</p></div><h3>2.1.10、代码生成</h3><div style="margin-left:30px;"><h1><center>代码生成</center></h1>
 <p>大部分项目里其实有很多代码都是重复的，几乎每个基础模块的代码都有增删改查的功能，而这些功能都是大同小异， 如果这些功能都要自己去写，将会大大浪费我们的精力降低效率。所以这种重复性的代码可以使用代码生成。</p>
 <h3>1、修改代码生成配置</h3>
 <p>应用编辑resources目录下的<code>gen.properties</code>
@@ -748,7 +875,7 @@ packageName: # 默认生成包路径
 autoRemovePre: # 是否自动去除表前缀
 tablePrefix: # 表前缀</p>
 <h3>2、登录系统（系统工具 -> 代码生成 )</h3>
-<h3>3、代码生成列表中找到需要表（可预览生成配置）</h3></div><h3>2.1.9、定时任务</h3><div style="margin-left:30px;"><h1><center>定时任务</center></h1>
+<h3>3、代码生成列表中找到需要表（可预览生成配置）</h3></div><h3>2.1.11、定时任务</h3><div style="margin-left:30px;"><h1><center>定时任务</center></h1>
 <p>在实际项目开发中Web应用有一类不可缺少的，那就是定时任务。 定时任务的场景可以说非常广泛，比如某些视频网站，购买会员后，每天会给会员送成长值，每月会给会员送一些电影券； 比如在保证最终一致性的场景中，往往利用定时任务调度进行一些比对工作；比如一些定时需要生成的报表、邮件；比如一些需要定时清理数据的任务等。 所以我们提供方便友好的web界面，实现动态管理任务，可以达到动态控制定时任务启动、暂停、重启、删除、添加、修改等操作，极大地方便了开发过程。</p>
 <p>定时任务初始化
 在io.nutz.nutzsite.MainLauncher.Java 类方法初始化</p>
@@ -939,7 +1066,7 @@ public class TestJob implements Job {
 <td>每月的第三个星期五上午10:15触发</td>
 </tr>
 </tbody>
-</table></div><h3>2.1.10、系统接口</h3><div style="margin-left:30px;"><h1><center>系统接口</center></h1>
+</table></div><h3>2.1.12、系统接口</h3><div style="margin-left:30px;"><h1><center>系统接口</center></h1>
 <p>在现在的开发过程中还有很大一部分公司都是以口口相传的方式来进行前后端的联调，而接口文档很大一部分都只停留在了说说而已的地步，或者写了代码再写文档。 还有一点就是文档的修改，定义好的接口并不是一成不变的，可能在开发过程中文档修改不止一次的变化，这个时候就会很难受了。 只要不是强制性要求，没人会愿意写这东西，而且在写的过程中，一个字母的错误就会导致联调时候的很大麻烦，但是通过Swagger，我们可以省略了这一步，而且文档出错率近乎于零， 只要你在写代码的时候，稍加几个注解，文档自动生成。</p>
 <h3>1、在控制层Controller中添加注解来描述接口信息如:</h3>
 <table width='100%' class='codestyle'><pre><code>@Api("参数配置")
@@ -1054,7 +1181,50 @@ public class ConfigController</code></pre></table>
 <td>配置为true 将在文档中隐藏</td>
 </tr>
 </tbody>
-</table></div></div><h2>2.2、前端手册</h2><div style="margin-left:0px;"><h3>2.2.1、前端组件</h3><div style="margin-left:30px;"><h1><center>前端组件</center></h1>
+</table></div></div><h2>2.2、前端手册</h2><div style="margin-left:0px;"><h3>2.2.1、前端校验</h3><div style="margin-left:30px;"><h1><center>前端校验</center></h1>
+<h2>jQuery Validate 插件为表单提供了强大的验证功能</h2>
+<p>下面可以参考 如下 部门添加的校验</p>
+<table width='100%' class='codestyle'><pre><code>$("#form-dept-add").validate({
+            onkeyup: false,
+            rules:{
+                deptName:{
+                    required:true,
+                    remote: {
+                        url: prefix + "/checkDeptNameUnique",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            "parentId": function() {
+                                return $("input[name='parentId']").val();
+                            },
+                            "name" : function() {
+                                return $.common.trim($("#deptName").val());
+                            }
+                        },
+                        dataFilter: function(data, type) {
+                            return data;
+                        }
+                    }
+                },
+                orderNum:{
+                    required:true,
+                    digits:true
+                },
+                email:{
+                    email:true,
+                },
+                phone:{
+                    isPhone:true,
+                },
+            },
+            messages: {
+                "deptName": {
+                    remote: "部门已经存在"
+                }
+            }
+        });</code></pre></table>
+<p>如果不知道怎么使用  jQuery Validate  可以看如下教程
+<a href="https://www.runoob.com/jquery/jquery-plugin-validate.html">https://www.runoob.com/jquery/jquery-plugin-validate.html</a></p></div><h3>2.2.2、前端组件</h3><div style="margin-left:30px;"><h1><center>前端组件</center></h1>
 <h2>封装了一些常用的JS组件方法。</h2>
 <table>
 <thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
@@ -1586,7 +1756,7 @@ public class ConfigController</code></pre></table>
 <td>判断字符串是否是以end结尾</td>
 </tr>
 </tbody>
-</table></div><h3>2.2.2、表格使用</h3><div style="margin-left:30px;"><h1><center>表格使用</center></h1>
+</table></div><h3>2.2.3、表格使用</h3><div style="margin-left:30px;"><h1><center>表格使用</center></h1>
 <h2>表格组件基于bootstrap table组件进行封装，轻松实现数据表格。</h2>
 <p>表格初始化<code>$.table.init</code>
 表的各项(Table options )</p>
@@ -2140,7 +2310,7 @@ public class ConfigController</code></pre></table>
 <td>是否转义HTML字符串</td>
 </tr>
 </tbody>
-</table></div><h3>2.2.3、弹层使用</h3><div style="margin-left:30px;"><h1><center>弹层使用</center></h1>
+</table></div><h3>2.2.4、弹层使用</h3><div style="margin-left:30px;"><h1><center>弹层使用</center></h1>
 <h2>弹层组件目前基于layer组件进行封装,提供了弹出、消息、提示、确认、遮罩处理等功能。</h2>
 <h3>提供成功、警告和错误等反馈信息</h3>
 <table width='100%' class='codestyle'><pre><code class="language-javascript">$.modal.msg("默认反馈");
@@ -2166,7 +2336,137 @@ $.modal.closeTab();
 $.modal.reload();</code></pre></table>
 <h3>提供遮罩层信息</h3>
 <table width='100%' class='codestyle'><pre><code class="language-javascript">$.modal.loading("正在导出数据，请稍后...");
-$.modal.closeLoading();</code></pre></table></div></div></div><h1>3、其他</h1><div style="margin-left:0px;"><h2>3.1、常见问题</h2><div style="margin-left:0px;"><h1><center>常见问题</center></h1>
+$.modal.closeLoading();</code></pre></table></div></div><h2>2.3、第三方集成</h2><div style="margin-left:0px;"><h3>2.3.1、支付宝 微信 支付集成</h3><div style="margin-left:30px;"><h1><center>支付宝 微信 支付集成</center></h1>
+<p>pom.xml添加Maven相关</p>
+<table width='100%' class='codestyle'><pre><code class="language-xml">        <dependency>
+            <groupId>com.github.javen205</groupId>
+            <artifactId>IJPay-All</artifactId>
+            <version>2.3.0</version>
+        </dependency></code></pre></table>
+<p>io.nutz.nutzsite.MainLauncher.java  init方法添加初始化设置</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">    /**
+     * 支付宝 微信 支付 初始化操作
+     */
+    private void initAppPay(){
+        WxPayApiConfig apiConfig = WxPayApiConfig.builder()
+                .appId("")
+                .mchId("")
+                .partnerKey("")
+                .certPath("")
+                .build();
+        AliPayApiConfig aliPayApiConfig = AliPayApiConfig.builder()
+                .setAppId("")
+                .setAliPayPublicKey("")
+                .setCharset("UTF-8")
+                .setPrivateKey("")
+                .setServiceUrl("")
+                .setSignType("RSA2")
+                .build();
+        try {
+            WxPayApiConfigKit.putApiConfig(apiConfig);
+            AliPayApiConfigKit.putApiConfig(aliPayApiConfig);
+        } catch (Exception e) {
+
+        }
+
+    }</code></pre></table>
+<p>支付宝创建订单</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">    /**
+     * 支付宝支付APP生成
+     * @param orderId 商户订单号，商户网站订单系统中唯一订单号，必填
+     * @param body     商品描述，可空
+     * @param subject 订单名称，必填
+     * @param total_amount 付款总金额 必填
+     * @return
+     * @throws Exception
+     */
+    public static String appPay(String orderId,String body,String subject,String total_amount ) throws Exception{
+        if (Strings.isEmpty(orderId) || Strings.isEmpty(subject) || Strings.isEmpty(total_amount)) {
+            throw new Exception("支付宝参数异常");
+        }
+        try {
+            AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
+            model.setBody(body);
+            model.setSubject(subject);
+            model.setOutTradeNo(orderId);
+            model.setTimeoutExpress("30m");
+            model.setTotalAmount(total_amount);
+            model.setPassbackParams("callback params");
+            model.setProductCode("QUICK_MSECURITY_PAY");
+            AlipayTradeAppPayResponse response = AliPayApi.appPayToResponse(model, AlipayConfig.notify_url);
+            String orderInfo = response.getBody();
+            System.out.println(orderInfo);
+            return orderInfo;
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+      return null;
+    }</code></pre></table>
+<p>微信创建订单</p>
+<table width='100%' class='codestyle'><pre><code class="language-java">    public static  Map<String, String> createOrder(String orderId, String body, double order_price,String ip) throws AppException {
+
+        //微信价格最小单位分 转换为整数
+        DecimalFormat df = new DecimalFormat("#######.##");
+        order_price = order_price * 100;
+        order_price = Math.ceil(order_price);
+        String price = df.format(order_price);
+
+        Map<String, String> params = UnifiedOrderModel
+                .builder()
+                .appid(MyConfig.getAppID())
+                .mch_id(MyConfig.getMchID())
+                .nonce_str(WxPayKit.generateStr())
+                .body("XXX-" + body)
+//                .attach("")
+                .out_trade_no(orderId)
+                .total_fee(price)
+                .spbill_create_ip(ip)
+                .notify_url(MyConfig.notify_url)
+                .trade_type(APP.getTradeType())
+                .build()
+                .createSign(MyConfig.getKey(),SignType.MD5);
+
+        String xmlResult = WxPayApi.pushOrder(false, params);
+
+        log.info(xmlResult);
+        Map<String, String> result = WxPayKit.xmlToMap(xmlResult);
+
+        String returnCode = result.get("return_code");
+        String returnMsg = result.get("return_msg");
+
+        if (!WxPayKit.codeIsOk(returnCode)) {
+            log.info("订单创建失败" + returnMsg);
+            throw new AppException("订单创建失败！" + returnMsg);
+        }
+        String resultCode = result.get("result_code");
+        if (!WxPayKit.codeIsOk(resultCode)) {
+            log.info("订单创建失败" + returnMsg);
+            throw new AppException("订单创建失败！" + returnMsg);
+        }
+        // 以下字段在 return_code 和 result_code 都为 SUCCESS 的时候有返回
+        String prepayId = result.get("prepay_id");
+
+        Map<String, String> packageParams = WxPayKit.appPrepayIdCreateSign(MyConfig.getAppID(),MyConfig.getMchID(), prepayId,
+                MyConfig.getKey(),SignType.MD5);
+
+        packageParams.put("signType",params.get("sign_type"));
+//        String jsonStr = JSON.toJSONString(packageParams);
+//        log.info("返回apk的参数:" + jsonStr);
+        return packageParams;
+    }
+</code></pre></table>
+<p>详细文档 参考:<a href="https://javen205.gitee.io/ijpay/">https://javen205.gitee.io/ijpay/</a></p></div><h3>2.3.2、Redis</h3><div style="margin-left:30px;"><h1><center>Redis</center></h1>
+<p>redis集成 只需要配置如下即可 resources下的<code>application.properties</code></p>
+<table width='100%' class='codestyle'><pre><code>##redis
+redis.host=localhost
+redis.port=6379
+redis.timeout=2000
+#redis.password=nutzsite.com
+redis.database=0
+shiro.session.cache.type=redis
+shiro.session.dao.iocName=jedisSessionDAO
+#登录超时时间 单位 毫秒 :5小时
+shiro.session.manager.globalSessionTimeout=18000000</code></pre></table></div></div></div><h1>3、其他</h1><div style="margin-left:0px;"><h2>3.1、常见问题</h2><div style="margin-left:0px;"><h1><center>常见问题</center></h1>
 <h3>js css如何引入</h3>
 <p>查看 resources目录下<code>include.html</code> 文件如何引入即可</p>
 <table width='100%' class='codestyle'><pre><code><link th:href="@{/assets/css/ui.css}" rel="stylesheet"/>

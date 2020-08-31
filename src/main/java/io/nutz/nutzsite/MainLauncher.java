@@ -94,6 +94,7 @@ public class MainLauncher {
      * @return
      */
     @At({"/sys/main"})
+//    @Ok("th:/main_v1.html")
     @Ok("th:/main.html")
     public NutMap main() {
         return NutMap.NEW().setv("version", Globals.getConfig("version"));
