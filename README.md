@@ -102,6 +102,7 @@ mvn clean package nutzboot:shade nutzboot:war
 * 项目 参考 [RuoYi](https://gitee.com/y_project/RuoYi-fast)
 ,[nutzwk](https://github.com/Wizzercn/NutzWk/tree/bak-delete-v3-bootstrap) 
 ,[mybatis-plus-generator](https://gitee.com/baomidou/mybatis-plus/tree/3.0/mybatis-plus-generator)  
+* 推荐项目: [jhipster](https://www.jhipster.tech/cn/), [NutzWk](https://gitee.com/wizzer/NutzWk)  
 
 ## 鸣谢
 *   nutz 项目的所有贡献者
