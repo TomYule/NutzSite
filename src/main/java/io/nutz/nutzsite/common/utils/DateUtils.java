@@ -8,6 +8,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import java.lang.management.ManagementFactory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -219,6 +220,56 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         // long sec = diff % nd % nh % nm / ns;
         return day + "天" + hour + "小时" + min + "分钟";
     }
+    /**
+     * 根据时间范围得到起始时间
+     *
+     * @param dateRange
+     * @return
+     * @throws ParseException
+     */
+    public static Date getStartDateByRange(String dateRange) throws ParseException {
+        Date startDate = null;
+        if (dateRange != null && dateRange.split(" - ").length == 2) {
+            String[] dateRangeArr = dateRange.split(" - ");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+            startDate = sdf.parse(dateRangeArr[0] + " 00:00:00");
+        }
+        if (startDate == null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(startDate);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            startDate = calendar.getTime();
+        }
+        return startDate;
+    }
+
+    /**
+     * 根据时间范围得到结束时间
+     *
+     * @param dateRange
+     * @return
+     * @throws ParseException
+     */
+    public static Date getEndDateByRange(String dateRange) throws ParseException {
+        Date endDate = null;
+        if (dateRange != null && dateRange.split(" - ").length == 2) {
+            String[] dateRangeArr = dateRange.split(" - ");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+            endDate = sdf.parse(dateRangeArr[1] + " 23:59:59");
+        }
+        if (endDate == null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(endDate);
+            calendar.set(Calendar.HOUR_OF_DAY, 23);
+            calendar.set(Calendar.MINUTE, 59);
+            calendar.set(Calendar.SECOND, 59);
+            endDate = calendar.getTime();
+        }
+        return endDate;
+    }
+
 
     /**
      * @param args

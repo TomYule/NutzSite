@@ -45,7 +45,7 @@ public class Menu extends BaseModel implements Serializable {
     @Column("order_num")
     @Comment("显示顺序")
     @Validations(required=true,errorMsg = "排序不能为空")
-    private String orderNum;
+    private long orderNum;
 
     @Column("url")
     @Comment("菜单URL")
@@ -140,11 +140,11 @@ public class Menu extends BaseModel implements Serializable {
         this.parentName = parentName;
     }
 
-    public String getOrderNum() {
+    public long getOrderNum() {
         return orderNum;
     }
 
-    public void setOrderNum(String orderNum) {
+    public void setOrderNum(long orderNum) {
         this.orderNum = orderNum;
     }
 
