@@ -10,7 +10,9 @@ import io.nutz.nutzsite.common.utils.excel.annotation.ExcelField;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.slf4j.Logger;
@@ -42,7 +44,7 @@ public class ExportExcel {
 	/**
 	 * 工作表对象
 	 */
-	private Sheet sheet;
+	private SXSSFSheet sheet;
 	
 	/**
 	 * 样式列表
@@ -174,6 +176,7 @@ public class ExportExcel {
 	private void initialize(String title, List<String> headerList) {
 		this.wb = new SXSSFWorkbook(500);
 		this.sheet = wb.createSheet("Export");
+		this.sheet.trackAllColumnsForAutoSizing();
 		this.styles = createStyles(wb);
 		// Create title
 		if (StringUtils.isNotBlank(title)){
@@ -192,6 +195,7 @@ public class ExportExcel {
 		Row headerRow = sheet.createRow(rownum++);
 		headerRow.setHeightInPoints(16);
 		for (int i = 0; i < headerList.size(); i++) {
+
 			Cell cell = headerRow.createCell(i);
 			cell.setCellStyle(styles.get("header"));
 			String[] ss = StringUtils.split(headerList.get(i), "**", 2);
@@ -204,6 +208,7 @@ public class ExportExcel {
 			}else{
 				cell.setCellValue(headerList.get(i));
 			}
+			sheet.trackAllColumnsForAutoSizing();
 			sheet.autoSizeColumn(i);
 		}
 		for (int i = 0; i < headerList.size(); i++) {  
@@ -222,24 +227,23 @@ public class ExportExcel {
 		Map<String, CellStyle> styles = new HashMap<String, CellStyle>();
 		
 		CellStyle style = wb.createCellStyle();
-		style.setAlignment(CellStyle.ALIGN_CENTER);
-		style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+		style.setAlignment(HorizontalAlignment.CENTER);
+		style.setVerticalAlignment(VerticalAlignment.CENTER);
 		Font titleFont = wb.createFont();
 		titleFont.setFontName("Arial");
 		titleFont.setFontHeightInPoints((short) 16);
-		titleFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
 		style.setFont(titleFont);
 		styles.put("title", style);
 
 		style = wb.createCellStyle();
-		style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-		style.setBorderRight(CellStyle.BORDER_THIN);
+		style.setVerticalAlignment(VerticalAlignment.CENTER);
+		style.setBorderRight(BorderStyle.THIN);
 		style.setRightBorderColor(IndexedColors.GREY_50_PERCENT.getIndex());
-		style.setBorderLeft(CellStyle.BORDER_THIN);
+		style.setBorderLeft(BorderStyle.THIN);
 		style.setLeftBorderColor(IndexedColors.GREY_50_PERCENT.getIndex());
-		style.setBorderTop(CellStyle.BORDER_THIN);
+		style.setBorderTop(BorderStyle.THIN);
 		style.setTopBorderColor(IndexedColors.GREY_50_PERCENT.getIndex());
-		style.setBorderBottom(CellStyle.BORDER_THIN);
+		style.setBorderBottom(BorderStyle.THIN);
 		style.setBottomBorderColor(IndexedColors.GREY_50_PERCENT.getIndex());
 		Font dataFont = wb.createFont();
 		dataFont.setFontName("Arial");
@@ -249,29 +253,28 @@ public class ExportExcel {
 		
 		style = wb.createCellStyle();
 		style.cloneStyleFrom(styles.get("data"));
-		style.setAlignment(CellStyle.ALIGN_LEFT);
+		style.setAlignment(HorizontalAlignment.LEFT);
 		styles.put("data1", style);
 
 		style = wb.createCellStyle();
 		style.cloneStyleFrom(styles.get("data"));
-		style.setAlignment(CellStyle.ALIGN_CENTER);
+		style.setAlignment(HorizontalAlignment.CENTER);
 		styles.put("data2", style);
 
 		style = wb.createCellStyle();
 		style.cloneStyleFrom(styles.get("data"));
-		style.setAlignment(CellStyle.ALIGN_RIGHT);
+		style.setAlignment(HorizontalAlignment.RIGHT);
 		styles.put("data3", style);
 		
 		style = wb.createCellStyle();
 		style.cloneStyleFrom(styles.get("data"));
 //		style.setWrapText(true);
-		style.setAlignment(CellStyle.ALIGN_CENTER);
+		style.setAlignment(HorizontalAlignment.CENTER);
 		style.setFillForegroundColor(IndexedColors.GREY_50_PERCENT.getIndex());
-		style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		Font headerFont = wb.createFont();
 		headerFont.setFontName("Arial");
 		headerFont.setFontHeightInPoints((short) 10);
-		headerFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
 		headerFont.setColor(IndexedColors.WHITE.getIndex());
 		style.setFont(headerFont);
 		styles.put("header", style);
@@ -430,7 +433,9 @@ public class ExportExcel {
 	 * 清理临时文件
 	 */
 	public ExportExcel dispose(){
-		wb.dispose();
+		if(wb != null) {
+			wb.dispose();
+		}
 		return this;
 	}
 	
