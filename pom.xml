@@ -5,10 +5,50 @@
     <artifactId>nutzsite</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+
+    <repositories>
+        <repository>
+            <id>nutz</id>
+            <url>http://jfrog.nutz.cn/artifactory/libs-release</url>
+        </repository>
+        <repository>
+            <id>nutz-snapshots</id>
+            <url>http://jfrog.nutz.cn/artifactory/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nutz-snapshots</id>
+            <url>http://jfrog.nutz.cn/artifactory/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+
     <properties>
-        <nutzboot.version>2.3.8.v20191031</nutzboot.version>
+        <!-- Build properties -->
+        <maven.version>3.3.9</maven.version>
+        <java.version>1.8</java.version>
+        <!--The nutz version should match the one managed by
+         https://mvnrepository.com/artifact/org.nutz/nutz -->
+        <nutz.version>1.r.68.v20201205</nutz.version>
+        <!-- https://mvnrepository.com/artifact/org.nutz/nutzboot-core -->
+        <nutzboot.version>2.4.2.v20201205</nutzboot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -20,55 +60,86 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <dependencies>
 
+    <dependencies>
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutz</artifactId>
-            <version>1.r.68-SNAPSHOT</version>
+            <version>${nutz.version}</version>
+        </dependency>
+        <!--    validation 验证   -->
+        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutz-plugins-validation</artifactId>
+            <version>${nutz.version}</version>
+        </dependency>
+        <!--nutz-plugins-slog 日志-->
+        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutz-plugins-slog</artifactId>
+            <version>${nutz.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-nutz-mvc</artifactId>
+            <version>${nutzboot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-nutz-dao</artifactId>
+            <version>${nutzboot.version}</version>
         </dependency>
-        <!--        <dependency>
-                    <groupId>org.nutz</groupId>
-                    <artifactId>nutzboot-servlet3</artifactId>
-                </dependency>-->
+
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-jetty</artifactId>
+            <version>${nutzboot.version}</version>
         </dependency>
-        <!--      <dependency>
-           <groupId>org.nutz</groupId>
-           <artifactId>nutzboot-starter-tomcat</artifactId>
-       </dependency>-->
+
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-quartz</artifactId>
+            <version>${nutzboot.version}</version>
         </dependency>
-        <!--activiti 审批流-->
-<!--        <dependency>
-            <groupId>org.nutz</groupId>
-            <artifactId>nutzboot-starter-activiti</artifactId>
-        </dependency>-->
 
+        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutzboot-starter-thymeleaf</artifactId>
+            <version>${nutzboot.version}</version>
+        </dependency>
         <!--    caffeine缓存    -->
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-caffeine</artifactId>
             <version>${nutzboot.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutzboot-starter-jdbc</artifactId>
+            <version>${nutzboot.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzboot-starter-shiro</artifactId>
+            <version>${nutzboot.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutzboot-starter-redis</artifactId>
+            <version>${nutzboot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutzboot-starter-swagger</artifactId>
+            <version>${nutzboot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutzboot-starter-email</artifactId>
+            <version>${nutzboot.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-core</artifactId>
@@ -83,11 +154,6 @@
                     <groupId>net.sf.ehcache</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.nutz</groupId>
-            <artifactId>nutzboot-starter-jdbc</artifactId>
         </dependency>
 
         <dependency>
@@ -116,10 +182,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.nutz</groupId>
-            <artifactId>nutzboot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
             <groupId>nz.net.ultraq.thymeleaf</groupId>
             <artifactId>thymeleaf-layout-dialect</artifactId>
             <version>2.2.2</version>
@@ -129,25 +191,6 @@
             <groupId>com.github.theborakompanioni</groupId>
             <artifactId>thymeleaf-extras-shiro</artifactId>
             <version>2.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.nutz</groupId>
-            <artifactId>nutzboot-starter-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.nutz</groupId>
-            <artifactId>nutzboot-starter-swagger</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.nutz</groupId>
-            <artifactId>nutzboot-starter-email</artifactId>
-        </dependency>
-
-        <!--    validation 验证   -->
-        <dependency>
-            <groupId>org.nutz</groupId>
-            <artifactId>nutz-plugins-validation</artifactId>
-            <version>1.r.67</version>
         </dependency>
 
         <dependency>
@@ -278,12 +321,7 @@
             <version>1.11.3</version>
         </dependency>
 
-        <!--nutz-plugins-slog 日志-->
-        <dependency>
-            <groupId>org.nutz</groupId>
-            <artifactId>nutz-plugins-slog</artifactId>
-            <version>1.r.68.v20190731</version>
-        </dependency>
+
         <!-- poi office -->
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -326,36 +364,7 @@
         </dependency>
 
     </dependencies>
-    <repositories>
-        <repository>
-            <id>nutz</id>
-            <url>http://jfrog.nutz.cn/artifactory/libs-release</url>
-        </repository>
-        <repository>
-            <id>nutz-snapshots</id>
-            <url>http://jfrog.nutz.cn/artifactory/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>nutz-snapshots</id>
-            <url>http://jfrog.nutz.cn/artifactory/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
+
     <build>
         <plugins>
             <plugin>

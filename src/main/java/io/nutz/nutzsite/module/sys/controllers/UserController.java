@@ -85,7 +85,7 @@ public class UserController {
             cnd.and("create_time", "<=", endTime);
         }
         if (!Strings.isBlank(deptId)) {
-            List<Dept> dept = deptService.query(Cnd.NEW().and("ancestors","LIKE","%"+deptId+"%"));
+            List<Dept> dept = deptService.query(Cnd.where("ancestors","LIKE","%"+deptId+"%"));
             List<String> deptIds = new ArrayList<>();
             for(Dept d:dept){
                 deptIds.add(d.getId());

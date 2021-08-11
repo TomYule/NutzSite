@@ -51,7 +51,7 @@ public class ${className}Controller {
 	public Object list(@Param("pageNum")int pageNum,
 					   @Param("pageSize")int pageSize,
 					   @Param("name") String name,
-					   @Param("beginTime") Date beginTime,
+					   @Param("startTime") Date startTime,
 					   @Param("endTime") Date endTime,
 					   @Param("orderByColumn") String orderByColumn,
 					   @Param("isAsc") String isAsc,
@@ -60,8 +60,8 @@ public class ${className}Controller {
 		if (!Strings.isBlank(name)){
 			//cnd.and("name", "like", "%" + name +"%");
 		}
-		if(Lang.isNotEmpty(beginTime)){
-			cnd.and("create_time",">=", beginTime);
+		if(Lang.isNotEmpty(startTime)){
+			cnd.and("create_time",">=", startTime);
 		}
 		if(Lang.isNotEmpty(endTime)){
 			cnd.and("create_time","<=", endTime);

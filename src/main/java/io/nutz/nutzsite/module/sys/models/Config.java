@@ -21,8 +21,9 @@ import java.util.Date;
 public class Config extends BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
+
     @Name
-    @Column("configKey")
+    @Column("config_key")
     @Comment("配置项 ")
     @ColDefine(type = ColType.VARCHAR, width = 200)
     @ExcelField(title="配置项", type=1, align=2, sort=1)
@@ -32,7 +33,7 @@ public class Config extends BaseModel implements Serializable {
     /**
      * 参数值
      */
-    @Column("configValue")
+    @Column("config_value")
     @Comment("参数值")
     @ColDefine(type = ColType.VARCHAR, width = 500)
     @ExcelField(title="参数值", align=2, sort=20)
