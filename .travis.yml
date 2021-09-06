@@ -13,3 +13,6 @@ notifications:
   email: false
 before_install:
   - export TZ=Asia/Shanghai
+cache:
+  directories:
+  - $HOME/.m2
