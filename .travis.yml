@@ -2,9 +2,9 @@
 #测试配置
 sudo: false
 language: java
-script: mvn -Dmaven.test.skip=true clean package nutzboot:shade nutzboot:war
+script: mvn clean package
 jdk:
-  - openjdk8
+  - oraclejdk11
 # whitelist
 branches:
   only:
@@ -13,3 +13,10 @@ notifications:
   email: false
 before_install:
   - export TZ=Asia/Shanghai
+deploy:
+  provider: script
+  script: "mvn -Dmaven.test.skip=true  clean package nutzboot:shade nutzboot:war --settings mvn_settings.xml"
+  skip_cleanup: true
+  on:
+    tags: false
+    branch: master
