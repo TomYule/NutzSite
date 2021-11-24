@@ -92,6 +92,9 @@ public class UserController {
             }
             deptIds.add(deptId);
             cnd.and("dept_id", "in", deptIds);
+            //mysql 才支持 FIND_IN_SET
+//            cnd.where().andInBySql("dept_id","SELECT id FROM sys_dept  WHERE FIND_IN_SET ('%s',ancestors)", deptId)
+//                    .or("dept_id","=", deptId);
         }
         return userService.tableList(pageNum, pageSize, cnd, orderByColumn, isAsc, "dept");
     }
