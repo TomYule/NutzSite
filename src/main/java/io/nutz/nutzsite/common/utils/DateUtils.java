@@ -271,6 +271,25 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         return endDate;
     }
 
+    public static Date beforeDay(int day){
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, - day);
+        Date d = c.getTime();
+        return d;
+    }
+
+    /**
+     * 过去七天
+     * @return
+     */
+    public static Date beforeWeek(){
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, - 7);
+        Date d = c.getTime();
+        return d;
+    }
 
     /**
      * @param args

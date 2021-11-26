@@ -1,11 +1,15 @@
 package io.nutz.nutzsite.module.monitor.services.impl;
 
 import io.nutz.nutzsite.common.service.BaseServiceImpl;
+import io.nutz.nutzsite.common.utils.DateUtils;
 import io.nutz.nutzsite.module.monitor.models.Logininfor;
 import io.nutz.nutzsite.module.monitor.services.LogininforService;
+import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +23,15 @@ import java.util.List;
 public class LogininforServiceImpl extends BaseServiceImpl<Logininfor> implements LogininforService {
 	public LogininforServiceImpl(Dao dao) {
 		super(dao);
+	}
+
+	@Override
+	public long countLoginRecord(HttpServletRequest req) {
+		String ip = Lang.getIP(req);
+		return this.count(Cnd.where("ipaddr","=",ip)
+				.and("status","=",false)
+				.and("login_time",">=", DateUtils.beforeDay(1))
+		);
 	}
 
 	@Override

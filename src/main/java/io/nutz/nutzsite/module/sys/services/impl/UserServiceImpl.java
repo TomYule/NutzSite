@@ -2,6 +2,7 @@ package io.nutz.nutzsite.module.sys.services.impl;
 
 import io.nutz.nutzsite.common.service.BaseServiceImpl;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
+import io.nutz.nutzsite.common.utils.StringUtils;
 import io.nutz.nutzsite.module.sys.models.Role;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.UserService;
@@ -190,9 +191,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     @Override
     public boolean checkLoginNameUnique(String name) {
-        List<User> list = this.query(Cnd.where("login_name", "=", name));
-        if (Lang.isEmpty(list)) {
-            return true;
+        if(StringUtils.UserNameValidator(name)){
+            List<User> list = this.query(Cnd.where("login_name", "=", name));
+            if (Lang.isEmpty(list)) {
+                return true;
+            }
         }
         return false;
     }

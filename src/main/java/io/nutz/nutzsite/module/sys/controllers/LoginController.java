@@ -8,6 +8,7 @@ import io.nutz.nutzsite.common.utils.RSAUtils;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
 import io.nutz.nutzsite.common.utils.StringUtils;
 import io.nutz.nutzsite.common.utils.Toolkit;
+import io.nutz.nutzsite.module.monitor.services.LogininforService;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -34,12 +35,21 @@ public class LoginController {
     @Inject
     private UserService userService;
     @Inject
+    private LogininforService logininforService;
+    @Inject
     private AsyncFactory asyncFactory;
 
     @GET
     @At({"","/loginPage"})
     @Ok("re")
-    public String loginPage(  HttpServletRequest req) {
+    public String loginPage(HttpSession session,  HttpServletRequest req) {
+        int errorCount = 0;
+        try{
+            errorCount = (int) session.getAttribute(Globals.ERROR_COUNT);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        session.setAttribute(Globals.ERROR_COUNT, errorCount);
         if (ShiroUtils.isAuthenticated()) {
             return ">>:/index";
         }
@@ -57,48 +67,70 @@ public class LoginController {
                         @Param("validateCode")String validateCode,
                         HttpServletRequest req,
                         HttpSession session) {
+        int errorCount = 0;
         if(Boolean.valueOf(Globals.getConfig("login.captcha"))){
             // session是否有效
             if (session == null) {
-                return Result.error("当前回话已过期,请刷新后重试");
+                return Result.error("login.error.session");
+            }
+            try{
+                errorCount = (int) session.getAttribute(Globals.ERROR_COUNT);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            if(errorCount >= Globals.ERROR_MAX){
+                return Result.error("login.too.often");
             }
             // 比对验证码
             String _captcha = (String) session.getAttribute(Toolkit.captcha_attr);
             if (Strings.isBlank(_captcha) || !Toolkit.checkCaptcha(_captcha,validateCode)) {
-                return Result.error("验证码错误");
+                return Result.error("login.captcha");
+            }
+            //统计ip异常登录次数
+            long ipErrorCount = logininforService.countLoginRecord(req);
+            if(ipErrorCount >= Globals.ERROR_MAX){
+                errorCount +=1;
+                session.setAttribute(Globals.ERROR_COUNT, errorCount);
+                return Result.error("login.too.often");
             }
         }
         try {
             Subject subject = SecurityUtils.getSubject();
             ThreadContext.bind(subject);
-            //过滤特殊字符
-            username = StringUtils.getUserName(username);
+            if (!StringUtils.UserNameValidator(username)) {
+                throw new UnknownAccountException("login.error.user");
+            }
             //RSA解密
             password = RSAUtils.decrypt(password, Globals.getPrivateKey());
-
             subject.login(new UsernamePasswordToken(username,password,rememberMe));
             User user = (User) subject.getPrincipal();
             AsyncManager.me().execute(asyncFactory.recordLogininfor(user.getLoginName(), true,req,"登录成功"));
             userService.recordLoginInfo(user);
+            session.setAttribute(Globals.ERROR_COUNT, 0);
             return Result.success("login.success");
-        } catch (LockedAccountException e) {
-            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"账号锁定"));
-            return Result.error(3, "login.error.locked");
-        } catch (UnknownAccountException e) {
-            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"用户不存在"));
-            return Result.error(4, "login.error.user");
-        } catch (AuthenticationException e) {
-            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"密码错误"));
-            return Result.error(5, "login.error.user");
-        } catch (BadPaddingException e) {
-            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"密码错误"));
-            return Result.error(5, "login.error.user");
         } catch (Exception e) {
-            e.printStackTrace();
-            AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"登录系统异常"));
+            errorCount +=1;
+            session.setAttribute(Globals.ERROR_COUNT, errorCount);
+            if(e instanceof LockedAccountException){
+                AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"账号锁定"));
+                return Result.error(3, "login.error.locked");
+            }else if(e instanceof UnknownAccountException){
+                AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"用户不存在"));
+                return Result.error(4, "login.error.user");
+            }else if(e instanceof AuthenticationException){
+                AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"密码错误"));
+                return Result.error(5, "login.error.user");
+            }else if(e instanceof BadPaddingException){
+                AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"密码错误"));
+                return Result.error(5, "login.error.user");
+            }else {
+                e.printStackTrace();
+                AsyncManager.me().execute(asyncFactory.recordLogininfor(username, false,req,"登录系统异常"));
+            }
             return Result.error(6, "login.error.system");
         }
     }
+
 
     @At
     @Ok("re")

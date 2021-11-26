@@ -34,6 +34,16 @@ public class Globals {
     public static String AppBase = "";
 
     /**
+     * 异常次数session
+     */
+    public static String ERROR_COUNT = "nutzsite_e";
+
+    /**
+     * 最大错误次数
+     */
+    public static int ERROR_MAX = 10;
+
+    /**
      * 保存全局属性值
      */
     private static Map<String, String> map = new HashMap<>();

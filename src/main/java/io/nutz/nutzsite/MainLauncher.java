@@ -79,7 +79,7 @@ public class MainLauncher {
     public String index(HttpServletRequest req) {
         User user = ShiroUtils.getSysUser();
         if (!ShiroUtils.isAuthenticated()) {
-            return "th:/login.html";
+            return ">>:/login";
         }
         user =userService.fetchLinks(user,"dept|image");
         req.setAttribute("user", user);

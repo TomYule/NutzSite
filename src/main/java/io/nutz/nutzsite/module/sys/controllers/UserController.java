@@ -212,7 +212,8 @@ public class UserController {
     @At
     @POST
     @Ok("json")
-    public Object checkLoginNameUnique(@Param("id") String id, @Param("name") String name, HttpServletRequest req) {
+    public Object checkLoginNameUnique(@Param("id") String id,
+                                       @Param("name") String name, HttpServletRequest req) {
         return userService.checkLoginNameUnique(name);
     }
 

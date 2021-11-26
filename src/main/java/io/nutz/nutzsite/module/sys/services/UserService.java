@@ -11,6 +11,7 @@ import java.util.Set;
  * @Version 1.0
  */
 public interface UserService  extends BaseService<User> {
+
     /**
      * 新增
      *
@@ -19,6 +20,7 @@ public interface UserService  extends BaseService<User> {
      */
     @Override
     public User insert(User user);
+
     /**
      * 更新
      *
@@ -26,6 +28,7 @@ public interface UserService  extends BaseService<User> {
      * @return
      */
     public int update(User data);
+
     /**
      * 更新角色
      *
@@ -62,7 +65,6 @@ public interface UserService  extends BaseService<User> {
      */
     public void recordLoginInfo(User user);
 
-
     /**
      * 查询用户所属角色组
      *
@@ -71,6 +73,11 @@ public interface UserService  extends BaseService<User> {
      */
     public String getUserRoleGroup(String userId);
 
+    /**
+     * 用户名检查
+     * @param name
+     * @return
+     */
     public boolean checkLoginNameUnique(String name);
 
 }

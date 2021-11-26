@@ -27,7 +27,10 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /**
      * 中英文字母数字下划线
      */
-    private static final Pattern USERNAME =  Pattern.compile("[^a-zA-Z0-9\\u4e00-\\u9fa5_]");
+    /**
+     * 用户名检测
+     */
+    private static final Pattern USERNAME_PATTERN =  Pattern.compile("^([a-zA-Z0-9_-]|[\\u4E00-\\u9FA5]){4,20}$");
 
     /**
      * 获取参数不为空值
@@ -343,15 +346,11 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     /**
-     * 处理用户名
+     * 用户名检测
      * @param username
      * @return
      */
-    public static String getUserName(String username){
-        if(username.length() > 60){
-            username = username.substring(60);
-        }
-        return USERNAME.matcher(username).replaceAll("").trim();
+    public static boolean UserNameValidator(String username){
+        return USERNAME_PATTERN.matcher(username).matches();
     }
-
 }
