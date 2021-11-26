@@ -4,6 +4,7 @@ package io.nutz.nutzsite.common.utils;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * 字符串工具类
@@ -22,6 +23,11 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     private static final char SEPARATOR = '_';
 
     private static final String CHARSET_NAME = "UTF-8";
+
+    /**
+     * 中英文字母数字下划线
+     */
+    private static final Pattern USERNAME =  Pattern.compile("[^a-zA-Z0-9\\u4e00-\\u9fa5_]");
 
     /**
      * 获取参数不为空值
@@ -334,6 +340,18 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         } catch (UnsupportedEncodingException e) {
             return EMPTY;
         }
+    }
+
+    /**
+     * 处理用户名
+     * @param username
+     * @return
+     */
+    public static String getUserName(String username){
+        if(username.length() > 60){
+            username = username.substring(60);
+        }
+        return USERNAME.matcher(username).replaceAll("").trim();
     }
 
 }

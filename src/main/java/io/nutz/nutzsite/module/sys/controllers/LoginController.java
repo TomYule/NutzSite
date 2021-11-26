@@ -6,6 +6,7 @@ import io.nutz.nutzsite.common.manager.AsyncManager;
 import io.nutz.nutzsite.common.manager.factory.AsyncFactory;
 import io.nutz.nutzsite.common.utils.RSAUtils;
 import io.nutz.nutzsite.common.utils.ShiroUtils;
+import io.nutz.nutzsite.common.utils.StringUtils;
 import io.nutz.nutzsite.common.utils.Toolkit;
 import io.nutz.nutzsite.module.sys.models.User;
 import io.nutz.nutzsite.module.sys.services.UserService;
@@ -70,6 +71,8 @@ public class LoginController {
         try {
             Subject subject = SecurityUtils.getSubject();
             ThreadContext.bind(subject);
+            //过滤特殊字符
+            username = StringUtils.getUserName(username);
             //RSA解密
             password = RSAUtils.decrypt(password, Globals.getPrivateKey());
 

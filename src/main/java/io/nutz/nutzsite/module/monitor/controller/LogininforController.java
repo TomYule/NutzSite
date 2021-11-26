@@ -6,6 +6,7 @@ import io.nutz.nutzsite.common.base.Result;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -15,6 +16,7 @@ import org.nutz.mvc.annotation.Param;
 import org.nutz.plugins.slog.annotation.Slog;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * 系统访问记录 信息操作处理
@@ -45,13 +47,25 @@ public class LogininforController {
 	@Ok("json")
 	public Object list(@Param("pageNum")Integer pageNum,
 					   @Param("pageSize")Integer pageSize,
-					   @Param("name") String name,
+					   @Param("loginName") String loginName,
+					   @Param("status") Boolean status,
+					   @Param("startTime") Date startTime,
+					   @Param("endTime") Date endTime,
 					   @Param("orderByColumn") String orderByColumn,
 					   @Param("isAsc") String isAsc,
 					   HttpServletRequest req) {
 		Cnd cnd = Cnd.NEW();
-		if (!Strings.isBlank(name)){
-			//cnd.and("name", "like", "%" + name +"%");
+		if (!Strings.isBlank(loginName)){
+			cnd.and("login_name", "like", "%" + loginName +"%");
+		}
+		if(Lang.isNotEmpty(status)){
+			cnd.and("status","=",status);
+		}
+		if(Lang.isNotEmpty(startTime)){
+			cnd.and("login_time",">",startTime);
+		}
+		if(Lang.isNotEmpty(endTime)){
+			cnd.and("login_time","<",endTime);
 		}
 		return logininforService.tableList(pageNum,pageSize,cnd,orderByColumn,isAsc,null);
 	}
