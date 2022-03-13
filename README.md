@@ -51,8 +51,8 @@ Java快速开发框架 基于nutz框架；支持 任意SQL数据库,例如MySQL,
 ![服务监控](src/main/resources/static/1577241788123.jpg)
 ![项目截图](src/main/resources/static/1556263635342.jpg)
 ## 为什么选择nutz
-追求卓越 成功会找上你   
-nutz Java小伙伴们的另一种选择
+科学无国界 科学家有祖国  
+nutz Java小伙伴们的另一种选择  
 
 本压缩包是一个maven工程, eclipse/idea均可按maven项目导入
 
