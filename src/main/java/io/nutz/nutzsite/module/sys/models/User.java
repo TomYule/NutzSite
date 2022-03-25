@@ -346,42 +346,32 @@ public class User extends BaseModel implements Serializable {
     }
 
     @Override
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    @Override
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    @Override
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    @Override
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    @Override
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    @Override
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    @Override
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", deptId='" + deptId + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", loginName='" + loginName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", email='" + email + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                ", gender='" + gender + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", image=" + image +
+                ", status=" + status +
+                ", delFlag=" + delFlag +
+                ", loginIp='" + loginIp + '\'' +
+                ", loginDate=" + loginDate +
+                ", dept=" + dept +
+                ", roles=" + roles +
+                ", roleIds='" + roleIds + '\'' +
+                ", postIds='" + postIds + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", createTime=" + createTime +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

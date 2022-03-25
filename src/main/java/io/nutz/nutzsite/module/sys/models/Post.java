@@ -132,46 +132,6 @@ public class Post extends BaseModel implements Serializable {
         return status;
     }
 
-    @Override
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    @Override
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    @Override
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    @Override
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    @Override
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    @Override
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
     public void setRemark(String remark) {
         this.remark = remark;
     }

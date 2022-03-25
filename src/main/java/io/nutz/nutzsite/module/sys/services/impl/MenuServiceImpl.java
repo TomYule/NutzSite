@@ -139,7 +139,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
                 "left join sys_role_menu rm on m.id = rm.menu_id " +
                 "left join sys_user_role ur on rm.role_id = ur.role_id " +
                 "left join sys_role ro on ur.role_id = ro.id " +
-                "where ur.user_id = @userId and m.menu_type in ('M', 'C') and m.visible = '0' " +
+                "where ur.user_id = @userId and m.menu_type in ('M', 'C') and m.visible = false " +
                 "order by m.order_num";
         Sql sql = Sqls.create(sqlstr);
         sql.params().set("userId", userId);

@@ -22,7 +22,7 @@ public class Dict extends BaseModel implements Serializable {
 
     @Name
     @Column("id")
-    @Comment("编号 ")
+    @Comment("编号")
     @ColDefine(type = ColType.VARCHAR, width = 64)
     @Prev(els = {@EL("uuid()")})
     private String id;
@@ -30,8 +30,8 @@ public class Dict extends BaseModel implements Serializable {
     /**
      * 数据值
      */
-    @Column("value")
-    @Comment("数据值 ")
+    @Column("dict_value")
+    @Comment("数据值")
     @Validations(required=true,errorMsg = "数据值不能为空")
     private String value;
 
@@ -39,7 +39,7 @@ public class Dict extends BaseModel implements Serializable {
      * 标签名
      */
     @Column("label")
-    @Comment("标签名 ")
+    @Comment("标签名")
     @Validations(required=true,errorMsg = "标签名不能为空")
     private String label;
 
@@ -47,38 +47,38 @@ public class Dict extends BaseModel implements Serializable {
      * 类型
      */
     @Column("type")
-    @Comment("类型 ")
+    @Comment("类型")
     private String type;
     /**
      * 描述
      */
     @Column("description")
-    @Comment("描述 ")
+    @Comment("描述")
     private String description;
     /**
      * 排序（升序）
      */
     @Column("sort")
-    @Comment("排序（升序） ")
+    @Comment("排序（升序）")
     private BigDecimal sort;
     /**
      * 父级编号
      */
     @Column("parent_id")
-    @Comment("父级编号 ")
+    @Comment("父级编号")
     private String parentId;
 
     /**
      * 备注信息
      */
     @Column("remarks")
-    @Comment("备注信息 ")
+    @Comment("备注信息")
     private String remarks;
     /**
      * 删除标记
      */
     @Column("del_flag")
-    @Comment("删除标记 ")
+    @Comment("删除标记")
     private boolean delFlag;
 
     /**
@@ -184,46 +184,6 @@ public class Dict extends BaseModel implements Serializable {
 
     public void setDelFlag(boolean delFlag) {
         this.delFlag = delFlag;
-    }
-
-    @Override
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    @Override
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    @Override
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    @Override
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    @Override
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    @Override
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    @Override
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     @Override

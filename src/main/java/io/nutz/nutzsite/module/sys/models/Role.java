@@ -5,6 +5,7 @@ import org.nutz.dao.entity.annotation.*;
 import org.nutz.plugins.validation.annotation.Validations;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -231,42 +232,24 @@ public class Role extends BaseModel implements Serializable {
     }
 
     @Override
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    @Override
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    @Override
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    @Override
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    @Override
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    @Override
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    @Override
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public String toString() {
+        return "Role{" +
+                "id='" + id + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", roleKey='" + roleKey + '\'' +
+                ", roleSort='" + roleSort + '\'' +
+                ", dataScope='" + dataScope + '\'' +
+                ", status=" + status +
+                ", delFlag=" + delFlag +
+                ", flag=" + flag +
+                ", remark='" + remark + '\'' +
+                ", menuIds='" + menuIds + '\'' +
+                ", deptIds=" + Arrays.toString(deptIds) +
+                ", menus=" + menus +
+                ", createBy='" + createBy + '\'' +
+                ", createTime=" + createTime +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

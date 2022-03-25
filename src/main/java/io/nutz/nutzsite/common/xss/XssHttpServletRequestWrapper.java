@@ -1,7 +1,7 @@
 package io.nutz.nutzsite.common.xss;
 
 import io.nutz.nutzsite.common.utils.JsoupUtil;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.nutz.lang.Strings;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +38,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
             // HTML transformation characters
             value = JsoupUtil.clean(value);
             // SQL injection characters
-            value = StringEscapeUtils.escapeSql(value);
+            value = StringEscapeUtils.escapeHtml4(value);
         }
         return value;
     }
@@ -52,7 +52,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
                 // HTML transformation characters
                 arr[i] = JsoupUtil.clean(arr[i]);
                 // SQL injection characters
-                arr[i] = StringEscapeUtils.escapeSql(arr[i]);
+                arr[i] = StringEscapeUtils.escapeHtml4(arr[i]);
             }
         }
         return arr;

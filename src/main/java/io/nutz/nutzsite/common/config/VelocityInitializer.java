@@ -24,7 +24,6 @@ public class VelocityInitializer
             p.setProperty("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
             // 定义字符集
             p.setProperty(Velocity.ENCODING_DEFAULT, Globals.UTF8);
-            p.setProperty(Velocity.OUTPUT_ENCODING, Globals.UTF8);
             // 初始化Velocity引擎，指定配置Properties
             Velocity.init(p);
         }

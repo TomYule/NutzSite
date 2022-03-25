@@ -204,46 +204,6 @@ public class Menu extends BaseModel implements Serializable {
         this.remark = remark;
     }
 
-    @Override
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    @Override
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    @Override
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    @Override
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    @Override
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    @Override
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    @Override
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
 
     public static List<Menu>  getMenuList(List<Menu> list,String pid){
         List<Menu> allMenu =new ArrayList<>();

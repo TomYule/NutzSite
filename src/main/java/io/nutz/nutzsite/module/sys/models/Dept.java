@@ -210,42 +210,23 @@ public class Dept extends BaseModel implements Serializable {
     }
 
     @Override
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    @Override
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    @Override
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    @Override
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    @Override
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    @Override
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    @Override
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public String toString() {
+        return "Dept{" +
+                "id='" + id + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", ancestors='" + ancestors + '\'' +
+                ", deptName='" + deptName + '\'' +
+                ", orderNum=" + orderNum +
+                ", leader='" + leader + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", status=" + status +
+                ", delFlag=" + delFlag +
+                ", createBy='" + createBy + '\'' +
+                ", createTime=" + createTime +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateTime=" + updateTime +
+                ", parentName='" + parentName + '\'' +
+                '}';
     }
 }
