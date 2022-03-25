@@ -1,5 +1,5 @@
 
-<p align="center"><a href="https://tomyule.github.io/NutzSite/" target="_blank"><img width="100" src="https://gitee.com/TomYule/NutzSite/raw/master/src/main/resources/static/nutzsite.png"></a></p>
+<p align="center"><a href="https://tomyule.github.io/NutzSite/" target="_blank"><img width="100" src="https://raw.githubusercontent.com/TomYule/NutzSite/master/src/main/resources/static/nutzsite.png"></a></p>
 
 [![Build Status](https://travis-ci.org/TomYule/NutzSite.svg?branch=master)](https://travis-ci.org/TomYule/NutzSite)
 [![PowerByNutz](https://img.shields.io/badge/PowerBy-Nutz-green.svg)](https://github.com/nutzam/nutz)
